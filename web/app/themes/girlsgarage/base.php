@@ -25,11 +25,6 @@ use Roots\Sage\Wrapper;
         <main class="site-main" role="main">
           <?php include Wrapper\template_path(); ?>
         </main><!-- /.main -->
-        <?php if (Setup\display_sidebar()) : ?>
-          <aside class="sidebar">
-            <?php include Wrapper\sidebar_path(); ?>
-          </aside><!-- /.sidebar -->
-        <?php endif; ?>
       </div><!-- /.content -->
     </div><!-- /.site-wrap -->
     <?php
@@ -37,5 +32,11 @@ use Roots\Sage\Wrapper;
       get_template_part('templates/footer');
       wp_footer();
     ?>
+
+    <?php if (WP_ENV === 'development'): ?>
+    <script type='text/javascript' id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.9.11.js'><\/script>".replace("HOST", location.hostname));
+    //]]></script>
+    <?php endif; ?>
   </body>
 </html>

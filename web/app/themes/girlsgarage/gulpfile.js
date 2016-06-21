@@ -10,9 +10,8 @@ var gulpif       = require('gulp-if');
 var imagemin     = require('gulp-imagemin');
 var jshint       = require('gulp-jshint');
 var lazypipe     = require('lazypipe');
-var less         = require('gulp-less');
 var merge        = require('merge-stream');
-var cssNano      = require('gulp-cssnano');
+var minifyCss    = require('gulp-minify-css');
 var plumber      = require('gulp-plumber');
 var rev          = require('gulp-rev');
 var runSequence  = require('run-sequence');
@@ -90,9 +89,6 @@ var cssTasks = function(filename) {
       return gulpif(enabled.maps, sourcemaps.init());
     })
     .pipe(function() {
-      return gulpif('*.less', less());
-    })
-    .pipe(function() {
       return gulpif('*.scss', sass({
         outputStyle: 'nested', // libsass doesn't support expanded yet
         precision: 10,
@@ -104,14 +100,16 @@ var cssTasks = function(filename) {
     .pipe(autoprefixer, {
       browsers: [
         'last 2 versions',
+        'ie 8',
         'ie 9',
         'android 2.3',
         'android 4',
         'opera 12'
       ]
     })
-    .pipe(cssNano, {
-      safe: true
+    .pipe(minifyCss, {
+      advanced: false,
+      rebase: false
     })
     .pipe(function() {
       return gulpif(enabled.rev, rev());

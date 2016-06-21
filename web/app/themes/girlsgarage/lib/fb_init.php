@@ -35,16 +35,32 @@ function site_options() {
           <?php wp_nonce_field('update-options') ?>
           <table class="form-table">
               <tr>
-                <th scope="row"><label for="twitter_id">Twitter Account:</label></th>
-                <td><input type="text" id="twitter_id" name="twitter_id" size="45" value="<?php echo get_option('twitter_id'); ?>" /></td>
-              </tr>
-              <tr>
                 <th scope="row"><label for="facebook_id">Facebook Account:</label></th>
                 <td><input type="text" id="facebook_id" name="facebook_id" size="45" value="<?php echo get_option('facebook_id'); ?>" /></td>
               </tr>
               <tr>
-                <th scope="row"><label for="linkedin_id">LinkedIn Account:</label></th>
-                <td><input type="text" id="linkedin_id" name="linkedin_id" size="45" value="<?php echo get_option('linkedin_id'); ?>" /></td>
+                <th scope="row"><label for="twitter_id">Twitter Account:</label></th>
+                <td><input type="text" id="twitter_id" name="twitter_id" size="45" value="<?php echo get_option('twitter_id'); ?>" /></td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="linkedin_id">Instagram Account:</label></th>
+                <td><input type="text" id="instagram_id" name="instagram_id" size="45" value="<?php echo get_option('instagram_id'); ?>" /></td>
+              </tr>
+              <tr>
+                <th scope="row"><label for="contact_address">Contact Street Address</label></th>
+                <td><input type="text" id="contact_address" name="contact_address" size="45" value="<?php echo get_option('contact_address'); ?>" /><br>
+              </tr>
+              <tr>
+                <th scope="row"><label for="contact_locality">Contact Locality</label></th>
+                <td><input type="text" id="contact_locality" name="contact_locality" size="45" value="<?php echo get_option('contact_locality'); ?>" /><br>
+              </tr>
+              <tr>
+                <th scope="row"><label for="contact_zipcode">Contact Zipcode</label></th>
+                <td><input type="text" id="contact_zipcode" name="contact_zipcode" size="45" value="<?php echo get_option('contact_zipcode'); ?>" /><br>
+              </tr>
+              <tr>
+                <th scope="row"><label for="contact_phone">Contact Phone</label></th>
+                <td><input type="text" id="contact_phone" name="contact_phone" size="45" value="<?php echo get_option('contact_phone'); ?>" /><br>
               </tr>
               <tr>
                 <th scope="row"><label for="contact_email">Contact Email</label></th>
@@ -54,7 +70,7 @@ function site_options() {
           <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" /></p>
 
           <input type="hidden" name="action" value="update" />
-          <input type="hidden" name="page_options" value="twitter_id,facebook_id,linkedin_id,contact_email" />
+          <input type="hidden" name="page_options" value="twitter_id,facebook_id,instagram_id,contact_address,contact_locality,contact_zipcode,contact_phone,contact_email" />
         </form>
     </div>
 <?php

@@ -1,12 +1,14 @@
 // Grid
 
-$margin: 1em;
-$padding: 1em;
+$vertical-beat: 8px;
+
+$global-padding: 64px;
+$mobile-global-padding: 32px;
 
 .grid {
   width: 100%;
   display: block;
-  @include min-screen($breakpoint-medium) {
+  @include min-screen($breakpoint-md) {
     display: flex;
   }
   &.-persist {
@@ -14,11 +16,8 @@ $padding: 1em;
   }
 }
 
-.one-half-right, .two-thirds-right, .one-third-right, .one-third-middle, .one-fourth-right  {margin-top: $margin;}
-
-
 .grid.-persist {
-  .flex-item {
+  .grid-item {
     flex-basis: auto;
   }
   .one-fourth {
@@ -39,8 +38,8 @@ $padding: 1em;
   }
 }
 
-@include min-screen($breakpoint-medium) {
-  .flex-item {
+@include min-screen($breakpoint-md) {
+  .grid-item {
     flex-basis: auto;
   }
   .one-fourth {

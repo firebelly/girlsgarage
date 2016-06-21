@@ -28,11 +28,14 @@ $firebelly_includes = [
   'lib/cmb2-custom-fields.php',        // Custom CMB2
   'lib/page-meta-boxes.php',           // Various tweaks for multiple post types
   'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
+  'lib/program-post-type.php',         // Programa
+  'lib/story-post-type.php',           // Stories
+  'lib/person-post-type.php',          // People
+  'lib/partner-post-type.php',         // Partners
+  'lib/sponsor-post-type.php',         // Sponsors
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
-
-];
 
 foreach ($sage_includes as $file) {
   if (!$filepath = locate_template($file)) {
