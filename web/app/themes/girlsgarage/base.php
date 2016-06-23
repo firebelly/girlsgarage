@@ -20,12 +20,10 @@ use Roots\Sage\Wrapper;
       do_action('get_header');
       get_template_part('templates/header');
     ?>
-    <div class="site-wrap container" role="document">
-      <div class="content row">
-        <main class="site-main" role="main">
-          <?php include Wrapper\template_path(); ?>
-        </main><!-- /.main -->
-      </div><!-- /.content -->
+    <div class="site-wrap" role="document">
+      <main class="site-main" role="main">
+        <?php include Wrapper\template_path(); ?>
+      </main><!-- /.main -->
     </div><!-- /.site-wrap -->
     <?php
       do_action('get_footer');

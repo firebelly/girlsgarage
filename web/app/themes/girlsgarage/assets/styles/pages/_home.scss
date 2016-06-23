@@ -1,4 +1,13 @@
 // Home page
 
 .home.page {
+  .page-header {
+    h2 {
+      color: $white;
+      margin: auto 0;
+      line-height: 1;
+      max-width: 5em;
+      font-size: 60px;
+    }
+  }
 }

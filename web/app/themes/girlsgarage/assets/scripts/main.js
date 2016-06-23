@@ -31,6 +31,8 @@ var FBSage = (function($) {
     // _initNav();
     // _initSearch();
     // _initLoadMore();
+    _injectSvgSprite();
+    _initBigClicky();
 
     // Esc handlers
     $(document).keyup(function(e) {
@@ -67,6 +69,27 @@ var FBSage = (function($) {
       delay: delay,
       offset: -wpOffset
     }, "easeOutSine");
+  }
+
+  function _initBigClicky() {
+    $(document).on('click', '.bigclicky', function(e) {
+      if (!$(e.target).is('a')) {
+        e.preventDefault();
+        var link = $(this).find('a:first');
+        var href = link.attr('href');
+        if (href) {
+          if (e.metaKey || link.attr('target')) {
+            window.open(href);
+          } else {
+            location.href = href;
+          }
+        }
+      }
+    });
+  }
+
+  function _injectSvgSprite() {
+    boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg'); 
   }
 
   function _initSearch() {

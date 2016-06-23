@@ -1,22 +1,46 @@
 // Typography
 
+@font-face {
+  font-family: 'gg_display_mono';
+  src: url('../fonts/ggdisplaymono-regular-webfont.woff2') format('woff2'),
+  url('../fonts/ggdisplaymono-regular-webfont.woff') format('woff'),
+  url('../fonts/ggdisplaymono-regular-webfont.ttf') format('truetype'),
+  url('../fonts/ggdisplaymono-regular-webfont.svg#gg_display_monoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 // Fonts
-$sans: Helvetica, sans-serif;
-$serif: Georgia, serif;
+$font-display: 'gg_display_mono', monospace;
+$font-regular: 'Rational-Book', sans-serif;
+$font-regular-italic: 'Rational-BookItalic', sans-serif;
+$font-bold: 'Rational-SemiBold', sans-serif;
+$font-bold-italic: 'Rational-SemiBoldItalic', sans-serif;
 
-// Sans-specific styles to chunk into one include
-@mixin font-sans() {
-}
-// Serif-specific styles to chunk into one include
-@mixin font-sans() {
-}
-
-// Hide fonts while loading from Typekit
-.wf-loading {
-  visibility: hidden;
+.font-display {
+  font-weight: normal;
+  font-family: $font-display;
+  text-transform: uppercase;
 }
 
-//sizes
-$small: 0.5em;
-$med: 1em;
-$big: 3em;
+.font-regular {
+  font-weight: normal;
+  font-family: $font-regular;
+}
+
+.font-reglar-italic {
+  font-weight: normal;
+  font-style: normal;
+  font-family: $font-regular;
+}
+
+.font-bold {
+  font-weight: normal;
+  font-family: $font-bold;
+}
+
+.font-bold-italic {
+  font-style: normal;
+  font-weight: normal;
+  font-family: $font-bold-italic;
+}

@@ -11,14 +11,24 @@ body {
   color: $black;
   font-size: 16px;
   overflow-x: hidden;
-  font-family: $sans;
   background: $gray-lite;
+  font-family: $font-regular;
+}
+
+.brand a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  @extend .font-display;
 }
 
 p {
   line-height: 1.5;
   em {
-    font-style: italic;
+    @extend .font-regular-italic;
   }
 }
 

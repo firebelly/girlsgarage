@@ -22,3 +22,13 @@ function get_post_thumbnail($post_id, $size='medium') {
   }
   return $return;
 }
+
+
+/**
+ * Allow SVG files to be uplaoded via media uploader
+ */
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', __NAMESPACE__ . '\\cc_mime_types');

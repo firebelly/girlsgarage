@@ -296,7 +296,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
 gulp.task('build', function(callback) {
   runSequence('styles',
               'scripts',
-              ['fonts', 'images'],
+              ['fonts', 'images', 'svgs','svgfallback'],
               callback);
 });
 

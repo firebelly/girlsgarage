@@ -30,8 +30,10 @@ function site_options() {
 ?>
     <div class="wrap">
         <h2>Site Options</h2>
+        <hr>
 
         <form method="post" action="options.php">
+          <h3>Footer Links/Info</h3>
           <?php wp_nonce_field('update-options') ?>
           <table class="form-table">
               <tr>
@@ -67,10 +69,20 @@ function site_options() {
                 <td><input type="text" id="contact_email" name="contact_email" size="45" value="<?php echo get_option('contact_email'); ?>" /><br>
               </tr>
           </table>
+          <hr>
+
+          <h3>Other Options</h3>
+          <table class="form-table">
+              <tr>
+                <th scope="row"><label for="scholarship_application_form">Scholorship Application Form File URL:</label></th>
+                <td><input type="text" id="scholarship_application_form" name="scholarship_application_form" size="45" value="<?php echo get_option('scholarship_application_form'); ?>" /></td>
+              </tr>
+          </table>
+
           <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" /></p>
 
           <input type="hidden" name="action" value="update" />
-          <input type="hidden" name="page_options" value="twitter_id,facebook_id,instagram_id,contact_address,contact_locality,contact_zipcode,contact_phone,contact_email" />
+          <input type="hidden" name="page_options" value="twitter_id,facebook_id,instagram_id,contact_address,contact_locality,contact_zipcode,contact_phone,contact_email,scholarship_application_form" />
         </form>
     </div>
 <?php

@@ -4,7 +4,9 @@
  */
 
 namespace Firebelly\PostTypes\Program;
-use Firebelly\Utils;
+
+// Custom image size for post type?
+// add_image_size( 'program-thumb', 350, null, null );
 
 /**
  * Register Custom Post Type
@@ -27,15 +29,16 @@ function post_type() {
     'not_found_in_trash'  => 'Not found in Trash',
   );
   $rewrite = array(
-    'slug'                => '',
+    'slug'                => 'programs',
     'with_front'          => false,
-    'pages'               => false,
-    'feeds'               => false,
+    'pages'               => true,
+    'feeds'               => true,
   );
   $args = array(
     'label'               => 'program',
-    'description'         => 'Management, Advisory Board, VestedAngels, VestedAdvisors',
+    'description'         => 'Programs',
     'labels'              => $labels,
+    'taxonomies'          => array('category'),
     'supports'            => array( 'title', 'editor', 'thumbnail', ),
     'hierarchical'        => false,
     'public'              => true,
@@ -46,7 +49,7 @@ function post_type() {
     'menu_position'       => 20,
     'menu_icon'           => 'dashicons-admin-post',
     'can_export'          => false,
-    'has_archive'         => false,
+    'has_archive'         => true,
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'rewrite'             => $rewrite,
@@ -56,12 +59,13 @@ function post_type() {
 }
 add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
 
-/* define program types here for the sake of DRYness */
-function get_program_type_array() {
+/* define program seasons here for the sake of DRYness */
+function get_program_season_array() {
   return array(
-    'after_school' => __( 'After School', 'cmb' ),
+    'spring' => __( 'Spring', 'cmb' ),
     'summer' => __( 'Summer', 'cmb' ),
-    'workshops' => __( 'Workshops', 'cmb' ),
+    'fall' => __( 'Fall', 'cmb' ),
+    'winter' => __( 'Winter', 'cmb' ),
   );
 }
 
@@ -71,11 +75,11 @@ function get_program_type_array() {
 function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
-    'title' => 'Name',
-    '_cmb2_program_type' => 'Type',
-    '_cmb2_title' => 'Title',
-    'content' => 'Bio',
-    'featured_image' => 'Image',
+    'title' => 'Title',
+    '_cmb2_program_subtitle' => 'Subtitle',
+    'categories' => 'Type',
+    '_cmb2_program_season' => 'Season',
+    'program_dates' => 'Date',
   );
   return $columns;
 }
@@ -84,49 +88,192 @@ add_filter('manage_program_posts_columns', __NAMESPACE__ . '\edit_columns');
 function custom_columns($column){
   global $post;
   if ( $post->post_type == 'program' ) {
+    $custom = get_post_custom();
     if ( $column == 'featured_image' )
-      echo the_post_thumbnail('thumbnail');
-    elseif ( $column == 'content' )
-      echo Utils\get_excerpt($post);
-    elseif ( $column == '_cmb2_program_type' ) {
-      $type_name = get_program_type_array();
-      $custom = get_post_custom();
-      if (array_key_exists($column, $custom))
-        echo $type_name[$custom[$column][0]];
+      echo the_post_thumbnail( 'program-thumb' );
+    elseif ( $column == 'program_dates' ) {
+      $timestamp_start = $custom['_cmb2_program_start'][0];
+      $timestamp_end = !empty($custom['_cmb2_program_end'][0]) ? $custom['_cmb2_program_end'][0] : $timestamp_start;
+      if ($timestamp_end != $timestamp_start) {
+        $date_txt = date('m/d/Y g:iA', $timestamp_start) . ' – ' . date('m/d/Y g:iA', $timestamp_end);
+      } else {
+        $date_txt = date('m/d/Y g:iA', $timestamp_start);
+      }
+      echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
     } else {
-      $custom = get_post_custom();
       if (array_key_exists($column, $custom))
         echo $custom[$column][0];
     }
-  };
+  }
 }
 add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 
-// Custom CMB2 fields for post type
+/**
+ * CMB2 custom fields
+ */
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  $meta_boxes['program_details'] = array(
-    'id'            => 'program_details',
-    'title'         => __( 'Program Details', 'cmb2' ),
+  $meta_boxes['program_summary'] = array(
+    'id'            => 'program_summary',
+    'title'         => __( 'Program Summary', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'required'      => 'required',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Subtitle',
+          'id'      => $prefix . 'program_subtitle',
+          'type'    => 'text',
+      ),
+      array(
+          'name'    => 'Description',
+          'id'      => $prefix . 'program_description',
+          'type'    => 'textarea',
+      ),
+    ),
+  );
+
+  $meta_boxes['program_prerequisites'] = array(
+    'id'            => 'program_prerequisites',
+    'title'         => __( 'Program Prerequisite(s)', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'required'      => 'required',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Prerequisite(s)',
+          'id'      => $prefix . 'program_prerequisites',
+          'type'    => 'textarea',
+      ),
+    ),
+  );
+
+  $meta_boxes['program_when'] = array(
+    'id'            => 'program_when',
+    'title'         => __( 'Program Date & Time', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'required'      => 'required',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name' => 'Program Season',
+        'id'   => $prefix . 'program_season',
+        'type' => 'select',
+        'default' => 'spring',
+        'options' => get_program_season_array(),
+      ),
+      array(
+          'name'    => 'Day(s) of the week',
+          'id'      => $prefix . 'program_days',
+          'type'    => 'text',
+          'desc'    => 'Ex: Mondays & Wednesdays',
+      ),
+      array(
+          'name'    => 'Start Date',
+          'id'      => $prefix . 'program_start',
+          'type'    => 'text_datetime_timestamp',
+      ),
+      array(
+          'name'    => 'End Date',
+          'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.</p>',
+          'id'      => $prefix . 'program_end',
+          'type'    => 'text_datetime_timestamp',
+      ),
+    ),
+  );
+
+  $meta_boxes['program_registration'] = array(
+    'id'            => 'program_registration',
+    'title'         => __( 'Program Registration Details', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-        'name' => 'Program Type',
-        'id'   => $prefix . 'program_type',
-        'type' => 'radio_inline',
-        'default' => 'after_school',
-        'options' => get_program_type_array(),
+          'name'    => 'Enrollment',
+          'id'      => $prefix . 'program_enrollment',
+          'type'    => 'text',
+          'desc'    => 'Ex: \'99 girls\''
       ),
       array(
-        'name' => 'Title',
-        'desc' => 'e.g. Co-Founder',
-        'id'   => $prefix . 'title',
-        'type' => 'text_medium',
+          'name'    => 'Tuition',
+          'id'      => $prefix . 'tuition',
+          'type'    => 'text',
       ),
+      array(
+          'name'    => 'Open Registration Date',
+          'id'      => $prefix . 'registration_open',
+          'type'    => 'text_datetime_timestamp'
+      ),
+      array(
+          'name'    => 'Registration Link Text',
+          'desc'    => 'The text that shows up on the link (ex: "Register")',
+          'default' => 'Register',
+          'id'      => $prefix . 'registration_link_text',
+          'type'    => 'text',
+      ),
+      array(
+          'name'    => 'Registration Link',
+          'id'      => $prefix . 'registration_url',
+          'type'    => 'text',
+      )
+    ),
+  );
+
+  $meta_boxes['program_location'] = array(
+    'id'            => 'program_location',
+    'title'         => __( 'Program Location', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Venue Name',
+          'id'      => $prefix . 'venue',
+          'type'    => 'text',
+      ),
+      array(
+          'name'    => 'Address',
+          'id'      => $prefix . 'address',
+          'type'    => 'address',
+      ),
+      array(
+          'name'    => 'Lat',
+          'id'      => $prefix . 'lat',
+          'type'    => 'hidden',
+      ),
+      array(
+          'name'    => 'Lng',
+          'id'      => $prefix . 'lng',
+          'type'    => 'hidden',
+      ),
+    ),
+  );
+
+  $meta_boxes['program_badges'] = array(
+    'id'            => 'program_badges',
+    'title'         => __( 'Earned Badges', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name'      => __( 'Earned Badges', 'cmb2' ),
+        'desc'      => 'Select all that apply',
+        'id'        => $prefix . 'program_badges',
+        'type'      => 'multicheck',
+        'options'   => \Firebelly\CMB2\get_post_options(['post_type' => 'badge', 'numberposts' => -1]),
+      )
     ),
   );
 
@@ -138,35 +285,126 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
  * Get Programs
  */
 function get_programs($options=[]) {
-  $output = '';
-
-  $args = array(
-    'numberposts' => -1,
+  if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
+  if (!empty($_REQUEST['past_programs'])) $options['past_programs'] = 1;
+  $args = [
+    'numberposts' => $options['num_posts'],
     'post_type' => 'program',
-    'orderby' => 'menu_order',
+    'meta_key' => '_cmb2_program_start',
+    'orderby' => 'meta_value_num',
     '_cmb2_program_type' => $options['program_type'],
-    );
+  ];
+  // Make sure we're only pulling upcoming or past programs
+  $args['order'] = !empty($options['past_programs']) ? 'DESC' : 'ASC';
   $args['meta_query'] = [
+    [
+      'key' => '_cmb2_program_end',
+      'value' => current_time('timestamp'),
+      'compare' => (!empty($options['past_programs']) ? '<=' : '>')
+    ],
     [
       'key' => '_cmb2_program_type',
       'value' => $options['program_type'],
     ]
   ];
 
+  // Display all matching programs using article-program.php
   $program_posts = get_posts($args);
   if (!$program_posts) return false;
-
-  $output = '<ul class="grid-items programs-grid">';
-
-  foreach ( $program_posts as $post ):
-    $output .= '<li class="grid-item program">';
+  $output = '';
+  foreach ($program_posts as $program_post):
     ob_start();
     include(locate_template('templates/article-program.php'));
     $output .= ob_get_clean();
-    $output .= '</li>';
   endforeach;
-
-  $output .= '</ul>';
-
   return $output;
+}
+
+/**
+ * Geocode address for program and save in custom fields
+ */
+function geocode_address($post_id, $post='') {
+  $address = get_post_meta($post_id, '_cmb2_address', 1);
+  $address = wp_parse_args($address, array(
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+   ));
+
+  if (!empty($address['address-1'])):
+    $address_combined = $address['address-1'] . ' ' . $address['address-1'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
+    $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
+
+    $xml = simplexml_load_file($request_url);
+    $status = $xml->status;
+    if(strcmp($status, 'OK')===0):
+        $lat = $xml->result->geometry->location->lat;
+        $lng = $xml->result->geometry->location->lng;
+        update_post_meta($post_id, '_cmb2_lat', (string)$lat);
+        update_post_meta($post_id, '_cmb2_lng', (string)$lng);
+    endif;
+  endif;
+}
+add_action('save_post_program', __NAMESPACE__ . '\\geocode_address', 20, 2);
+
+/**
+ * Add query vars for programs
+ */
+function add_query_vars_filter($vars){
+  $vars[] = "past_programs";
+  return $vars;
+}
+add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
+
+/**
+ * Helper function to populate program object for listings & single view
+ */
+function get_program_details($post) {
+  $program = [
+    'ID' => $post->ID,
+    'title' => $post->post_title,
+    'subtitle' => get_post_meta($post->ID, '_cmb2_program_subtitle', true),
+    'body' => apply_filters('the_content', $post->post_content),
+    'tuition' => get_post_meta($post->ID, '_cmb2_tuition', true),
+    'description' => get_post_meta($post->ID, '_cmb2_program_description', true),
+    'days' => get_post_meta($post->ID, '_cmb2_program_days', true),
+    'start' => get_post_meta($post->ID, '_cmb2_program_start', true),
+    'end' => get_post_meta( $post->ID, '_cmb2_program_end', true),
+    'venue' => get_post_meta($post->ID, '_cmb2_venue', true),
+    'address' => get_post_meta($post->ID, '_cmb2_address', true),
+    'address_lat' => get_post_meta($post->ID, '_cmb2_lat', true),
+    'address_lng' => get_post_meta($post->ID, '_cmb2_lng', true),
+    'prerequisites' => get_post_meta($post->ID, '_cmb2_program_prerequisites', true),
+    'season' => get_post_meta($post->ID, '_cmb2_program_season', true),
+    'enrollment' => get_post_meta($post->ID, '_cmb2_program_enrollment', true),
+    'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
+    'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
+    'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
+    'badges' => get_post_meta($post->ID, '_cmb2_program_badges', true),
+  ];
+  // Is this program multiple days?
+  $program['multiple_days'] = (date('Y-m-d', $program['start']) != date('Y-m-d', $program['end']));
+  $program['start_time'] = date('g:ia', $program['start']);
+  $program['end_time'] = date('g:ia', $program['end']);
+  if ($program['start_time'] != $program['end_time']) {
+    $program['time_txt'] = $program['start_time'] . '–' . $program['end_time'];
+  } else {
+    $program['time_txt'] = $program['start_time'];
+  }
+  
+  $program['archived'] = empty($program['end']) ? ($program['start'] < current_time('timestamp')) : ($program['end'] < current_time('timestamp'));
+  $program['desc'] = date('M d, Y @ ', $program['start']) . $program['time_txt']; // used in map pins
+  $program['year'] = date('Y', $program['start']);
+
+  $address = get_post_meta($post->ID, '_cmb2_address', true);
+  $program['address'] = wp_parse_args($address, array(
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+   ));
+  return (object)$program;
 }

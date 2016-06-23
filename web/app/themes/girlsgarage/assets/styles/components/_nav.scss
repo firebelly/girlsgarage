@@ -3,7 +3,23 @@
 // wp admin bar push
 .admin-bar {}
 
-#menu-main-nav {
+.site-nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    ul {
+      @include clearfix;
+      li {
+        float: left;
+      }
+    }
+  }
 }
 
 // mobile menu toggle
