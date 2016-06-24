@@ -44,7 +44,7 @@ function post_type() {
     'show_in_nav_menus'   => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 20,
-    'menu_icon'           => 'dashicons-admin-users',
+    'menu_icon'           => 'dashicons-groups',
     'can_export'          => false,
     'has_archive'         => false,
     'exclude_from_search' => false,

@@ -36,8 +36,8 @@ $body = apply_filters('the_content', $post->post_content);
     <div class="meta-block">
       <h4>Tuition</h4>
       <p><?= $program->tuition ?></p>
-      <?php if (!empty(get_option( 'scholarship_application_form'))): ?>
-      <p><a href="<?= get_option( 'scholarship_application_form'); ?>" target="_blank">Scholarship Application</a></p>
+      <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))): ?>
+      <p><a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank">Scholarship Application</a></p>
     <?php endif; ?>
     </div>
     <div class="meta-block">

@@ -47,7 +47,7 @@ function post_type() {
     'show_in_nav_menus'   => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 20,
-    'menu_icon'           => 'dashicons-admin-post',
+    'menu_icon'           => 'dashicons-hammer',
     'can_export'          => false,
     'has_archive'         => true,
     'exclude_from_search' => false,
@@ -114,6 +114,23 @@ add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
+  $meta_boxes['program_is_featured'] = array(
+    'id'            => 'program_is_featured',
+    'title'         => __( 'Is this 1 of 2 featured sessions on the homepage?', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'side',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Featured',
+          'id'      => $prefix . 'program_is_featured',
+          'desc'    => 'Featured?',
+          'type'    => 'checkbox',
+      ),
+    ),
+  );
+
   $meta_boxes['program_summary'] = array(
     'id'            => 'program_summary',
     'title'         => __( 'Program Summary', 'cmb2' ),
@@ -142,7 +159,6 @@ function metaboxes( array $meta_boxes ) {
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
-    'required'      => 'required',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
