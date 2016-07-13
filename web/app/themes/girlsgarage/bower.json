@@ -16,7 +16,8 @@
     "svg4everybody": "~1.0.0",
     "velocity": "~1.2.2",
     "fastclick": "~1.0.6",
-    "boomsvgloader": "~0.0.2"
+    "boomsvgloader": "~0.0.2",
+    "draggabilly": "~2.1.1"
   },
   "overrides": {
     "modernizr": {
@@ -24,6 +25,9 @@
     },
     "boomsvgloader": {
       "main": "./dist/js/boomsvgloader.js"
+    },
+    "draggabilly": {
+      "main": "./dist/draggabilly.pkgd.js"
     }
   }
 }

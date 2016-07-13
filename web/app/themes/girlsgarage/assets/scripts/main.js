@@ -36,6 +36,7 @@ var FBSage = (function($) {
     _injectSvgSprite();
     _initBigClicky();
     _initFormActions();
+    _initDraggableElements();
 
     // Esc handlers
     $(document).keyup(function(e) {
@@ -148,6 +149,13 @@ var FBSage = (function($) {
   function _hideMobileNav() {
     $('.menu-toggle, body').removeClass('menu-open');
     $('.site-nav').removeClass('-active');
+  }
+
+  function _initDraggableElements() {
+    var $draggable = $('.draggable').draggabilly({
+      axis: 'y',
+      containment: 'body'
+    });
   }
 
   function _initLoadMore() {

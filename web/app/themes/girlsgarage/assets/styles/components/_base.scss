@@ -14,18 +14,6 @@ body {
   overflow-x: hidden;
   background: $gray-lite;
   font-family: $font-regular;
-
-  @include min-screen($breakpoint-nav) {  
-    &::before {
-      top: 16px;
-      z-index: 2;
-      right: 15px;
-      content: '';
-      position: absolute;
-      @include sprite($registration);
-      @extend .sprite-icon;
-    }
-  }
 }
 
 .brand {

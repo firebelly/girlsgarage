@@ -14,3 +14,4 @@
     </nav>
   </div>
 </header>
+<div class="registration-mark draggable"></div>

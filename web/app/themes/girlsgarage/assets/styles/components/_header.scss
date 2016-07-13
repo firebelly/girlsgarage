@@ -53,6 +53,7 @@
     }
     // Sticky
     &.-sticky {
+      z-index: 3;
       height: 35px;
       position: fixed;
       background: $gray-lite;
@@ -109,10 +110,6 @@
         color: #bebebe;
       }
     }
-
-    .wrap {
-      margin-right: 35px;
-    }
   }
 
   @include min-screen($breakpoint-nav) {
@@ -122,6 +119,10 @@
       .brand {
         bottom: -#{$vertical-beat * 5};
       }
+    }
+
+    .wrap {
+      margin-right: 35px;
     }
   }
 }
@@ -171,5 +172,20 @@ body.menu-open {
 
   @include media-md {
     height: 600px;
+  }
+}
+
+.registration-mark {
+  display: none;
+  cursor: ns-resize;
+  @include min-screen($breakpoint-nav) {  
+    top: 16px;
+    z-index: 2;
+    display: block;
+    position: absolute;
+    @include sprite($registration);
+    @extend .sprite-icon;
+    left: auto!important; // override draggabilly
+    right: 15px!important; // override draggabilly
   }
 }
