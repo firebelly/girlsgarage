@@ -1,0 +1,126 @@
+// Common Page Styles
+
+.page-intro-content {
+  color: $white;
+  background: $red;
+  margin-left: 30px;
+  position: relative;
+  padding: #{$global-padding / 2};
+  &::before {
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    content: '';
+    height: auto;
+    position: absolute;
+    border-right: #{$global-padding / 2} solid $red;
+    border-top: #{$global-padding / 2} solid transparent;
+  }
+  .-inner {  
+    &::before {
+      top: -2px;
+      left: -32px;
+      content: '';
+      position: absolute;
+      @include sprite($triple-pattern);
+      @extend .sprite-icon;
+      transform: rotate(-90deg) translateX(-100%);
+      transform-origin: left top;
+    }
+  }
+
+  @include media-md {
+    margin-left: 0;
+    position: absolute;
+    margin-top: -100px;
+    right: #{$global-padding};
+    width: calc(50% - #{$global-padding * 1.5}) ;
+
+    .-inner {
+      max-width: 500px;
+    }
+
+    &::after {
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      content: '';
+      height: auto;
+      background: $red;
+      position: absolute;
+      width: $global-padding;
+    }
+  }
+}
+
+.page-content {
+  h3 {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: normal;
+  }
+
+  p {
+    line-height: 1.333333333;
+  }
+
+  @include media-md {
+    h3 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+.page {
+
+  .page-secondary-content {
+    position: relative;
+    background: $gray-lite;
+    padding: #{$vertical-beat * 7} 0 #{$global-padding} #{$global-padding};
+    &::after {
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      content: '';
+      height: auto;
+      position: absolute;
+      border-left: #{$vertical-beat * 7} solid $gray-lite;
+      border-top: #{$vertical-beat * 7} solid transparent;
+    }
+
+    h2 {
+      font-size: 15px;
+      position: relative;
+      line-height: 1.333333333;
+      margin-top: #{$vertical-beat * 6};
+      margin-bottom: #{$vertical-beat * 3};
+      padding-bottom: #{$vertical-beat * 4};
+      &::after {
+        left: 0;
+        bottom: 0;
+        width: 6px;
+        height: 3px;
+        content: '';
+        margin: 1px 0;
+        display: block;
+        position: absolute;
+        background: $black;
+      }
+      &:first-of-type {
+        margin-top: 0;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+    }
+
+    @include media-md {
+      float: left;
+      margin-top: -100px;
+      width: calc(50% - #{$vertical-beat * 7});
+    }
+  }
+}

@@ -14,7 +14,7 @@ function post_type() {
   $labels = array(
     'name'                => 'People',
     'singular_name'       => 'Person',
-    'menu_name'           => 'People',
+    'menu_name'           => 'Team',
     'parent_item_colon'   => '',
     'all_items'           => 'All People',
     'view_item'           => 'View Person',

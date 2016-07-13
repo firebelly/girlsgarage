@@ -10,18 +10,34 @@ html {
 body {
   color: $black;
   font-size: 16px;
+  padding-top: 35px;
   overflow-x: hidden;
   background: $gray-lite;
   font-family: $font-regular;
+
+  @include min-screen($breakpoint-nav) {  
+    &::before {
+      top: 16px;
+      z-index: 2;
+      right: 15px;
+      content: '';
+      position: absolute;
+      @include sprite($registration);
+      @extend .sprite-icon;
+    }
+  }
 }
 
-.brand a {
-  text-decoration: none;
+.brand {
+  display: inline-block;
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
 }
 
 h1,
-h2,
-h3 {
+h2 {
   @extend .font-display;
 }
 
@@ -67,12 +83,42 @@ img {
   display: none;
 }
 
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 10px;
+.site-container {
+  padding-right: 35px;
+}
+
+.wrap {
+  padding: 0 30px;
   position: relative;
-  @include clearfix();
+
+  &.-flush {
+    padding: 0;
+  }
+
   @include media-md {
+    &.-flush, & {
+      padding: 0 60px;
+      @include clearfix;
+    }
+  }
+}
+
+.site-main {
+  position: relative;
+  &::after {
+    bottom: 0;
+    top: 545px;
+    width: 15px;
+    content: '';
+    right: -35px;
+    position: absolute;
+    background: url('../images/ruler.png');
+    background-size: 15px auto;
+  }
+
+  @include media-sm {
+    &::after {
+      top: 500px;
+    }
   }
 }

@@ -22,6 +22,7 @@ var rename       = require('gulp-rename');
 var svgstore     = require('gulp-svgstore');
 var svgmin       = require('gulp-svgmin');
 var svg2png      = require('gulp-svg2png');
+var sprity       = require('sprity');
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -225,6 +226,23 @@ gulp.task('images', function() {
     .pipe(browserSync.stream());
 });
 
+// generate sprite.png and _sprite.scss
+gulp.task('sprites', function () {
+  return sprity.src({
+    src: path.source + 'images/sprite/*',
+    prefix: 'sprite-icon',
+    style: '_sprite.scss',
+    'dimension': [{
+      ratio: 1, dpi: 72
+    }, {
+      ratio: 2, dpi: 192
+    }],
+    processor: 'sass',
+    'style-type': 'scss'
+  })
+  .pipe(gulpif('*.png', gulp.dest(path.dist + 'images'), gulp.dest(path.source + 'styles/components')));
+});
+
 // ### SVG time!
 gulp.task('svgs', function() {
   return gulp.src(path.source + 'svgs/*.svg')
@@ -286,6 +304,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
   gulp.watch([path.source + 'images/**/*'], ['images']);
+  gulp.watch([path.source + 'images/sprite/*'], ['sprites']);
   gulp.watch([path.source + 'svgs/*.svg'], ['svgs', 'svgfallback']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });

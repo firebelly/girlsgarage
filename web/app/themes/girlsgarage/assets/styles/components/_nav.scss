@@ -1,9 +1,34 @@
 // Nav
 
+$nav-easing: cubic-bezier(1,0,0,1);
+
 // wp admin bar push
 .admin-bar {}
 
 .site-nav {
+  top: 0;
+  left: 100%;
+  z-index: 1;
+  width: 100%;
+  color: $white;
+  position: fixed;
+  @extend .font-display;
+  background: $gray-lite;
+  -webkit-font-smoothing: antialiased;
+  transition: left .3s $nav-easing;
+  padding: #{$vertical-beat * 32} 35px #{$vertical-beat * 14};
+
+  &.-active {
+    left: 0;
+  }
+
+  a {
+    text-decoration: none;
+    &:hover {
+      color: $black;
+    }
+  }
+
   ul {
     margin: 0;
     padding: 0;
@@ -12,11 +37,96 @@
     }
   }
 
+  .sub-menu {
+    color: $black;
+    padding-top: #{$vertical-beat * 3};
+    &::before {
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 3px;
+      content: '';
+      display: block;
+      position: relative;
+      background: $black;
+      margin-bottom: #{$vertical-beat * 3};
+    }
+    li {
+      margin-top: #{$vertical-beat * 2};
+    }
+  }
+
+  .shop-link {
+
+  }
+
+  @include media-md {
+    position: absolute;
+  }
+
   @include min-screen($breakpoint-nav) {
-    ul {
+    width: 50%;
+    left: auto;
+    float: right;
+    margin-top: 70px;
+    background: none;
+    padding: 30px 0 0;
+    position: relative;
+
+    &::before {
+      left: 0;
+      content: '';
+      bottom: 100%;
+      position: absolute;
+      @include sprite($triple-pattern-large);
+      @extend .sprite-icon;
+    }
+
+    .nav {
       @include clearfix;
-      li {
+      > li {
         float: left;
+        margin-left: 20px;
+        &:hover {
+          color: $black;
+        }
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .sub-menu {
+      opacity: 0;
+      top: -1000px;
+      position: absolute;
+      transition: opacity .2s ease-out;
+    }
+
+    .menu-item-has-children:hover {
+      .sub-menu {
+        top: auto;
+        opacity: 1;
+        transition-delay: .2s;
+      }
+    }
+
+    .shop-link {
+      top: 5px;
+      width: 67px;
+      right: -60px;
+      color: $black;
+      font-size: 8px;
+      padding: 12px 20px;
+      position: absolute;
+      @extend .font-bold;
+      background: $gray-lite;
+      text-transform: uppercase;
+      transform-origin: top right;
+      transform: rotate(-90deg) translateY(-100%);
+      &:hover {
+        color: $white;
+        background: $black;
       }
     }
   }
@@ -24,4 +134,89 @@
 
 // mobile menu toggle
 .menu-toggle {
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  border: none;
+  position: fixed;
+  background: $black;
+  .lines {
+    display: block;
+    top: 48%;
+    left: 10px;
+    width: 16px;
+    height: 2px;
+    position: absolute;
+    background: $white;
+    &::before,
+    &::after {
+      left: 0;
+      height: 2px;
+      width: 100%;
+      content: '';
+      background: $white;
+      position: absolute;
+      transition: all .2s ease-out;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+    }
+  }
+
+  // States
+  &:focus {
+    outline: none;
+  }
+
+  // Open
+  &.menu-open {
+
+    .lines {
+      background: rgba($white, 0);
+      &::before {
+        top: 0;
+        transform: rotate(-45deg);
+      }
+      &::after {
+        top: 0;
+        transform: rotate(45deg);
+      }
+    }
+
+    .icon path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .icon {
+    top: 3px;
+    left: 3px;
+    z-index: -1;
+    width: 29px;
+    height: 29px;
+    stroke: $white;
+    stroke-width: 3px;
+    position: absolute;
+    path {
+      stroke-dashoffset: 150%;
+      stroke-dasharray: 150%, 150%;
+      transition: stroke-dashoffset .3s $nav-easing .1s;
+    }
+  }
+
+  @include media-md {
+    right: 0;
+    position: absolute;
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    display: none;
+  }
 }

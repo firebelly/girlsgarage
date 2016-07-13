@@ -1,7 +1,9 @@
 // Footer
 
 .site-footer {
-  .container {
+  padding: 30px 0;
+  background: $gray-lite;
+  .wrap {
     > .-left {
       .brand,
       .newsletter,
@@ -29,14 +31,52 @@
   .newsletter {
     h3 {
       margin-top: 0;
+      font-size: 8px;
+      line-height: 1.25;
+      @extend .font-bold;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    @include media-md {
+      padding: 0 30px;
     }
   }
 
   .social {
     margin: 0;
     padding: 0;
+    @include clearfix;
     li {
+      float: left;
       list-style: none;
+      margin-left: 10px;
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+    a {
+      display: inline-block;
+      &:focus {
+        outline: none;
+      }
+      &:hover {
+        .icon {
+          fill: $gray-lite;
+          background: $black;
+          vertical-align: top;
+        }
+      }
+    }
+    .icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      vertical-align: top;
+    }
+
+    @include media-md {
+      padding-top: 18px;
     }
   }
 
@@ -46,6 +86,10 @@
     p {
       margin: 0;
     }
+
+    @include media-md {
+      padding-top: 18px;
+    }
   }
 
   address {
@@ -54,4 +98,8 @@
       display: block;
     }
   }
+}
+
+#logo-mark-footer .st0 {
+  fill: $red;
 }

@@ -34,7 +34,7 @@ function post_type() {
   );
   $args = array(
     'label'               => 'sponsor',
-    'description'         => 'Team',
+    'description'         => 'Sponsors',
     'labels'              => $labels,
     'supports'            => array( 'title', 'editor', 'thumbnail', ),
     'hierarchical'        => false,

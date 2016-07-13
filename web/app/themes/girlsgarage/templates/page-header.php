@@ -1,8 +1,13 @@
 <?php 
   use Roots\Sage\Titles;
-  $thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'full')
+  if ($wp_query->is_posts_page) {
+    $post = get_post(get_option('page_for_posts'));
+  }
+  $header_bg = \Firebelly\Media\get_header_bg($post);
 ?>
 
-<div class="page-header" style="background-image:url(<?= $thumb ?>);">
-  <h1><?= Titles\title(); ?></h1>
+<div class="page-header" <?= $header_bg ?>>
+  <div class="wrap">
+    <h1><?= Titles\title(); ?></h1>
+  </div>
 </div>

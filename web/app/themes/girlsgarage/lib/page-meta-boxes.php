@@ -5,29 +5,48 @@
 
 namespace Firebelly\PostTypes\Pages;
 
-// // Custom CMB2 fields for post type
-// function metaboxes( array $meta_boxes ) {
-//   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+// Custom CMB2 fields for post type
+function metaboxes( array $meta_boxes ) {
+  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-//   $meta_boxes['page_metabox'] = array(
-//     'id'            => 'page_metabox',
-//     'title'         => __( 'Extra Fields', 'cmb2' ),
-//     'object_types'  => array( 'page', ), // Post type
-//     'context'       => 'normal',
-//     'priority'      => 'high',
-//     'show_names'    => true, // Show field names on the left
-//     'fields'        => array(
+  $meta_boxes['secondary_featured_image'] = array(
+    'id'            => 'secondary_featured_image',
+    'title'         => __( 'Secondary Featured Image', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
       
-//       // General page fields
-//       array(
-//         'name' => 'Secondary Content',
-//         'desc' => 'Used on several pages for secondary content areas',
-//         'id'   => $prefix . 'secondary_content',
-//         'type' => 'wysiwyg',
-//       ),
-//     ),
-//   );
+      // General page fields
+      array(
+        'name' => 'Secondary Featured Image',
+        'desc' => 'The black and white image that appears in the second section of most pages',
+        'id'   => $prefix . 'secondary_featured_image',
+        'type' => 'file',
+      ),
+    ),
+  );
 
-//   return $meta_boxes;
-// }
-// add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+    $meta_boxes['secondary_content'] = array(
+    'id'            => 'secondary_content',
+    'title'         => __( 'Secondary Page Content', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      
+      // General page fields
+      array(
+        'name' => 'Secondary Page Content',
+        'desc' => 'The second set of main content on a page',
+        'id'   => $prefix . 'secondary_content',
+        'type' => 'wysiwyg',
+      ),
+    ),
+  );
+
+  return $meta_boxes;
+}
+add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );

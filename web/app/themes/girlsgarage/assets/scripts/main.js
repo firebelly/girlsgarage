@@ -9,6 +9,8 @@ var FBSage = (function($) {
       breakpoint_medium = false,
       breakpoint_large = false,
       breakpoint_array = [480,1000,1200],
+      $siteHeader = $('.site-header'),
+      $siteNav = $('.site-nav'),
       $document,
       $sidebar,
       loadingTimer,
@@ -28,16 +30,16 @@ var FBSage = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // _initNav();
+    _initNav();
     // _initSearch();
     // _initLoadMore();
     _injectSvgSprite();
     _initBigClicky();
+    _initFormActions();
 
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
-        _hideSearch();
         _hideMobileNav();
       }
     });
@@ -92,46 +94,60 @@ var FBSage = (function($) {
     boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg'); 
   }
 
-  function _initSearch() {
-    $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
-      if ($('.search-form').hasClass('active')) {
-
-      } else {
-        e.preventDefault();
-        $('.search-form').addClass('active');
-        $('.search-field:first').focus();
+  function _initFormActions() {
+    // Newsletter form
+    $('.newsletter-form input').on('focus', function() {
+      $(this).addClass('hide-label');
+    }).on('blur', function() {
+      if(!$(this).val()) {
+        $(this).removeClass('hide-label'); 
       }
     });
-    $('.search-form .close-button').on('click', function() {
-      _hideSearch();
-      _hideMobileNav();
-    });
   }
 
-  function _hideSearch() {
-    $('.search-form').removeClass('active');
-  }
-
-  // Handles main nav
   function _initNav() {
-    // SEO-useless nav toggler
-    $('<div class="menu-toggle"><div class="menu-bar"><span class="sr-only">Menu</span></div></div>')
-      .prependTo('header.banner')
+    // Give sticky class on scroll
+    $(window).on('scroll', function() {
+      if ($(window).scrollTop() > $siteHeader.outerHeight()) {
+        $siteHeader.addClass('-sticky');
+      } else {
+        $siteHeader.removeClass('-sticky');
+      }
+    });
+
+    // Give hover class to individual top-level links
+    $document.on('mouseenter', '.site-nav .nav > li > a', function() {
+      $(this).closest('.menu-item').addClass('hover');
+    }).on('mouseleave', '.site-nav .nav > li > a', function() {
+      $(this).closest('.menu-item').removeClass('hover');
+    });
+
+    // Activate sub-nav class on hover
+    $document.on('mouseenter', '.site-nav .menu-item-has-children', function() {
+      $siteHeader.addClass('sub-menu-active');
+    }).on('mouseleave', '.site-nav .menu-item-has-children', function() {
+      $siteHeader.removeClass('sub-menu-active');
+    });
+
+    $('<button class="menu-toggle"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.st0{fill:none;}</style><path id="bottom" class="st0" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="st0" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>')
+      .prependTo('.site-header')
       .on('click', function(e) {
+      if (!$('.site-nav').is('.-active')) {
         _showMobileNav();
-      });
-    var mobileSearch = $('.search-form').clone().addClass('mobile-search');
-    mobileSearch.prependTo('.site-nav');
+      } else {
+        _hideMobileNav();
+      }
+    });
   }
 
   function _showMobileNav() {
-    $('.menu-toggle').addClass('menu-open');
-    $('.site-nav').addClass('active');
+    $('.menu-toggle, body').addClass('menu-open');
+    $('.site-nav').addClass('-active');
   }
 
   function _hideMobileNav() {
-    $('.menu-toggle').removeClass('menu-open');
-    $('.site-nav').removeClass('active');
+    $('.menu-toggle, body').removeClass('menu-open');
+    $('.site-nav').removeClass('-active');
   }
 
   function _initLoadMore() {

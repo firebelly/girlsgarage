@@ -122,6 +122,13 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Online Shop URL', 'firebelly' ),
+      'desc' => __( 'The url of the store', 'firebelly' ),
+      'id'   => 'shop_url',
+      'type' => 'text_url',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Twitter ID', 'firebelly' ),
       'id'   => 'twitter_id',
       'type' => 'text',

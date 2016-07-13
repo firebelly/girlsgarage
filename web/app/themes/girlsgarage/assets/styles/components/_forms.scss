@@ -1,5 +1,104 @@
 // Forms
 
+// Newsletter form
+.newsletter-form {
+  width: 260px;
+  font-size: 8px;
+  @include clearfix;
+  @extend .font-bold;
+  letter-spacing: .16em;
+  border: 1px solid $black;
+  text-transform: uppercase;
+
+  .mc-field-group {
+    float: left;
+    position: relative;
+  }
+
+  label,
+  input {
+    width: 100%;
+    height: 30px;
+    padding: 0 12px;
+    line-height: 30px;
+  }
+
+  label {
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
+  input {
+    border: none;
+    background: $white;
+    display: inline-block;
+    text-transform: uppercase;
+    &.hide-label {
+      outline: none;
+      & ~ label {
+        display: none;
+      }
+    }
+  }
+
+  .input-name {
+    width: 32%;
+    &::after {
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      height: 7px;
+      content: '';
+      background: $black;
+      position: absolute;
+    }
+  }
+  .input-email {
+    width: 56%;
+  }
+  .input-submit {
+    width: 12%;
+    float: left;
+    position: relative;
+    &::before,
+    &::after {
+      left: 0;
+      width: 1px;
+      content: '';
+      background: $black;
+      position: absolute;
+      height: #{$vertical-beat * 2};
+    }
+    &::before {
+      top: 0;
+    }
+    &::after {
+      bottom: 0;
+    }
+    input {
+      padding: 0;
+      overflow: hidden;
+      text-indent: 100%;
+      &:hover {
+        background: $black;
+        & ~ svg {
+          fill: $white;
+        }
+      }
+    }
+    .icon {
+      top: 50%;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      fill: $black;
+      position: absolute;
+      transform: translate(-4px,-4px);
+    }
+  }
+
+}
+
 // Custom select styles
 
 .select-wrapper {

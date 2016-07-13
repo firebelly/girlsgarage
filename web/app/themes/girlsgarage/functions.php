@@ -31,7 +31,6 @@ $firebelly_includes = [
   'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
   'lib/program-post-type.php',         // Programs
   'lib/badge-post-type.php',           // Badges
-  'lib/story-post-type.php',           // Stories
   'lib/person-post-type.php',          // People
   'lib/partner-post-type.php',         // Partners
   'lib/sponsor-post-type.php',         // Sponsors

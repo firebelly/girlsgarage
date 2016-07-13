@@ -19,6 +19,7 @@
 // Vendor
 
 // Components
+@import "components/sprite";
 @import "components/base";
 @import "components/user-content";
 @import "components/header";
@@ -29,6 +30,7 @@
 
 // Pages
 @import "pages/home";
+@import "pages/page";
 @import "pages/single-program";
 @import "pages/single-post";
 @import "pages/search-results";

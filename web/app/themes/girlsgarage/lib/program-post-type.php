@@ -29,16 +29,16 @@ function post_type() {
     'not_found_in_trash'  => 'Not found in Trash',
   );
   $rewrite = array(
-    'slug'                => 'programs',
+    'slug'                => '',
     'with_front'          => false,
-    'pages'               => true,
-    'feeds'               => true,
+    'pages'               => false,
+    'feeds'               => false,
   );
   $args = array(
     'label'               => 'program',
     'description'         => 'Programs',
     'labels'              => $labels,
-    'taxonomies'          => array('category'),
+    'taxonomies'          => array('program_type'),
     'supports'            => array( 'title', 'editor', 'thumbnail', ),
     'hierarchical'        => false,
     'public'              => true,
@@ -49,7 +49,7 @@ function post_type() {
     'menu_position'       => 20,
     'menu_icon'           => 'dashicons-hammer',
     'can_export'          => false,
-    'has_archive'         => true,
+    'has_archive'         => false,
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'rewrite'             => $rewrite,

@@ -1,24 +1,32 @@
 // Header
 
 .site-header {
-  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  position: absolute;
 
-  &::before {
-    top: 0;
-    left: 0;
-    content: '';
-    width: 100%;
-    height: 30px;
-    background: $white;
-    position: absolute;
-  }
-  
   .brand {
+    z-index: 300;
+    margin-top: 0;
     font-size: 24px;
+    position: relative;
+    transition: margin .2s ease-out;
     svg {
-      height: 119px;
-      max-width: 100%;
+      width: 100%;
+      height: 130px;
+      max-width: 150px;
       vertical-align: top;
+      path {
+        transition: .2s ease-out;
+      }
+      .logo-mark-header {
+        fill: $red;
+      }
+      .logo-text-header {
+        fill: $white;
+      }
     }
   }
 
@@ -27,20 +35,113 @@
     z-index: 1;
     width: 100%;
     position: absolute;
+    &::before {
+      right: 35px;
+    }
+    &::after {
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      content: '';
+      height: 100%;
+      position: absolute;
+      pointer-events: none;
+      background: $gray-lite;
+      transform: translateY(-100%);
+      transition: transform .2s cubic-bezier(.25,.5,.65,1);
+    }
+    // Sticky
+    &.-sticky {
+      height: 35px;
+      position: fixed;
+      background: $gray-lite;
+      &::before {
+        display: none;
+      }
+      .brand {
+        width: 31px;
+        height: 46px;
+        overflow: hidden;
+        margin-bottom: 0;
+        position: absolute;
+        transform: translateY(50%);
+        bottom: -#{$vertical-beat * 7};
+        .header-logo {
+          width: 78px;
+          height: 62px;
+        }
+        .logo-text-header {
+          display: none;
+        }
+      }
+
+      .site-nav {
+        color: $black;
+        margin-top: 0;
+        padding-top: 0;
+        &::before {
+          display: none;
+        }
+        .shop-link {
+          top: -25px;
+        }
+      }
+    }
+
+    &.sub-menu-active {
+      padding-bottom: 40px;
+      &::after {
+        transform: translateY(0);
+      }
+      .brand {
+        margin-top: 40px;
+        svg {
+          .logo-mark-header {
+            fill: $black;
+          }
+          .logo-text-header {
+            fill: $black;
+          }
+        }
+      }
+      .site-nav {
+        color: #bebebe;
+      }
+    }
+
+    .wrap {
+      margin-right: 35px;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    &.-sticky {
+      height: auto;
+      padding: #{$vertical-beat * 5} 0;
+      .brand {
+        bottom: -#{$vertical-beat * 5};
+      }
+    }
   }
 }
 
-#logo-mark-header {
-  fill: $red;
-}
-#logo-text-header {
-  fill: $white;
+// Adjustments when nav is open
+body.menu-open {
+  .brand {
+    .logo-mark-header,
+    .logo-text-header {
+      fill: $black;
+    }
+  }
 }
 
 // Basic page header
 .page-header {
+  padding-top: 245px;
   background-size: cover;
-  background-position: center center;
+  background-position: top center;
+  padding-bottom: $global-padding;
   
   h1 {
     color: $white;
@@ -50,12 +151,25 @@
 
   @include media-md {
     height: 600px;
-    display: flex;
-    margin-top: 30px;
+    border-bottom: #{$global-padding / 2} solid $black;
+
+    .wrap {
+      height: 100%;
+      display: flex;
+    }
 
     h1 {
       margin: auto 0;
       font-size: 60px;
     }
+  }
+}
+.secondary-header {
+  height: 450px;
+  background-size: cover;
+  background-position: top center;
+
+  @include media-md {
+    height: 600px;
   }
 }

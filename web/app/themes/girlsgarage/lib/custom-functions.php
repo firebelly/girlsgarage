@@ -106,3 +106,52 @@ function get_page_blocks($post) {
   }
   return $output;
 }
+
+/**
+ * Rename Post to Story
+ */
+function change_post_menu_label() {
+    global $menu;
+    global $submenu;
+    $menu[5][0] = 'Stories';
+    $submenu['edit.php'][5][0] = 'Stories';
+    $submenu['edit.php'][10][0] = 'Add Stories';
+    echo '';
+}
+function change_post_object_label() {
+        global $wp_post_types;
+        $labels = &$wp_post_types['post']->labels;
+        $labels->name = 'Stories';
+        $labels->singular_name = 'Story';
+        $labels->add_new = 'Add Story';
+        $labels->add_new_item = 'Add Story';
+        $labels->edit_item = 'Edit Story';
+        $labels->new_item = 'Story';
+        $labels->view_item = 'View Story';
+        $labels->search_items = 'Search Stories';
+        $labels->not_found = 'No Stories found';
+        $labels->not_found_in_trash = 'No Stories found in Trash';
+}
+add_action( 'init', __NAMESPACE__ . '\\change_post_object_label' );
+add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
+
+/**
+ * Register custom taxonomies
+ */
+function custom_taxonomies() {
+    register_taxonomy(
+        'program_type',
+        'program',
+        array(
+            'labels' => array(
+                'name' => 'Program Type',
+                'add_new_item' => 'Add New Program Type',
+                'new_item_name' => "New Program Type"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+}
+add_action( 'init', __NAMESPACE__ . '\\custom_taxonomies', 0 );
