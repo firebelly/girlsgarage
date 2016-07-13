@@ -14,4 +14,4 @@
     </nav>
   </div>
 </header>
-<div class="registration-mark draggable"></div>
+<div class="registration-mark -header draggable -y"></div>

@@ -2,7 +2,6 @@
 
 // Newsletter form
 .newsletter-form {
-  width: 260px;
   font-size: 8px;
   @include clearfix;
   @extend .font-bold;
@@ -19,45 +18,43 @@
   input {
     width: 100%;
     height: 30px;
-    padding: 0 12px;
     line-height: 30px;
   }
 
   label {
     top: 0;
     left: 0;
+    margin-left: 12px;
     position: absolute;
+    transform-origin: left;
+    transition: transform .2s ease-out;
   }
   input {
     border: none;
-    background: $white;
+    padding: 0 12px;
+    background: none;
     display: inline-block;
     text-transform: uppercase;
     &.hide-label {
       outline: none;
       & ~ label {
-        display: none;
+        transform: scale(.5) translateY(-65%);
       }
+    }
+    &:focus {
+      background: rgba(0,0,0,.05);
     }
   }
 
   .input-name {
-    width: 32%;
-    &::after {
-      right: 0;
-      bottom: 0;
-      width: 1px;
-      height: 7px;
-      content: '';
-      background: $black;
-      position: absolute;
-    }
+    width: 100%;
+    border-bottom: 1px solid $black;
   }
   .input-email {
-    width: 56%;
+    width: calc(100% - 30px);
   }
   .input-submit {
-    width: 12%;
+    width: 30px;
     float: left;
     position: relative;
     &::before,
@@ -94,6 +91,25 @@
       fill: $black;
       position: absolute;
       transform: translate(-4px,-4px);
+    }
+  }
+
+  @include media-md {
+    .input-name {
+      border-bottom: none;
+      width: calc(36% - 15px);
+      &::after {
+        right: 0;
+        bottom: 0;
+        width: 1px;
+        height: 7px;
+        content: '';
+        background: $black;
+        position: absolute;
+      }
+    }
+    .input-email {
+      width: calc(64% - 15px);
     }
   }
 

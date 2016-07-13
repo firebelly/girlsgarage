@@ -1,0 +1,11 @@
+// UI components
+
+.registration-mark {
+  display: none;
+  @include min-screen($breakpoint-nav) {  
+    display: block;
+    position: absolute;
+    @include sprite($registration);
+    @extend .sprite-icon;
+  }
+}

@@ -1,23 +1,51 @@
 // Footer
 
 .site-footer {
-  padding: 30px 0;
+  position: relative;
   background: $gray-lite;
+  padding: #{$global-padding / 2} 0;
+
+  &::before,
+  &::after {
+    top: -17px;
+    content: '';
+    position: absolute;
+    @extend .sprite-icon;
+    @include sprite($corner);
+  }
+  &::before {
+    left: -2px;
+    transform: scaleX(-1);
+  }
+  &::after {
+    right: -2px;
+  }
+
   .wrap {
-    > .-left {
-      .brand,
-      .newsletter,
-      .social {
-        vertical-align: top;
-        display: inline-block;
-      }
+    padding-right: 0;
+    .brand,
+    .newsletter,
+    .social {
+      vertical-align: top;
+      display: inline-block;
+    }
+
+    > .grid {
+      padding-left: 126px;
     }
   }
 
+  .-left {
+
+  }
+
   .brand {
+    top: 0;
     width: 86px;
     margin-top: 0;
     font-size: 10px;
+    left: #{$global-padding / 2};
+    position: absolute;
     a {
       display: block;
     }
@@ -25,10 +53,18 @@
       height: 54px;
       max-width: 100%;
       vertical-align: top;
+      fill: $black;
+    }
+
+    @include media-md {
+      left: $global-padding;
     }
   }
 
   .newsletter {
+    width: 100%;
+    margin-bottom: #{$vertical-beat * 3};
+
     h3 {
       margin-top: 0;
       font-size: 8px;
@@ -39,7 +75,11 @@
     }
 
     @include media-md {
-      padding: 0 30px;
+      padding: 0 30px 0 0;
+    }
+
+    @include media-lg {
+      max-width: 260px;
     }
   }
 
@@ -47,6 +87,8 @@
     margin: 0;
     padding: 0;
     @include clearfix;
+    margin-bottom: #{$vertical-beat * 3};
+
     li {
       float: left;
       list-style: none;
@@ -83,6 +125,10 @@
   .contact {
     font-size: 9px;
 
+    > div {
+      margin-bottom: #{$vertical-beat * 3};
+    }
+
     p {
       margin: 0;
     }
@@ -98,8 +144,14 @@
       display: block;
     }
   }
-}
 
-#logo-mark-footer .st0 {
-  fill: $red;
+  .registration-mark {
+    cursor: ew-resize;
+    @include min-screen($breakpoint-nav) {  
+      left: 50%;
+      top: -20px;
+      z-index: 2;
+      transform: translateX(-50%);
+    }
+  }
 }

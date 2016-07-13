@@ -130,7 +130,7 @@ var FBSage = (function($) {
       $siteHeader.removeClass('sub-menu-active');
     });
 
-    $('<button class="menu-toggle"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.st0{fill:none;}</style><path id="bottom" class="st0" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="st0" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>')
+    $('<button class="menu-toggle"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.circle-stroke{fill:none;}</style><path id="bottom" class="circle-stroke" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="circle-stroke" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>')
       .prependTo('.site-header')
       .on('click', function(e) {
       if (!$('.site-nav').is('.-active')) {
@@ -152,7 +152,12 @@ var FBSage = (function($) {
   }
 
   function _initDraggableElements() {
-    var $draggable = $('.draggable').draggabilly({
+    var $footerMark = $('.site-footer .registration-mark').draggabilly({
+      axis: 'x',
+      containment: '.site-footer'
+    });
+
+    var $draggableY = $('.draggable.-y').draggabilly({
       axis: 'y',
       containment: 'body'
     });
