@@ -6,9 +6,9 @@
   z-index: 1;
   width: 100%;
   position: absolute;
+  transition: height .2s ease-out;
 
   .brand {
-    z-index: 300;
     margin-top: 0;
     font-size: 24px;
     position: relative;
@@ -51,34 +51,72 @@
       transform: translateY(-100%);
       transition: transform .2s cubic-bezier(.25,.5,.65,1);
     }
+    &.sub-menu-active {
+      &::after {
+        transform: translateY(0);
+      }
+    }
     // Sticky
     &.-sticky {
       z-index: 3;
       height: 35px;
       position: fixed;
       background: $gray-lite;
+      animation: slideDown .2s;
       &::before {
         display: none;
       }
-      .brand {
-        width: 31px;
-        height: 46px;
-        overflow: hidden;
-        margin-bottom: 0;
-        position: absolute;
-        transform: translateY(50%);
-        bottom: -#{$vertical-beat * 7};
-        .header-logo {
-          width: 78px;
-          height: 62px;
-        }
-        .logo-text-header {
-          display: none;
+      > .wrap {
+        > .brand {
+          width: 31px;
+          height: 46px;
+          overflow: hidden;
+          margin-bottom: 0;
+          position: absolute;
+          transform: translateY(50%);
+          bottom: -#{$vertical-beat * 7};
+          .header-logo {
+            width: 78px;
+            height: 62px;
+          }
+          .logo-text-header {
+            display: none;
+          }
         }
       }
 
       .site-nav {
         color: $black;
+      }
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    &.-sticky {
+      height: auto;
+      background: none;
+      padding: #{$vertical-beat * 5} 0;
+
+      &::before {
+        top: 0;
+        left: 0;
+        width: 100%;
+        content: '';
+        height: 67px;
+        display: block;
+        position: absolute;
+        background: $gray-lite;
+      }
+
+      .brand {
+        bottom: -#{$vertical-beat * 5};
+      }
+
+      a {
+        color: $black;
+      }
+
+      .site-nav {
         margin-top: 0;
         padding-top: 0;
         &::before {
@@ -88,51 +126,11 @@
           top: -25px;
         }
       }
-    }
 
-    &.sub-menu-active {
-      padding-bottom: 40px;
-      &::after {
-        transform: translateY(0);
-      }
-      .brand {
-        margin-top: 40px;
-        svg {
-          .logo-mark-header {
-            fill: $black;
-          }
-          .logo-text-header {
-            fill: $black;
-          }
-        }
-      }
-      .site-nav {
-        color: #bebebe;
-      }
-    }
-  }
-
-  @include min-screen($breakpoint-nav) {
-    &.-sticky {
-      height: auto;
-      padding: #{$vertical-beat * 5} 0;
-      .brand {
-        bottom: -#{$vertical-beat * 5};
-      }
     }
 
     .wrap {
       margin-right: 35px;
-    }
-  }
-}
-
-// Adjustments when nav is open
-body.menu-open {
-  .brand {
-    .logo-mark-header,
-    .logo-text-header {
-      fill: $black;
     }
   }
 }
@@ -182,6 +180,6 @@ body.menu-open {
     top: 16px;
     z-index: 2;
     left: auto!important; // override draggabilly
-    right: 15px!important; // override draggabilly
+    right: 16px!important; // override draggabilly
   }
 }

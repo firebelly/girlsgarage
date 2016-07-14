@@ -162,7 +162,7 @@
 
   .registration-mark {
     cursor: ew-resize;
-    @include min-screen($breakpoint-nav) {  
+    @include media-sm {  
       top: -20px;
       z-index: 2;
       left: calc(50% - 20px);

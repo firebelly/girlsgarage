@@ -16,7 +16,7 @@ $nav-easing: cubic-bezier(1,0,0,1);
   background: $gray-lite;
   -webkit-font-smoothing: antialiased;
   transition: left .3s $nav-easing;
-  padding: #{$vertical-beat * 32} 35px #{$vertical-beat * 14};
+  padding: #{$vertical-beat * 6} $global-padding #{$vertical-beat * 14};
 
   &::before {
     top: -2px;
@@ -31,11 +31,25 @@ $nav-easing: cubic-bezier(1,0,0,1);
     left: 0;
   }
 
-  a {
-    text-decoration: none;
-    &:hover {
-      color: $black;
+  .brand {
+    left: -36px;
+    position: relative;
+    svg {
+      width: 115px;
+      .logo-mark-header {
+        fill: $black;
+        transform: scale(.763358779);
+      }
+      .logo-text-header {
+        fill: $black;
+        transform: scale(1.144801157) translateX(-19px);
+      }
     }
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
   }
 
   ul {
@@ -43,15 +57,18 @@ $nav-easing: cubic-bezier(1,0,0,1);
     padding: 0;
     li {
       list-style: none;
+      margin-bottom: #{$vertical-beat * 3};
     }
   }
 
   .sub-menu {
     color: $black;
-    padding-top: #{$vertical-beat * 3};
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease-out;
     &::before {
-      top: 0;
       left: 0;
+      top: 15px;
       width: 6px;
       height: 3px;
       content: '';
@@ -64,13 +81,31 @@ $nav-easing: cubic-bezier(1,0,0,1);
       margin-top: #{$vertical-beat * 2};
     }
   }
-
-  .shop-link {
-
+  .menu-item-has-children:hover {
+    .sub-menu {
+      max-height: 200px;
+    }
   }
 
-  @include media-md {
-    position: absolute;
+
+  .shop-link {
+    right: 0;
+    top: 35px;
+    width: 67px;
+    height: 35px;
+    color: $black;
+    font-size: 8px;
+    position: fixed;
+    @extend .font-bold;
+    background: $gray-lite;
+    padding: 13px 20px 12px;
+    text-transform: uppercase;
+    transform-origin: top right;
+    transform: rotate(-90deg) translateY(-100%);
+    &:hover {
+      color: $white;
+      background: $black;
+    }
   }
 
   @include min-screen($breakpoint-nav) {
@@ -91,6 +126,17 @@ $nav-easing: cubic-bezier(1,0,0,1);
       @include sprite($triple-pattern-large);
     }
 
+    .brand {
+      display: none;
+    }
+
+    a {
+      color: $white;
+      &:hover {
+        color: $black;
+      }
+    }
+
     .nav {
       @include clearfix;
       > li {
@@ -106,37 +152,40 @@ $nav-easing: cubic-bezier(1,0,0,1);
     }
 
     .sub-menu {
+      width: 0;
+      height: 0;
       opacity: 0;
       top: -1000px;
-      position: absolute;
+      max-height: none;
+      overflow: visible;
+      position: relative;
       transition: opacity .2s ease-out;
+      li {
+        &:first-of-type {
+          padding-top: #{$vertical-beat * 3};
+        }
+        &:last-of-type {
+          margin-bottom: #{$vertical-beat * 6};
+        }
+      }
     }
 
     .menu-item-has-children:hover {
       .sub-menu {
         top: auto;
         opacity: 1;
+        height: auto;
         transition-delay: .2s;
+        a {
+          color: $black;
+        }
       }
     }
 
     .shop-link {
       top: 5px;
-      width: 67px;
       right: -60px;
-      color: $black;
-      font-size: 8px;
-      padding: 12px 20px;
       position: absolute;
-      @extend .font-bold;
-      background: $gray-lite;
-      text-transform: uppercase;
-      transform-origin: top right;
-      transform: rotate(-90deg) translateY(-100%);
-      &:hover {
-        color: $white;
-        background: $black;
-      }
     }
   }
 }
@@ -221,7 +270,6 @@ $nav-easing: cubic-bezier(1,0,0,1);
 
   @include media-md {
     right: 0;
-    position: absolute;
   }
 
   @include min-screen($breakpoint-nav) {
