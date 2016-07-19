@@ -3,29 +3,29 @@
 .site-header {
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   position: absolute;
   transition: height .2s ease-out;
 
-  .brand {
-    margin-top: 0;
+  >.wrap > .brand {
+    margin-top: 9px;
     font-size: 24px;
     position: relative;
     transition: margin .2s ease-out;
     svg {
-      width: 100%;
-      height: 130px;
-      max-width: 150px;
+      width: 115px;
       vertical-align: top;
       path {
         transition: .2s ease-out;
       }
       .logo-mark-header {
         fill: $red;
+        transform: scale(.763358779);
       }
       .logo-text-header {
         fill: $white;
+        transform: scale(1.144801157) translate(-19px, -17px);
       }
     }
   }
@@ -68,17 +68,6 @@
       }
       > .wrap {
         > .brand {
-          width: 31px;
-          height: 46px;
-          overflow: hidden;
-          margin-bottom: 0;
-          position: absolute;
-          transform: translateY(50%);
-          bottom: -#{$vertical-beat * 7};
-          .header-logo {
-            width: 78px;
-            height: 62px;
-          }
           .logo-text-header {
             display: none;
           }
@@ -108,8 +97,18 @@
         background: $gray-lite;
       }
 
-      .brand {
-        bottom: -#{$vertical-beat * 5};
+      > .wrap {
+        > .brand {      
+          width: 100%;
+          bottom: auto;
+          margin-top: 8px;
+          height: 130px;
+          max-width: 150px;
+          transform: translateY(0);
+          .logo-mark-header {
+            transform: scale(1);
+          }
+        }
       }
 
       a {
@@ -126,7 +125,18 @@
           top: -25px;
         }
       }
+    }
 
+    >.wrap > .brand {
+      margin-top: 0;
+      svg {
+        .logo-mark-header {
+          transform: scale(1);
+        }
+        .logo-text-header {
+          transform: scale(1) translateX(0);
+        }
+      }
     }
 
     .wrap {
@@ -142,10 +152,14 @@
   background-position: top center;
   padding-bottom: $global-padding;
   
+  .wrap {
+    padding: 0 $global-padding;
+  }
+
   h1 {
     color: $white;
     line-height: 1;
-    font-size: 60px;
+    font-size: 45px;
   }
 
   @include media-md {
@@ -155,6 +169,7 @@
     .wrap {
       height: 100%;
       display: flex;
+      padding: 0 $global-padding 0 100px;
     }
 
     h1 {

@@ -9,3 +9,187 @@
     @extend .sprite-icon;
   }
 }
+
+@mixin card($color,$cut,$pattern) {
+  @if $cut == 'right' {
+    padding-right: #{$global-padding / 2};
+    > .-inner {
+      &::before {
+        left: 100%;
+        border-left: #{$global-padding / 2} solid $color;
+        border-top: #{$global-padding / 2} solid transparent;
+      }
+    }
+  } @else if $cut == 'left' {
+    padding-left: #{$global-padding / 2};
+    > .-inner {
+      &::before {
+        right: 100%;
+        border-right: #{$global-padding / 2} solid $color;
+        border-top: #{$global-padding / 2} solid transparent;
+      }
+    }
+  }
+
+  &::before {
+    top: -2px;
+    left: -2px;
+    z-index: 1;
+    content: '';
+    position: absolute;
+    @include sprite($pattern);
+    @extend .sprite-icon;
+    transform: rotate(-90deg) translateX(-100%);
+    transform-origin: left top;
+  }
+
+  &.-wide {
+    &::before {
+      transform-origin: center;
+      transform: rotate(0) translateX(0) scaleX(-1);
+    }
+  }
+
+  > .-inner {  
+    background: $color;
+    &::before {
+      top: 0;
+      bottom: 0;
+      content: '';
+      height: auto;
+      position: absolute;
+    }
+  }
+}
+
+.card {
+  position: relative;
+
+  > .-inner {
+    height: 100%;
+    position: relative;
+    padding: #{$global-padding / 2} #{$global-padding / 2} #{$global-padding / 2} #{$global-padding};
+  }
+
+  &.-wide {
+    .-inner {
+      padding: #{$global-padding} 0 #{$global-padding / 2} #{$global-padding / 2};
+    }
+  }
+
+  &.-gray {
+    color: $black;
+    &.-cut-right {
+      @include card($gray-lite, right, $triple-pattern);
+    }
+    &.-cut-left {
+      @include card($gray-lite, left, $triple-pattern);
+    }
+  }
+  &.-white {
+    color: $black;
+    &.-cut-right {
+      @include card($white, right, $triple-pattern-purple);
+    }
+    &.-cut-left {
+      @include card($white, left, $triple-pattern-purple);
+    }
+  }
+  &.-purple {
+    color: $black;
+    &.-cut-right {
+      @include card($purple, right, $triple-pattern);
+    }
+    &.-cut-left {
+      @include card($purple, left, $triple-pattern);
+    }
+  }
+  &.-red {
+    color: $white;
+    &.-cut-right {
+      @include card($red, right, $triple-pattern);
+    }
+    &.-cut-left {
+      @include card($red, left, $triple-pattern);
+    }
+  }
+
+  @include media-md {
+
+  }
+}
+
+// Close button
+.button-close {
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: none;
+  position: relative;
+  .lines {
+    top: 50%;
+    left: 50%;
+    height: 2px;
+    width: 16px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    &::before,
+    &::after {
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      content: '';
+      background: $black;
+      position: absolute;
+      transition: all .2s ease-out;
+    }
+    &::before {
+      transform: rotate(-45deg);
+    }
+    &::after {
+      transform: rotate(45deg);
+    }
+  }
+
+  // States
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    .icon path {
+      stroke-dashoffset: 300%;
+    }
+  }
+
+  .icon {
+    top: 3px;
+    left: 50%;
+    z-index: -1;
+    width: 29px;
+    height: 30px;
+    stroke: $black;
+    stroke-width: 3px;
+    position: absolute;
+    transform: translateX(-50%);
+    path {
+      stroke-dashoffset: 0;
+      stroke-dasharray: 150%, 150%;
+      transition: stroke-dashoffset .6s $slide-easing .1s;
+    }
+  }
+
+  &.-white {
+    .lines {
+      &::before,
+      &::after {
+        background: $white;
+      }
+    }
+
+    .icon {
+      stroke: $white;
+    }
+  }
+}

@@ -1,0 +1,145 @@
+// Programs page
+
+.page.programs {
+
+  .lower-content {
+    padding: 0;
+    @include clearfix;
+    @include media-md {
+      padding: 0 $global-padding;
+      > .one-half {
+        float: left;
+      }
+    }
+
+    .page-secondary-content {
+      padding-top: 54px;
+      @include media-md {
+        margin-top: -154px;
+        &::before {
+          top: 52px;
+        }
+      }
+    }
+  }
+
+  .badges-grid {
+    padding: 0;
+    margin: #{$vertical-beat * 6} 0 0;
+
+    @include media-lg {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      cursor: pointer;
+      text-align: left;
+      list-style: none;
+      margin-bottom: #{$vertical-beat * 6};
+
+      h3 {
+        color: $white;
+        font-size: 10px;
+        line-height: 1.5;
+        @extend .font-bold;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: .16em;
+      }
+
+      .overlay-content {
+        display: none;
+      }
+
+      @include media-lg {
+        max-width: 50%;
+        flex-basis: 50%;
+        &:nth-child(odd) {
+          padding-right: #{$global-padding / 2};
+        }
+      }
+    }
+
+    .badge-icon {
+      display: none;
+      margin-bottom: #{$vertical-beat * 4};
+
+      svg {
+        fill: $white;
+      }
+
+      @include media-lg {
+        display: block;
+      }
+    }
+  }
+
+  .badge-icon {
+    width: 72px;
+    svg {
+      width: 100%;
+      height: 108px;
+      vertical-align: top;
+    }
+  }
+
+  .badge-content-overlay {
+    left: 0;
+    right: 0;
+    top: 54px;
+    z-index: 1;
+    min-height: 100%;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: transform .2s $slide-easing;
+    &.-active {
+      transform: translateX(0);
+    }
+
+    .badge-overlay-close {
+      z-index: 1;
+      position: absolute;
+      top: #{$global-padding / 2};
+      right: #{$global-padding / 2};
+    }
+
+    .-inner {
+      height: 100%;
+    }
+
+    article {
+      padding-top: #{$vertical-beat * 4};
+      > h4 {
+        font-size: 10px;
+        line-height: 1.5;
+        @extend .font-bold;
+        text-transform: uppercase;
+      }
+      > h3 {
+        @extend .font-display;
+        &::before,
+        &::after {
+          width: 6px;
+          height: 2px;
+          content: '';
+          display: block;
+          background: $black;
+        }
+        &::before {
+          margin-bottom: 12px;
+        }
+        &::after {
+          margin-top: 12px;
+        }
+      }
+    }
+
+    .badge-icon {
+      top: 0;
+      position: absolute;
+      left: $global-padding;
+      transform: translateY(-50%);
+    }
+  }
+}

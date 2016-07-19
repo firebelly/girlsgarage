@@ -11,6 +11,7 @@ var FBSage = (function($) {
       breakpoint_array = [480,1000,1200],
       $siteHeader = $('.site-header'),
       $siteNav = $('.site-nav'),
+      $badgeOverlayContainer = $('#badge-content-overlay'),
       $document,
       $sidebar,
       loadingTimer,
@@ -37,11 +38,13 @@ var FBSage = (function($) {
     _initBigClicky();
     _initFormActions();
     _initDraggableElements();
+    _initBadgeOverlay();
 
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
         _hideMobileNav();
+        _hideBadgeOverlay();
       }
     });
 
@@ -152,6 +155,28 @@ var FBSage = (function($) {
   function _hideMobileNav() {
     $('.menu-toggle, body').removeClass('menu-open');
     $('.site-nav').removeClass('-active');
+  }
+
+  function _initBadgeOverlay() {
+    var $badgeOverlayContent = $badgeOverlayContainer.find('.-inner');
+
+    $('.badges-grid .badge').on('click', function() {
+      // Emtpy out the overlay
+      $badgeOverlayContent.empty();
+      $(this).find('article').clone().appendTo($badgeOverlayContent);
+      $badgeOverlayContainer.addClass('-active');
+    });
+
+    // Hide the mother
+    $document.on('click', '.badge-overlay-close', function() {
+      _hideBadgeOverlay();
+    });
+  }
+
+  function _hideBadgeOverlay() {
+    if ($badgeOverlayContainer.is('.-active')) {
+      $badgeOverlayContainer.removeClass('-active');
+    }
   }
 
   function _initDraggableElements() {

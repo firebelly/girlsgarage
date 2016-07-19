@@ -13,9 +13,11 @@
 <div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
 </div>
 <div class="wrap -flush">
-  <div class="page-secondary-content page-content user-content">
-    <div class="-inner">
-      <?= $secondary_content ?>
+  <div class="one-half">
+    <div class="page-secondary-content page-content user-content">
+      <div class="-inner">
+        <?= $secondary_content ?>
+      </div>
     </div>
   </div>
 </div>

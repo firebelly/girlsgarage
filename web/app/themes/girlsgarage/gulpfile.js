@@ -232,6 +232,7 @@ gulp.task('sprites', function () {
     src: path.source + 'images/sprite/*',
     prefix: 'sprite-icon',
     style: '_sprite.scss',
+    margin: 0,
     'dimension': [{
       ratio: 1, dpi: 72
     }, {

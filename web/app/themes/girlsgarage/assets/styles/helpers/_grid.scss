@@ -2,14 +2,15 @@
 
 $vertical-beat: 5px;
 
-$global-padding: 60px;
-$mobile-global-padding: 30px;
+$global-padding: 70px;
+$mobile-global-padding: 35px;
 
 .grid {
   width: 100%;
   display: block;
   @include min-screen($breakpoint-md) {
     display: flex;
+    flex-wrap: wrap;
   }
   &.-persist {
     display: flex;

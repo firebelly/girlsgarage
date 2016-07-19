@@ -64,7 +64,7 @@ function edit_columns($columns){
     'cb' => '<input type="checkbox" />',
     'title' => 'Badge',
     'content' => 'Description',
-    'featured_image' => 'Icon',
+    '_cmb2_badge_icon' => 'Icon',
   );
   return $columns;
 }
@@ -87,29 +87,43 @@ function custom_columns($column){
 add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 
 // Custom CMB2 fields for post type
-// function metaboxes( array $meta_boxes ) {
-//   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+function metaboxes( array $meta_boxes ) {
+  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-//   $meta_boxes['badge_details'] = array(
-//     'id'            => 'badge_details',
-//     'title'         => __( 'Badge Details', 'cmb2' ),
-//     'object_types'  => array( 'badge', ), // Post type
-//     'context'       => 'normal',
-//     'priority'      => 'high',
-//     'show_names'    => true, // Show field names on the left
-//     'fields'        => array(
-//       array(
-//         'name' => 'Title',
-//         'desc' => 'e.g. Co-Founder',
-//         'id'   => $prefix . 'title',
-//         'type' => 'text_medium',
-//       ),
-//     ),
-//   );
+  $meta_boxes['badge_details'] = array(
+    'id'            => 'badge_icon',
+    'title'         => __( 'Badge Icon', 'cmb2' ),
+    'object_types'  => array( 'badge', ), // Post type
+    'context'       => 'side',
+    'priority'      => 'default',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name' => 'Badge Icon',
+        'desc' => 'the icon associated with the badge',
+        'id'   => $prefix . 'badge_icon',
+        'type'             => 'select',
+        'show_option_none' => true,
+        'default'          => 'custom',
+        'options'          => array(
+            'architecture-drafting' => __( 'architecture-drafting', 'cmb2' ),
+            'carpentry-woodworking' => __( 'carpentry-woodworking', 'cmb2' ),
+            'digital-design' => __( 'digital-design', 'cmb2' ),
+            'electronics' => __( 'electronics', 'cmb2' ),
+            'engineering' => __( 'engineering', 'cmb2' ),
+            'graphics' => __( 'graphics', 'cmb2' ),
+            'leadership' => __( 'leadership', 'cmb2' ),
+            'masonry' => __( 'masonry', 'cmb2' ),
+            'service' => __( 'service', 'cmb2' ),
+            'welding-metalsmithing' => __( 'welding-metalsmithing', 'cmb2' )
+        ),
+      ),
+    ),
+  );
 
-//   return $meta_boxes;
-// }
-// add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+  return $meta_boxes;
+}
+add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
  * Get Badges

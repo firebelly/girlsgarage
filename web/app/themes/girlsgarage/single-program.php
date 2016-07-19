@@ -1,6 +1,7 @@
 <?php
 $program = \Firebelly\PostTypes\Program\get_program_details($post);
 $body = apply_filters('the_content', $post->post_content);
+$badge_icon = get_post_meta($program->badges[0], '_cmb2_badge_icon', true);
 ?>
 
 <article id="<?= $post->slug ?>">
@@ -12,7 +13,7 @@ $body = apply_filters('the_content', $post->post_content);
       <?php endif; ?>
       <header>
         <div class="badge-icon">
-          <?php echo get_the_post_thumbnail($program->badges[0], 'full'); ?>
+          <svg class="icon badge-<?= $badge_icon ?>" aria-hidden="hidden" role="image"><use xlink:href="#badge-<?= $badge_icon ?>"/></svg>
         </div>
         <h2><?= $program->title ?></h2>
         <h2><?= $program->subtitle ?></h2>

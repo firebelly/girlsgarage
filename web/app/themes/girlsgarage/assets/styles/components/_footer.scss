@@ -4,7 +4,6 @@
   position: relative;
   background: $gray-lite;
   padding: #{$global-padding / 2} 0;
-
   &::before,
   &::after {
     top: -17px;
@@ -19,6 +18,10 @@
   }
   &::after {
     right: -2px;
+  }
+
+  @include media-md {
+    margin-top: $global-padding;
   }
 
   .wrap {

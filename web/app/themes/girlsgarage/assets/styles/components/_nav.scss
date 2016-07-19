@@ -1,7 +1,5 @@
 // Nav
 
-$nav-easing: cubic-bezier(1,0,0,1);
-
 // wp admin bar push
 .admin-bar {}
 
@@ -15,7 +13,7 @@ $nav-easing: cubic-bezier(1,0,0,1);
   @extend .font-display;
   background: $gray-lite;
   -webkit-font-smoothing: antialiased;
-  transition: left .3s $nav-easing;
+  transition: left .3s $slide-easing;
   padding: #{$vertical-beat * 6} $global-padding #{$vertical-beat * 14};
 
   &::before {
@@ -42,7 +40,7 @@ $nav-easing: cubic-bezier(1,0,0,1);
       }
       .logo-text-header {
         fill: $black;
-        transform: scale(1.144801157) translateX(-19px);
+        transform: scale(1.144801157) translate(-19px, -17px);
       }
     }
   }
@@ -57,8 +55,11 @@ $nav-easing: cubic-bezier(1,0,0,1);
     padding: 0;
     li {
       list-style: none;
-      margin-bottom: #{$vertical-beat * 3};
     }
+  }
+
+  & > ul > li {
+    margin-bottom: #{$vertical-beat * 3};
   }
 
   .sub-menu {
@@ -264,7 +265,7 @@ $nav-easing: cubic-bezier(1,0,0,1);
     path {
       stroke-dashoffset: 150%;
       stroke-dasharray: 150%, 150%;
-      transition: stroke-dashoffset .3s $nav-easing .1s;
+      transition: stroke-dashoffset .3s $slide-easing .1s;
     }
   }
 

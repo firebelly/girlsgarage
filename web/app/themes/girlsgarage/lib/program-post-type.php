@@ -308,7 +308,7 @@ function get_programs($options=[]) {
     'post_type' => 'program',
     'meta_key' => '_cmb2_program_start',
     'orderby' => 'meta_value_num',
-    '_cmb2_program_type' => $options['program_type'],
+    // 'taxonomy' => 'program_type',
   ];
   // Make sure we're only pulling upcoming or past programs
   $args['order'] = !empty($options['past_programs']) ? 'DESC' : 'ASC';
@@ -320,7 +320,7 @@ function get_programs($options=[]) {
     ],
     [
       'key' => '_cmb2_program_type',
-      'value' => $options['program_type'],
+      // 'value' => $options['program_type'],
     ]
   ];
 

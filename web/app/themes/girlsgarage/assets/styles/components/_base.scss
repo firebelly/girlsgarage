@@ -10,10 +10,10 @@ html {
 body {
   color: $black;
   font-size: 16px;
-  padding-top: 35px;
   overflow-x: hidden;
   background: $gray-lite;
   font-family: $font-regular;
+  padding-top: #{$global-padding / 2};
 }
 
 .brand {
@@ -72,12 +72,12 @@ img {
 }
 
 .site-container {
-  padding-right: 35px;
+  padding-right: #{$global-padding / 2};
 }
 
 .wrap {
-  padding: 0 30px;
   position: relative;
+  padding: 0 #{$global-padding / 2};
 
   &.-flush {
     padding: 0;
@@ -98,8 +98,8 @@ img {
     top: 545px;
     width: 15px;
     content: '';
-    right: -35px;
     position: absolute;
+    right: -#{$global-padding};
     background: url('../images/ruler.png');
     background-size: 15px auto;
   }

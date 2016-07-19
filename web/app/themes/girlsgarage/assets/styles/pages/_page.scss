@@ -3,9 +3,9 @@
 .page-intro-content {
   color: $white;
   background: $red;
-  margin-left: 30px;
   position: relative;
   padding: #{$global-padding / 2};
+  margin-left: #{$global-padding / 2};
   &::before {
     top: 0;
     bottom: 0;
@@ -19,7 +19,7 @@
   .-inner {  
     &::before {
       top: -2px;
-      left: -32px;
+      left: -37px;
       content: '';
       position: absolute;
       @include sprite($triple-pattern);
@@ -32,8 +32,8 @@
   @include media-md {
     margin-left: 0;
     position: absolute;
-    margin-top: -100px;
     right: #{$global-padding};
+    margin-top: #{-105px - ($global-padding / 2)};
     width: calc(50% - #{$global-padding * 1.5}) ;
 
     .-inner {
@@ -78,19 +78,9 @@
 .page {
 
   .page-secondary-content {
+    overflow: hidden;
     position: relative;
-    background: $gray-lite;
-    padding: #{$vertical-beat * 7} 0 #{$global-padding} #{$global-padding};
-    &::after {
-      top: 0;
-      bottom: 0;
-      left: 100%;
-      content: '';
-      height: auto;
-      position: absolute;
-      border-left: #{$vertical-beat * 7} solid $gray-lite;
-      border-top: #{$vertical-beat * 7} solid transparent;
-    }
+    margin-top: -#{$global-padding / 2};
 
     h2 {
       font-size: 15px;
@@ -117,10 +107,15 @@
       }
     }
 
+    h3 {
+      margin-top: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: normal;
+    }
+
     @include media-md {
-      float: left;
       margin-top: -100px;
-      width: calc(50% - #{$vertical-beat * 7});
     }
   }
 }
