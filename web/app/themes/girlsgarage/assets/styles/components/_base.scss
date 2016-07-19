@@ -85,8 +85,8 @@ img {
 
   @include media-md {
     &.-flush, & {
-      padding: 0 60px;
       @include clearfix;
+      padding: 0 $global-padding;
     }
   }
 }

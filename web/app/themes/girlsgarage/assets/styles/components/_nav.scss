@@ -185,8 +185,8 @@
 
     .shop-link {
       top: 5px;
-      right: -60px;
       position: absolute;
+      right: -$global-padding;
     }
   }
 }

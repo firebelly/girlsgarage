@@ -51,11 +51,20 @@
       transform: translateY(-100%);
       transition: transform .2s cubic-bezier(.25,.5,.65,1);
     }
+
     &.sub-menu-active {
       &::after {
         transform: translateY(0);
       }
+
+      > .wrap > .brand {
+        .logo-text-header,
+        .logo-mark-header {
+          fill: $black;
+        }
+      }
     }
+
     // Sticky
     &.-sticky {
       z-index: 3;
@@ -68,6 +77,9 @@
       }
       > .wrap {
         > .brand {
+          svg {
+            width: 115px;
+          }
           .logo-text-header {
             display: none;
           }
@@ -130,11 +142,12 @@
     >.wrap > .brand {
       margin-top: 0;
       svg {
+        width: 140px;
         .logo-mark-header {
-          transform: scale(1);
+          transform: scale(1.290091381);
         }
         .logo-text-header {
-          transform: scale(1) translateX(0);
+          transform: scale(.886659539) translate(19px,15px);
         }
       }
     }
@@ -171,7 +184,7 @@
       content: '';
       position: absolute;
       @extend .sprite-icon;
-      left: $global-padding;
+      left: #{$global-padding - 5px};
       bottom: -#{($global-padding / 2) + 7px};
       @include sprite($pattern-large-2-purple);
     }
@@ -181,7 +194,7 @@
       height: 100%;
       display: flex;
       position: relative;
-      padding: 0 $global-padding 0 100px;
+      padding: 0 $global-padding 0 130px;
     }
 
     h1 {
@@ -204,7 +217,7 @@
       content: '';
       position: absolute;
       @extend .sprite-icon;
-      left: $global-padding;
+      left: #{$global-padding - 5px};
       @include sprite($pattern-large-gray);
     }
   }
