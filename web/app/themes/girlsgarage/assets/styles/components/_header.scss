@@ -164,11 +164,23 @@
 
   @include media-md {
     height: 600px;
+    position: relative;
     border-bottom: #{$global-padding / 2} solid $black;
+    &::after {
+      z-index: 0;
+      content: '';
+      position: absolute;
+      @extend .sprite-icon;
+      left: $global-padding;
+      bottom: -#{($global-padding / 2) + 7px};
+      @include sprite($pattern-large-2-purple);
+    }
 
     .wrap {
+      z-index: 1;
       height: 100%;
       display: flex;
+      position: relative;
       padding: 0 $global-padding 0 100px;
     }
 
@@ -185,6 +197,16 @@
 
   @include media-md {
     height: 600px;
+    position: relative;
+    &::before {
+      top: 3px;
+      z-index: 0;
+      content: '';
+      position: absolute;
+      @extend .sprite-icon;
+      left: $global-padding;
+      @include sprite($pattern-large-gray);
+    }
   }
 
 }

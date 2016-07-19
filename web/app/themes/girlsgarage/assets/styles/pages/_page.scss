@@ -30,6 +30,7 @@
   }
 
   @include media-md {
+    z-index: 1;
     margin-left: 0;
     position: absolute;
     right: #{$global-padding};

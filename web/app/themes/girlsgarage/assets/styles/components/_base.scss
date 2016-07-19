@@ -99,14 +99,18 @@ img {
     width: 15px;
     content: '';
     position: absolute;
-    right: -#{$global-padding};
+    right: -#{$global-padding / 2};
     background: url('../images/ruler.png');
     background-size: 15px auto;
   }
 
   @include media-sm {
     &::after {
-      top: 500px;
+      top: 460px;
     }
+  }
+
+  @include media-md {
+    padding-bottom: $global-padding;
   }
 }
