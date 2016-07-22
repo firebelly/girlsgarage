@@ -1,6 +1,6 @@
 <?php 
   $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true),'','bw');
-  $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true)
+  $secondary_content = apply_filters( 'the_content', get_post_meta($post->ID, '_cmb2_secondary_content', true));
 ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
@@ -16,12 +16,18 @@
 
 <div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
 </div>
-<div class="wrap -flush">
-  <div class="page-secondary-content-wrap one-half -left">
-    <div class="page-secondary-content card -gray -cut-right page-content user-content">
-      <div class="-inner">
-        <?= \Firebelly\PostTypes\Partner\get_partners(); ?>
+
+<div class="wrap grid -flush page-bottom">
+  <div class="one-half">
+    <div class="page-secondary-content-wrap">
+      <div class="page-secondary-content card -gray -cut-right page-content user-content">
+        <div class="-inner">
+          <?= $secondary_content ?>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="one-half -right">
+    <?php include('templates/story-module.php'); ?>
   </div>
 </div>

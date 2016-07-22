@@ -33,7 +33,7 @@ $firebelly_includes = [
   'lib/badge-post-type.php',           // Badges
   'lib/person-post-type.php',          // People
   'lib/partner-post-type.php',         // Partners
-  'lib/sponsor-post-type.php',         // Sponsors
+  'lib/funder-post-type.php',         // Sponsors
   'lib/site-options.php',              // Custom site options for admin
 ];
 

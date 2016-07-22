@@ -1,55 +1,23 @@
 // Common Page Styles
 
-.page-intro-content {
-  color: $white;
-  background: $red;
-  position: relative;
-  padding: #{$global-padding / 2};
-  margin-left: #{$global-padding / 2};
-  &::before {
-    top: 0;
-    bottom: 0;
-    right: 100%;
-    content: '';
-    height: auto;
-    position: absolute;
-    border-right: #{$global-padding / 2} solid $red;
-    border-top: #{$global-padding / 2} solid transparent;
-  }
-  .-inner {  
-    &::before {
-      top: -2px;
-      left: -37px;
-      content: '';
-      position: absolute;
-      @include sprite($triple-pattern);
-      @extend .sprite-icon;
-      transform: rotate(-90deg) translateX(-100%);
-      transform-origin: left top;
+.page-intro {
+
+  .card {
+    .-inner {
+      padding-left: #{$global-padding / 2};
     }
   }
 
   @include media-md {
+    right: 0;
     z-index: 1;
+    width: 50%;
     margin-left: 0;
     position: absolute;
-    right: #{$global-padding};
     margin-top: #{-105px - ($global-padding / 2)};
-    width: calc(50% - #{$global-padding * 1.5}) ;
 
-    .-inner {
-      max-width: 500px;
-    }
-
-    &::after {
-      top: 0;
-      bottom: 0;
-      left: 100%;
-      content: '';
-      height: auto;
-      background: $red;
-      position: absolute;
-      width: $global-padding;
+    .-inner .page-content {
+      max-width: 600px;
     }
   }
 }
@@ -76,47 +44,116 @@
   }
 }
 
-.page {
+.page:not(.home) {
+  .page-bottom {
+    > .one-half {
+      @include media-md {
+        min-width: 400px;
+      }
+    }
+  }
+}
 
-  .page-secondary-content {
-    overflow: hidden;
+.page-secondary-content-wrap {
+  position: relative;
+  @include media-md {
+    &::after {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      @extend .sprite-icon;
+      left: -$global-padding;
+      bottom: -$global-padding;
+      @include sprite($pattern-large-2-black);
+    }
+  }
+}
+
+.page-secondary-content {
+  overflow: hidden;
+  position: relative;
+  margin-top: -#{$global-padding / 2};
+
+  h2 {
+    font-size: 15px;
     position: relative;
-    margin-top: -#{$global-padding / 2};
+    line-height: 1.333333333;
+    margin-top: #{$vertical-beat * 6};
+    margin-bottom: #{$vertical-beat * 3};
+    padding-bottom: #{$vertical-beat * 4};
+    &::after {
+      left: 0;
+      bottom: 0;
+      width: 6px;
+      height: 3px;
+      content: '';
+      margin: 1px 0;
+      display: block;
+      position: absolute;
+      background: $black;
+    }
+    &:first-of-type {
+      margin-top: 0;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+  }
 
-    h2 {
-      font-size: 15px;
-      position: relative;
-      line-height: 1.333333333;
-      margin-top: #{$vertical-beat * 6};
-      margin-bottom: #{$vertical-beat * 3};
-      padding-bottom: #{$vertical-beat * 4};
-      &::after {
-        left: 0;
-        bottom: 0;
-        width: 6px;
-        height: 3px;
-        content: '';
-        margin: 1px 0;
-        display: block;
-        position: absolute;
-        background: $black;
-      }
-      &:first-of-type {
-        margin-top: 0;
-        font-size: 20px;
-        line-height: 1.25;
-      }
+  h3 {
+    margin-top: 0;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: normal;
+  }
+
+  @include media-md {
+    margin-top: -100px;
+  }
+}
+
+// Grids of cards
+.card-grid {
+  padding: 1px;
+  .card {
+    width: 100%;
+    @include media-md {
+      min-width: 1px;
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+    @include media-lg {
+      max-width: 75%;
+      flex-basis: 75%;
+    }
+    @include media-xl {
+      max-width: 50%;
+      flex-basis: 50%;
     }
 
     h3 {
       margin-top: 0;
       font-size: 20px;
       line-height: 1.25;
-      font-weight: normal;
+      @extend .font-display;
+      text-transform: uppercase;
     }
 
-    @include media-md {
-      margin-top: -100px;
+    &.-white {
+      outline: 1px solid $gray-lite;
+      h3 {
+        color: $red;
+      }
+    }
+
+    .-inner {
+      padding-bottom: #{$global-padding + 50px};
+    }
+
+    .btn.more {
+      right: 0;
+      position: absolute;
+      left: #{$global-padding / 2};
+      bottom: #{$global-padding / 2};
     }
   }
 }

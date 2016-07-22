@@ -95,7 +95,7 @@ img {
   position: relative;
   &::after {
     bottom: 0;
-    top: 545px;
+    top: 556px;
     width: 15px;
     content: '';
     position: absolute;
@@ -104,7 +104,7 @@ img {
     background-size: 15px auto;
   }
 
-  @include media-sm {
+  @include media-md {
     &::after {
       top: 460px;
     }

@@ -20,7 +20,7 @@
   <div class="page-secondary-content-wrap one-half -left">
     <div class="page-secondary-content card -gray -cut-right page-content user-content">
       <div class="-inner">
-        <?= \Firebelly\PostTypes\Partner\get_partners(); ?>
+        <?= \Firebelly\PostTypes\Funder\get_funders(); ?>
       </div>
     </div>
   </div>

@@ -179,6 +179,148 @@ var FBSage = (function($) {
     }
   }
 
+  function _initItemGrid() {
+    // People have single post data included in initial grid items
+    $('.grid-item.person article').each(function() {
+      page_cache[encodeURIComponent($(this).attr('data-page-url'))] = $(this).clone();
+    });
+
+    // Use statechange to handle modals
+    $document.on('click', '.grid-item-activate', function(e) {
+      var $target = $(e.target);
+      if (!$target.is('.no-ajaxy')) {
+        e.preventDefault();
+        History.pushState({}, '', $(this).attr('href') || $(this).attr('data-page-url'));
+      }
+    });
+
+    // Initial post?
+    $(window).load(function() {
+      if (window.location.hash && $(window.location.hash).length) {
+        var url = $(window.location.hash).attr('data-page-url');
+        var parent_url = $(window.location.hash).attr('data-parent-url');
+        History.replaceState({ignore_change: true}, null, '##');
+        original_url = root_url + parent_url.replace(/^\//,'');
+        History.replaceState({}, document.title, original_url);
+        setTimeout(function() { History.pushState({}, '', url); }, 250);
+      }
+    });
+
+    // Shut it down!
+    $('html, body').on('click', '.grid-item-deactivate', function(e) {
+      if (!$('body').hasClass('single')) {
+        History.pushState({}, '', original_url);
+      }
+    });
+    // Close if user clicks outside modal
+    $('html, body').on('click', '.global-overlay', function() {
+      if($('.active-grid-item-container').is('.-active')) {
+        if (!$('body').hasClass('single')) {
+          History.pushState({}, '', original_url);
+        }
+      }
+    });
+
+    // Item Grid navigation
+    $document.on('click', '.next-item', function(e) {
+      $('.active-grid-item-container .grid-item-data').addClass('exitLeft');
+      setTimeout(function() {
+        _nextGridItem();
+      }, 200);
+    });
+    $document.on('click', '.previous-item', function(e) {
+      $('.active-grid-item-container .grid-item-data').addClass('exitRight');
+      setTimeout(function() {
+        _prevGridItem();
+      }, 200);
+    });
+
+  }
+
+  function _showGridItem() {
+    var $activeArticle = $('article[data-page-url="' + State.url + '"]');
+    if ($activeArticle.length) {
+      var $activeContainer = $('.active-grid-item-container'),
+          $activeDataContainer = $activeContainer.find('.item-data-container'),
+          $thisItem = $activeArticle.closest('.grid-item'),
+          thisItemOffset = $thisItem.offset().top;
+
+      $itemData = $(page_cache[encodeURIComponent(State.url)]);
+      _showOverlay();
+
+      // Is this the only item in their group?
+      if (!$thisItem.next('.grid-item').length && !$thisItem.prev('.grid-item').length) {
+        $activeContainer.addClass('solo');
+      } else {
+        $activeContainer.removeClass('solo');
+      }
+
+      $('.grid-item.-active, .grid-items.-active').removeClass('-active');
+      $activeDataContainer.empty();
+      $thisItem.addClass('-active');
+      $thisItem.closest('.grid-items').addClass('-active');
+      $itemData.clone().appendTo($activeDataContainer);
+      $activeContainer.css('top', thisItemOffset);
+      $activeContainer.addClass('-active');
+      _scrollBody($activeContainer, 250, 0, headerOffset + 64);
+
+      $activeDataContainer.find('.slider-mini').imagesLoaded(function(i) {
+        _initSliders();
+      });
+
+      // Init charts if any on page
+      _initCharts();
+
+    }
+  }
+
+  function _nextGridItem() {
+    var $active = $('.grid-items.-active').find('.grid-item.-active');
+    // Find next or first item
+    var $next = ($active.next('.grid-item').length > 0) ? $active.next('.grid-item') : $('.grid-items.-active .grid-item:first');
+    if ($next[0] === $active[0]) { return; } // Just return if there's only one item
+    $next.find('.grid-item-activate').trigger('click');
+    $('.active-grid-item-container .grid-item-data').addClass('enterRight');
+  }
+
+  function _prevGridItem() {
+    var $active = $('.grid-items.-active').find('.grid-item.-active');
+    // Find prev or last item
+    var $prev = ($active.prev('.grid-item').length > 0) ? $active.prev('.grid-item') : $('.grid-items.-active .grid-item:last');
+    if ($prev[0] === $active[0]) { return; } // Just return if there's only one item
+    $prev.find('.grid-item-activate').trigger('click');
+    $('.active-grid-item-container .grid-item-data').addClass('enterLeft');
+  }
+
+  function _showOverlay() {
+    if (!$('.global-overlay').length) {
+      $('body').addClass('overlay-open');
+      $('<div class="global-overlay"></div>').appendTo($('body'));
+      setTimeout(function() {
+        $('.global-overlay').addClass('-active');
+      }, 50);
+    }
+  }
+
+  function _hideOverlay() {
+    $('body').removeClass('overlay-open');
+    $('.global-overlay').removeClass('-active');
+    setTimeout(function() {
+      $('.global-overlay').remove();
+    }, 250);
+  }
+
+  function _closeGridItem() {
+    var $activeContainer = $('.active-grid-item-container'),
+        $activeDataContainer = $('.item-data-container');
+
+    _hideOverlay();
+    $activeContainer.removeClass('-active');
+    $('.grid-item.-active').removeClass('-active');
+    $('.grid-items.-active').removeClass('-active');
+    $activeDataContainer.empty();
+  }
+
   function _initDraggableElements() {
     var $footerMark = $('.site-footer .registration-mark').draggabilly({
       axis: 'x',

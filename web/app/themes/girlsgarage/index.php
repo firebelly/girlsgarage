@@ -7,16 +7,19 @@
 <?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
-<div class="wrap">
-  <div class="page-intro-content page-content user-content">
+<div class="page-intro">
+  <div class="page-intro-content card -red -cut-left">
     <div class="-inner">
-      <?= apply_filters('the_content', $posts_page->post_content); ?>
+      <div class="page-content user-content">
+        <?= apply_filters('the_content', $post->post_content); ?>
+      </div>
     </div>
   </div>
 </div>
+
 <div class="secondary-header" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
 </div>
-<div class="wrap">
+<div class="wrap -flush">
   <div class="page-secondary-content page-content user-content">
     <div class="-inner">
       <?php if (!have_posts()) : ?>
@@ -27,7 +30,7 @@
       <?php endif; ?>
 
       <?php while (have_posts()) : the_post(); ?>
-        <?php get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
+        <?php get_template_part('templates/content-story-snippet', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
       <?php endwhile; ?>
 
       <?php the_posts_navigation(); ?>

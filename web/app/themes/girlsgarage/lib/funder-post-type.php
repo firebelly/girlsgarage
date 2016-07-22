@@ -1,9 +1,9 @@
 <?php
 /**
- * Sponsor post type
+ * Funder post type
  */
 
-namespace Firebelly\PostTypes\Sponsor;
+namespace Firebelly\PostTypes\Funder;
 use Firebelly\Utils;
 
 /**
@@ -12,17 +12,17 @@ use Firebelly\Utils;
 function post_type() {
 
   $labels = array(
-    'name'                => 'Sponsors',
-    'singular_name'       => 'Sponsor',
-    'menu_name'           => 'Sponsors',
+    'name'                => 'Funders',
+    'singular_name'       => 'Funder',
+    'menu_name'           => 'Funders',
     'parent_item_colon'   => '',
-    'all_items'           => 'All Sponsors',
-    'view_item'           => 'View Sponsor',
-    'add_new_item'        => 'Add New Sponsor',
+    'all_items'           => 'All Funders',
+    'view_item'           => 'View Funder',
+    'add_new_item'        => 'Add New Funder',
     'add_new'             => 'Add New',
-    'edit_item'           => 'Edit Sponsor',
-    'update_item'         => 'Update Sponsor',
-    'search_items'        => 'Search Sponsors',
+    'edit_item'           => 'Edit Funder',
+    'update_item'         => 'Update Funder',
+    'search_items'        => 'Search Funders',
     'not_found'           => 'Not found',
     'not_found_in_trash'  => 'Not found in Trash',
   );
@@ -33,8 +33,8 @@ function post_type() {
     'feeds'               => false,
   );
   $args = array(
-    'label'               => 'sponsor',
-    'description'         => 'Sponsors',
+    'label'               => 'funder',
+    'description'         => 'Funders',
     'labels'              => $labels,
     'supports'            => array( 'title', 'editor', 'thumbnail', ),
     'hierarchical'        => false,
@@ -51,7 +51,7 @@ function post_type() {
     'publicly_queryable'  => true,
     'rewrite'             => $rewrite,
   );
-  register_post_type( 'sponsor', $args );
+  register_post_type( 'funder', $args );
 
 }
 add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
@@ -63,16 +63,15 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Name',
-    'content' => 'Bio',
-    'featured_image' => 'Image',
+    'content' => 'Description',
   );
   return $columns;
 }
-add_filter('manage_sponsor_posts_columns', __NAMESPACE__ . '\edit_columns');
+add_filter('manage_funder_posts_columns', __NAMESPACE__ . '\edit_columns');
 
 function custom_columns($column){
   global $post;
-  if ( $post->post_type == 'sponsor' ) {
+  if ( $post->post_type == 'funder' ) {
     if ( $column == 'featured_image' )
       echo the_post_thumbnail('thumbnail');
     elseif ( $column == 'content' )
@@ -90,10 +89,10 @@ add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  $meta_boxes['sponsor_details'] = array(
-    'id'            => 'sponsor_details',
-    'title'         => __( 'Sponsor Details', 'cmb2' ),
-    'object_types'  => array( 'sponsor', ), // Post type
+  $meta_boxes['funder_details'] = array(
+    'id'            => 'funder_details',
+    'title'         => __( 'Funder Details', 'cmb2' ),
+    'object_types'  => array( 'funder', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -111,27 +110,34 @@ function metaboxes( array $meta_boxes ) {
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
+// Hide featured image
+
+function remove_thumbnail_box() {
+  remove_meta_box('postimagediv', 'funder', 'side');
+}
+add_action( 'do_meta_boxes', __NAMESPACE__ . '\remove_thumbnail_box' );
+
 /**
- * Get Sponsors
+ * Get Funders
  */
-function get_sponsors($options=[]) {
+function get_funders($options=[]) {
   $output = '';
 
   $args = array(
     'numberposts' => -1,
-    'post_type' => 'sponsor',
+    'post_type' => 'funder',
     'orderby' => 'menu_order',
   );
 
-  $sponsor_posts = get_posts($args);
-  if (!$sponsor_posts) return false;
+  $funder_posts = get_posts($args);
+  if (!$funder_posts) return false;
 
-  $output = '<ul class="grid-items sponsors-grid">';
+  $output = '<ul class="grid-items funders-grid">';
 
-  foreach ( $sponsor_posts as $post ):
-    $output .= '<li class="grid-item sponsor">';
+  foreach ( $funder_posts as $post ):
+    $output .= '<li class="grid-item funder">';
     ob_start();
-    include(locate_template('templates/article-sponsor.php'));
+    include(locate_template('templates/article-funder.php'));
     $output .= ob_get_clean();
     $output .= '</li>';
   endforeach;
@@ -141,15 +147,15 @@ function get_sponsors($options=[]) {
   return $output;
 }
 
-// Redirect sponsors posts to proper landing page
-function single_sponsor_redirect() {
+// Redirect funders posts to proper landing page
+function single_funder_redirect() {
   if (is_single()) {
     global $post;
 
     $post_id = $post->ID;
-    if (!empty($post_id) && $post->post_type == 'sponsor') {
-      wp_redirect('/about/sponsors/#'.$post->post_name, 301);
+    if (!empty($post_id) && $post->post_type == 'funder') {
+      wp_redirect('/about/funders/#'.$post->post_name, 301);
     }
   }
 }
-add_action('template_redirect', __NAMESPACE__ . '\single_sponsor_redirect');
+add_action('template_redirect', __NAMESPACE__ . '\single_funder_redirect');

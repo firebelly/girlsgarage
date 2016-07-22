@@ -139,19 +139,35 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
  * Register custom taxonomies
  */
 function custom_taxonomies() {
-    register_taxonomy(
-        'program_type',
-        'program',
-        array(
-            'labels' => array(
-                'name' => 'Program Type',
-                'add_new_item' => 'Add New Program Type',
-                'new_item_name' => "New Program Type"
-            ),
-            'show_ui' => true,
-            'show_tagcloud' => false,
-            'hierarchical' => true
-        )
-    );
+  register_taxonomy(
+    'program_type',
+    'program',
+    array(
+      'labels' => array(
+        'name' => 'Program Type',
+        'add_new_item' => 'Add New Program Type',
+        'new_item_name' => "New Program Type"
+        ),
+      'show_ui' => true,
+      'show_tagcloud' => false,
+      'show_admin_column' => true,
+      'hierarchical' => true
+    )
+  );
+  register_taxonomy(
+    'person_type',
+    'person',
+    array(
+      'labels' => array(
+        'name' => 'Person Type',
+        'add_new_item' => 'Add New Person Type',
+        'new_item_name' => "New Person Type"
+        ),
+      'show_ui' => true,
+      'show_tagcloud' => false,
+      'show_admin_column' => true,
+      'hierarchical' => true
+    )
+  );
 }
 add_action( 'init', __NAMESPACE__ . '\\custom_taxonomies', 0 );

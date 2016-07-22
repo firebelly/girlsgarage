@@ -1,0 +1,17 @@
+// Team Page
+
+.page.team {
+  .page-secondary-content-wrap {
+    @include media-md {
+      width: 75%;
+      &::before {
+        top: 100px;
+        left: 100%;
+        content: '';
+        position: absolute;
+        @extend .sprite-icon;
+        @include sprite($pattern-large-black);
+      }
+    }
+  }
+}

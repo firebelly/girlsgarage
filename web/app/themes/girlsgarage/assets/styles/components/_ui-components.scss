@@ -32,13 +32,13 @@
   }
 
   &::before {
-    top: -2px;
-    left: -2px;
+    top: 0px;
+    left: 0px;
     z-index: 1;
     content: '';
     position: absolute;
-    @include sprite($pattern);
     @extend .sprite-icon;
+    @include sprite($pattern);
     transform: rotate(-90deg) translateX(-100%);
     transform-origin: left top;
   }
@@ -50,7 +50,7 @@
     }
   }
 
-  > .-inner {  
+  > .-inner {
     background: $color;
     &::before {
       top: 0;
@@ -95,6 +95,15 @@
       @include card($white, left, $triple-pattern-purple);
     }
   }
+  &.-black {
+    color: $white;
+    &.-cut-right {
+      @include card($black, right, $triple-pattern-white);
+    }
+    &.-cut-left {
+      @include card($black, left, $triple-pattern-white);
+    }
+  }
   &.-purple {
     color: $black;
     &.-cut-right {
@@ -115,7 +124,7 @@
   }
 
   @include media-md {
-
+    min-width: 300px;
   }
 }
 
@@ -191,5 +200,93 @@
     .icon {
       stroke: $white;
     }
+  }
+}
+
+@mixin btn-colors($primary, $secondary) {
+  color: $primary;
+  border-color: $primary;
+  .arrows {
+    &::before,
+    &::after {
+      background: $primary;
+    }
+    .icon {
+      fill: $primary;
+    }
+  }
+  &:hover {
+    .arrows {
+      background: $primary;
+      .icon {
+        fill: $secondary;
+      }
+    }
+  }
+}
+
+// Buttons
+.btn {
+  height: 50px;
+  display: block;
+  font-size: 10px;
+  line-height: 1.5;
+  background: none;
+  border-width: 1px;
+  @extend .font-bold;
+  text-align: center;
+  position: relative;
+  border-style: solid;
+  text-decoration: none;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  @include btn-colors($black, $white);
+  -webkit-font-smoothing: antialiased;
+  padding: 18px $global-padding 20px 20px;
+  .arrows {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    position: absolute;
+    &::before,
+    &::after {
+      left: 0;
+      width: 1px;
+      content: '';
+      position: absolute;
+      height: #{$vertical-beat * 2};
+    }
+    &::before {
+      top: 0;
+    }
+    &::after {
+      bottom: 0;
+    }
+
+    .icon {
+      top: 50%;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      position: absolute;
+      transform: translate(-4px,-4px);
+    }
+  }
+
+  &.-red {
+    @include btn-colors($red, $white);
+  }
+  &.-purple {
+    @include btn-colors($purple, $white);
+  }
+  &.-white {
+    @include btn-colors($white, $black);
+  }
+  &.-white-purple {
+    @include btn-colors($white, $purple);
+  }
+  &.-white-red {
+    @include btn-colors($white, $red);
   }
 }

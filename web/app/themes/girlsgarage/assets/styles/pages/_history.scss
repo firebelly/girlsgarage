@@ -1,0 +1,40 @@
+// History page
+
+.page.history {
+  .page-secondary-content-wrap {
+    @include media-md {
+      &::before {
+        top: 100px;
+        left: 100%;
+        content: '';
+        position: absolute;
+        @extend .sprite-icon;
+        transform: rotate(180deg);
+        @include sprite($pattern-large-black);
+      }
+    }
+  }
+
+  .page-bottom {
+    >.one-half.-right {
+      display: flex;
+      .story-module {
+        &::after {
+          left: 0;
+          bottom: 0;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          @extend .sprite-icon;
+          transform-origin: bottom left;
+          @include sprite($pattern-large-black);
+          transform: rotate(-90deg) translateY(100%) translateX(-50%);
+        }
+
+        @include media-lg {
+          margin: auto 0;
+        }
+      }
+    }
+  }
+}

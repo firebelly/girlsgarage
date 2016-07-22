@@ -4,21 +4,28 @@
 ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
-<div class="wrap">
-  <div class="page-intro-content page-content user-content">
+<div class="page-intro">
+  <div class="page-intro-content card -red -cut-left">
     <div class="-inner">
-      <?= apply_filters('the_content', $post->post_content); ?>
-    </div>
-  </div>
-</div>
-<div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
-</div>
-<div class="wrap">
-  <div class="page-secondary-content page-content user-content">
-    <div class="-inner">
-      <?= \Firebelly\PostTypes\Person\get_people(); ?>
+      <div class="page-content user-content">
+        <?= apply_filters('the_content', $post->post_content); ?>
+      </div>
     </div>
   </div>
 </div>
 
-<?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
+<div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
+</div>
+<div class="wrap -flush">
+  <div class="page-secondary-content-wrap">
+    <div class="page-secondary-content card -purple -cut-right page-content user-content">
+      <div class="-inner">
+        <h2>Staff</h2>
+        <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'staff', 'person_type')->term_id]); ?>
+
+        <h2>Board of Directors</h2>
+        <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'board-of-directors', 'person_type')->term_id]); ?>
+      </div>
+    </div>
+  </div>
+</div>

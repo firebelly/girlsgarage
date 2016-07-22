@@ -36,6 +36,7 @@ function post_type() {
     'label'               => 'person',
     'description'         => 'Team',
     'labels'              => $labels,
+    'taxonomies'          => array('person_type'),
     'supports'            => array( 'title', 'editor', 'thumbnail', ),
     'hierarchical'        => false,
     'public'              => true,
@@ -63,7 +64,7 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Name',
-    '_cmb2_title' => 'Title',
+    'categories' => 'Type',
     'content' => 'Bio',
     'featured_image' => 'Image',
   );
@@ -100,10 +101,10 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-        'name' => 'Title',
+        'name' => 'Title/Credentials',
         'desc' => 'e.g. Co-Founder',
-        'id'   => $prefix . 'title',
-        'type' => 'text_medium',
+        'id'   => $prefix . 'title_credentials',
+        'type' => 'wysiwyg',
       ),
     ),
   );
@@ -122,6 +123,13 @@ function get_people($options=[]) {
     'numberposts' => -1,
     'post_type' => 'person',
     'orderby' => 'menu_order',
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'person_type',
+        'field' => 'id',
+        'terms' => $options['person_type']
+      )
+    )
   );
 
   $person_posts = get_posts($args);

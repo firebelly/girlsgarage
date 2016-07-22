@@ -1,4 +1,10 @@
-// Single Posts
+// Single Posts/Pages
+
+.single {
+  .site-main {
+    padding-top: #{$global-padding * 2};
+  }
+}
 
 .single-post {
 

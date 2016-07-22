@@ -28,7 +28,7 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-    $meta_boxes['secondary_content'] = array(
+  $meta_boxes['secondary_content'] = array(
     'id'            => 'secondary_content',
     'title'         => __( 'Secondary Page Content', 'cmb2' ),
     'object_types'  => array( 'page', ), // Post type
@@ -43,6 +43,41 @@ function metaboxes( array $meta_boxes ) {
         'desc' => 'The second set of main content on a page',
         'id'   => $prefix . 'secondary_content',
         'type' => 'wysiwyg',
+      ),
+    ),
+  );
+
+  $meta_boxes['home_announcement'] = array(
+    'id'            => 'home_announcement',
+    'title'         => __( 'Announcement', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'context'       => 'normal',
+    'show_on'       => array( 'key' => 'page-template', 'value' => 'front-page.php'),
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      
+      array(
+        'name' => 'Announcement Headline',
+        'id'   => $prefix . 'announcement_headline',
+        'type' => 'text',
+      ),
+      array(
+        'name' => 'Announcement Content',
+        'id'   => $prefix . 'announcement_content',
+        'type' => 'textarea',
+      ),
+      array(
+        'name' => 'Announcement Link',
+        'desc' => 'URL to page,post, or external site',
+        'id'   => $prefix . 'announcement_link',
+        'type' => 'text_url',
+      ),
+      array(
+        'name' => 'Announcement Link Text',
+        'desc' => 'The text of the link (ex: "Read more")',
+        'id'   => $prefix . 'announcement_link_text',
+        'type' => 'text_small',
       ),
     ),
   );
