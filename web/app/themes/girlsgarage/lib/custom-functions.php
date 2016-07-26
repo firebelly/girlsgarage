@@ -108,6 +108,32 @@ function get_page_blocks($post) {
 }
 
 /**
+ * Get Parent URL for a Post
+ */
+function get_parent_url($post) {
+  $parent_url = '/';
+
+  if ($post->post_type == 'company') {
+    $parent_url = '/portfolio/';
+  } elseif ($post->post_type == 'country') {
+    $parent_url = '/resources/country-profiles/';
+  } elseif ($post->post_type == 'industry') {
+    $parent_url = '/resources/industry-profiles/';
+  } elseif ($post->post_type == 'person') {
+    $type = get_post_meta($post->ID, '_cmb2_member_type', true);
+    if ($type) {
+      if (preg_match('/(management)|(board)/i', $type)) {
+        $parent_url = '/about-us/';
+      } else {
+        $parent_url = '/community/';
+      }
+    }
+  }
+
+  return $parent_url;
+}
+
+/**
  * Rename Post to Story
  */
 function change_post_menu_label() {

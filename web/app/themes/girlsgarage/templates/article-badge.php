@@ -12,4 +12,40 @@
   <div class="badge-content overlay-content user-content">
     <?= $body ?>
   </div>
+    <?php
+
+      $related_program_args = [
+        'numberposts' => -1,
+        'post_type' => 'program',
+        'meta_key' => '_cmb2_program_start',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC',
+        'meta_query' => array(
+          array(
+            'key' => '_cmb2_program_badges',
+            'value' => $post->ID,
+            'compare' => 'IN'
+          )
+        ),
+      ];
+
+      $related_programs = get_posts($related_program_args);
+      if (!$related_programs) {
+        return false;
+      } else {
+        echo '<ul class="related-programs-list overlay-content"><p>Ways to earn this badge</p>';
+      }
+
+      foreach ( $related_programs as $program ): ?>
+        <li class="related-program <?= (current_time('timestamp') > get_post_meta($program->ID, '_cmb2_program_start', true)) ? 'past-program' : ''; ?>">
+            <p class="post-meta">
+              <?= get_post_meta($program->ID, '_cmb2_program_season', true); ?><br>
+              <?= get_post_meta($program->ID, '_cmb2_program_days', true); ?>, <?= date('g:ia', get_post_meta($program->ID, '_cmb2_program_start', true)); ?> - <?= date('g:ia', get_post_meta($program->ID, '_cmb2_program_end', true)); ?><br>
+              <?= date('m/d/y', get_post_meta($program->ID, '_cmb2_program_start', true)); ?> - <?= date('m/d/y', get_post_meta($program->ID, '_cmb2_program_end', true)); ?>
+            </p>
+            <h3 class="post-title"><a href="<?= get_permalink($program); ?>"><span> <?= $program->post_title; ?>: <?= get_post_meta($program->ID, '_cmb2_program_subtitle', true); ?></span></a></h3>
+        </li>
+      <?php  endforeach; 
+        echo '</ul>';
+      ?>
 </article>

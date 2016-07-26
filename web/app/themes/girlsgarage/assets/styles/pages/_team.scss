@@ -14,4 +14,154 @@
       }
     }
   }
+
+  .page-secondary-content {
+    .section-title {
+      @extend .h1;
+      position: relative;
+      margin-top: #{$vertical-beat * 6};
+      margin-bottom: #{$vertical-beat * 3};
+      padding-bottom: #{$vertical-beat * 4};
+      &::after {
+        left: 0;
+        bottom: 0;
+        width: 6px;
+        height: 3px;
+        content: '';
+        margin: 1px 0;
+        display: block;
+        position: absolute;
+        background: $black;
+      }
+      &:first-of-type {
+        margin-top: 0;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+    }
+  }
+}
+
+// Team Grid
+
+.people-grid {
+  
+  .person {
+    color: $white;
+    cursor: pointer;
+    .photo {
+      display: none;
+      margin-bottom: #{$vertical-beat * 4};
+      border-radius: 50%;
+    }
+    h2 {
+      @extend .h2;
+      font-size: 10px;
+      max-width: 100px;
+      &::after {
+        display: block;
+      }
+    }
+    .bio-label {
+      display: none;
+    }
+    .credentials {
+      font-size: 11px;
+      line-height: 1.363636364;
+    }
+    .body-content {
+      display: none;
+    }
+  }
+
+  @include media-md {
+    display: flex;
+    flex-wrap: wrap;
+    @include clearfix;
+    margin-left: -30px;
+    width: calc(100% + 30px);
+
+    .person {
+      .photo {
+        display: block;
+      }
+    }
+
+    .person.grid-item {
+      max-width: 50%;
+      flex-basis: 50%;
+      padding-left: 30px;
+    }
+  }
+
+  @include media-lg {
+    .person.grid-item {
+      max-width: 33.3333%;
+      flex-basis: 33.3333%;
+    }
+  }
+
+  // Different types of people
+  &.staff-grid {
+    .person {
+      h2 {
+        &::after {
+          display: none;
+        }
+      }
+      .credentials {
+        display: none;
+      }
+    }
+  }
+
+  &.board-of-directors-grid {
+    .person {
+      h2::after {
+        background: $white;
+      }
+    }
+  }
+}
+
+.person {
+  .photo {
+    height: 0;
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+// Active person container
+.active-person {
+  @include media-md {
+    width: 50%;
+  }
+
+  .photo-wrap {
+    overflow: hidden;
+  }
+
+  .bio-label {
+    @extend .h2;
+    margin-top: 0;
+    margin-bottom: #{$vertical-beat * 2};
+  }
+
+  .person-name {
+    margin-top: 0;
+    @include headline-dash('both');
+  }
+
+  .credentials {
+    @extend .h3;
+  }
+
+  .content {
+    overflow: hidden;
+    @extend .card, .-gray, .-cut-right;
+    margin-top: -#{$global-padding / 2};
+  }
 }

@@ -14,11 +14,12 @@
 
     .page-secondary-content {
       padding-top: 54px;
+      margin-top: -89px;
+      &::before {
+        top: 54px;
+      }
       @include media-md {
         margin-top: -154px;
-        &::before {
-          top: 52px;
-        }
       }
     }
   }
@@ -42,6 +43,7 @@
         color: $white;
         font-size: 10px;
         line-height: 1.5;
+        max-width: 100px;
         @extend .font-bold;
         text-transform: uppercase;
         -webkit-font-smoothing: antialiased;
@@ -120,20 +122,7 @@
       }
       > h3 {
         @extend .font-display;
-        &::before,
-        &::after {
-          width: 6px;
-          height: 2px;
-          content: '';
-          display: block;
-          background: $black;
-        }
-        &::before {
-          margin-bottom: 12px;
-        }
-        &::after {
-          margin-top: 12px;
-        }
+        @include headline-dash('both');
       }
     }
 
@@ -142,6 +131,71 @@
       position: absolute;
       left: $global-padding;
       transform: translateY(-50%);
+    }
+
+    .related-programs-list {
+      margin: 0;
+      padding: 0;
+
+      > p {
+        @extend .h2;
+      }
+      
+      .related-program {
+        padding: #{$vertical-beat * 2} 0 #{$vertical-beat * 3};
+        list-style: none;
+        position: relative;
+        &::before {
+          top: 0;
+          left: -12px;
+          content: '';
+          height: 1px;
+          background: $black;
+          position: absolute;
+          right: -$global-padding;
+        }
+        &::after {
+          top: 0;
+          width: 1px;
+          content: '';
+          left: -12px;
+          background: $black;
+          position: absolute;
+          height: #{$vertical-beat * 2};
+        }
+
+        &.past-program {
+          color: $gray;
+          pointer-events: none;
+        }
+
+        .post-meta {
+          @extend .h2;
+          @include headline-dash('after');
+        }
+
+        .post-title {
+          @extend .h1;
+          a {
+            position: relative;
+            text-decoration: none;
+            span {
+              padding-bottom: #{$vertical-beat / 2};
+              border-bottom: 1px solid rgba($black,0);
+            }
+            &:hover {
+              span {
+                border-bottom: 1px solid rgba($black,1);
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    @include media-md {
+      height: 100%;
     }
   }
 }

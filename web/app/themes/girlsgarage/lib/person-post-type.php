@@ -64,7 +64,7 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Name',
-    'categories' => 'Type',
+    'person_type' => 'Type',
     'content' => 'Bio',
     'featured_image' => 'Image',
   );
@@ -79,6 +79,8 @@ function custom_columns($column){
       echo the_post_thumbnail('thumbnail');
     elseif ( $column == 'content' )
       echo Utils\get_excerpt($post);
+    elseif ( $column == 'person_type') 
+      echo get_the_term_list($post->ID,'person_type','',', ','');
     else {
       $custom = get_post_custom();
       if (array_key_exists($column, $custom))
@@ -135,7 +137,7 @@ function get_people($options=[]) {
   $person_posts = get_posts($args);
   if (!$person_posts) return false;
 
-  $output = '<ul class="grid-items people-grid">';
+  $output = '<ul class="grid-items people-grid '.get_term_by('id', $options['person_type'], 'person_type')->slug.'-grid">';
 
   foreach ( $person_posts as $post ):
     $output .= '<li class="grid-item person">';

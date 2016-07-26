@@ -14,7 +14,16 @@ var FBSage = (function($) {
       $badgeOverlayContainer = $('#badge-content-overlay'),
       $document,
       $sidebar,
+      headerOffset,
       loadingTimer,
+      History = window.History,
+      State,
+      root_url = History.getRootUrl(),
+      relative_url,
+      original_url,
+      original_page_title = document.title,
+      page_cache = {},
+      ajax_handler_url = '/app/themes/girlsgarage/lib/ajax-handler.php',
       page_at;
 
   function _init() {
@@ -27,6 +36,7 @@ var FBSage = (function($) {
 
     // Set screen size vars
     _resize();
+    _setHeaderOffset();
 
     // Fit them vids!
     $('main').fitVids();
@@ -39,12 +49,35 @@ var FBSage = (function($) {
     _initFormActions();
     _initDraggableElements();
     _initBadgeOverlay();
+    _initItemGrid();
+    _initStateHandling();
 
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
+        if ($('.active-grid-item-container.-active').length) {
+          History.pushState({}, document.title, original_url);
+        }
         _hideMobileNav();
         _hideBadgeOverlay();
+      }
+    });
+
+    // Grid item nav arrow handlers
+    // Next
+    $(document).keydown(function(e) {
+      if (e.keyCode === 39) {
+        if ($('.grid-item.-active').length) {
+          _nextGridItem();
+        }
+      }
+    });
+    // Previous
+    $(document).keydown(function(e) {
+      if (e.keyCode === 37) {
+        if ($('.grid-item.-active').length) {
+          _prevGridItem();
+        }
       }
     });
 
@@ -64,17 +97,16 @@ var FBSage = (function($) {
 
   } // end init()
 
-  function _scrollBody(element, duration, delay) {
-    if ($('#wpadminbar').length) {
-      wpOffset = $('#wpadminbar').height();
-    } else {
-      wpOffset = 0;
+  function _scrollBody(element, duration, delay, offset) {
+    if (offset === undefined) {
+      offset = headerOffset - 1;
     }
-    element.velocity("scroll", {
+
+    element.velocity('scroll', {
       duration: duration,
       delay: delay,
-      offset: -wpOffset
-    }, "easeOutSine");
+      offset: -offset,
+    }, 'easeOutSine');
   }
 
   function _initBigClicky() {
@@ -96,6 +128,56 @@ var FBSage = (function($) {
 
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg'); 
+  }
+
+  // Bind to state changes and handle back/forward
+  function _initStateHandling() {
+    // Initial state
+    State = History.getState();
+    relative_url = '/' + State.url.replace(root_url,'');
+    original_url = State.url;
+
+    $(window).bind('statechange',function(){
+      State = History.getState();
+      relative_url = '/' + State.url.replace(root_url,'');
+
+      if (State.data.ignore_change) {
+        return;
+      }
+
+      if (State.url !== original_url && relative_url.match(/^\/(person|\d{0,4})\//)) {
+
+        // Standard post modals
+        if (page_cache[encodeURIComponent(State.url)]) {
+          _showGridItem();
+        } else {
+          _loadGridItem();
+        }
+
+      } else {
+
+        // URL isn't handled as a modal or in-page filtering
+        if (State.url !== original_url) {
+          // Just load URL if isn't original_url
+          location.href = State.url;
+          return;
+        } else {
+          // Hide modals etc
+          _closeGridItem();
+          _hideOverlay();
+        }
+
+      }
+
+      // Track AJAX URL change in analytics
+      _trackPage();
+
+      // Update document title
+      _updateTitle();
+
+      // Update Facebook tags for any share buttons on the page
+      _updateOGTags();
+    });
   }
 
   function _initFormActions() {
@@ -164,6 +246,7 @@ var FBSage = (function($) {
       // Emtpy out the overlay
       $badgeOverlayContent.empty();
       $(this).find('article').clone().appendTo($badgeOverlayContent);
+      _scrollBody($badgeOverlayContainer, 200, 0, headerOffset + 54);
       $badgeOverlayContainer.addClass('-active');
     });
 
@@ -223,13 +306,13 @@ var FBSage = (function($) {
 
     // Item Grid navigation
     $document.on('click', '.next-item', function(e) {
-      $('.active-grid-item-container .grid-item-data').addClass('exitLeft');
+      $('.active-grid-item-container .item-data-container').addClass('exitLeft');
       setTimeout(function() {
         _nextGridItem();
       }, 200);
     });
     $document.on('click', '.previous-item', function(e) {
-      $('.active-grid-item-container .grid-item-data').addClass('exitRight');
+      $('.active-grid-item-container .item-data-container').addClass('exitRight');
       setTimeout(function() {
         _prevGridItem();
       }, 200);
@@ -260,16 +343,9 @@ var FBSage = (function($) {
       $thisItem.addClass('-active');
       $thisItem.closest('.grid-items').addClass('-active');
       $itemData.clone().appendTo($activeDataContainer);
-      $activeContainer.css('top', thisItemOffset);
+      // $activeContainer.css('top', thisItemOffset);
       $activeContainer.addClass('-active');
-      _scrollBody($activeContainer, 250, 0, headerOffset + 64);
-
-      $activeDataContainer.find('.slider-mini').imagesLoaded(function(i) {
-        _initSliders();
-      });
-
-      // Init charts if any on page
-      _initCharts();
+      // _scrollBody($activeContainer, 250, 0, headerOffset + 64);
 
     }
   }
@@ -280,7 +356,8 @@ var FBSage = (function($) {
     var $next = ($active.next('.grid-item').length > 0) ? $active.next('.grid-item') : $('.grid-items.-active .grid-item:first');
     if ($next[0] === $active[0]) { return; } // Just return if there's only one item
     $next.find('.grid-item-activate').trigger('click');
-    $('.active-grid-item-container .grid-item-data').addClass('enterRight');
+    $('.active-grid-item-container .item-data-container').addClass('enterRight');
+    $('.active-grid-item-container .item-data-container').scrollTop(0);
   }
 
   function _prevGridItem() {
@@ -289,7 +366,8 @@ var FBSage = (function($) {
     var $prev = ($active.prev('.grid-item').length > 0) ? $active.prev('.grid-item') : $('.grid-items.-active .grid-item:last');
     if ($prev[0] === $active[0]) { return; } // Just return if there's only one item
     $prev.find('.grid-item-activate').trigger('click');
-    $('.active-grid-item-container .grid-item-data').addClass('enterLeft');
+    $('.active-grid-item-container .item-data-container').addClass('enterLeft');
+    $('.active-grid-item-container .item-data-container').scrollTop(0);
   }
 
   function _showOverlay() {
@@ -319,6 +397,54 @@ var FBSage = (function($) {
     $('.grid-item.-active').removeClass('-active');
     $('.grid-items.-active').removeClass('-active');
     $activeDataContainer.empty();
+  }
+
+    // Load AJAX content to show in a modal & store in page_cache array
+  function _loadGridItem() { 
+    $.ajax({
+      url: ajax_handler_url,
+      method: 'get',
+      dataType: 'html',
+      data: {
+        'action': 'load_post_modal',
+        'post_url': State.url
+      },
+      success: function(response) {
+        page_cache[encodeURIComponent(State.url)] = $.parseHTML(response);
+        _showGridItem();
+      }
+    });
+  }
+
+  // Function to update document title after state change
+  function _updateTitle() {
+    var title = '';
+    if ($('.active-grid-item-container.-active [data-page-title]').length) {
+      title = $('.active-grid-item-container [data-page-title]').first().attr('data-page-title');
+    } else {
+      title = original_page_title;
+    }
+    if (title === '') {
+      title = 'VestedWorld';
+    } else if (!title.match(/VestedWorld/)) {
+      title = title + ' – VestedWorld';
+    }
+    document.title = title;
+    try {
+      document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
+    } catch (Exception) {}
+  }
+
+  // Update og: tags after state change
+  function _updateOGTags() {
+    $('meta[property="og:url"]').attr('content', State.url);
+    $('meta[property="og:title"]').attr('content', document.title);
+    $('meta[property="og:type"]').attr('content', ($('body').is('.modal-active') ? 'article' : 'website') );
+    // If page has a hidden div with id="og-updates" extract these
+    if ($('#og-updates').length) {
+      $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
+      $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
+    }
   }
 
   function _initDraggableElements() {
@@ -388,6 +514,22 @@ var FBSage = (function($) {
     breakpoint_small = (screenWidth > breakpoint_array[0]);
     breakpoint_medium = (screenWidth > breakpoint_array[1]);
     breakpoint_large = (screenWidth > breakpoint_array[2]);
+
+    _setHeaderOffset;
+  }
+
+  // Header offset w/wo wordpress admin bar
+  function _setHeaderOffset() {
+    if (breakpoint_medium) {
+      if ($('body').hasClass('admin-bar')) {
+        wpAdminBar = true;
+        headerOffset = $('#wpadminbar').outerHeight() + $('.site-header').outerHeight();
+      } else {
+        headerOffset = $('.site-header').outerHeight();
+      }
+    } else {
+      headerOffset = 0;
+    }
   }
 
   // Called on scroll

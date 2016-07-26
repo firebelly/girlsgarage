@@ -77,7 +77,7 @@ function edit_columns($columns){
     'cb' => '<input type="checkbox" />',
     'title' => 'Title',
     '_cmb2_program_subtitle' => 'Subtitle',
-    'categories' => 'Type',
+    'program_type' => 'Type',
     '_cmb2_program_season' => 'Season',
     'program_dates' => 'Date',
   );
@@ -100,6 +100,8 @@ function custom_columns($column){
         $date_txt = date('m/d/Y g:iA', $timestamp_start);
       }
       echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
+    } elseif ( $column == 'program_type') {
+      echo get_the_term_list($post->ID,'program_type','',', ',''); 
     } else {
       if (array_key_exists($column, $custom))
         echo $custom[$column][0];
@@ -240,7 +242,19 @@ function metaboxes( array $meta_boxes ) {
           'name'    => 'Registration Link',
           'id'      => $prefix . 'registration_url',
           'type'    => 'text',
-      )
+      ),
+      array(
+          'name'    => 'Registration full',
+          'id'      => $prefix . 'registration_is_full',
+          'desc'    => 'Is the registration for the program filled up?',
+          'type'    => 'checkbox',
+      ),
+      array(
+          'name'    => 'Waitlist text',
+          'id'      => $prefix . 'waitlist_text',
+          'desc'    => 'The text to display to be put on a waitlist (ex: email info@girlsgarage to be placed on a waitlist)',
+          'type'    => 'text',
+      ),
     ),
   );
 
@@ -288,6 +302,7 @@ function metaboxes( array $meta_boxes ) {
         'desc'      => 'Select all that apply',
         'id'        => $prefix . 'program_badges',
         'type'      => 'multicheck',
+        'multiple'  => true,
         'options'   => \Firebelly\CMB2\get_post_options(['post_type' => 'badge', 'numberposts' => -1]),
       )
     ),
@@ -398,7 +413,7 @@ function get_program_details($post) {
     'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
     'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
-    'badges' => get_post_meta($post->ID, '_cmb2_program_badges', true),
+    'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
   ];
   // Is this program multiple days?
   $program['multiple_days'] = (date('Y-m-d', $program['start']) != date('Y-m-d', $program['end']));
