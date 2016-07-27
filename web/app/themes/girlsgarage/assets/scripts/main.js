@@ -515,7 +515,7 @@ var FBSage = (function($) {
     breakpoint_medium = (screenWidth > breakpoint_array[1]);
     breakpoint_large = (screenWidth > breakpoint_array[2]);
 
-    _setHeaderOffset;
+    _setHeaderOffset();
   }
 
   // Header offset w/wo wordpress admin bar
