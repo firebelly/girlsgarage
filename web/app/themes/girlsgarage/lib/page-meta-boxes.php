@@ -82,6 +82,26 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['wishlist'] = array(
+    'id'            => 'wishlist',
+    'title'         => __( 'Wishlist', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'context'       => 'normal',
+    'show_on'       => array( 'key' => 'page-template', 'value' => 'page-other-ways-to-help.php'),
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      
+      // General page fields
+      array(
+        'name' => 'Wishlist Content',
+        'desc' => 'The content of the wishlist section',
+        'id'   => $prefix . 'wishlist',
+        'type' => 'wysiwyg',
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );

@@ -1,0 +1,41 @@
+// Other Ways to Help Page
+
+.page.other-ways-to-help {
+  .secondary-header {
+    .card {
+      .-inner {
+        padding-bottom: $global-padding;
+      }
+      h2 {
+        color: $red;
+        @include headline-dash('after', $gray-lite);
+      }
+    }
+  }
+
+  .page-bottom {
+    .card {
+      h2 {
+        color: $red;
+        @include headline-dash('after', $gray-lite);
+      }
+
+      .user-content {
+        margin-bottom: #{$vertical-beat * 6};
+        ul {
+          li {
+            &::before {
+              background: url('../images/icon-arrow-right-red.svg');
+              background-size: 6px;
+            }
+          }
+        }
+      }
+
+      @include media-md {
+        float: right;
+        width: 66.6666%;
+      }
+    }
+  }
+}
