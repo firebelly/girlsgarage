@@ -47,10 +47,10 @@ var FBSage = (function($) {
     _injectSvgSprite();
     _initBigClicky();
     _initFormActions();
-    _initDraggableElements();
     _initBadgeOverlay();
     _initItemGrid();
     _initStateHandling();
+    _initDraggableElements();
 
     // Esc handlers
     $(document).keyup(function(e) {
