@@ -65,7 +65,6 @@ function edit_columns($columns){
     'title' => 'Name',
     '_cmb2_title' => 'Title',
     'content' => 'Bio',
-    'featured_image' => 'Image',
   );
   return $columns;
 }
@@ -100,9 +99,9 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-        'name' => 'Title',
-        'desc' => 'e.g. Co-Founder',
-        'id'   => $prefix . 'title',
+        'name' => 'Url',
+        'desc' => 'e.g. http://partner.com',
+        'id'   => $prefix . 'url',
         'type' => 'text_medium',
       ),
     ),
@@ -111,6 +110,12 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+// Hide featured image
+function remove_thumbnail_box() {
+  remove_meta_box('postimagediv', 'partner', 'side');
+}
+add_action( 'do_meta_boxes', __NAMESPACE__ . '\remove_thumbnail_box' );
 
 /**
  * Get Partners
@@ -127,17 +132,11 @@ function get_partners($options=[]) {
   $partner_posts = get_posts($args);
   if (!$partner_posts) return false;
 
-  $output = '<ul class="grid-items partners-grid">';
-
   foreach ( $partner_posts as $post ):
-    $output .= '<li class="grid-item partner">';
     ob_start();
     include(locate_template('templates/article-partner.php'));
     $output .= ob_get_clean();
-    $output .= '</li>';
   endforeach;
-
-  $output .= '</ul>';
 
   return $output;
 }

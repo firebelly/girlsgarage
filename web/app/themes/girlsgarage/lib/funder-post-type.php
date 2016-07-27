@@ -99,7 +99,7 @@ function metaboxes( array $meta_boxes ) {
     'fields'        => array(
       array(
         'name' => 'Url',
-        'desc' => 'e.g. http://sonsor.com',
+        'desc' => 'e.g. http://funder.com',
         'id'   => $prefix . 'url',
         'type' => 'text_medium',
       ),
@@ -111,7 +111,6 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 // Hide featured image
-
 function remove_thumbnail_box() {
   remove_meta_box('postimagediv', 'funder', 'side');
 }
@@ -138,7 +137,7 @@ function get_funders($options=[]) {
     $url = get_post_meta($post->ID, '_cmb2_url', true);
     $output .= '<li class="grid-item funder" id="'.$post->post_name.'">';
     ob_start();
-    $output .= '<h3><a href="'.$url.'">'.$post->post_title.'</a></h3>';
+    $output .= '<h3><a href="'.$url.'" target="_blank">'.$post->post_title.'</a></h3>';
     $output .= ob_get_clean();
     $output .= '</li>';
   endforeach;

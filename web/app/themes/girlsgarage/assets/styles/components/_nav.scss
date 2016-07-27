@@ -88,8 +88,8 @@
     overflow: hidden;
     transition: max-height .3s ease-out;
     &::before {
+      top: 0;
       left: 0;
-      top: 10px;
       width: 6px;
       height: 3px;
       content: '';
@@ -195,6 +195,9 @@
       overflow: visible;
       position: relative;
       transition: opacity .2s ease-out;
+      &::before {
+        top: 10px;
+      }
       li {
         width: 130px;
         &:first-of-type {

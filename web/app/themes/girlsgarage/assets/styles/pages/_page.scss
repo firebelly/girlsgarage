@@ -113,9 +113,13 @@
 
 // Grids of cards
 .card-grid {
-  padding: 1px;
+  @include media-lg {
+    margin-top: -100px;
+  }
+
   .card {
     width: 100%;
+
     @include media-md {
       min-width: 1px;
       max-width: 100%;
@@ -136,7 +140,8 @@
     }
 
     &.-white {
-      outline: 1px solid $gray-lite;
+      border-left: 1px solid $gray-lite;
+      border-bottom: 1px solid $gray-lite;
       h3 {
         color: $red;
       }
@@ -167,6 +172,7 @@
     }
 
     @include media-lg {
+      margin-top: 0;
       .card {
         float: right;
         width: 66.6666%;

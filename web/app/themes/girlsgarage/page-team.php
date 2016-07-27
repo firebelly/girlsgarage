@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="page-secondary-content card -purple -cut-right page-content user-content">
+    <div class="page-secondary-content card -purple -cut-right page-content">
       <div class="-inner">
         <h3 class="section-title">Our Staff</h3>
         <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'staff', 'person_type')->term_id]); ?>

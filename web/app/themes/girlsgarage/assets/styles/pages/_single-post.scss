@@ -2,6 +2,19 @@
 
 body.single {
 
+  .site-nav a {
+    &:hover {
+      color: $red;
+    }
+  }
+  .site-header.sub-menu-active {
+    .site-nav a {
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+
   .site-main {
     padding-bottom: 0;
     background: $black;
