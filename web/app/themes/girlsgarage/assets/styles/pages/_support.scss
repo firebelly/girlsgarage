@@ -1,0 +1,13 @@
+// Support Page
+
+.page.support {
+  .page-secondary-content-wrap {
+    &::after {
+      left: 0;
+      bottom: -#{$global-padding * 2};
+    }
+    @include media-md {
+      margin-bottom: $global-padding;
+    }
+  }
+}

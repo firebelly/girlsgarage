@@ -49,6 +49,8 @@
   .person {
     color: $white;
     cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: #{$vertical-beat * 3};
     .photo {
       display: none;
       margin-bottom: #{$vertical-beat * 4};

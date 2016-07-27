@@ -1,5 +1,37 @@
 // Stories Styles
 
+.blog {
+  .story-snippet {
+    position: relative;
+    .post-thumb {
+      top: 50%;
+      z-index: 1;
+      margin-top: 0;
+      position: absolute;
+      right: -#{$global-padding / 2};
+      transform: translate(100%, -50%);
+    }
+    &:nth-of-type(odd) {
+      .post-thumb {
+        right: auto;
+        left: -#{$global-padding / 2};
+        transform: translate(-100%, -50%);
+      }
+    }
+  }
+
+  .secondary-header {
+    .story-snippet {
+      position: relative;
+      .post-thumb {
+        left: auto;
+        right: -#{$global-padding / 2};
+        transform: translate(100%, -50%);
+      }
+    }
+  }
+}
+
 .story-module {
   margin-top: 100px;
   @include media-lg {

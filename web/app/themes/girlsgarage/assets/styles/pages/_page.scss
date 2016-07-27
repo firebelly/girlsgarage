@@ -143,6 +143,8 @@
     }
 
     .-inner {
+      z-index: 1;
+      position: relative;
       padding-bottom: #{$global-padding + 50px};
     }
 
@@ -152,5 +154,75 @@
       left: #{$global-padding / 2};
       bottom: #{$global-padding / 2};
     }
+  }
+
+  &.-jagged {
+    display: block;
+    @include clearfix;
+    .card {
+      .btn.more {
+        left: $global-padding;
+        right: $global-padding;
+      }
+    }
+
+    @include media-lg {
+      .card {
+        float: right;
+        width: 66.6666%;
+        position: relative;
+        &::before {
+          z-index: 2;
+        }
+        &::after {
+          top: 0;
+          left: -50%;
+          content: '';
+          position: absolute;
+          @extend .sprite-icon;
+          @include sprite($pattern-large-2-black);
+        }
+        &:nth-of-type(even) {
+          float: left;
+          &::after {
+            top: auto;
+            bottom: 0;
+            left: 100%;
+            transform: rotate(90deg);
+            transform-origin: center left;
+            @include sprite($pattern-large-black);
+          }
+        }
+      }
+    }
+    @include media-xl {
+     .card {
+       float: right;
+       width: 66.6666%;
+       max-width: 66.6666%;
+       &:nth-of-type(even) {
+         float: left;
+       }
+     } 
+    }
+  }
+}
+
+// Bulleted lists
+.bulleted-list {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+    position: relative;
+    padding-left: #{$vertical-beat * 3};
+  }
+  .icon {
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 12px;
+    position: absolute;
+    margin-right: #{$vertical-beat * 2};
   }
 }

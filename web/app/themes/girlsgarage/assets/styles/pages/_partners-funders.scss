@@ -1,0 +1,16 @@
+// Funders/Partners Pages
+
+.page.funders,
+.page.funders {
+  .bulleted-list {
+    h3 {
+      font-size: 15px;
+    }
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

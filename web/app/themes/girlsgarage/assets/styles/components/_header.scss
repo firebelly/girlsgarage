@@ -224,6 +224,57 @@
   background-size: cover;
   background-position: top center;
 
+  &.contains-card {
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    .wrap {
+      width: 100%;
+    }
+    .card-grid {
+      .card {
+        outline: none;
+        margin-top: 200px;
+        margin-bottom: -1px;
+        &::before {
+          z-index: 2;
+        }
+        .btn.more {
+          left: $global-padding;
+          right: $global-padding;
+        }
+        
+        @include media-md {
+          margin-top: 0;
+          &::after {
+            bottom: 0;
+            left: 100%;
+            content: '';
+            position: absolute;
+            @extend .sprite-icon;
+            transform: rotate(90deg);
+            transform-origin: center left;
+            @include sprite($pattern-large-black);
+          }
+        }
+        @include media-lg {
+          width: 66.6666%;
+        }
+        @include media-xl {
+         width: 66.6666%;
+         max-width: 66.6666%;
+        }
+      }
+
+    }
+
+    @include media-md {
+      height: auto;
+      min-height: 600px;
+      padding-top: $global-padding;
+    }
+  }
+
   @include media-md {
     height: 600px;
     position: relative;

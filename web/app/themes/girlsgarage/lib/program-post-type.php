@@ -413,6 +413,8 @@ function get_program_details($post) {
     'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
     'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
+    'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),
+    'waitlist_text' => get_post_meta($post->ID, '_cmb2_waitlist_text', true),
     'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
   ];
   // Is this program multiple days?

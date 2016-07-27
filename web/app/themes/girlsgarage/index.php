@@ -17,24 +17,50 @@
   </div>
 </div>
 
-<div class="secondary-header" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
-</div>
-<div class="wrap -flush">
-  <div class="page-secondary-content page-content user-content">
-    <div class="-inner">
-      <?php if (!have_posts()) : ?>
-        <div class="alert alert-warning">
-          <?php _e('Sorry, no results were found.', 'sage'); ?>
-        </div>
-        <?php get_search_form(); ?>
-      <?php endif; ?>
+<div class="secondary-header contains-card" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
+  <div class="wrap -flush">
+    <div class="two-thirds card-grid -left">
+      <?php
+
+      $args = array(
+          'post_type' => 'post',
+          'order' => 'ASC',
+          'posts_per_page' => 1
+      );
+
+      query_posts( $args ); ?>
 
       <?php while (have_posts()) : the_post(); ?>
-        <?php get_template_part('templates/content-story-snippet', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
+          <?php get_template_part('templates/content-story-snippet'); ?>
       <?php endwhile; ?>
+    </div>
+  </div>
+</div>
+<div class="page-bottom wrap -flush grid">
+  <div class="page-secondary-content-wrap">
+    <div class="two-thirds -left card-grid -jagged">
 
-      <?php the_posts_navigation(); ?>
+        <?php
 
+        $args = array(
+            'post_type' => 'post',
+            'order' => 'ASC',
+            'offset' => 1,
+            'posts_per_page' => 10
+        );
+
+        query_posts( $args ); ?>
+
+        <?php while (have_posts()) : the_post(); ?>
+            <?php get_template_part('templates/content-story-snippet'); ?>
+        <?php endwhile; ?>
+
+
+
+      </div>
+      <div class="one-third -right">
+        <?php the_posts_navigation(); ?>
+      </div>
     </div>
   </div>
 </div>

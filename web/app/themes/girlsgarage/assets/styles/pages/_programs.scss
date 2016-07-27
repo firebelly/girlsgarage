@@ -176,11 +176,13 @@
 
         .post-title {
           @extend .h1;
+          font-size: 15px;
+          margin-bottom: 0;
           a {
             position: relative;
             text-decoration: none;
             span {
-              padding-bottom: #{$vertical-beat / 2};
+              padding-bottom: 0;
               border-bottom: 1px solid rgba($black,0);
             }
             &:hover {
@@ -189,6 +191,13 @@
               }
             }
           }
+        }
+
+        .program-status {
+          @extend .h1;
+          color: $purple;
+          font-size: 15px;
+          margin-top: .5em;
         }
       }
 

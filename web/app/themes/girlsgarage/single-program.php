@@ -72,7 +72,11 @@
             </ul>
           </div>
           <div class="registration">
+            <?php if (empty($program->registration_is_full)) { ?>
             <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= $program->registration_link_text ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+            <?php } else { ?>
+              <p><?= $program->waitlist_text ?></p>
+            <?php } ?>
           </div>
         </div>
       </div>

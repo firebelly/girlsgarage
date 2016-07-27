@@ -132,12 +132,13 @@ function get_funders($options=[]) {
   $funder_posts = get_posts($args);
   if (!$funder_posts) return false;
 
-  $output = '<ul class="grid-items funders-grid">';
+  $output = '<ul class="grid-items funders-list bulleted-list">';
 
   foreach ( $funder_posts as $post ):
-    $output .= '<li class="grid-item funder">';
+    $url = get_post_meta($post->ID, '_cmb2_url', true);
+    $output .= '<li class="grid-item funder" id="'.$post->post_name.'">';
     ob_start();
-    include(locate_template('templates/article-funder.php'));
+    $output .= '<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><h3><a href="'.$url.'">'.$post->post_title.'</a></h3>';
     $output .= ob_get_clean();
     $output .= '</li>';
   endforeach;
