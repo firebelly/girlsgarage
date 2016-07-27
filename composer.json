@@ -38,14 +38,23 @@
     "vlucas/phpdotenv": "^2.0.1",
     "johnpbloch/wordpress": "4.5.3",
     "oscarotero/env": "^1.0",
-    "roots/wp-password-bcrypt": "1.0.0"
+    "roots/wp-password-bcrypt": "1.0.0",
+    "roots/soil": ">=3.0.0",
+    "wpackagist-plugin/wp-full-stripe-free": "1.4.0",
+    "wpackagist-plugin/duplicate-post": ">=2.6",
+    "wpackagist-plugin/redirection": ">=2.3.16",
+    "wpackagist-plugin/intuitive-custom-post-order": "*",
+    "wpackagist-plugin/cmb2": ">=2.0.2",
+    "wpackagist-plugin/akismet": ">=3.1.1",
+    "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
+    "wpackagist-plugin/update-from-bottom": ">=1.0.3"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/intuitive-custom-post-order", "wpackagist-plugin/update-from-bottom", "wpackagist-plugin/google-sitemap-generator", "wpackagist-plugin/redirection"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },
