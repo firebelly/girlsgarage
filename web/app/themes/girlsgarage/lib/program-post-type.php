@@ -275,17 +275,7 @@ function metaboxes( array $meta_boxes ) {
           'name'    => 'Address',
           'id'      => $prefix . 'address',
           'type'    => 'address',
-      ),
-      array(
-          'name'    => 'Lat',
-          'id'      => $prefix . 'lat',
-          'type'    => 'hidden',
-      ),
-      array(
-          'name'    => 'Lng',
-          'id'      => $prefix . 'lng',
-          'type'    => 'hidden',
-      ),
+      )
     ),
   );
 
@@ -352,7 +342,7 @@ function get_programs($options=[]) {
 }
 
 /**
- * Geocode address for program and save in custom fields
+ * Geocode address for event and save in custom fields
  */
 function geocode_address($post_id, $post='') {
   $address = get_post_meta($post_id, '_cmb2_address', 1);
