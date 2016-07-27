@@ -76,6 +76,10 @@
       }
       > .wrap {
         > .brand {
+          width: 35px;
+          height: 54px;
+          margin-bottom: 0;
+          overflow: hidden;
           svg {
             width: 115px;
           }
@@ -95,7 +99,7 @@
     &.-sticky {
       height: auto;
       background: none;
-      padding: #{$vertical-beat * 5} 0;
+      padding: #{$vertical-beat * 5} 0 0;
 
       &::before {
         top: 0;
@@ -110,10 +114,10 @@
 
       > .wrap {
         > .brand {      
-          width: 100%;
+          width: 47px;
           bottom: auto;
+          height: 70px;
           margin-top: 8px;
-          height: 130px;
           max-width: 150px;
           transform: translateY(0);
           .logo-mark-header {
