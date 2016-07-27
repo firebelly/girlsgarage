@@ -138,7 +138,7 @@ function get_funders($options=[]) {
     $url = get_post_meta($post->ID, '_cmb2_url', true);
     $output .= '<li class="grid-item funder" id="'.$post->post_name.'">';
     ob_start();
-    $output .= '<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><h3><a href="'.$url.'">'.$post->post_title.'</a></h3>';
+    $output .= '<h3><a href="'.$url.'">'.$post->post_title.'</a></h3>';
     $output .= ob_get_clean();
     $output .= '</li>';
   endforeach;
