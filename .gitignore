@@ -32,3 +32,6 @@ bin
 
 # Mac shiiii
 .DS_Store
+
+# Cap log
+log
