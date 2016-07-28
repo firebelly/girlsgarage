@@ -92,73 +92,73 @@
       padding-left: $global-padding;
     }
   }
+}
 
-  .grid-nav {
-    color: $red;
-    @include clearfix;
-    position: relative;
-    padding: #{$vertical-beat * 4} #{$vertical-beat * 4} 0 0;
+.grid-nav {
+  color: $red;
+  @include clearfix;
+  position: relative;
+  padding: #{$vertical-beat * 4} #{$vertical-beat * 4} 0 0;
+
+  .-inner {
+    float: right;
+  }
+
+  button {
+    margin-left: #{$vertical-beat * 4};
+    .icon-arrow-right,
+    .icon-arrow-left {
+      fill: $red;
+    }
+    .icon-circle-stroke {
+      stroke: $red;
+    }
+  }
+
+  .button-close {
+    float: right;
+    margin-bottom: #{$vertical-beat * 5};
+  }
+  .button-prev {
+    margin-bottom: #{$vertical-beat * 2};
+  }
+
+  @include media-md {
+    right: 0;
+    width: 50%;
+    position: fixed;
+    top: $global-padding;
+    padding: 0 0 0 $global-padding;
+    &::before {
+      top: 45px;
+      left: #{$global-padding - 10px};
+      content: '';
+      height: 1px;
+      background: $white;
+      position: absolute;
+      right: -$global-padding;
+    }
+    &::after {
+      top: 45px;
+      width: 1px;
+      content: '';
+      left: #{$global-padding - 10px};
+      background: $white;
+      position: absolute;
+      height: #{$vertical-beat * 2};
+    }
 
     .-inner {
-      float: right;
+      float: none;
     }
 
     button {
-      margin-left: #{$vertical-beat * 4};
-      .icon-arrow-right,
-      .icon-arrow-left {
-        fill: $red;
-      }
-      .icon-circle-stroke {
-        stroke: $red;
-      }
+      display: block;
+      margin-left: 0;
     }
 
     .button-close {
-      float: right;
-      margin-bottom: #{$vertical-beat * 5};
-    }
-    .button-prev {
-      margin-bottom: #{$vertical-beat * 2};
-    }
-
-    @include media-md {
-      right: 0;
-      width: 50%;
-      position: fixed;
-      top: $global-padding;
-      padding: 0 0 0 $global-padding;
-      &::before {
-        top: 45px;
-        left: #{$global-padding - 10px};
-        content: '';
-        height: 1px;
-        background: $white;
-        position: absolute;
-        right: -$global-padding;
-      }
-      &::after {
-        top: 45px;
-        width: 1px;
-        content: '';
-        left: #{$global-padding - 10px};
-        background: $white;
-        position: absolute;
-        height: #{$vertical-beat * 2};
-      }
-
-      .-inner {
-        float: none;
-      }
-
-      button {
-        display: block;
-        margin-left: 0;
-      }
-
-      .button-close {
-        float: none;
-      }
+      float: none;
     }
   }
 }

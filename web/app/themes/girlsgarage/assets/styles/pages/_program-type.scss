@@ -1,0 +1,219 @@
+// Program type page
+
+.page-template-program-type {
+  .site-main {
+    background: $black;
+  }
+  .page-header {
+    &::after {
+      display: none;
+    }
+  }
+  .site-nav a {
+    &:hover {
+      color: $red;
+    }
+  }
+  .site-header.sub-menu-active {
+    .site-nav a {
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+
+  .program-nav {
+    .program-overlay-close {
+      display: none;
+    }
+    .program-type-page-link {
+      display: inline-block;
+    }
+  }
+}
+
+.program-type {
+
+  .page-header {
+    padding: #{$global-padding * 1.5} 0 $global-padding;
+  }
+
+  .page-intro {
+    width: 100%;
+    @include clearfix;
+    position: relative;
+
+    @include media-md {    
+      .page-intro-content {
+        width: 50%;
+        float: right;
+      }
+    }
+  }
+
+  .program-nav {
+    color: $red;
+    padding-top: #{$vertical-beat * 3};
+    .divider {
+      display: none;
+      margin-left: -12px;
+      border: 1px solid $gray-lite;
+      border-right: none;
+      border-bottom: none;
+      width: calc(100% + 12px);
+      height: #{$vertical-beat * 2};
+      margin-top: #{$vertical-beat * 2};
+    }
+    
+    .close-container,
+    .season-nav,
+    .program-cat-list {
+      float: right;
+      width: 33.3333%;
+      padding: 0 #{$vertical-beat * 3};
+    }
+
+    .button-close {
+      .icon {
+        z-index: 0;
+      }
+    }
+
+    .icon-arrow-right,
+    .icon-arrow-left {
+      fill: $red;
+    }
+    .icon-circle-stroke {
+      stroke: $red;
+    }
+
+    .season-nav {
+      display: none; // Change this when you get the season nav figured out
+      button {
+        display: block;
+      }
+    }
+
+    .program-cat-list {
+      p {
+        @extend .h2;
+        color: $gray-lite;
+        -webkit-font-smoothing: antialiased;
+      }
+      ul {
+        padding: 0;
+        li {
+          list-style: none;
+          max-width: $global-padding;
+          @include headline-dash('before', $gray-lite);
+          &::before {
+            width: 4px;
+            height: 1px;
+            margin-bottom: 8px;
+          }
+          h5 {
+            @extend .h2;
+            margin-top: 0;
+            font-size: 8px;
+            margin-bottom: 6px;
+            -webkit-font-smoothing: antialiased;
+          }
+          a {
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    @include media-md {
+      padding-top: 0;
+      position: relative;
+      right: -$global-padding;
+
+      .divider {
+        display: block;
+      }
+
+      .close-container,
+      .season-nav,
+      .program-cat-list {
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+
+  .page-bottom {
+    @include media-md {
+      margin-top: $global-padding;
+    }
+  }
+
+  .card-grid.-jagged {
+
+    @include media-lg {
+      .card {
+        float: left;
+        &::after {
+          top: auto;
+          bottom: 0;
+          left: 100%;
+          transform: rotate(90deg);
+          transform-origin: center left;
+          @include sprite($pattern-large-gray);
+        }
+        &:nth-of-type(even) {
+          float: right;
+          &::after {
+            top: 0;
+            left: -50%;
+            content: '';
+            transform: none;
+            position: absolute;
+            @extend .sprite-icon;
+            @include sprite($pattern-large-2-gray);
+          }
+        }
+      }
+    }
+  }
+
+  .program-listing {
+    position: relative;
+    .post-thumb {
+      top: 50%;
+      z-index: 1;
+      margin-top: 0;
+      position: absolute;
+      right: -#{$global-padding / 2};
+      transform: translate(100%, -50%);
+    }
+    &:nth-of-type(even) {
+      .post-thumb {
+        right: auto;
+        left: -#{$global-padding / 2};
+        transform: translate(-100%, -50%);
+      }
+    }
+    .program-meta {
+      @extend .h2;
+      color: $black;
+      margin-bottom: #{$vertical-beat * 3};
+      p {
+        margin: 0;
+      }
+    }
+    .program-title {
+      @include headline-dash('both', $gray-lite);
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

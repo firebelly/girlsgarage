@@ -1,13 +1,14 @@
 $corner: -0px -0px 15px 15px;
-$registration: -0px -15px 35px 35px;
-$triple-pattern-purple: -0px -50px 105px 35px;
-$triple-pattern-white: -0px -85px 105px 35px;
-$triple-pattern: -0px -120px 105px 35px;
+$triple-pattern: -0px -15px 105px 35px;
+$triple-pattern-white: -0px -50px 105px 35px;
+$triple-pattern-purple: -0px -85px 105px 35px;
+$registration: -0px -120px 35px 35px;
 $triple-pattern-large: -0px -155px 210px 70px;
 $pattern-large-2-black: -0px -225px 350px 140px;
-$pattern-large-black: -0px -365px 140px 280px;
-$pattern-large-gray: -0px -645px 140px 280px;
-$pattern-large-2-purple: -0px -925px 140px 350px;
+$pattern-large-2-gray: -0px -365px 350px 140px;
+$pattern-large-black: -0px -505px 140px 280px;
+$pattern-large-gray: -0px -785px 140px 280px;
+$pattern-large-2-purple: -0px -1065px 140px 350px;
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);
 }
@@ -40,6 +41,6 @@ $pattern-large-2-purple: -0px -925px 140px 350px;
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .sprite-icon {
     background-image: url('../images/sprite@2x.png');
-    background-size: 350px 1275px;
+    background-size: 350px 1415px;
   }
 }

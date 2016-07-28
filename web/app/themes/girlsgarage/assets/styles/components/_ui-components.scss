@@ -122,6 +122,15 @@
       @include card($red, left, $triple-pattern);
     }
   }
+  &.-clear {
+    color: $white;
+    &.-cut-right {
+      @include card(transparent, right, $triple-pattern-white);
+    }
+    &.-cut-left {
+      @include card(transparent, left, $triple-pattern-white);
+    }
+  }
 
   @include media-md {
     min-width: 300px;

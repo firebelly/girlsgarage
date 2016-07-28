@@ -4,6 +4,14 @@
 ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
+<div class="program-overlay">
+  
+  <div class="program-type-container">
+    
+  </div>
+
+</div>
+
 <div class="page-intro">
   <div class="page-intro-content card -red -cut-left">
     <div class="-inner">
@@ -41,7 +49,8 @@
     <?php
 
       $program_types = get_categories( array(
-        'taxonomy' => 'program_type'
+        'taxonomy' => 'program_type',
+        'hide_empty' => 0
       ));
 
     foreach ($program_types as $program_type) {
@@ -49,7 +58,7 @@
               <div class="-inner">
                 <h3>'.$program_type->name.'</h3>
                 <p>'.category_description($program_type->term_id).'</p>
-                <a href="" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+                <a href="'.get_permalink().$program_type->slug.'" class="btn more -red load-program-type">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               </div>
             </div>';
     }

@@ -313,7 +313,13 @@ function get_programs($options=[]) {
     'post_type' => 'program',
     'meta_key' => '_cmb2_program_start',
     'orderby' => 'meta_value_num',
-    // 'taxonomy' => 'program_type',
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'program_type',
+        'field' => 'id',
+        'terms' => $options['program_type']
+      )
+    )
   ];
   // Make sure we're only pulling upcoming or past programs
   $args['order'] = !empty($options['past_programs']) ? 'DESC' : 'ASC';
@@ -386,6 +392,7 @@ function get_program_details($post) {
   $program = [
     'ID' => $post->ID,
     'title' => $post->post_title,
+    'name' => $post->post_name,
     'subtitle' => get_post_meta($post->ID, '_cmb2_program_subtitle', true),
     'body' => apply_filters('the_content', $post->post_content),
     'tuition' => get_post_meta($post->ID, '_cmb2_tuition', true),

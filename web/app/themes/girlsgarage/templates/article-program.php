@@ -1,19 +1,23 @@
 <?php
-$program = \Firebelly\PostTypes\Program\get_program_details($program_post);
-$program_url = get_permalink($program_post);
-$photo = get_the_post_thumbnail($program->ID, 'grid-thumb');
+$post_thumb = \Firebelly\Media\get_header_bg($program, '','color', 'grid-thumb');
+$program_details = \Firebelly\PostTypes\Program\get_program_details($program);
+$program_url = get_permalink($program_details->ID);
 ?>
 
-<article id="<?= $program->post_name ?>" class="bigclicky" data-id="<?= $program->ID ?>" data-page-title="<?= $program->post_title ?>" data-page-url="<?= get_permalink($program) ?>">
-  <div class="program-meta">
-    <h3><a href="<?= $program_url ?>"><?= $program->title ?></a></h3>
-    <h4 class="program-when">
-      <span><?= $program->days ?></span>
-      <span><?= date('m/d/y', $program->start) ?></span> - <span><?= date('m/d/y', $program->end) ?></span>, <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span>
-    </h4>
-  </div>
-  <h3><?= $program->subtitle ?></h3>
-  <div class="content user-content">
-    <?= $program->description ?>
+<article id="<?= $program_details->name ?>" class="program-listing card -white -cut-right" data-id="<?= $program_details->ID ?>" data-page-title="<?= $program_details->title ?>" data-page-url="<?= $program_url ?>">
+  <div class="post-thumb" <?= $post_thumb ?>></div>
+  <div class="-inner">
+    <div class="program-meta">
+      <p><?= $program_details->subtitle ?></p>
+      <p class="program-when">
+        <span><?= $program_details->days ?></span><br>
+        <span><?= date('m/d/y', $program_details->start) ?></span> - <span><?= date('m/d/y', $program_details->end) ?></span>, <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span>
+      </p>
+    </div>
+    <h3 class="program-title"><a href="<?= $program_url ?>"><?= $program_details->title ?></a></h3>
+    <div class="content user-content">
+      <?= $program_details->description ?>
+    </div>
+    <a href="<?= $program_url ?>" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
   </div>
 </article>

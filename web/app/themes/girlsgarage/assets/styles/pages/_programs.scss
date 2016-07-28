@@ -2,6 +2,53 @@
 
 .page.programs {
 
+  .program-overlay {
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    display: none;
+    min-height: 100%;
+    position: absolute;
+    background: rgba($black, .95);
+
+    &.-active {
+      display: block;
+    }
+
+    .page-header {
+      border: none;
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    .program-type {
+      .program-nav {
+        .program-type-page-link {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // Overlay active
+  &.program-overlay-active {
+    .site-nav a {
+      &:hover {
+        color: $red;
+      }
+    }
+    .site-header.sub-menu-active {
+      .site-nav a {
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+  }
+
   .page-bottom {
     padding: 0;
     @include clearfix;

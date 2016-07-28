@@ -49,6 +49,7 @@ var FBSage = (function($) {
     _initFormActions();
     _initBadgeOverlay();
     _initItemGrid();
+    _initProgramOverlay();
     _initStateHandling();
     _initDraggableElements();
 
@@ -154,6 +155,13 @@ var FBSage = (function($) {
           _loadGridItem();
         }
 
+      } else if (State.url !== original_url && relative_url.match(/^\/(programs|\d{0,4})\//)) { 
+        // Standard post modals
+        if (page_cache[encodeURIComponent(State.url)]) {
+          _showProgramType();
+        } else {
+          _loadProgramType();
+        }
       } else {
 
         // URL isn't handled as a modal or in-page filtering
@@ -165,6 +173,7 @@ var FBSage = (function($) {
           // Hide modals etc
           _closeGridItem();
           _hideOverlay();
+          _hideProgramOverlay();
         }
 
       }
@@ -277,6 +286,12 @@ var FBSage = (function($) {
     $document.on('click', '.badge-overlay-close', function() {
       _hideBadgeOverlay();
     });
+
+    $(window).load(function() {
+      if ($('body.programs').length && window.location.hash && $(window.location.hash).length) {
+        $(window.location.hash).trigger('click');
+      }
+    });
   }
 
   function _hideBadgeOverlay() {
@@ -302,7 +317,7 @@ var FBSage = (function($) {
 
     // Initial post?
     $(window).load(function() {
-      if (window.location.hash && $(window.location.hash).length) {
+      if (!$('body').is('.programs') && window.location.hash && $(window.location.hash).length) {
         var url = $(window.location.hash).attr('data-page-url');
         var parent_url = $(window.location.hash).attr('data-parent-url');
         History.replaceState({ignore_change: true}, null, '##');
@@ -437,6 +452,62 @@ var FBSage = (function($) {
         _showGridItem();
       }
     });
+  }
+
+  // Load AJAX content to show in a modal & store in page_cache array
+  function _initProgramOverlay() { 
+    $document.on('click', '.load-program-type', function(e) {
+      if (!$('body').is('.page-template-program-type')) {
+        e.preventDefault();
+        History.pushState({}, '', $(this).attr('href') || $(this).attr('data-page-url'));
+      }
+    });
+
+    $document.on('click', '.program-overlay-close', function() {
+      _hideProgramOverlay();
+    });
+
+    // Shut it down!
+    $('html, body').on('click', '.program-overlay-close', function(e) {
+      if (!$('body').hasClass('single')) {
+        History.pushState({}, '', original_url);
+      }
+    });
+  }
+
+  function _loadProgramType() {
+    $.ajax({
+      url: ajax_handler_url,
+      method: 'get',
+      dataType: 'html',
+      data: {
+        'action': 'load_program_type',
+        'post_url': State.url
+      },
+      success: function(response) {
+        page_cache[encodeURIComponent(State.url)] = $.parseHTML(response);
+        _showProgramType();
+      }
+    });
+  }
+
+  function _showProgramType() {
+
+      var $programContainer = $('.program-overlay'),
+          $activeDataContainer = $programContainer.find('.program-type-container');
+
+      $itemData = $(page_cache[encodeURIComponent(State.url)]);
+      _scrollBody($('body'));
+      $('body').addClass('program-overlay-active');
+      $activeDataContainer.empty();
+      $itemData.clone().appendTo($activeDataContainer);
+      $programContainer.addClass('-active');
+
+  }
+
+  function _hideProgramOverlay() {
+    $('.program-overlay').removeClass('-active');
+    $('body').removeClass('program-overlay-active');
   }
 
   // Function to update document title after state change

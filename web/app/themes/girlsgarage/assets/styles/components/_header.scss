@@ -177,7 +177,7 @@
 
 // Basic page header
 .page-header {
-  padding-top: 245px;
+  padding-top: 200px;
   background-size: cover;
   background-position: top center;
   padding-bottom: $global-padding;
@@ -189,7 +189,7 @@
   h1 {
     color: $white;
     line-height: 1;
-    font-size: 45px;
+    font-size: 32px;
   }
 
   @include media-md {

@@ -32,8 +32,17 @@
             <div class="meta-block post-nav">
               <nav class="post-nav">
                 <ul class="pager">
-                  <li class="previous"><?php previous_post_link( '%link', '&larr; %title' ); ?></li>
-                  <li class="next"><?php next_post_link( '%link', '%title &rarr;' ); ?></li>
+                  <li class="previous"><?php previous_post_link( '%link', '<div class="previous-item button-prev nav-button">
+                    <svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg>
+                    <svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg>
+                    Prev
+                    </div> <span>%title</span>' ); ?></li>
+                  <li class="next"><?php next_post_link( '%link', '<div class="next-item button-next nav-button">
+                    <svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg>
+                    <svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
+                    Next
+                  </div> <span>%title</span>' ); ?></li>
+
                 </ul>
               </nav>
             </div>

@@ -7,7 +7,10 @@
       margin: auto 0;
       line-height: 1;
       max-width: 5em;
-      font-size: 60px;
+      font-size: 45px;
+      @include media-md {
+        font-size: 60px;
+      }
     }
   }
 

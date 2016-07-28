@@ -1,5 +1,12 @@
 // Forms
 
+form {
+  input {
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+}
+
 // Newsletter form
 .newsletter-form {
   @extend .h2;

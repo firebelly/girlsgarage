@@ -95,6 +95,13 @@ body.single {
     p {
       margin-top: 0;
     }
+
+    time.updated {
+      @extend .h1;
+    }
+    .category {
+      @extend .h2;
+    }
   
     @include media-md {
      float: left;
@@ -102,6 +109,42 @@ body.single {
      height: 100%;
      width: 100% * 2 / 3;
     } 
+  }
+
+  .post-nav {
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+        margin-bottom: #{$vertical-beat * 3};
+      }
+    }
+
+    a {
+      display: block;
+      @include clearfix;
+      span {
+        margin-top: 10px;
+        display: inline-block;
+      }
+      &:hover {
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .nav-button {
+      float: left;
+      color: $black;
+      margin-right: 2px;
+      text-align: center;
+    }
+
+    .icon-circle-stroke {
+      stroke: $black;
+    }
+
   }
 
   .post-image {

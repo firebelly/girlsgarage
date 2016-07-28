@@ -21,6 +21,7 @@ $allowed_actions = array(
     'load_more_posts',
     'load_post_modal',
     'application_submission',
+    'load_program_type',
 );
 if (in_array($action, $allowed_actions)){
     if(is_user_logged_in())
