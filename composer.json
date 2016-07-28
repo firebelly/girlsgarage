@@ -54,7 +54,7 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/intuitive-custom-post-order", "wpackagist-plugin/update-from-bottom", "wpackagist-plugin/google-sitemap-generator", "wpackagist-plugin/redirection"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/intuitive-custom-post-order", "wpackagist-plugin/google-sitemap-generator", "wpackagist-plugin/redirection"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },

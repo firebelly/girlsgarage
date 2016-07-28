@@ -10,7 +10,7 @@
         wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
       endif;
       ?>
-      <a href="<?= \Firebelly\SiteOptions\get_option('shop_url'); ?>" class="shop-link">Shop</a>
+      <a href="<?= \Firebelly\SiteOptions\get_option('shop_url'); ?>" target="_blank" class="shop-link">Shop</a>
     </nav>
   </div>
 </header>
