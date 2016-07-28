@@ -3,20 +3,244 @@
 .page.donate {
   .page-bottom {
     @include media-md {
-      width: 100% * 2 / 3;
-    }
-
-    form {
-      input {
-        width: 100%;
-      }
-      fieldset {
-        border: none;
-      }
-      button[type=submit] {
-        @extend .btn;
-        @extend .-white-purple;
+      .card {
+        &::after {
+          top: 0;
+          left: 100%;
+          content: '';
+          position: absolute;
+          @extend .sprite-icon;
+          @include sprite($pattern-large-black);
+        }
       }
     }
   }
+
+  #payment-form {
+    color: $white;
+    margin-top: #{$vertical-beat * 6};
+    -webkit-font-smoothing: antialiased;
+    input {
+      width: 100%;
+      @extend .h2;
+      line-height: 1;
+      background: none;
+      text-transform: none;
+      border: 1px solid $white;
+      padding: #{$vertical-beat * 4} #{$vertical-beat * 3} #{$vertical-beat * 2} #{$vertical-beat * 3};
+      &:focus {
+        outline: none;
+        background: rgba($white,.15);
+      }
+    }
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: rgba($white,0);
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       opacity: 0;
+       color: rgba($white,0);
+    }
+    ::-moz-placeholder {
+       opacity: 0;
+       color: rgba($white,0);
+    }
+    :-ms-input-placeholder {
+       color: rgba($white,0);
+    }
+    fieldset {
+      margin: 0;
+      padding: 0; 
+      border: none;
+      > p {
+        display: none;
+      }
+    }
+    button[type=submit] {
+      width: 100%;
+      @extend .btn;
+      padding-right: 20px;
+      @extend .-white-purple;
+      &:hover {
+        background: rgba($white,.15);
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    .form-submit-field {
+      position: relative;
+      padding-top: #{$vertical-beat * 5};
+      &::before {
+        top: 0;
+        left: -12px;
+        content: '';
+        height: 1px;
+        background: $black;
+        position: absolute;
+        right: -$global-padding;
+      }
+      &::after {
+        top: 0;
+        width: 1px;
+        content: '';
+        left: -12px;
+        background: $black;
+        position: absolute;
+        height: #{$vertical-beat * 2};
+      }
+    }
+
+    // Full-stripe plugin styles
+    .fullstripe-form-title {
+      display: none;
+    }
+    .control-group {
+      clear: both;
+      position: relative;
+      margin-bottom: #{$vertical-beat * 6};
+      &.hide-label {
+        label {
+          color: $gray-lite;
+          transform: scale(.7) translateY(-100%);
+        }
+      }
+    
+      p {
+        display: none;
+      }
+
+      label {
+        @extend .h2;
+        position: absolute;
+        pointer-events: none;
+        transform-origin: left;
+        top: #{$vertical-beat * 3};
+        left: #{$vertical-beat * 3};
+        transition: transform .2s ease-out, color .2s ease-out;
+      }
+    }
+
+    .control-group {
+      input {
+        width: 100%!important;
+      }
+    }
+
+    .fullstripe_address_state,
+    .fullstripe_address_zip {
+      width: 50%;
+      float: left;
+      clear: none;
+    }
+
+    .fullstripe_address_zip {
+      input {
+        border-left: none!important;
+      }
+    }
+
+    .payment-errors {
+      color: $black;
+    }
+
+    .control-group.exp-month.exp-year {
+      padding-top: 10px;
+      @include clearfix;
+      &.hide-label {
+        label {
+          transform: none;
+        }
+      }
+      label {
+        left: 0;
+        top: -8px;
+        &::after {
+          left: 100%;
+          padding-left: 6px;
+          content: '(MM/YYYY)';
+          position: absolute;
+        }
+      }
+        
+      span {
+        float: left;
+        margin: 14px 10px 0;
+        display: inline-block;
+      }
+
+      .controls {
+        input {
+          float: left;
+          width: 50px!important;
+          padding: #{$vertical-beat * 3};
+          &[data-stripe=exp-year] {
+            width: 70px!important;
+          }
+        }
+        br {
+          display: none;
+        }
+      }
+    }
+
+    @include media-sm {
+      .control-group.exp-month.exp-year {
+        float: left;
+        clear: none;
+      }
+      .control-group.cvc {
+        clear: none;
+        float: right;
+        margin: 10px 0 0 10px;
+        &.hide-label {
+          label {
+            transform: scale(.7) translateY(-65%); 
+          }
+        }
+        label {
+          color: rgba(0,0,0,0);
+          &::before {
+            top: 0;
+            left: 0;
+            color: $white;
+            content: 'CVV';
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    @include media-lg {
+      .fullstripe_address_line1 {
+        width: 50%;
+        clear: none;
+        float: left;
+      }
+      .fullstripe_address_line2 {
+        width: 50%;
+        float: left;
+        clear: none;
+        input {
+          border-left: none!important;
+        }
+      }
+
+      .fullstripe_address_city {
+        width: 64%;
+        float: left;
+        clear: none;
+      }
+
+      .fullstripe_address_state,
+      .fullstripe_address_zip {
+        width: 18%;
+        float: left;
+        clear: none;
+        input {
+          border-left: none!important;
+        }
+      }
+    }
+  }
+
 }

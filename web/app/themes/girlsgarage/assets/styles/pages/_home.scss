@@ -106,11 +106,9 @@
     }
 
     .post-meta {
+      @extend .h2;
       margin-top: 0;
       font-size: 10px;
-      line-height: 1.5;
-      @extend .font-bold;
-      text-transform: uppercase;
       margin-bottom: #{$vertical-beat * 3};
       &::after {
         width: 6px;

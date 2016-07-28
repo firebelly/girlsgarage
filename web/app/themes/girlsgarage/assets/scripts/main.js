@@ -189,6 +189,29 @@ var FBSage = (function($) {
         $(this).removeClass('hide-label'); 
       }
     });
+
+    $('#payment-form input').on('focus', function() {
+      $(this).parents('.control-group').addClass('hide-label');
+    }).on('blur', function() {
+      if(!$(this).val()) {
+        $(this).parents('.control-group').removeClass('hide-label');
+      }
+    });
+
+    // Janky payment form hacking
+    $('#payment-form input').each(function() {
+      var thisId = '',
+          thisData = '';
+      if ($(this).attr('id') !== 'undefined') {
+        thisId = $(this).attr('id');
+      }
+      if ($(this).attr('data-stripe') !== 'undefined') {
+        thisData = $(this).attr('data-stripe');
+      }
+      $(this).parents('.control-group').addClass(thisId+' '+thisData);
+    });
+
+    $('#payment-form button').parents('.control-group').addClass('form-submit-field');
   }
 
   function _initNav() {

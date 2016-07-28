@@ -19,9 +19,11 @@
 
 <div class="wrap page-bottom -flush">
   <div class="page-secondary-content-wrap">
-    <div class="page-secondary-content card -cut-right -purple page-content user-content">
-      <div class="-inner">
-        <?= $secondary_content ?>
+    <div class="page-secondary-content">
+      <div class="two-thirds card -cut-right -purple page-content user-content">
+        <div class="-inner">
+          <?= $secondary_content ?>
+        </div>
       </div>
     </div>
   </div>

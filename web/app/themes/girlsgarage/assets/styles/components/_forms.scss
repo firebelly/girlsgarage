@@ -2,12 +2,11 @@
 
 // Newsletter form
 .newsletter-form {
+  @extend .h2;
   font-size: 8px;
   @include clearfix;
-  @extend .font-bold;
-  letter-spacing: .16em;
+  text-transform: none;
   border: 1px solid $black;
-  text-transform: uppercase;
 
   .mc-field-group {
     float: left;
@@ -27,6 +26,7 @@
     margin-left: 12px;
     position: absolute;
     transform-origin: left;
+    text-transform: uppercase;
     transition: transform .2s ease-out;
   }
   input {
@@ -34,11 +34,11 @@
     padding: 0 12px;
     background: none;
     display: inline-block;
-    text-transform: uppercase;
     &.hide-label {
       outline: none;
       & ~ label {
-        transform: scale(.5) translateY(-65%);
+        opacity: 0;
+        // transform: scale(.5) translateY(-65%);
       }
     }
     &:focus {
