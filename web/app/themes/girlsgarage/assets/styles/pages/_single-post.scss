@@ -30,6 +30,17 @@ body.single {
       padding-bottom: $global-padding;
     }
 
+    .post-title {
+      @extend .h1;
+      font-size: 20px;
+      line-height: 1.25;
+      @include headline-dash('both');
+    }
+
+    .post-subtitle {
+      @extend .h2;
+    }
+
     @include media-md {
       width: 50%;
       float: left;

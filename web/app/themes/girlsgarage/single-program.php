@@ -23,8 +23,8 @@
             <div class="badge-icon">
               <svg class="icon badge-<?= $badge_icon ?>" aria-hidden="hidden" role="image"><use xlink:href="#badge-<?= $badge_icon ?>"/></svg>
             </div>
-            <h2><?= $program->title ?></h2>
-            <h2><?= $program->subtitle ?></h2>
+            <h3 class="post-subtitle"><?= $program->subtitle ?></h3>
+            <h2 class="post-title"><?= $program->title ?></h2>
           </header>
           <div class="content user-content">
             <?= $body ?>

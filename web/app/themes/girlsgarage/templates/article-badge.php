@@ -43,7 +43,7 @@
               <?= get_post_meta($program->ID, '_cmb2_program_days', true); ?>, <?= date('g:ia', get_post_meta($program->ID, '_cmb2_program_start', true)); ?> - <?= date('g:ia', get_post_meta($program->ID, '_cmb2_program_end', true)); ?><br>
               <?= date('m/d/y', get_post_meta($program->ID, '_cmb2_program_start', true)); ?> - <?= date('m/d/y', get_post_meta($program->ID, '_cmb2_program_end', true)); ?>
             </p>
-            <h3 class="post-title"><a href="<?= get_permalink($program); ?>"><span> <?= $program->post_title; ?>: <?= get_post_meta($program->ID, '_cmb2_program_subtitle', true); ?></span></a></h3>
+            <h3 class="post-title"><a href="<?= get_permalink($program); ?>"><span> <?= get_post_meta($program->ID, '_cmb2_program_subtitle', true); ?>: <?= $program->post_title; ?></span></a></h3>
             <p class="program-status">
               <?php if (!empty(get_post_meta($program->ID, '_cmb2_registration_is_full', true))) { ?>
                 (Waitlist only)
