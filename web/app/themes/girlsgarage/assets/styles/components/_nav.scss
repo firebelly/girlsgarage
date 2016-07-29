@@ -133,6 +133,12 @@
     }
   }
 
+  @include media-md {
+    .nav {
+      padding-left: 50%;
+    }
+  }
+
   @include min-screen($breakpoint-nav) {
     width: 50%;
     left: auto;
@@ -172,6 +178,7 @@
     }
 
     .nav {
+      padding-left: 0;
       @include clearfix;
       > li {
         float: left;
