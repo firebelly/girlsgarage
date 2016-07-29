@@ -1,5 +1,5 @@
 set :application, 'girlsgarage'
-set :domain, 'girlsgarage.com'
+set :domain, 'girlsgarage.org'
 set :theme, 'girlsgarage'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/girlsgarage.git'
