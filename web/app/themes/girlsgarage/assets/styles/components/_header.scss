@@ -223,7 +223,9 @@
     }
   }
   @include media-xl {
-    height: 800px;
+    height: 80vh;
+    min-height: 600px;
+    max-height: 800px;
   }
 }
 .secondary-header {

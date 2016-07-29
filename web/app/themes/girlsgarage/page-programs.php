@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="one-half -right grid card-grid">
+  <div class="one-half -right grid card-grid program-type-card-grid">
 
     <?php
 
@@ -56,7 +56,7 @@
     foreach ($program_types as $program_type) {
       echo '<div class="one-half card -white -cut-right -wide">
               <div class="-inner">
-                <h3>'.$program_type->name.'</h3>
+                <h3><a href="'.get_permalink().$program_type->slug.'" class="load-program-type">'.$program_type->name.'</a></h3>
                 <p>'.category_description($program_type->term_id).'</p>
                 <a href="'.get_permalink().$program_type->slug.'" class="btn more -red load-program-type">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               </div>
@@ -70,7 +70,7 @@
         <div class="-inner">
           <h3>Scholarships</h3>
           <p>Because every girl who wants to attend should be able to. <br>Download our scholarship application.</p>
-          <a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank" class="btn more -red">Complete Online <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+          <a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank" class="btn more -red">Apply <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
         </div>
       </div>
     <?php endif; ?>

@@ -60,6 +60,7 @@
     }
 
     .page-secondary-content {
+      overflow: visible;
       padding-top: 54px;
       margin-top: -89px;
       &::before {
@@ -67,6 +68,17 @@
       }
       @include media-md {
         margin-top: -154px;
+      }
+    }
+  }
+
+  .program-type-card-grid {
+    h3 {
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -141,7 +153,7 @@
     opacity: 0;
     min-height: 100%;
     position: absolute;
-    transform: translateX(-100%);
+    transform: translateX(-200%);
     transition: opacity .2s ease-out;
     &.-active {
       opacity: 1;

@@ -92,7 +92,7 @@ var FBSage = (function($) {
     // Scroll down to hash afer page load
     $(window).load(function() {
       if (window.location.hash) {
-        _scrollBody($(window.location.hash));
+        // _scrollBody($(window.location.hash));
       }
     });
 
@@ -278,7 +278,7 @@ var FBSage = (function($) {
       // Emtpy out the overlay
       $badgeOverlayContent.empty();
       $(this).find('article').clone().appendTo($badgeOverlayContent);
-      _scrollBody($badgeOverlayContainer, 200, 0, headerOffset + 54);
+      _scrollBody($badgeOverlayContainer, 200, 0, headerOffset + 80);
       $badgeOverlayContainer.addClass('-active');
     });
 
