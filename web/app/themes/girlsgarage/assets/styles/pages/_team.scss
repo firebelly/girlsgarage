@@ -48,7 +48,6 @@
   
   .person {
     color: $white;
-    cursor: pointer;
     -webkit-font-smoothing: antialiased;
     margin-bottom: #{$vertical-beat * 3};
     .photo {
@@ -106,6 +105,7 @@
   // Different types of people
   &.staff-grid {
     .person {
+      cursor: pointer;
       h2 {
         &::after {
           display: none;

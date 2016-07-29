@@ -3,9 +3,10 @@ $thumb = \Firebelly\Media\get_header_bg($post,'','color');
 $title_credentials = get_post_meta($post->ID, '_cmb2_title_credentials', true);
 $body = apply_filters('the_content', $post->post_content);
 $parent_url = \Firebelly\Utils\get_parent_url($post);
+$person_type = wp_get_post_terms($post->ID,'person_type')[0]->slug;
 ?>
 
-<article id="<?= $post->post_name ?>" class="person grid-item-activate" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-parent-url="<?= $parent_url  ?>">
+<article id="<?= $post->post_name ?>" class="person <?= ($person_type === 'staff') ? 'grid-item-activate' : '' ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-parent-url="<?= $parent_url  ?>">
   <div class="photo-wrap"><div class="photo" <?= $thumb ?>></div></div>
   <div class="content">
     <div class="-inner">
