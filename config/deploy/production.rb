@@ -1,5 +1,5 @@
 set :stage, :production
-set :domain, 'girlsgarage.com'
+set :domain, 'girlsgarage.org'
 set :application, 'girlsgarage'
 set :login, 'projecth'
 
