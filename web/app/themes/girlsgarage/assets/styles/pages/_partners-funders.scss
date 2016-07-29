@@ -14,3 +14,23 @@
     }
   }
 }
+
+.partner-funder-list {
+  .partner {
+    margin-top: #{$vertical-beat * 3};
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  h3 {
+    @extend .h1;
+    margin-bottom: 0;
+    @include headline-dash('after');
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

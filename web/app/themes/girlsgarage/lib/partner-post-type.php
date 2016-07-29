@@ -134,7 +134,7 @@ function get_partners($options=[]) {
 
   foreach ( $partner_posts as $post ):
     ob_start();
-    include(locate_template('templates/article-partner.php'));
+    include(locate_template('templates/article-partner-funder.php'));
     $output .= ob_get_clean();
   endforeach;
 

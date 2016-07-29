@@ -134,12 +134,9 @@ function get_funders($options=[]) {
   $output = '<ul class="grid-items funders-list bulleted-list">';
 
   foreach ( $funder_posts as $post ):
-    $url = get_post_meta($post->ID, '_cmb2_url', true);
-    $output .= '<li class="grid-item funder" id="'.$post->post_name.'">';
     ob_start();
-    $output .= '<h3><a href="'.$url.'" target="_blank">'.$post->post_title.'</a></h3>';
+    include(locate_template('templates/article-partner-funder.php'));
     $output .= ob_get_clean();
-    $output .= '</li>';
   endforeach;
 
   $output .= '</ul>';
