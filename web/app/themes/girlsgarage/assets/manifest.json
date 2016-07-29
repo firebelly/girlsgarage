@@ -2,6 +2,7 @@
   "dependencies": {
     "main.js": {
       "files": [
+        "scripts/fonts.js",
         "scripts/main.js"
       ],
       "vendor": [
