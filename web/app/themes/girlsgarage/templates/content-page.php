@@ -15,6 +15,8 @@
 
 <div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
 </div>
+
+<?php if ($secondary_content) { ?>
 <div class="wrap -flush">
   <div class="one-half">
     <div class="page-secondary-content-wrap">
@@ -26,3 +28,4 @@
     </div>
   </div>
 </div>
+<?php } ?>
