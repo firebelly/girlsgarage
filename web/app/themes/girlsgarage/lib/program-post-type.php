@@ -222,6 +222,12 @@ function metaboxes( array $meta_boxes ) {
           'desc'    => 'Ex: \'99 girls\''
       ),
       array(
+          'name'    => 'Age Limit',
+          'id'      => $prefix . 'age_limit',
+          'type'    => 'text',
+          'desc'    => 'Is there an age limit?'
+      ),
+      array(
           'name'    => 'Tuition',
           'id'      => $prefix . 'tuition',
           'type'    => 'text',
@@ -230,13 +236,6 @@ function metaboxes( array $meta_boxes ) {
           'name'    => 'Open Registration Date',
           'id'      => $prefix . 'registration_open',
           'type'    => 'text_datetime_timestamp'
-      ),
-      array(
-          'name'    => 'Registration Link Text',
-          'desc'    => 'The text that shows up on the link (ex: "Register")',
-          'default' => 'Register',
-          'id'      => $prefix . 'registration_link_text',
-          'type'    => 'text',
       ),
       array(
           'name'    => 'Registration Link',
@@ -248,12 +247,6 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'registration_is_full',
           'desc'    => 'Is the registration for the program filled up?',
           'type'    => 'checkbox',
-      ),
-      array(
-          'name'    => 'Waitlist text',
-          'id'      => $prefix . 'waitlist_text',
-          'desc'    => 'The text to display to be put on a waitlist (ex: email info@girlsgarage to be placed on a waitlist)',
-          'type'    => 'text',
       ),
     ),
   );
@@ -294,7 +287,13 @@ function metaboxes( array $meta_boxes ) {
         'type'      => 'multicheck',
         'multiple'  => true,
         'options'   => \Firebelly\CMB2\get_post_options(['post_type' => 'badge', 'numberposts' => -1]),
-      )
+      ),
+      array(
+          'name'    => 'No badges Text',
+          'desc'    => 'If there are no badges use this field to explain how badges are earned.',
+          'id'      => $prefix . 'badges_text',
+          'type'    => 'text',
+      ),
     ),
   );
 
@@ -407,12 +406,12 @@ function get_program_details($post) {
     'prerequisites' => get_post_meta($post->ID, '_cmb2_program_prerequisites', true),
     'season' => get_post_meta($post->ID, '_cmb2_program_season', true),
     'enrollment' => get_post_meta($post->ID, '_cmb2_program_enrollment', true),
+    'age_limit' => get_post_meta($post->ID, '_cmb2_program_age_limit', true),
     'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
-    'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
     'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),
-    'waitlist_text' => get_post_meta($post->ID, '_cmb2_waitlist_text', true),
     'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
+    'badges_text' => get_post_meta($post->ID, '_cmb2_badges_text', true),
   ];
   // Is this program multiple days?
   $program['multiple_days'] = (date('Y-m-d', $program['start']) != date('Y-m-d', $program['end']));

@@ -116,9 +116,9 @@ class FbSiteOptions {
 
     $cmb->add_field( array(
       'name' => __( 'Scholarship Application Form', 'firebelly' ),
-      'desc' => __( 'The application form that is linked to throughout the site', 'firebelly' ),
+      'desc' => __( 'The url to the online form, which will show up wherever<br> the scholarship form is referenced throughout the site', 'firebelly' ),
       'id'   => 'scholarship_application_form',
-      'type' => 'file',
+      'type' => 'text_url',
     ) );
 
     $cmb->add_field( array(

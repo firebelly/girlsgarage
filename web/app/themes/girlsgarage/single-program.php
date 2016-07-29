@@ -20,9 +20,11 @@
       <div class="card -gray -cut-right">
         <div class="-inner">
           <header>
+            <?php if ($badge_icon) { ?>
             <div class="badge-icon">
               <svg class="icon badge-<?= $badge_icon ?>" aria-hidden="hidden" role="image"><use xlink:href="#badge-<?= $badge_icon ?>"/></svg>
             </div>
+            <?php } ?>
             <h3 class="post-subtitle"><?= $program->subtitle ?></h3>
             <h2 class="post-title"><?= $program->title ?></h2>
           </header>
@@ -46,12 +48,18 @@
           <div class="meta-block date-time">
             <h4>Date & Time</h4>
             <p><span><?= $program->days ?></span><br>
-            <span><?= date('m/d/y', $program->start) ?></span> - <span><?= date('m/d/y', $program->end) ?></span><br> <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
+            <span><?= date('m/d/y', $program->start) ?></span><?php if (date('m/d/y', $program->start) !== date('m/d/y', $program->end)) { ?> - <span><?= date('m/d/y', $program->end) ?></span><?php } ?><br> <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
           </div>
           <div class="meta-block enrollment">
             <h4>Enrollment</h4>
             <p><?= $program->enrollment ?></p>
           </div>
+          <?php if ($program->age_limit) { ?>
+          <div class="meta-block enrollment">
+            <h4>Age Requirement</h4>
+            <p><?= $program->age_limit ?></p>
+          </div>
+          <? } ?>
           <div class="meta-block tuition">
             <h4>Tuition</h4>
             <p><?= $program->tuition ?></p>
@@ -63,24 +71,28 @@
             <h4>Location</h4>
             <p><?= $program->venue ?> (<a href="<?= 'http://www.google.com/maps/place/'.$program->address_lat.','.$program->address_lng; ?>" target="_blank">map</a>)</p>
           </div>
+          <?php if ($program->badges || $program->badges_text) { ?>
           <div class="meta-block">
             <h4>Badge(s) Earned</h4>
-            <ul class="badges">
-              <?php
-                foreach ($program->badges as $badge) {
-                  $title = get_the_title($badge);
-                  $permalink = get_permalink($badge);
-                  echo '<li><a href="'.$permalink.'">'.$title.'</a></li>';
-                }
-              ?>
-            </ul>
+            <?php if ($program->badges) { ?>
+              <ul class="badges">
+                <?php
+                  foreach ($program->badges as $badge) {
+                    $title = get_the_title($badge);
+                    $permalink = get_permalink($badge);
+                    echo '<li><a href="'.$permalink.'">'.$title.'</a></li>';
+                  }
+                ?>
+              </ul>
+              <?php } else { ?>
+                <?= $program->badges_text ?>
+              <?php } ?>
           </div>
+          <? } ?>
           <div class="registration">
-            <?php if (empty($program->registration_is_full)) { ?>
-            <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= $program->registration_link_text ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
-            <?php } else { ?>
-              <p><?= $program->waitlist_text ?></p>
-            <?php } ?>
+            
+            <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+
           </div>
         </div>
       </div>
