@@ -15,19 +15,19 @@
   bottom: 0;
   z-index: 50;
   display: none;
-  position: fixed;
+  position: absolute;
   right: #{$global-padding / 2};
   &.-active {
     display: block;
   }
 
   @include media-md {
+    position: fixed;
     padding: $global-padding 0;
   }
 
   .item-data-container {
     overflow: hidden;
-    height: calc(100% - 85px);
 
     // State change animations
     &.exitRight {
