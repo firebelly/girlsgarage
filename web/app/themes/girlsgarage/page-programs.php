@@ -70,7 +70,7 @@
         <div class="-inner">
           <h3>Scholarships</h3>
           <p>Because every girl who wants to attend should be able to. <br>Download our scholarship application.</p>
-          <a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank" class="btn more -red">Download <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+          <a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank" class="btn more -red">Complete Online <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
         </div>
       </div>
     <?php endif; ?>
