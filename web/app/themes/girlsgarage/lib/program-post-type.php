@@ -78,6 +78,7 @@ function edit_columns($columns){
     'title' => 'Title',
     '_cmb2_program_subtitle' => 'Subtitle',
     'program_type' => 'Type',
+    '_cmb2_program_is_featured' => 'Featured',
     '_cmb2_program_season' => 'Season',
     'program_dates' => 'Date',
   );
@@ -118,7 +119,7 @@ function metaboxes( array $meta_boxes ) {
 
   $meta_boxes['program_is_featured'] = array(
     'id'            => 'program_is_featured',
-    'title'         => __( 'Is this 1 of 2 featured sessions on the homepage?', 'cmb2' ),
+    'title'         => __( 'Is this a featured session on the homepage?', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'side',
     'priority'      => 'high',

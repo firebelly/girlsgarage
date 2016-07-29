@@ -53,22 +53,54 @@
         <h4>Upcoming Sessions</h4>
         <ul>
           <?php
+            $limit = 5;
+            $i = 0;
             $args = array( 
-              'numberposts' => '2',
+              'numberposts' => $limit,
               'post_type' => 'program',
-              'orderby' => 'ASC'
+              'orderby' => 'ASC',
+            );
+            $featured_args= array( 
+              'numberposts' => $limit,
+              'post_type' => 'program',
+              'orderby' => 'ASC',
+              'meta_query' => array(
+                array(
+                  'key' => '_cmb2_program_is_featured',
+                  'value' => 'on',
+                ),
+              )
             );
             $recent_programs = get_posts( $args );
-          foreach( $recent_programs as $program ) { ?>
-            <li>
-              <article>
-                <p class="post-meta">
-                  <?= date('m/d/y', get_post_meta($program->ID, '_cmb2_program_start', true)); ?>: <?= get_post_meta($program->ID, '_cmb2_program_subtitle', true); ?>
-                </p>
-                <h3 class="post-title"><a href="<?= get_permalink($program) ?>"><span><?= $program->post_title ?></span></a></h3>
-              </article>
-            </li>
-          <?php } ?>
+            $featured_programs = get_posts( $featured_args );
+            if ($featured_programs) {            
+              foreach( $featured_programs as $program ) {
+                if($i >= $limit) {
+                  break;
+                }
+                $i++;
+                include(locate_template('templates/article-program-snippet.php'));
+              }
+
+              if ($i < $limit) {
+                foreach( $recent_programs as $program ) {
+                  if($i >= $limit) {
+                    break;
+                  }
+                  $i++;
+                  include(locate_template('templates/article-program-snippet.php'));
+                }
+              }
+            } else {
+              foreach( $recent_programs as $program ) {
+                if($i >= $limit) {
+                  break;
+                }
+                $i++;
+                include(locate_template('templates/article-program-snippet.php'));
+              }
+            }
+          ?>
         </ul>
         <a href="programs" class="btn more -white-purple">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       </div>
