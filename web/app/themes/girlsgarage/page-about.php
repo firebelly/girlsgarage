@@ -52,7 +52,7 @@
     <div class="one-half card -white -cut-right -wide">
       <div class="-inner">
         <h3>Stories</h3>
-        <p>Description TK lorem ipsum dolor sit amet consectetur quick brown foxes jump over lazy dogs.</p>
+        <p>Read about our girls' successes, latest projects, and exciting news.</p>
         <a href="stories" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       </div>
     </div>
