@@ -10,6 +10,17 @@
   font-style: normal;
 }
 
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/31b88b");
+ 
+@font-face {font-family: 'Rational-BookItalic';src: url('../fonts/3163D0_0_0.eot');src: url('../fonts/3163D0_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_0_0.woff2') format('woff2'),url('../fonts/3163D0_0_0.woff') format('woff'),url('../fonts/3163D0_0_0.ttf') format('truetype'),url('../fonts/3163D0_0_0.svg#wf') format('svg');}
+  
+@font-face {font-family: 'Rational-Book';src: url('../fonts/3163D0_1_0.eot');src: url('../fonts/3163D0_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_1_0.woff2') format('woff2'),url('../fonts/3163D0_1_0.woff') format('woff'),url('../fonts/3163D0_1_0.ttf') format('truetype'),url('../fonts/3163D0_1_0.svg#wf') format('svg');}
+  
+@font-face {font-family: 'Rational-SemiBoldItalic';src: url('../fonts/3163D0_2_0.eot');src: url('../fonts/3163D0_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_2_0.woff2') format('woff2'),url('../fonts/3163D0_2_0.woff') format('woff'),url('../fonts/3163D0_2_0.ttf') format('truetype'),url('../fonts/3163D0_2_0.svg#wf') format('svg');}
+ 
+@font-face {font-family: 'Rational-SemiBold';src: url('../fonts/3163D0_3_0.eot');src: url('../fonts/3163D0_3_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_3_0.woff2') format('woff2'),url('../fonts/3163D0_3_0.woff') format('woff'),url('../fonts/3163D0_3_0.ttf') format('truetype'),url('../fonts/3163D0_3_0.svg#wf') format('svg');}
+
 // Fonts
 $font-display: 'gg_display_mono', monospace;
 $font-regular: 'Rational-Book', sans-serif;
