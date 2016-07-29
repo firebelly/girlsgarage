@@ -138,8 +138,8 @@
 
 // Active person container
 .active-person {
-  @include media-md {
-    width: 50%;
+  article {
+    @include clearfix;
   }
 
   .photo-wrap {
@@ -163,7 +163,41 @@
 
   .content {
     overflow: hidden;
-    @extend .card, .-gray, .-cut-right;
+    @extend .card, .-gray, .-cut-right, .-wide;
     margin-top: -#{$global-padding / 2};
+    min-width: 1px;
+  }
+
+  @include media-md {
+    width: calc(100% - #{$global-padding * 2});
+
+    .content {
+      width: 50%;
+      float: left;
+      height: 100%;
+      margin-top: 0;
+    }
+
+    .-inner {
+      height: 100%;
+      padding-bottom: 0;
+    }
+
+    article {
+      height: 100%;
+      .body-content {
+        overflow: auto;
+        max-height: 100%;
+        position: relative;
+        margin-left: -#{$global-padding / 2};
+        padding: 0 #{$global-padding / 2} $global-padding;
+        width: calc(100% + #{$global-padding});
+      }
+    }
+
+    .photo-wrap {
+      width: 50%;
+      float: left;
+    }
   }
 }
