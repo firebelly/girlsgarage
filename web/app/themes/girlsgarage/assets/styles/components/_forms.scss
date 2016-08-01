@@ -2,8 +2,12 @@
 
 form {
   input {
+    font-size: 16px;
     border-radius: 0;
     -webkit-appearance: none;
+    @include media-md {
+      font-size: 10px;
+    }
   }
 }
 
@@ -35,6 +39,7 @@ form {
   }
   input {
     border: none;
+    font-size: 16px;
     padding: 0 12px;
     background: none;
     text-transform: none;
@@ -102,6 +107,9 @@ form {
   }
 
   @include media-md {
+    input {
+      font-size: 10px;
+    }
     .input-name {
       border-bottom: none;
       width: calc(36% - 15px);

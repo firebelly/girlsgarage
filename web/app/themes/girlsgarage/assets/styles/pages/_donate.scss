@@ -64,6 +64,7 @@
     button[type=submit] {
       width: 100%;
       @extend .btn;
+      height: auto;
       padding-right: 20px;
       @extend .-white-purple;
       &:hover {
@@ -83,7 +84,7 @@
         height: 1px;
         background: $black;
         position: absolute;
-        right: -$global-padding;
+        right: #{-$global-padding / 2};
       }
       &::after {
         top: 0;
@@ -196,8 +197,8 @@
       }
       .control-group.cvc {
         clear: none;
-        float: right;
-        margin: 10px 0 0 10px;
+        float: left;
+        margin: 10px 0 0 25px;
         &.hide-label {
           label {
             transform: scale(.7) translateY(-65%); 

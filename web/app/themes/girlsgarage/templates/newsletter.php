@@ -8,7 +8,7 @@
 </div>
 <div class="mc-field-group input-email">
   <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
-  <label for="mce-EMAIL">Email Address</label>
+  <label for="mce-EMAIL">Email</label>
 </div>
   <div id="mce-responses" class="clear">
     <div class="response" id="mce-error-response" style="display:none"></div>
