@@ -1,5 +1,5 @@
 <?php 
-  $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true),'','bw');
+  $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 ?>
 <?php get_template_part('templates/page', 'header'); ?>

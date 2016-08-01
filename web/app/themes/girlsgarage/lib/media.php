@@ -69,7 +69,7 @@ function get_header_bg($post_or_image, $thumb_id='', $color_or_bw='color', $size
     $base_dir = $upload_dir['basedir'] . '/backgrounds/';
 
     // Build treated filename with thumb_id in case there are filename conflicts
-    $treated_filename = preg_replace("/.+\/(.+)\.(\w{2,5})$/", "-$1-".$shadow."-".$highlight.".$2", $background_image);
+    $treated_filename = preg_replace("/.+\/(.+)\.(\w{2,5})$/", $thumb_id."-$1-".$shadow."-".$highlight.".$2", $background_image);
     $treated_image = $base_dir . $treated_filename;
 
     // If treated file doesn't exist, create it

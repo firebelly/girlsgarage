@@ -81,31 +81,18 @@ function get_total_pages($category, $per_page) {
 }
 
 /**
- * Get Page Blocks
+ * Get Secondary header image
  */
-function get_page_blocks($post) {
-  $output = '';
-  $page_blocks = get_post_meta($post->ID, '_cmb2_page_blocks', true);
-  if ($page_blocks) {
-    foreach ($page_blocks as $page_block) {
-      if (empty($page_block['hide_block'])) {
-        $block_title = $block_body = '';
-        if (!empty($page_block['title']))
-          $block_title = $page_block['title'];
-        if (!empty($page_block['body'])) {
-          $block_body = apply_filters('the_content', $page_block['body']);
-          $output .= '<div class="page-block">';
-          if ($block_title) {
-            $output .= '<h2 class="flag">' . $block_title . '</h2>';
-          }
-          $output .= '<div class="user-content">' . $block_body . '</div>';
-          $output .= '</div>';
-        }
-      }
-    }
+function get_secondary_header($post) {
+  if (empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) {
+    return false;
   }
-  return $output;
+  $secondary_bg_id = get_post_meta($post->ID, '_cmb2_secondary_featured_image_id', true);
+  $secondary_bg_image = get_attached_file($secondary_bg_id, false);
+  $secondary_bg = \Firebelly\Media\get_header_bg($secondary_bg_image,'','bw', 'banner_image');
+  return $secondary_bg;
 }
+
 
 /**
  * Get Parent URL for a Post

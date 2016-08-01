@@ -1,6 +1,6 @@
 <?php
   $header_bg = \Firebelly\Media\get_header_bg($post);
-  $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true),'','bw');
+  $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true)
 ?>
 <div class="page-header" <?= $header_bg ?>>

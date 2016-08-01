@@ -36,14 +36,17 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 function get_post_slideshow($post_id) {
     $images = get_post_meta($post_id, '_cmb2_slideshow-images', true);
 
-    // Is there also a featured image?
-    if (get_the_post_thumbnail($post_id)) {
-      array_unshift($images, get_post($post_id));
-    }
 
     if (!$images) return false;
     $output = '<ul class="slider">';
-    foreach ($images as $image):
+    // Is there also a featured image?
+    if (get_the_post_thumbnail($post_id)) {
+      $image = get_post($post_id);
+      $image = \Firebelly\Media\get_header_bg($image,'','bw', 'large');
+      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+    }
+    foreach ($images as $attachment_id => $attachment_url):
+      $image = get_attached_file($attachment_id, false);
       $image = \Firebelly\Media\get_header_bg($image,'','bw', 'large');
       $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
     endforeach;

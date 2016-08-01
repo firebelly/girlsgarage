@@ -5,7 +5,7 @@
 */
 
   $header_bg = \Firebelly\Media\get_header_bg($post);
-  $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true),'','bw');
+  $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
   $announcement_headline = get_post_meta($post->ID, '_cmb2_announcement_headline', true);
   $announcement_content = get_post_meta($post->ID, '_cmb2_announcement_content', true);
   $announcement_link = get_post_meta($post->ID, '_cmb2_announcement_link', true);
