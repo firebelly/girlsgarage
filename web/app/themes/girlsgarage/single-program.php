@@ -41,7 +41,7 @@
             <h2 class="post-title"><?= $program->title ?></h2>
             <div class="registration">
               
-              <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+              <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
 
             </div>
           </div>
