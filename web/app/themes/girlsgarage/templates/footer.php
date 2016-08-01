@@ -35,7 +35,8 @@
             <p><a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>"><?= \Firebelly\SiteOptions\get_option('contact_email'); ?></a></p>
           </div>
           <div class="copyright grid-item one-third">
-            <p>Copyright<br> Girls Garage <?= date("Y") ?></p>
+            <p>Copyright Girls Garage <?= date("Y") ?></p>
+            <p>Design & Dev by <a href="http://firebellydesign.com" target="_blank">Firebelly</a></p>
           </div>
         </div>
 
