@@ -136,7 +136,7 @@ function metaboxes( array $meta_boxes ) {
 
   $meta_boxes['program_images'] = array(
     'id'            => 'program_images',
-    'title'         => __( 'Program Summary', 'cmb2' ),
+    'title'         => __( 'Program Image Slideshow', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
