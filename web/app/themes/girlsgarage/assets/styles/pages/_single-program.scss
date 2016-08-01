@@ -1,5 +1,5 @@
 // Single Program page
-.single-program {
+body.single-program {
 
   .post-content {
     .badge-icon {
@@ -9,8 +9,22 @@
 
   .post-meta {
 
+    .meta-block.title {
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: #{$vertical-beat * 6};
+      &::before,
+      &::after {
+        display: none;
+      }
+      h2 {
+        margin: 0;
+        @extend .h1;
+      }
+    }
+
     .registration {
-      margin-top: #{$vertical-beat * 12};
+      margin-top: #{$vertical-beat * 6};
     }
 
     .date-time,
