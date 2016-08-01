@@ -35,9 +35,7 @@
     <div class="-inner">
       <div class="page-content user-content">
         <?= apply_filters('the_content', $post->post_content); ?>
-        <?php if (\Firebelly\SiteOptions\get_option('schedule_pdf')) { ?>
-          <p class="schedule-link"><a href="<?= \Firebelly\SiteOptions\get_option('schedule_pdf'); ?>" target="_blank">See our schedule →</a></p>
-        <?php } ?>
+        <p class="schedule-link"><a href="programs">See our programs →</a></p>
       </div>
     </div>
   </div>
