@@ -36,6 +36,11 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 function get_post_slideshow($post_id) {
     $images = get_post_meta($post_id, '_cmb2_slideshow-images', true);
 
+    // Is there also a featured image?
+    if (get_the_post_thumbnail($post_id)) {
+      array_unshift($images, get_post($post_id));
+    }
+
     if (!$images) return false;
     $output = '<ul class="slider">';
     foreach ($images as $image):
