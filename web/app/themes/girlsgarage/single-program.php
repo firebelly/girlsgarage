@@ -60,10 +60,16 @@
                   foreach ($program->instructors as $instructor) {
                     $title = get_the_title($instructor);
                     $permalink = get_permalink($instructor);
-                    echo '<a href="'.$permalink.'">'.$title.'</a>, ';
+                    echo '<a href="'.$permalink.'">'.$title.'</a>';
+                    if (count($program->instructors) > 1) {
+                      echo ', ';
+                    }
                   }
                 }
                 if ($program->other_instructors) {
+                  if ($program->instructors) {
+                    echo ', ';
+                  }
                   echo $program->other_instructors;
                 }
               ?>
