@@ -61,7 +61,9 @@
             $args = array( 
               'numberposts' => $limit,
               'post_type' => 'program',
-              'orderby' => 'ASC',
+              'meta_key' => '_cmb2_program_start',
+              'orderby' => 'meta_value_num',
+              'order' => 'ASC',
             );
             $featured_args= array( 
               'numberposts' => $limit,
@@ -76,32 +78,14 @@
             );
             $recent_programs = get_posts( $args );
             $featured_programs = get_posts( $featured_args );
-            if ($featured_programs) {            
-              foreach( $featured_programs as $program ) {
-                if($i >= $limit) {
-                  break;
-                }
-                $i++;
-                include(locate_template('templates/article-program-snippet.php'));
+            $programs_array = array_merge($featured_programs, $recent_programs);
+            $programs = array_unique($programs_array, SORT_REGULAR);
+            foreach($programs as $program) {
+              if($i >= $limit) {
+                break;
               }
-
-              if ($i < $limit) {
-                foreach( $recent_programs as $program ) {
-                  if($i >= $limit) {
-                    break;
-                  }
-                  $i++;
-                  include(locate_template('templates/article-program-snippet.php'));
-                }
-              }
-            } else {
-              foreach( $recent_programs as $program ) {
-                if($i >= $limit) {
-                  break;
-                }
-                $i++;
-                include(locate_template('templates/article-program-snippet.php'));
-              }
+              include(locate_template('templates/article-program-snippet.php'));
+              $i++;
             }
           ?>
         </ul>
