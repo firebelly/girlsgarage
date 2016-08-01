@@ -40,6 +40,8 @@
           </article>
         <?php } ?>
 
+        <h3>Current sessions:</h3>
+
         <?php
           $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
           $args = [
