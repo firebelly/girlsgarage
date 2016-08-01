@@ -49,7 +49,7 @@ function post_type() {
     'menu_position'       => 20,
     'menu_icon'           => 'dashicons-hammer',
     'can_export'          => false,
-    'has_archive'         => false,
+    'has_archive'         => true,
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'rewrite'             => $rewrite,

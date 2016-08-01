@@ -18,7 +18,11 @@ body.single {
   .site-main {
     padding-bottom: 0;
     background: $black;
-    padding-top: #{$global-padding * 2};
+    padding-top: 100px;
+
+    @include media-md {
+      padding-top: #{$global-padding * 2};
+    }
   }
 
   article {

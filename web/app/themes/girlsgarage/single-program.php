@@ -2,17 +2,20 @@
   $program = \Firebelly\PostTypes\Program\get_program_details($post);
   $body = apply_filters('the_content', $post->post_content);
   $badge_icon = get_post_meta($program->badges[0], '_cmb2_badge_icon', true);
+  $program_type = \Firebelly\Utils\get_first_term($post, 'program_type');
 ?>
 
-<div class="breadcrumbs">
-  
+<div class="wrap">
+  <div class="breadcrumbs">
+    <a href="<?= get_permalink(get_page_by_path('programs')) ?>">Programs</a> <span>→</span> <a href="<?= home_url() ?>/programs/<?= $program_type->slug ?>"><?= $program_type->name ?></a> 
+  </div>
 </div>
 
 <article id="<?= $post->slug ?>">
   <div class="wrap -flush grid">
   
     <div class="post-content one-half -left">
-      <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw')) { ?>
+      <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
         <div class="post-image" <?= $header_bg ?>></div>
       <?php } else { ?>
         <div class="post-image no-image"></div>
@@ -41,7 +44,7 @@
             <h2 class="post-title"><?= $program->title ?></h2>
             <div class="registration">
               
-              <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+              <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Sign up!" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
 
             </div>
           </div>
