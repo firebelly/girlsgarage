@@ -15,6 +15,7 @@
         <div class="card -gray -cut-right">
           <div class="-inner">
             <header>
+              <h3 class="post-category"><?= get_the_category($post->ID)[0]->name; ?></h3>
               <h2 class="post-title"><?= the_title(); ?></h2>
             </header>
             <div class="content user-content">

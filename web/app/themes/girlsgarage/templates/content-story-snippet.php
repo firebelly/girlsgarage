@@ -2,7 +2,7 @@
   <div class="post-thumb" <?= \Firebelly\Media\get_header_bg($post, '','color', 'grid-thumb'); ?>></div>
   <div class="-inner">
     <header>
-      <h4><?php the_category(',', '', $post->ID); ?></h4>
+      <h4><?= get_the_category($post->ID)[0]->name; ?></h4>
       <h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
     </header>
     <div class="entry-summary">

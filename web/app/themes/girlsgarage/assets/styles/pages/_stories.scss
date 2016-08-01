@@ -5,17 +5,27 @@
     position: relative;
     .post-thumb {
       top: 50%;
-      z-index: 1;
+      z-index: 2;
       margin-top: 0;
+      display: none;
       position: absolute;
-      right: -#{$global-padding / 2};
+      right: #{$global-padding / 2};
       transform: translate(100%, -50%);
     }
-    &:nth-of-type(odd) {
+
+    @include media-md {
       .post-thumb {
-        right: auto;
-        left: -#{$global-padding / 2};
-        transform: translate(-100%, -50%);
+        display: block;
+      }
+    }
+
+    @include media-lg {
+      &:nth-of-type(odd) {
+        .post-thumb {
+          right: auto;
+          left: #{$global-padding / 2};
+          transform: translate(-100%, -50%);
+        }
       }
     }
   }
@@ -25,7 +35,7 @@
       position: relative;
       .post-thumb {
         left: auto;
-        right: -#{$global-padding / 2};
+        right: #{$global-padding / 2};
         transform: translate(100%, -50%);
       }
     }

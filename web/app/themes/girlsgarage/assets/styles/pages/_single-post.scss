@@ -34,6 +34,11 @@ body.single {
       padding-bottom: $global-padding;
     }
 
+    .post-category {
+      margin: 0;
+      @extend .h2;
+    }
+
     .post-title {
       @extend .h1;
       font-size: 20px;
