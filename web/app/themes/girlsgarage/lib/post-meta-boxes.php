@@ -11,7 +11,7 @@ function metaboxes( array $meta_boxes ) {
 
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
-    'title'         => __( 'Extra Fields', 'cmb2' ),
+    'title'         => __( 'Image Slideshow', 'cmb2' ),
     'object_types'  => array( 'post', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
