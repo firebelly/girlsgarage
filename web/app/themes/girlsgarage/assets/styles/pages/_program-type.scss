@@ -162,6 +162,12 @@
 
   .card-grid.-jagged {
 
+    .card {
+      .btn.more {
+        right: #{$global-padding / 2}; 
+      }
+    }
+
     @include media-lg {
       .card {
         float: left;
