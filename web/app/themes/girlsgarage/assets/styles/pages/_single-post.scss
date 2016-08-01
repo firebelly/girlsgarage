@@ -186,6 +186,43 @@ body.single {
     }
   }
 
+  //slider
+  .slider {
+    padding: 0;
+    position: relative;
+    margin: 0 0 #{-$global-padding / 2};
+    .slide-item {
+      // min-height: 400px;
+      .slide-image {
+        height: 0;
+        position: relative;
+        padding-bottom: 100%;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      @include media-xl {
+        // height: 600px;
+      }
+    }
+
+    .slick-arrow {
+      z-index: 1;
+      cursor: pointer;
+      position: absolute;
+      top: #{$global-padding / 2};
+      right: #{$global-padding / 2};
+      &.previous-item {
+        right: #{$global-padding + $vertical-beat * 3};
+      }
+
+      .icon-circle-stroke {
+        stroke: $black;
+        stroke-width: 2;
+      }
+    }
+  }
+
 }
 
 .single-post {

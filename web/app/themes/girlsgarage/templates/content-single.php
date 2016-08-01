@@ -1,5 +1,6 @@
 <?php
   $body = apply_filters('the_content', $post->post_content);
+  $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
 ?>
 
 <?php while (have_posts()) : the_post(); ?>
@@ -7,7 +8,9 @@
     <div class="wrap -flush grid">
 
       <div class="post-content one-half -left">
-        <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
+        <?php if ($images) {
+          echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
+        } elseif ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
           <div class="post-image" <?= $header_bg ?>></div>
         <?php } else { ?>
           <div class="post-image no-image"></div>
@@ -43,7 +46,6 @@
                     <svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
                     Next
                   </div> <span>%title</span>' ); ?></li>
-
                 </ul>
               </nav>
             </div>

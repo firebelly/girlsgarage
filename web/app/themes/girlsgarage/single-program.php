@@ -3,6 +3,7 @@
   $body = apply_filters('the_content', $post->post_content);
   $badge_icon = get_post_meta($program->badges[0], '_cmb2_badge_icon', true);
   $program_type = \Firebelly\Utils\get_first_term($post, 'program_type');
+  $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
 ?>
 
 <div class="wrap">
@@ -15,7 +16,9 @@
   <div class="wrap -flush grid">
   
     <div class="post-content one-half -left">
-      <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
+      <?php if ($images) {
+        echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
+      } elseif ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
         <div class="post-image" <?= $header_bg ?>></div>
       <?php } else { ?>
         <div class="post-image no-image"></div>

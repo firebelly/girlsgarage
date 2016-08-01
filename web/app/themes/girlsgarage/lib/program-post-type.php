@@ -134,6 +134,24 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['program_images'] = array(
+    'id'            => 'program_images',
+    'title'         => __( 'Program Summary', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'required'      => 'required',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name' => 'Images',
+        'id'   => $prefix .'slideshow-images',
+        'type' => 'file_list',
+        'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+      ),
+    ),
+  );
+
   $meta_boxes['program_summary'] = array(
     'id'            => 'program_summary',
     'title'         => __( 'Program Summary', 'cmb2' ),

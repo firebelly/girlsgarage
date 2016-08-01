@@ -52,6 +52,7 @@ var FBSage = (function($) {
     _initProgramOverlay();
     _initStateHandling();
     _initDraggableElements();
+    _initSlickSliders();
 
     // Esc handlers
     $(document).keyup(function(e) {
@@ -589,6 +590,20 @@ var FBSage = (function($) {
             }
           }
       });
+    });
+  }
+
+  function _initSlickSliders() {
+    $('.slider').slick({
+      slide: '.slide-item',
+      autoplay: true,
+      arrows: true,
+      prevArrow: '<div class="previous-item button-prev nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg><span class="sr-only">Prev</span></div>',
+      nextArrow: '<div class="next-item button-next nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
+      dots: false,
+      autoplaySpeed: 6000,
+      speed: 800,
+      lazyLoad: 'ondemand'
     });
   }
 
