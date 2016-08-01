@@ -37,6 +37,14 @@
     <div class="one-half -right">
       <div class="post-meta card -red -wide -cut-right">
         <div class="-inner">
+          <div class="meta-block title">
+            <h2 class="post-title"><?= $program->title ?></h2>
+            <div class="registration">
+              
+              <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+
+            </div>
+          </div>
           <div class="meta-block prerequisites">
             <h4>Prerequisite(s)</h4>
             <?php if ($program->prerequisites) { ?>
@@ -89,11 +97,6 @@
               <?php } ?>
           </div>
           <? } ?>
-          <div class="registration">
-            
-            <a href="<?= $program->registration_url ?>" class="btn more -white-red"><?= (empty($program->registration_is_full)) ? "Register" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
-
-          </div>
         </div>
       </div>
     </div>
