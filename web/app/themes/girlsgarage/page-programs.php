@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div class="one-half -right grid card-grid program-type-card-grid">
+  <div class="one-half -right grid card-grid program-type-card-grid" id="program-types">
 
     <?php
 
@@ -61,7 +61,7 @@
               <div class="-inner">
                 <h3><a href="'.get_permalink().$program_type->slug.'" class="load-program-type">'.$program_type->name.'</a></h3>
                 <p>'.category_description($program_type->term_id).'</p>
-                <a href="'.get_permalink().$program_type->slug.'" class="btn more -red load-program-type">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+                <a href="'.get_permalink().$program_type->slug.'" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               </div>
             </div>';
     }

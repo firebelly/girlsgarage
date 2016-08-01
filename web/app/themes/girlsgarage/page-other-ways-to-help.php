@@ -39,7 +39,7 @@
         <div class="user-content">
           <?= $wishlist ?>
         </div>
-        <a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>" class="btn more -red">Contact Us! <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+        <a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>" class="btn more -red">Contact! <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       </div>
     </div>
   </div>

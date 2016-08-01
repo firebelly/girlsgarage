@@ -4,7 +4,7 @@
   Template name: Program Type
  */
   $slug = $post->post_name;
-  $header_bg = \Firebelly\Media\get_header_bg($post);
+  $header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large');
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 
 ?>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="page-intro">
-    <div class="page-intro-content card -clear -cut-left">
+    <div class="page-intro-content card -black -cut-left">
       <div class="-inner">
         <div class="page-content user-content">
           <?= apply_filters('the_content', $post->post_content); ?>
@@ -39,8 +39,6 @@
             </div>
           </article>
         <?php } ?>
-
-        <h3 class="current-sessions">Current sessions:</h3>
 
         <?php
           $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
@@ -68,6 +66,7 @@
               </div>
             </article>';
           } else {
+            echo '<h3 class="current-sessions">Current sessions:</h3>';
             foreach( $recent_programs as $program ) {
               include(locate_template('templates/article-program.php')); 
             }
@@ -77,9 +76,9 @@
 
       <div class="program-nav one-third -right">
         <div class="-inner">
-          <div class="close-container">
-            <button class="program-overlay-close button-close -red"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.circle-stroke{fill:none;}</style><path id="bottom" class="circle-stroke" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="circle-stroke" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>
-            <a href="<?= get_permalink(get_page_by_path('programs')); ?>" class="program-type-page-link button-close -red"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.circle-stroke{fill:none;}</style><path id="bottom" class="circle-stroke" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="circle-stroke" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></a>
+          <div class="back-container">
+            <a href="<?= get_permalink(get_page_by_path('programs')); ?>" class="button-prev -red"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg>
+              Back to all programs</a>
           </div>
           <div class="divider"></div>
           <div class="season-nav">

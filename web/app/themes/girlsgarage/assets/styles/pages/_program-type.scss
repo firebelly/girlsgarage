@@ -73,12 +73,18 @@
       margin-top: #{$vertical-beat * 2};
     }
     
-    .close-container,
+    .back-container,
     .season-nav,
     .program-cat-list {
       float: right;
       width: 33.3333%;
       padding: 0 #{$vertical-beat * 3};
+    }
+
+    .back-container {
+      .button-prev {
+        text-decoration: none;
+      }
     }
 
     .button-close {
@@ -145,7 +151,7 @@
         display: block;
       }
 
-      .close-container,
+      .back-container,
       .season-nav,
       .program-cat-list {
         float: none;
