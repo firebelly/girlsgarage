@@ -192,7 +192,7 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
           'name'    => 'Other Instructors',
-          'desc'    => 'Instructors that aren\'nt part of the team, comma separated',
+          'desc'    => 'Instructors that aren\'t part of the team, comma separated',
           'id'      => $prefix . 'other_instructors',
           'type'    => 'textarea',
       ),
