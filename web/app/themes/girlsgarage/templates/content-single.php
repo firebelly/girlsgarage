@@ -7,7 +7,7 @@
     <div class="wrap -flush grid">
 
       <div class="post-content one-half -left">
-        <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw')) { ?>
+        <?php if ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
           <div class="post-image" <?= $header_bg ?>></div>
         <?php } else { ?>
           <div class="post-image no-image"></div>
