@@ -115,6 +115,13 @@ class FbSiteOptions {
     // Set our CMB2 fields
 
     $cmb->add_field( array(
+      'name' => __( 'Schedule PDF', 'firebelly' ),
+      'desc' => __( 'The pdf course schedule that is linked to on the home page and programs page.' ),
+      'id'   => 'schedule_pdf',
+      'type' => 'file',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Scholarship Application Form', 'firebelly' ),
       'desc' => __( 'The url to the online form, which will show up wherever<br> the scholarship form is referenced throughout the site', 'firebelly' ),
       'id'   => 'scholarship_application_form',
