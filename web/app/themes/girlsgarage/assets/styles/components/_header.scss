@@ -261,7 +261,7 @@
         }
         .btn.more {
           left: $global-padding;
-          right: $global-padding;
+          right: #{$global-padding / 2};
         }
         
         @include media-md {

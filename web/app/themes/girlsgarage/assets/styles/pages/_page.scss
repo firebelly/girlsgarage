@@ -180,7 +180,7 @@
       }
       .btn.more {
         left: $global-padding;
-        right: $global-padding;
+        right: #{$global-padding / 2};
       }
     }
 
