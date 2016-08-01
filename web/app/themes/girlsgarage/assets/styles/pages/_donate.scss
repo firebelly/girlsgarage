@@ -2,14 +2,20 @@
 
 .page.donate {
   .page-bottom {
+    .card {
+      &::after {
+        display: none;
+        @extend .sprite-icon;
+      }
+    }
     @include media-md {
       .card {
         &::after {
           top: 0;
           left: 100%;
           content: '';
+          display: block;
           position: absolute;
-          @extend .sprite-icon;
           @include sprite($pattern-large-black);
         }
       }

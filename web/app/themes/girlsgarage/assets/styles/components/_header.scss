@@ -181,6 +181,10 @@
   background-size: cover;
   background-position: top center;
   padding-bottom: $global-padding;
+  &::after {
+    display: none;
+    @extend .sprite-icon;
+  }
   
   .wrap {
     padding: 0 $global-padding;
@@ -200,8 +204,8 @@
     &::after {
       z-index: 0;
       content: '';
+      display: block;
       position: absolute;
-      @extend .sprite-icon;
       left: #{$global-padding - 5px};
       bottom: -#{($global-padding / 2) + 7px};
       @include sprite($pattern-large-2-purple);
@@ -232,6 +236,10 @@
   height: 450px;
   background-size: cover;
   background-position: top center;
+  &::after {
+    display: none;
+    @extend .sprite-icon;
+  }
 
   &.contains-card {
     height: auto;
@@ -248,6 +256,10 @@
         &::before {
           z-index: 2;
         }
+        &::after {
+          display: none;
+          @extend .sprite-icon;
+        }
         .btn.more {
           left: $global-padding;
           right: $global-padding;
@@ -259,8 +271,8 @@
             bottom: 0;
             left: 100%;
             content: '';
+            display: block;
             position: absolute;
-            @extend .sprite-icon;
             transform: rotate(90deg);
             transform-origin: center left;
             @include sprite($pattern-large-black);
@@ -291,8 +303,8 @@
       top: 3px;
       z-index: 0;
       content: '';
+      display: block;
       position: absolute;
-      @extend .sprite-icon;
       left: #{$global-padding - 5px};
       @include sprite($pattern-large-gray);
     }

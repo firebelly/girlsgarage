@@ -173,7 +173,6 @@
             content: '';
             transform: none;
             position: absolute;
-            @extend .sprite-icon;
             @include sprite($pattern-large-2-gray);
           }
         }

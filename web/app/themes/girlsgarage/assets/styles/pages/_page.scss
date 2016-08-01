@@ -56,12 +56,17 @@
 
 .page-secondary-content-wrap {
   position: relative;
+  &::after {
+    display: none;
+    @extend .sprite-icon;
+  }
+
   @include media-md {
     &::after {
       z-index: -1;
       content: '';
+      display: block;
       position: absolute;
-      @extend .sprite-icon;
       left: -$global-padding;
       bottom: -$global-padding;
       @include sprite($pattern-large-2-black);
@@ -165,6 +170,10 @@
     display: block;
     @include clearfix;
     .card {
+      &::after {
+        display: none;
+        @extend .sprite-icon;
+      }
       .btn.more {
         left: $global-padding;
         right: $global-padding;
@@ -184,8 +193,8 @@
           top: 0;
           left: -50%;
           content: '';
+          display: block;
           position: absolute;
-          @extend .sprite-icon;
           @include sprite($pattern-large-2-black);
         }
         &:nth-of-type(even) {

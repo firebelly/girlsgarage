@@ -67,6 +67,11 @@
   }
 
   .upcoming-sessions {
+    &::after {
+      display: none;
+      @extend .sprite-icon;
+    }
+
     ul {
       margin: 0;
       padding: 0;
@@ -157,7 +162,7 @@
         left: 0;
         top: 100%;
         content: '';
-        @extend .sprite-icon;
+        display: block;
         position: absolute;
         transform-origin: left top;
         @include sprite($pattern-large-black);

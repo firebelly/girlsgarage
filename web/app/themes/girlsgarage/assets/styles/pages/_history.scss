@@ -2,13 +2,17 @@
 
 .page.history {
   .page-secondary-content-wrap {
+    &::before {
+      display: none;
+      @extend .sprite-icon;
+    }
     @include media-md {
       &::before {
         top: 100px;
         left: 100%;
         content: '';
+        display: block;
         position: absolute;
-        @extend .sprite-icon;
         transform: rotate(180deg);
         @include sprite($pattern-large-black);
       }

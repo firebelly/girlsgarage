@@ -2,11 +2,11 @@
 
 .registration-mark {
   display: none;
+  @extend .sprite-icon;
   @include min-screen($breakpoint-nav) {  
     display: block;
     position: absolute;
     @include sprite($registration);
-    @extend .sprite-icon;
   }
 }
 
