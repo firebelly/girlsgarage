@@ -51,6 +51,25 @@
 
             </div>
           </div>
+          <?php if ($program->instructors || !empty($program->other_instructors)) { ?>
+          <div class="meta-block instructors">
+            <h4>Instructor(s)</h4>
+            <div class="program_instructors">
+              <?php
+                if ($program->instructors) {
+                  foreach ($program->instructors as $instructor) {
+                    $title = get_the_title($instructor);
+                    $permalink = get_permalink($instructor);
+                    echo '<a href="'.$permalink.'">'.$title.'</a>, ';
+                  }
+                }
+                if ($program->other_instructors) {
+                  echo $program->other_instructors;
+                }
+              ?>
+            </div>
+          </div>
+          <?php } ?>
           <div class="meta-block prerequisites">
             <h4>Prerequisite(s)</h4>
             <?php if ($program->prerequisites) { ?>

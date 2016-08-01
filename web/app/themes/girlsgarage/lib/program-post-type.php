@@ -174,6 +174,31 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['program_instructors'] = array(
+    'id'            => 'program_instructors',
+    'title'         => __( 'Instructors', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name'      => __( 'Program Instructors', 'cmb2' ),
+        'desc'      => 'Select all that apply',
+        'id'        => $prefix . 'program_instructors',
+        'type'      => 'multicheck',
+        'multiple'  => true,
+        'options'   => \Firebelly\CMB2\get_post_options(['post_type' => 'person', 'numberposts' => -1]),
+      ),
+      array(
+          'name'    => 'Other Instructors',
+          'desc'    => 'Instructors that aren\'nt part of the team, comma separated',
+          'id'      => $prefix . 'other_instructors',
+          'type'    => 'textarea',
+      ),
+    ),
+  );
+
   $meta_boxes['program_prerequisites'] = array(
     'id'            => 'program_prerequisites',
     'title'         => __( 'Program Prerequisite(s)', 'cmb2' ),
@@ -297,7 +322,7 @@ function metaboxes( array $meta_boxes ) {
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
         'name'      => __( 'Earned Badges', 'cmb2' ),
@@ -422,6 +447,8 @@ function get_program_details($post) {
     'address' => get_post_meta($post->ID, '_cmb2_address', true),
     'address_lat' => get_post_meta($post->ID, '_cmb2_lat', true),
     'address_lng' => get_post_meta($post->ID, '_cmb2_lng', true),
+    'instructors' => get_post_meta($post->ID, '_cmb2_program_instructors', false),
+    'other_instructors' => get_post_meta($post->ID, '_cmb2_other_instructors', true),
     'prerequisites' => get_post_meta($post->ID, '_cmb2_program_prerequisites', true),
     'season' => get_post_meta($post->ID, '_cmb2_program_season', true),
     'enrollment' => get_post_meta($post->ID, '_cmb2_program_enrollment', true),
