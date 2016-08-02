@@ -57,13 +57,15 @@
             <div class="program_instructors">
               <?php
                 if ($program->instructors) {
+                  $i = 0;
                   foreach ($program->instructors as $instructor) {
                     $title = get_the_title($instructor);
                     $permalink = get_permalink($instructor);
-                    echo '<a href="'.$permalink.'">'.$title.'</a>';
-                    if (count($program->instructors) > 1) {
+                    if ($i > 0) {
                       echo ', ';
                     }
+                    echo '<a href="'.$permalink.'">'.$title.'</a>';
+                    $i++;
                   }
                 }
                 if ($program->other_instructors) {
