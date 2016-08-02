@@ -62,12 +62,6 @@
           fill: $black;
         }
       }
-
-      .menu-item:not(.hover) {
-        a {
-          color: #bebebe;
-        }
-      }
     }
 
     // Sticky
@@ -174,6 +168,18 @@
           content: '';
           background: $black;
           position: absolute;
+        }
+      }
+
+      .menu-item:not(.hover) {
+        > a {
+          color: #bebebe;
+        }
+      }
+
+      .sub-menu .menu-item.un-hover {
+        a {
+          color: #bebebe;
         }
       }
     }

@@ -104,7 +104,7 @@
       background: $black;
     }
     li {
-      margin-top: #{$vertical-beat * 2};
+      padding: $vertical-beat 0;
       &:last-of-type {
         margin-bottom: #{$vertical-beat * 3};
       }
@@ -213,7 +213,7 @@
       li {
         width: 130px;
         &:first-of-type {
-          padding-top: #{$vertical-beat * 3};
+          padding-top: #{$vertical-beat * 5};
         }
         &:last-of-type {
           margin-bottom: #{$vertical-beat * 6};

@@ -240,6 +240,12 @@ var FBSage = (function($) {
     }).on('mouseleave', '.site-nav .nav > li', function() {
       $(this).removeClass('hover');
     });
+    // Give un-hover class to sub-menu links
+    $document.on('mouseenter', '.site-nav .sub-menu li', function() {
+      $(this).closest('.sub-menu').find('li').not(this).addClass('un-hover');
+    }).on('mouseleave', '.site-nav .sub-menu li', function() {
+      $(this).closest('.sub-menu').find('li.un-hover').removeClass('un-hover');
+    });
 
     // Activate sub-nav class on hover
     $document.on('mouseenter', '.site-nav .menu-item-has-children', function() {
