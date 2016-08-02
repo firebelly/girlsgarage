@@ -235,10 +235,10 @@ var FBSage = (function($) {
     });
 
     // Give hover class to individual top-level links
-    $document.on('mouseenter', '.site-nav .nav > li > a', function() {
-      $(this).closest('.menu-item').addClass('hover');
-    }).on('mouseleave', '.site-nav .nav > li > a', function() {
-      $(this).closest('.menu-item').removeClass('hover');
+    $document.on('mouseenter', '.site-nav .nav > li', function() {
+      $(this).addClass('hover');
+    }).on('mouseleave', '.site-nav .nav > li', function() {
+      $(this).removeClass('hover');
     });
 
     // Activate sub-nav class on hover

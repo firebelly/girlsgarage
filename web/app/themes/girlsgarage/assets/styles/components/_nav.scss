@@ -49,6 +49,7 @@
     color: $black;
     display: block;
     text-decoration: none;
+    transition: color .2 ease-out;
     padding: #{$vertical-beat * 3} 0;
   }
 
@@ -79,6 +80,11 @@
       background: $black;
       position: absolute;
       height: #{$vertical-beat * 2};
+    }
+    &.hover {
+      a {
+        color: $black;
+      }
     }
   }
 
@@ -182,12 +188,12 @@
       @include clearfix;
       > li {
         float: left;
-        margin-left: 20px;
+        padding-right: 20px;
         &:hover {
           color: $black;
         }
-        &:first-of-type {
-          margin-left: 0;
+        &:last-of-type {
+          padding-right: 0;
         }
       }
     }
