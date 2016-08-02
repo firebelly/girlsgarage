@@ -1,5 +1,5 @@
 <article <?php post_class('card -white -cut-right story-snippet'); ?>>
-  <div class="post-thumb" <?= \Firebelly\Media\get_header_bg($post, '','color', 'grid-thumb'); ?>></div>
+  <div class="post-thumb" <?= \Firebelly\Media\get_header_bg($post, '','color', 'post-thumb'); ?>></div>
   <div class="-inner">
     <header>
       <h4><?= get_the_category($post->ID)[0]->name; ?></h4>

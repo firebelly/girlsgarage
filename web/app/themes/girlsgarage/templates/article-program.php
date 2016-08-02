@@ -1,5 +1,5 @@
 <?php
-$post_thumb = \Firebelly\Media\get_header_bg($program, '','color', 'grid-thumb');
+$post_thumb = \Firebelly\Media\get_header_bg($program, '','color', 'post-thumb');
 $program_details = \Firebelly\PostTypes\Program\get_program_details($program);
 $program_url = get_permalink($program_details->ID);
 ?>

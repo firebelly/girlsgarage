@@ -169,6 +169,7 @@
   .card-grid.-jagged {
 
     .card {
+      position: relative;
       .btn.more {
         right: #{$global-padding / 2}; 
       }
@@ -202,21 +203,48 @@
 
   .program-listing {
     position: relative;
+
     .post-thumb {
-      top: 50%;
-      z-index: 1;
+      top: 33%;
+      z-index: 2;
+      width: 144px;
       margin-top: 0;
+      display: none;
+      height: 144px;
+      border-radius: 50%;
       position: absolute;
-      right: -#{$global-padding / 2};
+      background-size: cover;
+      right: #{$global-padding / 2};
       transform: translate(100%, -50%);
+      background-position: center center;
     }
-    &:nth-of-type(even) {
+
+    @include media-md {
       .post-thumb {
-        right: auto;
-        left: -#{$global-padding / 2};
-        transform: translate(-100%, -50%);
+        display: block;
+      }
+      &:first-of-type {
+        .post-thumb {
+          display: none;
+        }
       }
     }
+
+    @include media-lg {
+      &:first-of-type {
+        .post-thumb {
+          display: block;
+        }
+      }
+      &:nth-of-type(even) {
+        .post-thumb {
+          right: auto;
+          left: #{$global-padding / 2};
+          transform: translate(-100%, -50%);
+        }
+      }
+    }
+
     .program-meta {
       @extend .h2;
       color: $black;

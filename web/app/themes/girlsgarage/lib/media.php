@@ -6,6 +6,7 @@
 namespace Firebelly\Media;
 
 // Image sizes for grid items
+add_image_size( 'post-thumb', 288, 288, array('center', 'top') );
 add_image_size( 'grid-thumb', 600, 430 );
 add_image_size( 'grid-large', 1200, 700 );
 add_image_size( 'banner_image', 1600, 800 );
