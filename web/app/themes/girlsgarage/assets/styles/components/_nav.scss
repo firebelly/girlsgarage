@@ -31,6 +31,7 @@
 
   .brand {
     left: -36px;
+    margin-top: -45px;
     position: relative;
     svg {
       width: 115px;
@@ -102,6 +103,7 @@
       display: block;
       position: relative;
       background: $black;
+      margin-bottom: #{$vertical-beat * 2};
     }
     li {
       padding: $vertical-beat 0;
@@ -111,6 +113,12 @@
     }
     a {
       padding: 0;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      &::before {
+        margin-bottom: 0;
+      }
     }
   }
   .menu-item-has-children:hover {
@@ -136,6 +144,18 @@
     &:hover {
       color: $white;
       background: $black;
+    }
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      content: '';
+      background: $black;
+      position: absolute;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .2s ease-out;
     }
   }
 

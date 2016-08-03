@@ -161,13 +161,7 @@
     &.sub-menu-active {
       .shop-link {
         &::before {
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 1px;
-          content: '';
-          background: $black;
-          position: absolute;
+          transform: scaleX(1);
         }
       }
 
