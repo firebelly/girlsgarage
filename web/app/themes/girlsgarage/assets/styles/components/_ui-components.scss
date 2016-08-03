@@ -152,6 +152,7 @@
     width: 16px;
     position: absolute;
     transform: translate(-50%,-50%);
+    -webkit-backface-visibility: hidden;
     &::before,
     &::after {
       top: 0;
