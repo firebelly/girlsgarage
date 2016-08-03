@@ -120,10 +120,42 @@
         margin-bottom: 0;
       }
     }
+
+    &.-toggled {
+      @include max-screen($breakpoint-nav) {
+        max-height: 200px;
+      }
+    }
   }
   .menu-item-has-children:hover {
-    .sub-menu {
-      max-height: 200px;
+    @include min-screen($breakpoint-nav) {    
+      .sub-menu {
+        max-height: 200px;
+      }
+    }
+  }
+
+  // Toggles for sub-menus on mobile
+  .sub-menu-toggle {
+    top: 0;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    text-align: center;
+    right: -$global-padding;
+    width: #{$global-padding};
+    &:focus {
+      outline: none;
+    }
+    &::before {
+      content: '▼';
+      color: $black;
+      margin-left: -12px;
+    }
+    @include min-screen($breakpoint-nav) {
+      display: none;
     }
   }
 
