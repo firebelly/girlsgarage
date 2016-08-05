@@ -2,10 +2,10 @@
 
 @font-face {
   font-family: 'gg_display_mono';
-  src: url('../fonts/ggdisplaymono-regular-webfont.woff2') format('woff2'),
-  url('../fonts/ggdisplaymono-regular-webfont.woff') format('woff'),
-  url('../fonts/ggdisplaymono-regular-webfont.ttf') format('truetype'),
-  url('../fonts/ggdisplaymono-regular-webfont.svg#gg_display_monoregular') format('svg');
+  src: url('../fonts/ggdisplaymono-regular.woff2') format('woff2'),
+  url('../fonts/ggdisplaymono-regular.woff') format('woff'),
+  url('../fonts/ggdisplaymono-regular.ttf') format('truetype'),
+  url('../fonts/ggdisplaymono-regular.svg#gg_display_monoregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -22,7 +22,7 @@
 @font-face {font-family: 'Rational-SemiBold';src: url('../fonts/3163D0_3_0.eot');src: url('../fonts/3163D0_3_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_3_0.woff2') format('woff2'),url('../fonts/3163D0_3_0.woff') format('woff'),url('../fonts/3163D0_3_0.ttf') format('truetype'),url('../fonts/3163D0_3_0.svg#wf') format('svg');}
 
 // Fonts
-$font-display: 'gg_display_mono', monospace;
+$font-display: 'gg_display_mono', sans-serif;
 $font-regular: 'Rational-Book', sans-serif;
 $font-regular-italic: 'Rational-BookItalic', sans-serif;
 $font-bold: 'Rational-SemiBold', sans-serif;
