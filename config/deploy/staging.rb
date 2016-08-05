@@ -1,5 +1,5 @@
 set :stage, :staging
-set :domain, 'girlsgarage.projecthdesign.org'
+set :domain, 'staging.girlsgarage.org'
 set :application, 'girlsgarage_staging'
 set :login, 'projecth'
 
