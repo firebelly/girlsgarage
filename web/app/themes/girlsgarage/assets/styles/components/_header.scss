@@ -322,6 +322,7 @@
   @include min-screen($breakpoint-nav) {  
     top: 18px;
     z-index: 30;
+    position: absolute!important;
     left: auto!important; // override draggabilly
     right: 18px!important; // override draggabilly
   }
