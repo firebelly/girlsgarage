@@ -159,6 +159,16 @@
       opacity: 1;
       transform: translateX(0);
     }
+    &::after {
+      left: 0;
+      right: 0;
+      z-index: -1;
+      content: '';
+      bottom: 54px;
+      position: absolute;
+      top: $global-padding;
+      background: $gray-lite;
+    }
 
     .badge-overlay-close {
       z-index: 1;
