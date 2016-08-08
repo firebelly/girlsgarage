@@ -63,8 +63,8 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Name',
-    '_cmb2_title' => 'Title',
-    'content' => 'Bio',
+    '_cmb2_url' => 'Url',
+    'content' => 'Description',
   );
   return $columns;
 }
