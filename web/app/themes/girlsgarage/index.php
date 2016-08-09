@@ -46,7 +46,7 @@
             'post_type' => 'post',
             'order' => 'ASC',
             'offset' => 1,
-            'posts_per_page' => 10
+            'posts_per_page' => 20
         );
 
         query_posts( $args ); ?>
