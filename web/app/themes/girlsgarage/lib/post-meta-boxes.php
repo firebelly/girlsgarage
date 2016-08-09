@@ -26,9 +26,31 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['post_is_featured'] = array(
+    'id'            => 'post_is_featured',
+    'title'         => __( 'Is this a featured post on the homepage?', 'cmb2' ),
+    'object_types'  => array( 'post', ), // Post type
+    'context'       => 'side',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Featured',
+          'id'      => $prefix . 'post_is_featured',
+          'desc'    => 'Featured?',
+          'type'    => 'checkbox',
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+function remove_tags_metabox() {
+  remove_meta_box('tagsdiv-post_tag', 'post', 'side');
+}
+add_action( 'do_meta_boxes', __NAMESPACE__ . '\remove_tags_metabox' );
 
 /**
  * Get post images and put into slideshow

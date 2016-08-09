@@ -46,7 +46,40 @@
 
 <div class="page-bottom wrap grid">
   <div class="one-half -left">
-    <?php include('templates/story-module.php'); ?>
+    <!-- <?php include('templates/story-module.php'); ?> -->
+    <div class="story-module card -white -cut-right">
+      <div class="-inner">
+        <?php
+          $cat_id = get_cat_ID('story');
+          $args = array( 
+            'numberposts' => '1',
+            'category' => $cat_id,
+            'orderby' => 'rand'
+          );
+          $featured_args = array( 
+            'numberposts' => '1',
+            'category' => $cat_id,
+            'orderby' => 'rand',
+            'meta_query' => array(
+              array(
+                'key' => '_cmb2_post_is_featured',
+                'value' => 'on',
+              ),
+            )
+          );
+          $story;
+          $featured_stories = get_posts( $featured_args );
+          $random_story = get_posts( $args );
+          if ($featured_stories) {
+            $story = $featured_stories;
+          } else {
+            $story = $random_story;
+          }
+          foreach( $story as $post ) { ?>
+            <?php include(locate_template('templates/article-story-snippet.php')); ?>
+          <?php } ?>
+      </div>
+    </div>
   </div>
   <div class="one-half -right">
     <div class="upcoming-sessions card -purple -cut-right">
