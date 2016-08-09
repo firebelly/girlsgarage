@@ -54,7 +54,7 @@
         <h4>Upcoming Sessions</h4>
         <ul>
           <?php
-            $limit = 5;
+            $limit = 20;
             $i = 0;
             $args = array( 
               'numberposts' => $limit,
@@ -78,12 +78,16 @@
             $featured_programs = get_posts( $featured_args );
             $programs_array = array_merge($featured_programs, $recent_programs);
             $programs = array_unique($programs_array, SORT_REGULAR);
-            foreach($programs as $program) {
-              if($i >= $limit) {
-                break;
+            if (!$programs) {            
+              foreach($programs as $program) {
+                if($i >= $limit) {
+                  break;
+                }
+                include(locate_template('templates/article-program-snippet.php'));
+                $i++;
               }
-              include(locate_template('templates/article-program-snippet.php'));
-              $i++;
+            } else {
+              echo '<p>There are currently no upcoming sessions.</p><p>Check out the Programs page for more info:</p>';
             }
           ?>
         </ul>
