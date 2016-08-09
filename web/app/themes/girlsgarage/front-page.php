@@ -111,7 +111,7 @@
             $featured_programs = get_posts( $featured_args );
             $programs_array = array_merge($featured_programs, $recent_programs);
             $programs = array_unique($programs_array, SORT_REGULAR);
-            if (!$programs) {            
+            if ($programs) {            
               foreach($programs as $program) {
                 if($i >= $limit) {
                   break;
