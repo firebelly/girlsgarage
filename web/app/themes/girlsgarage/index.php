@@ -17,39 +17,11 @@
   </div>
 </div>
 
-<div class="secondary-header contains-card" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
-  <div class="wrap -flush">
-    <div class="two-thirds card-grid -left">
-      <?php
+<div class="secondary-header contains-card" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>></div>
 
-      $args = array(
-          'post_type' => 'post',
-          'order' => 'ASC',
-          'posts_per_page' => 1
-      );
-
-      query_posts( $args ); ?>
-
-      <?php while (have_posts()) : the_post(); ?>
-          <?php get_template_part('templates/content-story-snippet'); ?>
-      <?php endwhile; ?>
-    </div>
-  </div>
-</div>
-<div class="page-bottom wrap -flush grid">
-  <div class="page-secondary-content-wrap">
-    <div class="two-thirds -left card-grid -jagged">
-
-        <?php
-
-        $args = array(
-            'post_type' => 'post',
-            'order' => 'ASC',
-            'offset' => 1,
-            'posts_per_page' => 20
-        );
-
-        query_posts( $args ); ?>
+<div class="page-bottom wrap -flush">
+  <div class="page-secondary-content-wrap grid">
+    <div class="stories-list two-thirds -left card-grid -jagged">
 
         <?php while (have_posts()) : the_post(); ?>
             <?php get_template_part('templates/content-story-snippet'); ?>
@@ -58,8 +30,18 @@
 
 
       </div>
-      <div class="one-third -right">
-        <?php the_posts_navigation(); ?>
+      <div class="-right story-nav scroll-stick">
+        <div class="-inner">
+          <?php posts_nav_link( '<br>', '<span class="previous-item button-prev">
+      <svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg>
+      <svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg>
+      Prev
+      </span>', '<span class="next-item button-next">
+      <svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg>
+      <svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
+      Next
+    </span>' ); ?>
+        </div>
       </div>
     </div>
   </div>

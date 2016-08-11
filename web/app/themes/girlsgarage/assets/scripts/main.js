@@ -53,6 +53,7 @@ var FBSage = (function($) {
     _initStateHandling();
     _initDraggableElements();
     _initSlickSliders();
+    _initStickyElements();
 
     // Esc handlers
     $(document).keyup(function(e) {
@@ -626,6 +627,12 @@ var FBSage = (function($) {
       speed: 800,
       lazyLoad: 'ondemand'
     });
+  }
+
+  function _initStickyElements() {
+    var sticky = new Waypoint.Sticky({
+      element: $('.scroll-stick')
+    }); 
   }
 
   // Track ajax pages in Analytics

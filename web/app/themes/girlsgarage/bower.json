@@ -18,7 +18,8 @@
     "fastclick": "~1.0.6",
     "boomsvgloader": "~0.0.2",
     "draggabilly": "~2.1.1",
-    "slick-carousel": "~1.6.0"
+    "slick-carousel": "~1.6.0",
+    "waypoints": "~4.0.0"
   },
   "overrides": {
     "modernizr": {
@@ -34,6 +35,12 @@
       "main": [
         "./slick/slick.min.js",
         "./slick/slick.css"
+      ]
+    },
+    "waypoints": {
+      "main": [
+        "./lib/jquery.waypoints.js",
+        "./lib/shortcuts/sticky.js"
       ]
     }
   }
