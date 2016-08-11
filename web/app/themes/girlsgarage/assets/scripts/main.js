@@ -630,9 +630,11 @@ var FBSage = (function($) {
   }
 
   function _initStickyElements() {
-    var sticky = new Waypoint.Sticky({
-      element: $('.scroll-stick')
-    }); 
+    if ($('.scroll-stick').length) {    
+      var sticky = new Waypoint.Sticky({
+        element: $('.scroll-stick')
+      });
+    }
   }
 
   // Track ajax pages in Analytics
