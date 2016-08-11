@@ -30,6 +30,7 @@
 
 
       </div>
+      <?php if ($wp_query->max_num_pages > 1 ) { ?>
       <div class="-right story-nav scroll-stick">
         <div class="-inner">
           <?php posts_nav_link( '<br>', '<span class="previous-item button-prev">
@@ -41,6 +42,7 @@
       <svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
       Next
     </span>' ); ?>
+        <?php } ?>
         </div>
       </div>
     </div>
