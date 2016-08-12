@@ -71,7 +71,8 @@ function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_o
 
       $background_image = $post_or_image;
       $remote_filename = basename($background_image).PHP_EOL;
-      copy($background_image, $base_dir.$remote_filename);
+      $remote_image = file_get_contents($background_image);
+      file_put_contents($base_dir.$remote_filename, $remote_image);
       $background_image = $base_dir.$remote_filename;
     } else {
       $background_image = $post_or_image;
