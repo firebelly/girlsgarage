@@ -184,3 +184,19 @@ function custom_taxonomies() {
   );
 }
 add_action( 'init', __NAMESPACE__ . '\\custom_taxonomies', 0 );
+
+/**
+ * Spit out video slideshow
+ */
+function video_slideshow($video_links_parsed) {
+  $output = '';
+  if ($video_links_parsed) {
+    $video_lines = explode(PHP_EOL, trim($video_links_parsed));
+    foreach ($video_lines as $line) {
+      list($vimeo_url,$img_url,$title) = explode('¶', $line);
+      $image = \Firebelly\Media\get_header_bg($img_url,'','bw', 'large');
+      $output .= '<li class="slide-item video-slide"><a class="lightbox slide-image" href="'.$vimeo_url.'" title="'.$title.'" '.$image.'><span class="slide-inner"><span class="play-button"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span><span class="sr-only">Watch Video</span></span></a></li>';
+    }
+  }
+  return $output;
+}

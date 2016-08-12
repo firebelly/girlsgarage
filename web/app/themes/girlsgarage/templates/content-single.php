@@ -1,6 +1,7 @@
 <?php
   $body = apply_filters('the_content', $post->post_content);
   $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
+  $video_links_parsed = get_post_meta($post->ID, '_cmb2_video_links_parsed', true);
 ?>
 
 <?php while (have_posts()) : the_post(); ?>
@@ -8,7 +9,7 @@
     <div class="wrap -flush grid">
 
       <div class="post-content one-half -left">
-        <?php if ($images) {
+        <?php if ($images || $video_links_parsed) {
           echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
         } elseif ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
           <div class="post-image" <?= $header_bg ?>></div>

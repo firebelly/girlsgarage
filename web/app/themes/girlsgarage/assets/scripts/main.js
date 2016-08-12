@@ -57,6 +57,9 @@ var FBSage = (function($) {
 
     // Esc handlers
     $(document).keyup(function(e) {
+      if ($('#swipebox-overlay').length) {
+        return;
+      }
       if (e.keyCode === 27) {
         if ($('.active-grid-item-container.-active').length) {
           History.pushState({}, document.title, original_url);
@@ -95,6 +98,13 @@ var FBSage = (function($) {
     $(window).load(function() {
       if (window.location.hash) {
         // _scrollBody($(window.location.hash));
+      }
+    });
+
+    // Close Swipebox on overlay click
+    $document.on('click', '#swipebox-overlay', function(e) {
+      if (!$(e.target).is('img')) {
+        $('#swipebox-close').trigger('click');
       }
     });
 
@@ -624,9 +634,11 @@ var FBSage = (function($) {
       nextArrow: '<div class="next-item button-next nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
       dots: false,
       autoplaySpeed: 6000,
-      speed: 800,
+      speed: 300,
       lazyLoad: 'ondemand'
     });
+
+    $('a.lightbox').swipebox({autoplayVideos: false});
   }
 
   function _initStickyElements() {

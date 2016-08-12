@@ -105,12 +105,53 @@ function metaboxes( array $meta_boxes ) {
         'id'   => $prefix . 'title',
         'type' => 'text_medium',
       ),
+      array(
+        'name' => 'Video Links',
+        'desc' => 'List of related Vimeo video URLs (e.g. https://vimeo.com/106786952 — one per line)',
+        'id'   => $prefix . 'video_links',
+        'type' => 'textarea',
+        'options' => array(
+          'textarea_cols' => 8,
+        ),
+      ),
     ),
   );
 
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Parse video_links on save
+ */
+function parse_video_links($post_id, $post, $update) {
+  $video_links = !empty($_POST['_cmb2_video_links']) ? $_POST['_cmb2_video_links'] : '';
+  $video_links_parsed = '';
+  if ($video_links) {
+    $video_lines = explode(PHP_EOL, trim($video_links));
+    foreach ($video_lines as $line) {
+      // Extract vimeo video ID and pull large thumbnail from API
+      $vimeo_url = trim($line);
+      $img_url = '';
+      if (preg_match('/vimeo.com\/(\d+)/', $line, $m)) {
+        $img_id = $m[1];
+        $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/' . $img_id . '.php'));
+        $img_url = $hash[0]['thumbnail_large'];
+        $title = $hash[0]['title'];
+      }
+
+      // If we found an image, show link to video and build new_lines
+      if ($img_url) {
+        $video_links_parsed .= $vimeo_url.'¶'.$img_url.'¶'.$title."\n";
+      }
+    }
+    // Store parsed links in hidden post meta field
+    if ($video_links_parsed) {
+      update_post_meta($post_id, '_cmb2_video_links_parsed', $video_links_parsed);
+    }
+  }
+}
+add_action('save_post_story', __NAMESPACE__ . '\\parse_video_links', 10, 3);
 
 /**
  * Get Stories
