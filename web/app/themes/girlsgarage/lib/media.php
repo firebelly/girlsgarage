@@ -43,7 +43,7 @@ function get_thumbnail_size_path($thumb_id, $size) {
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
  */
-function get_header_bg($post_or_image, $thumb_id='', $color_or_bw='color', $size='full') {
+function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_or_bw='color', $size='full') {
 
   // Set colors if bw or color
   if ($color_or_bw!=='color') {
@@ -63,7 +63,25 @@ function get_header_bg($post_or_image, $thumb_id='', $color_or_bw='color', $size
     }
   } else {
     // These are sent from a taxonomy page
+    if ($remote_img) {
+    $tmp_dir = wp_upload_dir()['basedir'].'/tmp/';
+    if(!file_exists($tmp_dir)) {
+      mkdir($tmp_dir);
+    }
+    $filecount = 0;
+    $files = glob($tmp_dir . "*.jpg");
+    if ($files){
+     $filecount = count($files);
+    }
+
     $background_image = $post_or_image;
+    $remote_filename = basename($background_image).PHP_EOL;
+    $remote_image = file_get_contents($background_image);
+    file_put_contents($tmp_dir.$remote_filename, $remote_image);
+    $background_image = $tmp_dir.$remote_filename;
+    } else {
+      $background_image = $post_or_image;
+    }
   }
   if ($background_image) {
     $upload_dir = wp_upload_dir();
