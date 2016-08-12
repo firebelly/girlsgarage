@@ -64,21 +64,16 @@ function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_o
   } else {
     // These are sent from a taxonomy page
     if ($remote_img) {
-    $tmp_dir = wp_upload_dir()['basedir'].'/tmp/';
-    if(!file_exists($tmp_dir)) {
-      mkdir($tmp_dir);
-    }
-    $filecount = 0;
-    $files = glob($tmp_dir . "*.jpg");
-    if ($files){
-     $filecount = count($files);
-    }
+      $base_dir = wp_upload_dir()['basedir'] . '/backgrounds/';
+      if(!file_exists($base_dir)) {
+        mkdir($base_dir);
+      }
 
-    $background_image = $post_or_image;
-    $remote_filename = basename($background_image).PHP_EOL;
-    $remote_image = file_get_contents($background_image);
-    file_put_contents($tmp_dir.$remote_filename, $remote_image);
-    $background_image = $tmp_dir.$remote_filename;
+      $background_image = $post_or_image;
+      $remote_filename = basename($background_image).PHP_EOL;
+      $remote_image = file_get_contents($background_image);
+      file_put_contents($base_dir.$remote_filename, $remote_image);
+      $background_image = $base_dir.$remote_filename;
     } else {
       $background_image = $post_or_image;
     }
