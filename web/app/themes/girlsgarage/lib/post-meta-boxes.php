@@ -117,6 +117,7 @@ function parse_video_links($post_id, $post, $update) {
         $img_id = $m[1];
         $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/' . $img_id . '.php'));
         $img_url = $hash[0]['thumbnail_large'];
+        $img_url = str_replace('640','1280x720', $img_url);
         $title = $hash[0]['title'];
       }
 
