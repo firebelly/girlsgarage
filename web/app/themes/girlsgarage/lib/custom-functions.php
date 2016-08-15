@@ -195,7 +195,6 @@ function video_slideshow($video_links_parsed) {
     foreach ($video_lines as $line) {
       list($vimeo_url,$img_url,$title) = explode('¶', $line);
       $image = \Firebelly\Media\get_header_bg($img_url,true,'','bw', 'large');
-      print_r($img_url);
       $output .= '<li class="slide-item video-slide"><a class="lightbox slide-image" href="'.$vimeo_url.'" title="'.$title.'" '.$image.'><span class="slide-inner"><span class="play-button"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span><span class="sr-only">Watch Video</span></span></a></li>';
     }
   }
