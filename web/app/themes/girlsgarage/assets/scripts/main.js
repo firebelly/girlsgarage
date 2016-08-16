@@ -57,9 +57,6 @@ var FBSage = (function($) {
 
     // Esc handlers
     $(document).keyup(function(e) {
-      if ($('#swipebox-overlay').length) {
-        return;
-      }
       if (e.keyCode === 27) {
         if ($('.active-grid-item-container.-active').length) {
           History.pushState({}, document.title, original_url);
@@ -638,7 +635,14 @@ var FBSage = (function($) {
       lazyLoad: 'ondemand'
     });
 
-    $('a.lightbox').swipebox({autoplayVideos: false});
+    $('a.lightbox').swipebox({
+      autoplayVideos: false,
+      loopAtEnd: false,
+      afterOpen: function() {
+        $('#swipebox-slider .slide:last-of-type').remove();
+      }
+    });
+
   }
 
   function _initStickyElements() {
