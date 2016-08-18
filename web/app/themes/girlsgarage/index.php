@@ -2,7 +2,7 @@
   if ( get_option( 'page_for_posts' ) ) {
     $posts_page = get_post(get_option('page_for_posts'));
   }
-  $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true),'','bw');
+  $secondary_bg = \Firebelly\Media\get_header_bg(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true), false, '','bw');
 ?>
 <?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
 <?php get_template_part('templates/page', 'header'); ?>
