@@ -452,7 +452,7 @@ function get_program_details($post) {
     'prerequisites' => get_post_meta($post->ID, '_cmb2_program_prerequisites', true),
     'season' => get_post_meta($post->ID, '_cmb2_program_season', true),
     'enrollment' => get_post_meta($post->ID, '_cmb2_program_enrollment', true),
-    'age_limit' => get_post_meta($post->ID, '_cmb2_program_age_limit', true),
+    'age_limit' => get_post_meta($post->ID, '_cmb2_age_limit', true),
     'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
     'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),

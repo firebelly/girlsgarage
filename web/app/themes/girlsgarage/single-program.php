@@ -100,13 +100,13 @@
             <h4>Age Requirement</h4>
             <p><?= $program->age_limit ?></p>
           </div>
-          <? } ?>
+          <?php } ?>
           <div class="meta-block tuition">
             <h4>Tuition</h4>
             <p><?= $program->tuition ?></p>
-            <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))): ?>
+            <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))) { ?>
             <p class="scholarship">(<a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank">Scholarship Application</a>)</p>
-          <?php endif; ?>
+            <?php } ?>
           </div>
           <div class="meta-block location">
             <h4>Location</h4>
