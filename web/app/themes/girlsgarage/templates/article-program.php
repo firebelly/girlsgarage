@@ -11,7 +11,7 @@ $program_url = get_permalink($program_details->ID);
       <p><?= $program_details->subtitle ?></p>
       <p class="program-when">
         <span><?= $program_details->days ?></span><br>
-        <span><?= date('m/d/y', $program_details->start) ?></span> - <span><?= date('m/d/y', $program_details->end) ?></span>, <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span>
+        <span><?= date('m/d/y', $program_details->start) ?></span><?php if (date('m/d/y', $program_details->start) !== date('m/d/y', $program_details->end)) { ?> - <span><?= date('m/d/y', $program_details->end) ?><?php } ?></span>, <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span>
       </p>
     </div>
     <h3 class="program-title"><a href="<?= $program_url ?>"><?= $program_details->title ?></a></h3>
