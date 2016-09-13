@@ -277,6 +277,12 @@ function metaboxes( array $meta_boxes ) {
           'type'    => 'text',
       ),
       array(
+          'name'    => 'Hide Scholarship Link?',
+          'id'      => $prefix . 'hide_scholarship',
+          'desc'    => 'Check the box if there is <strong>not</strong> a scholarship available for this program',
+          'type'    => 'checkbox',
+      ),
+      array(
           'name'    => 'Open Registration Date',
           'id'      => $prefix . 'registration_open',
           'type'    => 'text_datetime_timestamp'
@@ -439,6 +445,7 @@ function get_program_details($post) {
     'subtitle' => get_post_meta($post->ID, '_cmb2_program_subtitle', true),
     'body' => apply_filters('the_content', $post->post_content),
     'tuition' => get_post_meta($post->ID, '_cmb2_tuition', true),
+    'hide_scholarship' => get_post_meta($post->ID, '_cmb2_hide_scholarship', true),
     'description' => get_post_meta($post->ID, '_cmb2_program_description', true),
     'days' => get_post_meta($post->ID, '_cmb2_program_days', true),
     'start' => get_post_meta($post->ID, '_cmb2_program_start', true),

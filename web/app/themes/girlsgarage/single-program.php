@@ -78,14 +78,12 @@
             </div>
           </div>
           <?php } ?>
+          <?php if ($program->prerequisites) { ?>
           <div class="meta-block prerequisites">
             <h4>Prerequisite(s)</h4>
-            <?php if ($program->prerequisites) { ?>
-              <p><?= $program->prerequisites ?></p>
-            <?php } else { ?>
-              <p>No prerequisites.</p>
-            <?php } ?>
+            <p><?= $program->prerequisites ?></p>
           </div>
+          <?php } ?>
           <div class="meta-block date-time">
             <h4>Date & Time</h4>
             <p><span><?= $program->days ?></span><br>
@@ -104,8 +102,10 @@
           <div class="meta-block tuition">
             <h4>Tuition</h4>
             <p><?= $program->tuition ?></p>
-            <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))) { ?>
-            <p class="scholarship">(<a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank">Scholarship Application</a>)</p>
+            <?php if (!$program->hide_scholarship) { ?>            
+              <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))) { ?>
+              <p class="scholarship">(<a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank">Scholarship Application</a>)</p>
+              <?php } ?>
             <?php } ?>
           </div>
           <div class="meta-block location">
