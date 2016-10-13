@@ -6,6 +6,7 @@
   $slug = $post->post_name;
   $header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large');
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+  $program_sessions_text = get_post_meta($post->ID, '_cmb2_program_sessions_text', true);
 
 ?>
 
@@ -66,7 +67,7 @@
               </div>
             </article>';
           } else {
-            echo '<h3 class="current-sessions">Current sessions:</h3>';
+            echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
             foreach( $recent_programs as $program ) {
               include(locate_template('templates/article-program.php')); 
             }

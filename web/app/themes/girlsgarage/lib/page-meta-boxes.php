@@ -102,6 +102,26 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['program_sessions'] = array(
+    'id'            => 'program_sessions',
+    'title'         => __( 'Program Sessions Text', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'context'       => 'normal',
+    'show_on'       => array( 'key' => 'page-template', 'value' => 'templates/program-type.php'),
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      
+      // General page fields
+      array(
+        'name' => 'Program Sessions Text',
+        'desc' => 'The text to introduce the sessions. Ex: "Upcoming sessions", "Current Sessions"',
+        'id'   => $prefix . 'program_sessions_text',
+        'type' => 'text',
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
