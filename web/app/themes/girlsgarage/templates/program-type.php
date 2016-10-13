@@ -67,7 +67,7 @@
               </div>
             </article>';
           } else {
-            if { $program_sessions_text } { 
+            if ($program_sessions_text) { 
               echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
             } else {
               echo '<h3 class="current-sessions">Current sessions:</h3>';
