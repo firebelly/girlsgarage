@@ -67,7 +67,11 @@
               </div>
             </article>';
           } else {
-            echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
+            if { $program_sessions_text } { 
+              echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
+            } else {
+              echo '<h3 class="current-sessions">Current sessions:</h3>';
+            }
             foreach( $recent_programs as $program ) {
               include(locate_template('templates/article-program.php')); 
             }
