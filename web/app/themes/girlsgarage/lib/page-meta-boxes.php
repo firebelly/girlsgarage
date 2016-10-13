@@ -115,7 +115,7 @@ function metaboxes( array $meta_boxes ) {
       // General page fields
       array(
         'name' => 'Program Sessions Text',
-        'desc' => 'The text to introduce the sessions. Ex: "Upcoming sessions", "Current Sessions"',
+        'desc' => 'The text to introduce the sessions. Ex: "Upcoming sessions", "Current sessions"<br> Default text is "Current sessions".',
         'id'   => $prefix . 'program_sessions_text',
         'type' => 'text',
       ),
