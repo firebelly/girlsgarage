@@ -469,6 +469,7 @@ function get_program_details($post) {
     'age_limit' => get_post_meta($post->ID, '_cmb2_age_limit', true),
     'registration_open' => get_post_meta($post->ID, '_cmb2_registration_open', true),
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
+    'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),
     'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
     'badges_text' => get_post_meta($post->ID, '_cmb2_badges_text', true),

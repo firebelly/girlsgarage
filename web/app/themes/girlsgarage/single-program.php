@@ -51,7 +51,7 @@
               <?php if ($registration_open > date('m/d/y')) { ?>
                 <p>Registration opens <?= $registration_open; ?></p>
               <?php } else { ?>
-                <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Sign up!" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+                <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? $program->registration_link_text : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               <?php } ?>
 
             </div>
