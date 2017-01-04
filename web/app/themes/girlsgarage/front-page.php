@@ -89,13 +89,8 @@
           <?php
             $limit = 20;
             $i = 0;
-            $args = array( 
-              'numberposts' => $limit,
-              'post_type' => 'program',
-              'meta_key' => '_cmb2_program_start',
-              'orderby' => 'meta_value_num',
-              'order' => 'ASC',
-            );
+
+            // Get featured posts
             $featured_args= array( 
               'numberposts' => $limit,
               'post_type' => 'program',
@@ -107,8 +102,30 @@
                 ),
               )
             );
-            $recent_programs = get_posts( $args );
             $featured_programs = get_posts( $featured_args );
+
+            // IF there aren't at least 3 featured, get recent
+            if (count($featured_programs) < 3) {
+              $recentLimit = 3 - count($featured_programs);
+
+              $args = array( 
+                'numberposts' => $recentLimit,
+                'post_type' => 'program',
+                'meta_key' => '_cmb2_program_start',
+                'orderby' => 'meta_value_num',
+                'order' => 'ASC',
+                'meta_query' => array(
+                  array(
+                    'key' => '_cmb2_program_is_featured',
+                    'compare' => 'NOT EXISTS',
+                  ),
+                )
+              );
+              $recent_programs = get_posts( $args );
+            } else {
+              $recent_programs = [];
+            }
+
             $programs_array = array_merge($featured_programs, $recent_programs);
             $programs = array_unique($programs_array, SORT_REGULAR);
             if ($programs) {            
