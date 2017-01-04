@@ -293,6 +293,13 @@ function metaboxes( array $meta_boxes ) {
           'type'    => 'text',
       ),
       array(
+          'name'    => 'Registration Link Text',
+          'id'      => $prefix . 'registration_link_text',
+          'type'    => 'text',
+          'default' => 'Sign up!',
+          'desc'    => 'Could also be "apply" or other'
+      ),
+      array(
           'name'    => 'Registration full',
           'id'      => $prefix . 'registration_is_full',
           'desc'    => 'Is the registration for the program filled up?',

@@ -16,7 +16,6 @@
 
   .page-intro.has-announcement {
     @include media-md {
-      margin-top: 0;
       transform: translateY(-50%);
     }
   }

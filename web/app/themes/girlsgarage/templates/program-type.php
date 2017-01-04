@@ -33,15 +33,9 @@
     <div class="page-secondary-content-wrap grid">
 
       <div class="two-thirds -left card-grid -jagged">
-        <?php if ($secondary_content) { ?>
-          <article class="program-listing secondary-content card -white -cut-right page-content user-content">
-            <div class="-inner">
-              <?= $secondary_content ?>
-            </div>
-          </article>
-        <?php } ?>
+        
 
-        <?php
+        <?php 
           $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
           $args = [
             'numberposts' => -1,
@@ -55,10 +49,35 @@
                'field' => 'id',
                'terms' => $cat_id
               )
+            ),
+            'meta_query' => array(
+              array(
+                'key' => '_cmb2_program_end',
+                'value' => current_time('timestamp'),
+                'compare' => '>'
+              )
             )
           ];
-
           $recent_programs = get_posts( $args );
+
+          if ($recent_programs) {
+            if ($program_sessions_text) { 
+              echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
+            } else {
+              echo '<h3 class="current-sessions">Current sessions:</h3>';
+            }
+          }
+        ?>
+
+        <?php if ($secondary_content) { ?>
+          <article class="program-listing secondary-content card -white -cut-right page-content user-content">
+            <div class="-inner">
+              <?= apply_filters('the_content', $secondary_content); ?>
+            </div>
+          </article>
+        <?php } ?>
+
+        <?php
           if (!$recent_programs) {
             echo '<article class="program-listing one-half card -white -cut-right">
               <div class="-inner">
@@ -67,15 +86,10 @@
               </div>
             </article>';
           } else {
-            if ($program_sessions_text) { 
-              echo '<h3 class="current-sessions">'.$program_sessions_text.':</h3>';
-            } else {
-              echo '<h3 class="current-sessions">Current sessions:</h3>';
-            }
             foreach( $recent_programs as $program ) {
               include(locate_template('templates/article-program.php')); 
             }
-          } 
+          }
         ?>
       </div>
 

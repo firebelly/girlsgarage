@@ -1,5 +1,6 @@
 <?php
   $program = \Firebelly\PostTypes\Program\get_program_details($post);
+  $registration_open = date('m/d/y', $program->registration_open);
   $body = apply_filters('the_content', $post->post_content);
   $badge_icon = get_post_meta($program->badges[0], '_cmb2_badge_icon', true);
   $program_type = \Firebelly\Utils\get_first_term($post, 'program_type');
@@ -47,7 +48,11 @@
             <h2 class="post-title"><?= $program->title ?></h2>
             <div class="registration">
               
-              <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Sign up!" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+              <?php if ($registration_open > date('m/d/y')) { ?>
+                <p>Registration opens <?= $registration_open; ?></p>
+              <?php } else { ?>
+                <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? "Sign up!" : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+              <?php } ?>
 
             </div>
           </div>

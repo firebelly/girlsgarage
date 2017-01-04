@@ -100,6 +100,11 @@
                   'key' => '_cmb2_program_is_featured',
                   'value' => 'on',
                 ),
+                array(
+                  'key' => '_cmb2_program_end',
+                  'value' => current_time('timestamp'),
+                  'compare' => '>'
+                )
               )
             );
             $featured_programs = get_posts( $featured_args );
@@ -119,6 +124,11 @@
                     'key' => '_cmb2_program_is_featured',
                     'compare' => 'NOT EXISTS',
                   ),
+                  array(
+                    'key' => '_cmb2_program_end',
+                    'value' => current_time('timestamp'),
+                    'compare' => '>'
+                  )
                 )
               );
               $recent_programs = get_posts( $args );
