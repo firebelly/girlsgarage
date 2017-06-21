@@ -1,10 +1,15 @@
-<?php 
+<?php
 
 /*
   Template name: Front-page
 */
 
-  $header_bg = \Firebelly\Media\get_header_bg($post);
+  $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
+  if (!$header_video) {
+    $header_bg = \Firebelly\Media\get_header_bg($post, false, '', 'color', 'banner_image');
+  } else {
+    $header_bg = '';
+  }
   $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
   $announcement_headline = get_post_meta($post->ID, '_cmb2_announcement_headline', true);
   $announcement_content = get_post_meta($post->ID, '_cmb2_announcement_content', true);
@@ -13,6 +18,13 @@
 ?>
 
 <div class="page-header" <?= $header_bg ?>>
+  <?php if ($header_video): ?>
+  <div class="background-video-wrapper">
+    <video class="background-video" playsinline autoplay muted loop poster="">
+      <source src="<?= $header_video ?>" type="video/mp4">
+    </video>
+  </div>
+  <?php endif; ?>
   <div class="wrap">
     <h2><?php bloginfo('description'); ?></h2>
   </div>
@@ -51,12 +63,12 @@
       <div class="-inner">
         <?php
           $cat_id = get_cat_ID('story');
-          $args = array( 
+          $args = array(
             'numberposts' => '1',
             'category' => $cat_id,
             'orderby' => 'rand'
           );
-          $featured_args = array( 
+          $featured_args = array(
             'numberposts' => '1',
             'category' => $cat_id,
             'orderby' => 'rand',
@@ -91,7 +103,7 @@
             $i = 0;
 
             // Get featured posts
-            $featured_args= array( 
+            $featured_args= array(
               'numberposts' => $limit,
               'post_type' => 'program',
               'orderby' => 'ASC',
@@ -113,7 +125,7 @@
             if (count($featured_programs) < 3) {
               $recentLimit = 3 - count($featured_programs);
 
-              $args = array( 
+              $args = array(
                 'numberposts' => $recentLimit,
                 'post_type' => 'program',
                 'meta_key' => '_cmb2_program_start',
@@ -138,7 +150,7 @@
 
             $programs_array = array_merge($featured_programs, $recent_programs);
             $programs = array_unique($programs_array, SORT_REGULAR);
-            if ($programs) {            
+            if ($programs) {
               foreach($programs as $program) {
                 if($i >= $limit) {
                   break;

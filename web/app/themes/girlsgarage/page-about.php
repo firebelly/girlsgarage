@@ -1,5 +1,11 @@
-<?php 
-  $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
+<?php
+  $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
+  if (!$header_video) {
+    $secondary_bg = \Firebelly\Utils\get_secondary_header($post);
+  } else {
+    $secondary_bg = '';
+  }
+
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true)
 ?>
 <?php get_template_part('templates/page', 'header'); ?>
@@ -14,7 +20,14 @@
   </div>
 </div>
 
-<div class="secondary-header" <?php if (!empty(get_post_meta($post->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>>
+<div class="secondary-header" <?= $secondary_bg ?>>
+  <?php if ($header_video): ?>
+  <div class="background-video-wrapper">
+    <video class="background-video" playsinline autoplay muted loop poster="">
+      <source src="<?= $header_video ?>" type="video/mp4">
+    </video>
+  </div>
+  <?php endif; ?>
 </div>
 
 <div class="page-bottom wrap -flush grid">

@@ -34,7 +34,7 @@
   }
 
   .schedule-link {
-    @extend .h3; 
+    @extend .h3;
   }
 
   @include media-md {
@@ -222,7 +222,7 @@
        &:nth-of-type(even) {
          float: left;
        }
-     } 
+     }
     }
   }
 }
@@ -243,5 +243,24 @@
     height: 12px;
     position: absolute;
     margin-right: #{$vertical-beat * 2};
+  }
+}
+
+// Background Video Banner
+.background-video-wrapper {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  position: absolute;
+  video {
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
   }
 }
