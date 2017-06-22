@@ -112,7 +112,7 @@
       }
 
       > .wrap {
-        > .brand {      
+        > .brand {
           width: 47px;
           bottom: auto;
           height: 70px;
@@ -186,11 +186,12 @@
   background-size: cover;
   background-position: top center;
   padding-bottom: $global-padding;
+  position: relative;
   &::after {
     display: none;
     @extend .sprite-icon;
   }
-  
+
   .wrap {
     padding: 0 $global-padding;
   }
@@ -203,7 +204,6 @@
 
   @include media-md {
     height: 600px;
-    position: relative;
     padding-bottom: 155px;
     border-bottom: #{$global-padding / 2} solid $black;
     &::after {
@@ -269,7 +269,7 @@
           left: $global-padding;
           right: #{$global-padding / 2};
         }
-        
+
         @include media-md {
           margin-top: 0;
           &::after {
@@ -319,7 +319,7 @@
 
 .registration-mark.-header {
   cursor: ns-resize;
-  @include min-screen($breakpoint-nav) {  
+  @include min-screen($breakpoint-nav) {
     top: 18px;
     z-index: 30;
     position: absolute!important;
