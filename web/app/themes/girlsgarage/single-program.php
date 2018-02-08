@@ -134,7 +134,7 @@
                 <?= $program->badges_text ?>
               <?php } ?>
           </div>
-          <? } ?>
+          <?php } ?>
         </div>
       </div>
     </div>
