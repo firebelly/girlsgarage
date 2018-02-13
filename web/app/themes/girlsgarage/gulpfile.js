@@ -227,22 +227,22 @@ gulp.task('images', function() {
 
 // generate sprite.png and _sprite.scss
 gulp.task('sprites', function () {
-  console.log('Temoporarily skipping \'sprites\' task due to broken node dependencies in spritey package.');
-  return;
-  // return sprity.src({
-  //   src: path.source + 'images/sprite/*',
-  //   prefix: 'sprite-icon',
-  //   style: '_sprite.scss',
-  //   margin: 0,
-  //   'dimension': [{
-  //     ratio: 1, dpi: 72
-  //   }, {
-  //     ratio: 2, dpi: 192
-  //   }],
-  //   processor: 'sass',
-  //   'style-type': 'scss'
-  // })
-  // .pipe(gulpif('*.png', gulp.dest(path.dist + 'images'), gulp.dest(path.source + 'styles/components')));
+  // console.log('Temoporarily skipping \'sprites\' task due to broken node dependencies in spritey package.');
+  // return;
+  return sprity.src({
+    src: path.source + 'images/sprite/*',
+    prefix: 'sprite-icon',
+    style: '_sprite.scss',
+    margin: 0,
+    'dimension': [{
+      ratio: 1, dpi: 72
+    }, {
+      ratio: 2, dpi: 192
+    }],
+    processor: 'sass',
+    'style-type': 'scss'
+  })
+  .pipe(gulpif('*.png', gulp.dest(path.dist + 'images'), gulp.dest(path.source + 'styles/components')));
 });
 
 // ### SVG time!
