@@ -21,7 +21,6 @@ var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
 var svgstore     = require('gulp-svgstore');
 var svgmin       = require('gulp-svgmin');
-var svg2png      = require('gulp-svg2png');
 var sprity       = require('sprity');
 
 // See https://github.com/austinpray/asset-builder
@@ -228,20 +227,22 @@ gulp.task('images', function() {
 
 // generate sprite.png and _sprite.scss
 gulp.task('sprites', function () {
-  return sprity.src({
-    src: path.source + 'images/sprite/*',
-    prefix: 'sprite-icon',
-    style: '_sprite.scss',
-    margin: 0,
-    'dimension': [{
-      ratio: 1, dpi: 72
-    }, {
-      ratio: 2, dpi: 192
-    }],
-    processor: 'sass',
-    'style-type': 'scss'
-  })
-  .pipe(gulpif('*.png', gulp.dest(path.dist + 'images'), gulp.dest(path.source + 'styles/components')));
+  console.log('Temoporarily skipping \'sprites\' task due to broken node dependencies in spritey package.');
+  return;
+  // return sprity.src({
+  //   src: path.source + 'images/sprite/*',
+  //   prefix: 'sprite-icon',
+  //   style: '_sprite.scss',
+  //   margin: 0,
+  //   'dimension': [{
+  //     ratio: 1, dpi: 72
+  //   }, {
+  //     ratio: 2, dpi: 192
+  //   }],
+  //   processor: 'sass',
+  //   'style-type': 'scss'
+  // })
+  // .pipe(gulpif('*.png', gulp.dest(path.dist + 'images'), gulp.dest(path.source + 'styles/components')));
 });
 
 // ### SVG time!
@@ -262,12 +263,6 @@ gulp.task('svgs', function() {
     .pipe(svgstore({ inlineSvg: true }))
     .pipe(rename({suffix: '-defs'}))
     .pipe(gulp.dest(path.source + 'svgs/build'));
-});
-// convert to png for fallback
-gulp.task('svgfallback', function() {
-  return gulp.src(path.source + 'svgs/*.svg')
-    .pipe(svg2png())
-    .pipe(gulp.dest('assets/images'));
 });
 
 // ### JSHint
@@ -306,7 +301,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
   gulp.watch([path.source + 'images/**/*'], ['images']);
   gulp.watch([path.source + 'images/sprite/*'], ['sprites']);
-  gulp.watch([path.source + 'svgs/*.svg'], ['svgs', 'svgfallback']);
+  gulp.watch([path.source + 'svgs/*.svg'], ['svgs']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });
 
@@ -316,7 +311,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
 gulp.task('build', function(callback) {
   runSequence('styles',
               'scripts',
-              ['fonts', 'images','sprites', 'svgs','svgfallback'],
+              ['fonts', 'images','sprites', 'svgs'],
               callback);
 });
 
