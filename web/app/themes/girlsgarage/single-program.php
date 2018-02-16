@@ -89,11 +89,30 @@
             <p><?= $program->prerequisites ?></p>
           </div>
           <?php } ?>
-          <div class="meta-block date-time">
-            <h4>Date & Time</h4>
-            <p><span><?= $program->days ?></span><br>
-            <span><?= date('m/d/y', $program->start) ?></span><?php if (date('m/d/y', $program->start) !== date('m/d/y', $program->end)) { ?> - <span><?= date('m/d/y', $program->end) ?></span><?php } ?><br> <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
-          </div>
+
+          <?php if (!$program->multiple_sessions) { ?>
+            <div class="meta-block date-time">
+              <h4>Date &amp; Time</h4>
+              <p><span><?= $program->days ?></span><br>
+              <span><?= date('m/d/y', $program->start) ?></span><?php if (date('m/d/y', $program->start) !== date('m/d/y', $program->end)) { ?> - <span><?= date('m/d/y', $program->end) ?></span><?php } ?><br> <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
+            </div>
+          <?php } else { ?>
+            <div class="meta-block days-time">
+              <h4>Days &amp; Time</h4>
+              <p><span><?= $program->days ?></span><br>
+              <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
+            </div>
+            <div class="meta-block sessions-offered">
+              <h4>Sessions Offered</h4>
+              <p>
+                <?php foreach($program->multiple_sessions as $session) { ?>
+                  <span><?= date('m/d/y', $session['start']) ?></span>
+                  <?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
+                <?php } ?>
+              </p>
+            </div>
+          <?php } ?>
+
           <div class="meta-block enrollment">
             <h4>Enrollment</h4>
             <p><?= $program->enrollment ?></p>

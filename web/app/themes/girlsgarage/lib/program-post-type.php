@@ -215,7 +215,7 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['program_when'] = array(
+  $program_when = new_cmb2_box( array(
     'id'            => 'program_when',
     'title'         => __( 'Program Date & Time', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
@@ -223,33 +223,61 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'required'      => 'required',
     'show_names'    => true, // Show field names on the left
-    'fields'        => array(
-      array(
-        'name' => 'Program Season',
-        'id'   => $prefix . 'program_season',
-        'type' => 'select',
-        'default' => 'spring',
-        'options' => get_program_season_array(),
-      ),
-      array(
-          'name'    => 'Day(s) of the week',
-          'id'      => $prefix . 'program_days',
-          'type'    => 'text',
-          'desc'    => 'Ex: Mondays & Wednesdays',
-      ),
-      array(
-          'name'    => 'Start Date',
-          'id'      => $prefix . 'program_start',
-          'type'    => 'text_datetime_timestamp',
-      ),
-      array(
-          'name'    => 'End Date',
-          'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.</p>',
-          'id'      => $prefix . 'program_end',
-          'type'    => 'text_datetime_timestamp',
-      ),
+  ) );
+
+  $program_when->add_field( array(
+      'name' => 'Program Season',
+      'id'   => $prefix . 'program_season',
+      'type' => 'select',
+      'default' => 'spring',
+      'options' => get_program_season_array(),
+  ) );
+
+  $program_when->add_field( array(
+      'name'    => 'Day(s) of the week',
+      'id'      => $prefix . 'program_days',
+      'type'    => 'text',
+      'desc'    => 'Ex: Mondays & Wednesdays',
+  ) );
+
+  $program_when->add_field( array(
+      'name'    => 'Start Date',
+      'id'      => $prefix . 'program_start',
+      'type'    => 'text_datetime_timestamp',
+  ) );
+
+
+  $program_when->add_field( array(
+      'name'    => 'End Date',
+      'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.<br>If there are multiple session offered, this date range must encompass all sessions.</p>',
+      'id'      => $prefix . 'program_end',
+      'type'    => 'text_datetime_timestamp',
+  ) );
+
+  $multiple_date_groups = $program_when->add_field( array(
+    'id'          => $prefix . 'program_multiple_date_groups',
+    'type'        => 'group',
+    'name'        => '<strong>Multiple Sessions (optional)</strong>',
+    'description' => __( 'If this program has multiple sessions, list the date ranges of each session here.', 'cmb2' ),
+    'options'     => array(
+      'group_title'   => __( 'Session {#}', 'cmb2' ), 
+      'add_button'    => __( 'Add Another Session', 'cmb2' ),
+      'remove_button' => __( 'Remove Session', 'cmb2' ),
+      'sortable'      => true, 
     ),
-  );
+  ) );
+
+  $program_when->add_group_field( $multiple_date_groups, array(
+    'name'    => 'Start Date',
+    'id'      => 'start',
+    'type'    => 'text_date_timestamp',
+  ) );
+
+  $program_when->add_group_field( $multiple_date_groups, array(
+    'name'    => 'End Date',
+    'id'      => 'end',
+    'type'    => 'text_date_timestamp',
+  ) );
 
   $meta_boxes['program_registration'] = array(
     'id'            => 'program_registration',
@@ -457,6 +485,7 @@ function get_program_details($post) {
     'days' => get_post_meta($post->ID, '_cmb2_program_days', true),
     'start' => get_post_meta($post->ID, '_cmb2_program_start', true),
     'end' => get_post_meta( $post->ID, '_cmb2_program_end', true),
+    'multiple_sessions' => get_post_meta( $post->ID, '_cmb2_program_multiple_date_groups', true),
     'venue' => get_post_meta($post->ID, '_cmb2_venue', true),
     'address' => get_post_meta($post->ID, '_cmb2_address', true),
     'address_lat' => get_post_meta($post->ID, '_cmb2_lat', true),
