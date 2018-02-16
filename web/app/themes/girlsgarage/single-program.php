@@ -103,7 +103,7 @@
               <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
             </div>
             <div class="meta-block sessions-offered">
-              <h4>Sessions Offered</h4>
+              <h4>Session Dates</h4>
               <p>
                 <?php foreach($program->multiple_sessions as $session) { ?>
                   <span><?= date('m/d/y', $session['start']) ?></span>
