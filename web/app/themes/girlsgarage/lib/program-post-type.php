@@ -102,7 +102,7 @@ function custom_columns($column){
       }
       echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
     } elseif ( $column == 'program_type') {
-      echo get_the_term_list($post->ID,'program_type','',', ',''); 
+      echo get_the_term_list($post->ID,'program_type','',', ','');
     } else {
       if (array_key_exists($column, $custom))
         echo $custom[$column][0];
@@ -249,7 +249,7 @@ function metaboxes( array $meta_boxes ) {
 
   $program_when->add_field( array(
       'name'    => 'End Date',
-      'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.<br>If there are multiple session offered, this date range must encompass all sessions.</p>',
+      'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date. If there are multiple session offered, this date range must encompass all sessions (from first day to last).</p>',
       'id'      => $prefix . 'program_end',
       'type'    => 'text_datetime_timestamp',
   ) );
@@ -260,10 +260,10 @@ function metaboxes( array $meta_boxes ) {
     'name'        => '<strong>Multiple Sessions (optional)</strong>',
     'description' => __( 'If this program has multiple sessions, list the date ranges of each session here.', 'cmb2' ),
     'options'     => array(
-      'group_title'   => __( 'Session {#}', 'cmb2' ), 
+      'group_title'   => __( 'Session {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Session', 'cmb2' ),
       'remove_button' => __( 'Remove Session', 'cmb2' ),
-      'sortable'      => true, 
+      'sortable'      => true,
     ),
   ) );
 
@@ -512,7 +512,7 @@ function get_program_details($post) {
   } else {
     $program['time_txt'] = $program['start_time'];
   }
-  
+
   $program['archived'] = empty($program['end']) ? ($program['start'] < current_time('timestamp')) : ($program['end'] < current_time('timestamp'));
   $program['desc'] = date('M d, Y @ ', $program['start']) . $program['time_txt']; // used in map pins
   $program['year'] = date('Y', $program['start']);
