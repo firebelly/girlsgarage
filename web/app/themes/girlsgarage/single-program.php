@@ -90,7 +90,7 @@
           </div>
           <?php } ?>
 
-          <?php if (!$program->multiple_sessions) { ?>
+          <?php if (!$program->sessions) { ?>
             <div class="meta-block date-time">
               <h4>Date &amp; Time</h4>
               <p><span><?= $program->days ?></span><br>
@@ -105,7 +105,7 @@
             <div class="meta-block sessions-offered">
               <h4>Session Dates</h4>
               <p>
-                <?php foreach($program->multiple_sessions as $session) { ?>
+                <?php foreach($program->sessions as $session) { ?>
                   <span><?= date('m/d/y', $session['start']) ?></span>
                   <?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
                 <?php } ?>

@@ -96,9 +96,9 @@ function custom_columns($column){
       $timestamp_start = $custom['_cmb2_program_start'][0];
       $timestamp_end = !empty($custom['_cmb2_program_end'][0]) ? $custom['_cmb2_program_end'][0] : $timestamp_start;
       if ($timestamp_end != $timestamp_start) {
-        $date_txt = date('m/d/Y g:iA', $timestamp_start) . ' – ' . date('m/d/Y g:iA', $timestamp_end);
+        $date_txt = date('m/d/Y', $timestamp_start) . ' – ' . date('m/d/Y', $timestamp_end);
       } else {
-        $date_txt = date('m/d/Y g:iA', $timestamp_start);
+        $date_txt = date('m/d/Y', $timestamp_start);
       }
       echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
     } elseif ( $column == 'program_type') {
@@ -241,24 +241,21 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $program_when->add_field( array(
-      'name'    => 'Start Date',
+      'name'    => 'Old Start Date',
       'id'      => $prefix . 'program_start',
       'type'    => 'text_datetime_timestamp',
   ) );
 
 
   $program_when->add_field( array(
-      'name'    => 'End Date',
-      'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date. If there are multiple session offered, this date range must encompass all sessions (from first day to last).</p>',
+      'name'    => 'Old End Date',
       'id'      => $prefix . 'program_end',
       'type'    => 'text_datetime_timestamp',
   ) );
 
-  $multiple_date_groups = $program_when->add_field( array(
-    'id'          => $prefix . 'program_multiple_date_groups',
+  $sessions_group = $program_when->add_field( array(
+    'id'          => $prefix . 'sessions',
     'type'        => 'group',
-    'name'        => '<strong>Multiple Sessions (optional)</strong>',
-    'description' => __( 'If this program has multiple sessions, list the date ranges of each session here.', 'cmb2' ),
     'options'     => array(
       'group_title'   => __( 'Session {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Session', 'cmb2' ),
@@ -267,16 +264,24 @@ function metaboxes( array $meta_boxes ) {
     ),
   ) );
 
-  $program_when->add_group_field( $multiple_date_groups, array(
-    'name'    => 'Start Date',
-    'id'      => 'start',
-    'type'    => 'text_date_timestamp',
+  $program_when->add_group_field( $sessions_group, array(
+    'name'    => 'Day(s) of the week',
+    'id'      => $prefix . 'program_days',
+    'type'    => 'text',
+    'desc'    => 'Ex: Mondays & Wednesdays',
   ) );
 
-  $program_when->add_group_field( $multiple_date_groups, array(
+  $program_when->add_group_field( $sessions_group, array(
+    'name'    => 'Start Date',
+    'id'      => 'start',
+    'type'    => 'text_datetime_timestamp',
+  ) );
+
+  $program_when->add_group_field( $sessions_group, array(
     'name'    => 'End Date',
+    'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.</p>',
     'id'      => 'end',
-    'type'    => 'text_date_timestamp',
+    'type'    => 'text_datetime_timestamp',
   ) );
 
   $meta_boxes['program_registration'] = array(
@@ -485,7 +490,7 @@ function get_program_details($post) {
     'days' => get_post_meta($post->ID, '_cmb2_program_days', true),
     'start' => get_post_meta($post->ID, '_cmb2_program_start', true),
     'end' => get_post_meta( $post->ID, '_cmb2_program_end', true),
-    'multiple_sessions' => get_post_meta( $post->ID, '_cmb2_program_multiple_date_groups', true),
+    'sessions' => get_post_meta( $post->ID, '_cmb2_sessions', true),
     'venue' => get_post_meta($post->ID, '_cmb2_venue', true),
     'address' => get_post_meta($post->ID, '_cmb2_address', true),
     'address_lat' => get_post_meta($post->ID, '_cmb2_lat', true),
@@ -527,3 +532,60 @@ function get_program_details($post) {
    ));
   return (object)$program;
 }
+
+// // _cmb2_program_start and _cmb2_program_end are needed 
+// // constantly in queries, but these are no longer part 
+// // of the admin and have been replaced by a repeatable 
+// // group (1 entry for each session) where each session 
+// // has its own start/end dates.
+// //
+// // So, whenever we save a program post:
+// // Take the earliest start date of any session in the 
+// // repeatable groups as _cmb2_program_start and latest 
+// // end date of any session as _cmb2_program_end.
+// function update_date_range( $post_id, $post, $update ) {
+
+//   // If this isn't a 'program' post, gtfo.
+//   $post_type = get_post_type($post_id);
+//   if ( "program" != $post_type ) return;
+
+//   // Start with empty vars to hold earliest and latest dates.
+//   $earliest = false;
+//   $latest = false;
+
+//   // Grab the sessions and loop through them.
+//   $sessions = get_post_meta( $post->ID, '_cmb2_sessions', true);
+//   if ( $sessions ) {
+//     foreach($sessions as $session) { 
+//       $earliest = $earliest ? min($earliest,$session['start']) : $session['start'];
+//       $latest = $latest ? max($latest,$session['end']) : $session['end'];
+//       // echo 'start: '.$session['start'].'<br>';
+//       // echo 'end: '.$session['end'].'<br>';
+//     } 
+//   }
+
+//   // Update the database
+//   update_post_meta( $post_id, '_cmb2_program_start', $earliest );
+//   update_post_meta( $post_id, '_cmb2_program_end', $latest );
+//   // echo 'earliest: '.$earliest.'<br>';
+//   // echo 'latest: '.$latest.'<br>';
+//   // exit;
+
+// }
+// // Must be of priority >=11 to come after cmb2 updates the database with new user input--otherwise this will be bulldozed.
+// add_action( 'save_post', __NAMESPACE__ . '\\update_date_range', 11, 3 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
