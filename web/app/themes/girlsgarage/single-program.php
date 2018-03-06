@@ -1,8 +1,8 @@
 <?php
   $program = \Firebelly\PostTypes\Program\get_program_details($post);
-  $registration_open = date('m/d/y', $program->registration_open);
+  $registration_open = $program->registration_open ? date('m/d/y', $program->registration_open) : '';
   $body = apply_filters('the_content', $post->post_content);
-  $badge_icon = get_post_meta($program->badges[0], '_cmb2_badge_icon', true);
+  $badge_icon = $program->badges ? get_post_meta($program->badges[0], '_cmb2_badge_icon', true) : '';
   $program_type = \Firebelly\Utils\get_first_term($post, 'program_type');
   $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
 ?>
@@ -90,26 +90,13 @@
           </div>
           <?php } ?>
 
-          <?php if (!$program->sessions) { ?>
+          <?php $i = 1; foreach($program->sessions as $session) { ?>
             <div class="meta-block date-time">
-              <h4>Date &amp; Time</h4>
-              <p><span><?= $program->days ?></span><br>
-              <span><?= date('m/d/y', $program->start) ?></span><?php if (date('m/d/y', $program->start) !== date('m/d/y', $program->end)) { ?> - <span><?= date('m/d/y', $program->end) ?></span><?php } ?><br> <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
-            </div>
-          <?php } else { ?>
-            <div class="meta-block days-time">
-              <h4>Days &amp; Time</h4>
-              <p><span><?= $program->days ?></span><br>
-              <span class="time"><?= date('g:ia', $program->start) ?></span>-<span class="time"><?= date('g:ia', $program->end) ?></span></p>
-            </div>
-            <div class="meta-block sessions-offered">
-              <h4>Session Dates</h4>
+              <h4><?= count($program->sessions) > 1 ? 'Session '.($i++) : 'Date &amp; Time' ?></h4>
               <p>
-                <?php foreach($program->sessions as $session) { ?>
-                  <span><?= date('m/d/y', $session['start']) ?></span>
-                  <?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
-                <?php } ?>
-              </p>
+              <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br> 
+              <span><?= $session['days'] ?></span><br>
+              <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
             </div>
           <?php } ?>
 

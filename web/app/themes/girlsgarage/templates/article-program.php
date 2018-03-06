@@ -10,15 +10,16 @@ $program_url = get_permalink($program_details->ID);
     <div class="program-meta">
       <p><?= $program_details->subtitle ?></p>
       <p class="program-when">
-        <?php if (!$program_details->sessions) { ?>
-          <span><?= $program_details->days ?></span><br>
-          <span><?= date('m/d/y', $program_details->start) ?></span><?php if (date('m/d/y', $program_details->start) !== date('m/d/y', $program_details->end)) { ?> - <span><?= date('m/d/y', $program_details->end) ?><?php } ?></span>, <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span>
-        <?php } else { ?>
-          <span><?= $program_details->days ?></span>,
-          <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span><br>
-          <?php foreach($program_details->sessions as $session) { ?>
-            <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><br><?php } ?>
-          <?php } ?>
+        <?php if (count($program_details->sessions) > 1) { 
+          $session = $program_details->sessions[0];
+          ?>
+          <span><?= count($program_details->sessions) ?> sessions</span><br>
+          <span>starting <?= date('m/d/y', $session['start']) ?></span>
+        <?php } else { 
+          $session = $program_details->sessions[0];
+          ?>
+          <span><?= $session['days'] ?></span><br>
+          <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?><?php } ?></span>, <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span>
         <?php } ?>
       </p>
     </div>
@@ -29,28 +30,3 @@ $program_url = get_permalink($program_details->ID);
     <a href="<?= $program_url ?>" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
   </div>
 </article>
-
-
-
-          <?php if (!$program_details->sessions) { ?>
-            <div class="meta-block date-time">
-              <h4>Date &amp; Time</h4>
-              <p><span><?= $program_details->days ?></span><br>
-              <span><?= date('m/d/y', $program_details->start) ?></span><?php if (date('m/d/y', $program_details->start) !== date('m/d/y', $program_details->end)) { ?> - <span><?= date('m/d/y', $program_details->end) ?></span><?php } ?><br> <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span></p>
-            </div>
-          <?php } else { ?>
-            <div class="meta-block days-time">
-              <h4>Days &amp; Time</h4>
-              <p><span><?= $program_details->days ?></span><br>
-              <span class="time"><?= date('g:ia', $program_details->start) ?></span>-<span class="time"><?= date('g:ia', $program_details->end) ?></span></p>
-            </div>
-            <div class="meta-block sessions-offered">
-              <h4>Sessions Offered</h4>
-              <p>
-                <?php foreach($program_details->sessions as $session) { ?>
-                  <span><?= date('m/d/y', $session['start']) ?></span>
-                  <?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
-                <?php } ?>
-              </p>
-            </div>
-          <?php } ?>

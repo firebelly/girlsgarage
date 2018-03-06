@@ -233,24 +233,24 @@ function metaboxes( array $meta_boxes ) {
       'options' => get_program_season_array(),
   ) );
 
-  $program_when->add_field( array(
-      'name'    => 'Day(s) of the week',
-      'id'      => $prefix . 'program_days',
-      'type'    => 'text',
-      'desc'    => 'Ex: Mondays & Wednesdays',
-  ) );
+  // $program_when->add_field( array(
+  //     'name'    => 'Day(s) of the week',
+  //     'id'      => $prefix . 'program_days',
+  //     'type'    => 'text',
+  //     'desc'    => 'Ex: Mondays & Wednesdays',
+  // ) );
 
   $program_when->add_field( array(
-      'name'    => 'Old Start Date',
+      'name'    => 'Sessions Start',
       'id'      => $prefix . 'program_start',
-      'type'    => 'text_datetime_timestamp',
+      'type'    => 'hidden', //'text_datetime_timestamp',
   ) );
 
 
   $program_when->add_field( array(
-      'name'    => 'Old End Date',
+      'name'    => 'Sessions End',
       'id'      => $prefix . 'program_end',
-      'type'    => 'text_datetime_timestamp',
+      'type'    => 'hidden', //'text_datetime_timestamp',
   ) );
 
   $sessions_group = $program_when->add_field( array(
@@ -266,7 +266,7 @@ function metaboxes( array $meta_boxes ) {
 
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'Day(s) of the week',
-    'id'      => $prefix . 'program_days',
+    'id'      => 'days',
     'type'    => 'text',
     'desc'    => 'Ex: Mondays & Wednesdays',
   ) );
@@ -533,47 +533,47 @@ function get_program_details($post) {
   return (object)$program;
 }
 
-// // _cmb2_program_start and _cmb2_program_end are needed 
-// // constantly in queries, but these are no longer part 
-// // of the admin and have been replaced by a repeatable 
-// // group (1 entry for each session) where each session 
-// // has its own start/end dates.
-// //
-// // So, whenever we save a program post:
-// // Take the earliest start date of any session in the 
-// // repeatable groups as _cmb2_program_start and latest 
-// // end date of any session as _cmb2_program_end.
-// function update_date_range( $post_id, $post, $update ) {
+// _cmb2_program_start and _cmb2_program_end are needed 
+// constantly in queries, but these are no longer part 
+// of the admin and have been replaced by a repeatable 
+// group (1 entry for each session) where each session 
+// has its own start/end dates.
+//
+// So, whenever we save a program post:
+// Take the earliest start date of any session in the 
+// repeatable groups as _cmb2_program_start and latest 
+// end date of any session as _cmb2_program_end.
+function update_date_range( $post_id, $post, $update ) {
 
-//   // If this isn't a 'program' post, gtfo.
-//   $post_type = get_post_type($post_id);
-//   if ( "program" != $post_type ) return;
+  // If this isn't a 'program' post, gtfo.
+  $post_type = get_post_type($post_id);
+  if ( "program" != $post_type ) return;
 
-//   // Start with empty vars to hold earliest and latest dates.
-//   $earliest = false;
-//   $latest = false;
+  // Start with empty vars to hold earliest and latest dates.
+  $earliest = false;
+  $latest = false;
 
-//   // Grab the sessions and loop through them.
-//   $sessions = get_post_meta( $post->ID, '_cmb2_sessions', true);
-//   if ( $sessions ) {
-//     foreach($sessions as $session) { 
-//       $earliest = $earliest ? min($earliest,$session['start']) : $session['start'];
-//       $latest = $latest ? max($latest,$session['end']) : $session['end'];
-//       // echo 'start: '.$session['start'].'<br>';
-//       // echo 'end: '.$session['end'].'<br>';
-//     } 
-//   }
+  // Grab the sessions and loop through them.
+  $sessions = get_post_meta( $post->ID, '_cmb2_sessions', true);
+  if ( $sessions ) {
+    foreach($sessions as $session) { 
+      $earliest = $earliest ? min($earliest,$session['start']) : $session['start'];
+      $latest = $latest ? max($latest,$session['end']) : $session['end'];
+      // echo 'start: '.$session['start'].'<br>';
+      // echo 'end: '.$session['end'].'<br>';
+    } 
+  }
 
-//   // Update the database
-//   update_post_meta( $post_id, '_cmb2_program_start', $earliest );
-//   update_post_meta( $post_id, '_cmb2_program_end', $latest );
-//   // echo 'earliest: '.$earliest.'<br>';
-//   // echo 'latest: '.$latest.'<br>';
-//   // exit;
+  // Update the database
+  update_post_meta( $post_id, '_cmb2_program_start', $earliest );
+  update_post_meta( $post_id, '_cmb2_program_end', $latest );
+  // echo 'earliest: '.$earliest.'<br>';
+  // echo 'latest: '.$latest.'<br>';
+  // exit;
 
-// }
-// // Must be of priority >=11 to come after cmb2 updates the database with new user input--otherwise this will be bulldozed.
-// add_action( 'save_post', __NAMESPACE__ . '\\update_date_range', 11, 3 );
+}
+// Must be of priority >=11 to come after cmb2 updates the database with new user input--otherwise this will be bulldozed.
+add_action( 'save_post', __NAMESPACE__ . '\\update_date_range', 11, 3 );
 
 
 
