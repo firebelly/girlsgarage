@@ -281,7 +281,7 @@
     z-index: 1;
     background: linear-gradient(to top, rgba($black,0.5), transparent);
 
-    @include min-screen($breakpoint-nav) {
+    @include media-md {
       display: none;
     }
   }
