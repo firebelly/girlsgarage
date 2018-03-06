@@ -9,7 +9,10 @@
 
 <div class="wrap">
   <div class="breadcrumbs">
-    <a href="<?= get_permalink(get_page_by_path('programs')) ?>">Programs</a> <span>→</span> <a href="<?= home_url() ?>/programs/<?= $program_type->slug ?>"><?= $program_type->name ?></a> 
+    <a href="<?= get_permalink(get_page_by_path('programs')) ?>">Programs</a> <span>→</span>
+    <?php if ($program_type) { ?>
+      <a href="<?= home_url() ?>/programs/<?= $program_type->slug ?>"><?= $program_type->name ?></a>
+    <?php } ?>
   </div>
 </div>
 
@@ -50,6 +53,8 @@
               
               <?php if ($registration_open > date('m/d/y')) { ?>
                 <p>Registration opens <?= $registration_open; ?></p>
+              <?php } elseif ($program->applications_are_closed) { ?>
+                <p>Applications are closed.</p>
               <?php } else { ?>
                 <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? $program->registration_link_text : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               <?php } ?>
@@ -90,14 +95,16 @@
           </div>
           <?php } ?>
 
-          <?php $i = 1; foreach($program->sessions as $session) { ?>
-            <div class="meta-block date-time">
-              <h4><?= count($program->sessions) > 1 ? 'Session '.($i++) : 'Date &amp; Time' ?></h4>
-              <p>
-              <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br> 
-              <span><?= $session['days'] ?></span><br>
-              <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
-            </div>
+          <?php if ($program->sessions) { ?>
+            <?php $i = 1; foreach($program->sessions as $session) { ?>
+              <div class="meta-block date-time">
+                <h4><?= count($program->sessions) > 1 ? 'Session '.($i++) : 'Date &amp; Time' ?></h4>
+                <p>
+                <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br> 
+                <span><?= $session['days'] ?></span><br>
+                <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
+              </div>
+            <?php } ?>
           <?php } ?>
 
           <div class="meta-block enrollment">

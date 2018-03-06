@@ -333,9 +333,15 @@ function metaboxes( array $meta_boxes ) {
           'desc'    => 'Could also be "apply" or other'
       ),
       array(
-          'name'    => 'Registration full',
+          'name'    => 'Waiting list?',
           'id'      => $prefix . 'registration_is_full',
-          'desc'    => 'Is the registration for the program filled up?',
+          'desc'    => 'Is the registration for the program filled up? Will override registration link text with "Waiting List"',
+          'type'    => 'checkbox',
+      ),
+      array(
+          'name'    => 'Application closed?',
+          'id'      => $prefix . 'applications_are_closed',
+          'desc'    => 'Will remove registration button and replace with "Applications now closed" message.',
           'type'    => 'checkbox',
       ),
     ),
@@ -505,22 +511,32 @@ function get_program_details($post) {
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
     'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),
+    'applications_are_closed' => get_post_meta($post->ID, '_cmb2_applications_are_closed', true),
     'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
     'badges_text' => get_post_meta($post->ID, '_cmb2_badges_text', true),
+    'multiple_days' => '', // Placeholder empty strings in case fields left unset in CMS
+    'start_time' => '',
+    'end_time' => '',
+    'time_txt' => '',
+    'archived' => '',
+    'desc' => '',
+    'year' => '',
   ];
-  // Is this program multiple days?
-  $program['multiple_days'] = (date('Y-m-d', $program['start']) != date('Y-m-d', $program['end']));
-  $program['start_time'] = date('g:ia', $program['start']);
-  $program['end_time'] = date('g:ia', $program['end']);
-  if ($program['start_time'] != $program['end_time']) {
-    $program['time_txt'] = $program['start_time'] . '–' . $program['end_time'];
-  } else {
-    $program['time_txt'] = $program['start_time'];
-  }
+  if ($program['start'] && $program['end']) {
+    // Is this program multiple days?
+    $program['multiple_days'] = (date('Y-m-d', $program['start']) != date('Y-m-d', $program['end']));
+    $program['start_time'] = date('g:ia', $program['start']);
+    $program['end_time'] = date('g:ia', $program['end']);
+    if ($program['start_time'] != $program['end_time']) {
+      $program['time_txt'] = $program['start_time'] . '–' . $program['end_time'];
+    } else {
+      $program['time_txt'] = $program['start_time'];
+    }
 
-  $program['archived'] = empty($program['end']) ? ($program['start'] < current_time('timestamp')) : ($program['end'] < current_time('timestamp'));
-  $program['desc'] = date('M d, Y @ ', $program['start']) . $program['time_txt']; // used in map pins
-  $program['year'] = date('Y', $program['start']);
+    $program['archived'] = empty($program['end']) ? ($program['start'] < current_time('timestamp')) : ($program['end'] < current_time('timestamp'));
+    $program['desc'] = date('M d, Y @ ', $program['start']) . $program['time_txt']; // used in map pins
+    $program['year'] = date('Y', $program['start']);
+  }
 
   $address = get_post_meta($post->ID, '_cmb2_address', true);
   $program['address'] = wp_parse_args($address, array(
