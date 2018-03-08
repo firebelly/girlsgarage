@@ -13,8 +13,7 @@ $program_url = get_permalink($program_details->ID);
         <?php if (count($program_details->sessions) > 1) { 
           $session = $program_details->sessions[0];
           ?>
-          <span><?= count($program_details->sessions) ?> sessions</span><br>
-          <span>starting <?= date('m/d/y', $session['start']) ?></span>
+          <span><?= count($program_details->sessions) ?> sessions</span>
         <?php } else { 
           $session = $program_details->sessions[0];
           ?>
