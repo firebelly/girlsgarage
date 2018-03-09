@@ -93,14 +93,16 @@ function custom_columns($column){
     if ( $column == 'featured_image' )
       echo the_post_thumbnail( 'program-thumb' );
     elseif ( $column == 'program_dates' ) {
-      $timestamp_start = $custom['_cmb2_program_start'][0];
-      $timestamp_end = !empty($custom['_cmb2_program_end'][0]) ? $custom['_cmb2_program_end'][0] : $timestamp_start;
-      if ($timestamp_end != $timestamp_start) {
-        $date_txt = date('m/d/Y', $timestamp_start) . ' – ' . date('m/d/Y', $timestamp_end);
-      } else {
-        $date_txt = date('m/d/Y', $timestamp_start);
+      if($custom['_cmb2_program_start'][0] && $custom['_cmb2_program_end'][0]) {
+        $timestamp_start = $custom['_cmb2_program_start'][0];
+        $timestamp_end = !empty($custom['_cmb2_program_end'][0]) ? $custom['_cmb2_program_end'][0] : $timestamp_start;
+        if ($timestamp_end != $timestamp_start) {
+          $date_txt = date('m/d/Y', $timestamp_start) . ' – ' . date('m/d/Y', $timestamp_end);
+        } else {
+          $date_txt = date('m/d/Y', $timestamp_start);
+        }
+        echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
       }
-      echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
     } elseif ( $column == 'program_type') {
       echo get_the_term_list($post->ID,'program_type','',', ','');
     } else {
