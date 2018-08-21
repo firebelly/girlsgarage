@@ -48,6 +48,7 @@
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
+    "wpackagist-plugin/wordpress-seo": ">=8.0",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6"
   },
   "require-dev": {
