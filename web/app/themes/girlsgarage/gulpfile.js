@@ -311,7 +311,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
 gulp.task('build', function(callback) {
   runSequence('styles',
               'scripts',
-              ['fonts', 'images','sprites', 'svgs'],
+              ['fonts', 'images', 'svgs'], // removed 'sprites' for now
               callback);
 });
 
