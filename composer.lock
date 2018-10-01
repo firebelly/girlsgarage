@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1766af16a8fe25f8a600d3b52db3f616",
+    "content-hash": "570972dc5992221888a523a15c1bfe51",
     "packages": [
         {
             "name": "composer/installers",
@@ -530,15 +530,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "3.4",
+            "version": "3.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/3.4"
+                "reference": "tags/3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.3.4.zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.3.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -587,26 +587,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/update-from-bottom/"
-        },
-        {
-            "name": "wpackagist-plugin/wordpress-seo",
-            "version": "8.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/8.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.8.0.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordpress-seo/"
         },
         {
             "name": "wpackagist-plugin/wp-full-stripe-free",
