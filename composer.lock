@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5aadff4080b4785d46a469a38c3dde00",
+    "content-hash": "1766af16a8fe25f8a600d3b52db3f616",
     "packages": [
         {
             "name": "composer/installers",
@@ -627,6 +627,298 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-full-stripe-free/"
+        },
+        {
+            "name": "xrstf/composer-php52",
+            "version": "v1.0.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer-php52/composer-php52.git",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-default": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "xrstf\\Composer52": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2016-04-16T21:52:24+00:00"
+        },
+        {
+            "name": "yoast/api-libs",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/api-libs.git",
+                "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://my.yoast.com/packages/dist/yoast/api-libs/yoast-api-libs-e7361081a1d6ae79c0b96c8363379435ea736ef8-zip-1dbe2c.zip",
+                "reference": "e7361081a1d6ae79c0b96c8363379435ea736ef8",
+                "shasum": "911f17e613379e14c0550c6665a522e66e3f844c"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class-api-libs.php"
+                ]
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Shared API libraries for Yoast projects.",
+            "homepage": "https://github.com/Yoast/api-libs",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/Yoast/api-libs/issues",
+                "source": "https://github.com/Yoast/api-libs/tree/2.0"
+            },
+            "time": "2015-07-14T10:25:59+00:00"
+        },
+        {
+            "name": "yoast/i18n-module",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/i18n-module.git",
+                "reference": "76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://my.yoast.com/packages/dist/yoast/i18n-module/yoast-i18n-module-76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c-zip-49ef3c.zip",
+                "reference": "76b1645aaf8cf9a07dc06ec0bbe2a6838feeed4c",
+                "shasum": "107bba6f652e7770c288e44374b81b50d5306fdf"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Handle i18n for WordPress plugins.",
+            "homepage": "https://github.com/Yoast/i18n-module",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/Yoast/i18n-module/issues",
+                "source": "https://github.com/Yoast/i18n-module/tree/3.0.0"
+            },
+            "time": "2017-09-06T07:17:52+00:00"
+        },
+        {
+            "name": "yoast/license-manager",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/License-Manager.git",
+                "reference": "fbacabb06d788912fead4f32d0d1d8b9a2d883c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://my.yoast.com/packages/dist/yoast/license-manager/yoast-license-manager-fbacabb06d788912fead4f32d0d1d8b9a2d883c9-zip-5d9715.zip",
+                "reference": "fbacabb06d788912fead4f32d0d1d8b9a2d883c9",
+                "shasum": "043ccf138562098d0055fc47f3feefc503567936"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class-api-request.php",
+                    "class-license-manager.php",
+                    "class-plugin-license-manager.php",
+                    "class-plugin-update-manager.php",
+                    "class-product.php",
+                    "class-theme-license-manager.php",
+                    "class-theme-update-manager.php",
+                    "class-update-manager.php"
+                ]
+            },
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "Yoast License Manager.",
+            "homepage": "https://github.com/Yoast/License-Manager",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/Yoast/License-Manager/issues",
+                "source": "https://github.com/Yoast/License-Manager/tree/1.6.0"
+            },
+            "time": "2017-08-22T07:59:16+00:00"
+        },
+        {
+            "name": "yoast/wordpress-seo-premium",
+            "version": "8.3",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:Yoast-dist/wordpress-seo-premium.git",
+                "reference": "2405ba77456fa24a90b30ff6aaffbf8c7cb3776a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://my.yoast.com/packages/dist/yoast/wordpress-seo-premium/yoast-wordpress-seo-premium-2405ba77456fa24a90b30ff6aaffbf8c7cb3776a-zip-2dec7f.zip",
+                "reference": "2405ba77456fa24a90b30ff6aaffbf8c7cb3776a",
+                "shasum": "f48676370d0b3855b30e6d4a943b072f7e2dcbaa"
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "xrstf/composer-php52": "^1.0.20",
+                "yoast/api-libs": "^2.0",
+                "yoast/i18n-module": "^3.0",
+                "yoast/license-manager": "1.6.0",
+                "yoast/wp-helpscout": "^2.0"
+            },
+            "require-dev": {
+                "roave/security-advisories": "dev-master",
+                "yoast/php-development-environment": "^1.0",
+                "yoast/yoastcs": "~0.4.3"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "classmap": [
+                    "admin/",
+                    "frontend/",
+                    "inc/",
+                    "deprecated/",
+                    "cli/",
+                    "premium/cli/"
+                ]
+            },
+            "autoload-dev": {
+                "classmap": [
+                    "tests/"
+                ]
+            },
+            "scripts": {
+                "config-yoastcs": [
+                    "\"vendor/bin/phpcs\" --config-set installed_paths ../../../vendor/wp-coding-standards/wpcs,../../../vendor/yoast/yoastcs",
+                    "\"vendor/bin/phpcs\" --config-set default_standard Yoast"
+                ],
+                "check-cs": [
+                    "\"vendor/bin/phpcs\""
+                ],
+                "check-cs-errors": [
+                    "\"vendor/bin/phpcs\" --error-severity=1 --warning-severity=6"
+                ],
+                "fix-cs": [
+                    "\"vendor/bin/phpcbf\""
+                ],
+                "post-install-cmd": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ],
+                "post-update-cmd": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ],
+                "post-autoload-dump": [
+                    "xrstf\\Composer52\\Generator::onPostInstallCmd"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoa.st/1--"
+                }
+            ],
+            "description": "Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.",
+            "homepage": "https://yoa.st/1ui",
+            "keywords": [
+                "seo",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/Yoast/wordpress-seo/issues",
+                "forum": "https://wordpress.org/support/plugin/wordpress-seo",
+                "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
+                "source": "https://github.com/Yoast/wordpress-seo"
+            },
+            "time": "2018-09-25T11:08:08+00:00"
+        },
+        {
+            "name": "yoast/wp-helpscout",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yoast/wp-helpscout.git",
+                "reference": "00c6d777497c935af76ba1b4962823165139bbbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://my.yoast.com/packages/dist/yoast/wp-helpscout/yoast-wp-helpscout-00c6d777497c935af76ba1b4962823165139bbbc-zip-6c3bb8.zip",
+                "reference": "00c6d777497c935af76ba1b4962823165139bbbc",
+                "shasum": "9d98740bc207322067e7c087e1fe0955fdb5a53a"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Team Yoast",
+                    "email": "support@yoast.com",
+                    "homepage": "https://yoast.com"
+                }
+            ],
+            "description": "A package to integrate the helpscout beacon into WordPress",
+            "support": {
+                "source": "https://github.com/Yoast/wp-helpscout/tree/2.0.3",
+                "issues": "https://github.com/Yoast/wp-helpscout/issues"
+            },
+            "time": "2017-08-03T07:48:33+00:00"
         }
     ],
     "packages-dev": [
