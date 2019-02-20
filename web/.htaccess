@@ -1,21 +1,18 @@
 # BEGIN redirects
 RewriteEngine on
-RewriteBase /
 
 # Ensure consistent URL
 RewriteCond %{REQUEST_URI} !\.well-known/acme-challenge
-RewriteCond %{HTTP_HOST} !^www\.girlsgarage\.org [NC]
+RewriteCond %{HTTP_HOST} !^girlsgarage\.org [NC]
 RewriteCond %{HTTP_HOST} !^girlsgarage\.firebelly\.co [NC]
-RewriteCond %{HTTP_HOST} !^girlsgarage\.localhost [NC]
-RewriteCond %{HTTP_HOST} !^girlsgarage\.sage [NC]
-RewriteRule ^(.*)$ https://www.girlsgarage.org/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} !^girlsgarage\.(localhost|sage) [NC]
+RewriteRule ^(.*)$ https://girlsgarage.org/$1 [R=301,L]
 
 # Force SSL
 RewriteCond %{REQUEST_URI} !\.well-known/acme-challenge
 RewriteCond %{HTTP:X-Forwarded-SSL} !on
 RewriteCond %{HTTP_HOST} !^girlsgarage\.firebelly\.co [NC]
-RewriteCond %{HTTP_HOST} !^girlsgarage\.localhost [NC]
-RewriteCond %{HTTP_HOST} !^girlsgarage\.sage [NC]
+RewriteCond %{HTTP_HOST} !^girlsgarage\.(localhost|sage) [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # END redirects
