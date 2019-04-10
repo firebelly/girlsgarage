@@ -60,3 +60,30 @@ $mobile-global-padding: 35px;
     max-width: 66.6666667%;
   }
 }
+
+// This allows js to determine breakpoint
+#breakpoint-indicator {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+
+  &::after {
+    content: 'xs';
+    @include min-screen($breakpoint-sm) {
+      content: 'sm';
+    }
+    @include min-screen($breakpoint-md) {
+      content: 'md';
+    }
+    @include min-screen($breakpoint-lg) {
+      content: 'lg';
+    }
+    @include min-screen($breakpoint-nav) {
+      content: 'nav';
+    }
+    @include min-screen($breakpoint-xl) {
+      content: 'xl';
+    }
+  }
+}

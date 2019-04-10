@@ -52,12 +52,12 @@
 
   .person {
     color: $white;
+    cursor: pointer;
     -webkit-font-smoothing: antialiased;
     margin-bottom: #{$vertical-beat * 3};
     .photo {
-      display: none;
-      margin-bottom: #{$vertical-beat * 4};
       border-radius: 50%;
+      margin-bottom: #{$vertical-beat * 4};
     }
     h2 {
       @extend .h2;
@@ -109,7 +109,6 @@
   // Different types of people
   &.staff-grid {
     .person {
-      cursor: pointer;
       h2 {
         &::after {
           display: none;

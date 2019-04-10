@@ -22,6 +22,7 @@
   }
 
   @include media-md {
+    top: 0!important;
     position: fixed;
     padding: $global-padding 0;
   }

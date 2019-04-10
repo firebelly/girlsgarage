@@ -59,9 +59,5 @@
     "sprity": "^1.0.8",
     "traverse": "^0.6.6",
     "wiredep": "^2.2.2"
-  },
-  "dependencies": {
-    "sprity": "^1.0.8",
-    "sprity-sass": "^1.0.4"
   }
 }

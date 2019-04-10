@@ -5,10 +5,15 @@
 var FBSage = (function($) {
 
   var screen_width = 0,
-      breakpoint_small = false,
-      breakpoint_medium = false,
-      breakpoint_large = false,
-      breakpoint_array = [480,1000,1200],
+      breakpointIndicatorString,
+      breakpoint_xl,
+      breakpoint_lg,
+      breakpoint_nav,
+      breakpoint_md,
+      breakpoint_sm,
+      breakpoint_xs,
+      breakpoints = [],
+      breakpointClasses = ['xs','sm','md','lg','nav','xl'],
       $siteHeader = $('.site-header'),
       $siteNav = $('.site-nav'),
       $badgeOverlayContainer = $('#badge-content-overlay'),
@@ -137,7 +142,7 @@ var FBSage = (function($) {
   }
 
   function _injectSvgSprite() {
-    boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg'); 
+    boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg');
   }
 
   // Bind to state changes and handle back/forward
@@ -164,7 +169,7 @@ var FBSage = (function($) {
           _loadGridItem();
         }
 
-      } else if (State.url !== original_url && relative_url.match(/^\/(programs|\d{0,4})\//)) { 
+      } else if (State.url !== original_url && relative_url.match(/^\/(programs|\d{0,4})\//)) {
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
           _showProgramType();
@@ -204,7 +209,7 @@ var FBSage = (function($) {
       $(this).addClass('hide-label');
     }).on('blur', function() {
       if(!$(this).val()) {
-        $(this).removeClass('hide-label'); 
+        $(this).removeClass('hide-label');
       }
     });
 
@@ -394,7 +399,7 @@ var FBSage = (function($) {
       var $activeContainer = $('.active-grid-item-container'),
           $activeDataContainer = $activeContainer.find('.item-data-container'),
           $thisItem = $activeArticle.closest('.grid-item'),
-          thisItemOffset = $thisItem.offset().top;
+          thisItemOffset = $thisItem.position().top;
 
       $itemData = $(page_cache[encodeURIComponent(State.url)]);
       _showOverlay();
@@ -411,10 +416,13 @@ var FBSage = (function($) {
       $thisItem.addClass('-active');
       $thisItem.closest('.grid-items').addClass('-active');
       $itemData.clone().appendTo($activeDataContainer);
-      // $activeContainer.css('top', thisItemOffset);
+      if (!breakpoint_md) {
+        $activeContainer.css('top', thisItemOffset);
+      }
       $activeContainer.addClass('-active');
-      // _scrollBody($activeContainer, 250, 0, headerOffset + 64);
-
+      if (!breakpoint_md) {
+        _scrollBody($activeContainer, 250, 0, headerOffset);
+      }
     }
   }
 
@@ -468,7 +476,7 @@ var FBSage = (function($) {
   }
 
     // Load AJAX content to show in a modal & store in page_cache array
-  function _loadGridItem() { 
+  function _loadGridItem() {
     $.ajax({
       url: ajax_handler_url,
       method: 'get',
@@ -485,7 +493,7 @@ var FBSage = (function($) {
   }
 
   // Load AJAX content to show in a modal & store in page_cache array
-  function _initProgramOverlay() { 
+  function _initProgramOverlay() {
     $document.on('click', '.load-program-type', function(e) {
       if (!$('body').is('.page-template-program-type')) {
         e.preventDefault();
@@ -608,7 +616,7 @@ var FBSage = (function($) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
-            if (breakpoint_medium) {
+            if (breakpoint_md) {
               more_container.masonry('appended', $data, true);
             }
             $load_more.attr('data-page-at', page+1);
@@ -646,7 +654,7 @@ var FBSage = (function($) {
   }
 
   function _initStickyElements() {
-    if ($('.scroll-stick').length) {    
+    if ($('.scroll-stick').length) {
       var sticky = new Waypoint.Sticky({
         element: $('.scroll-stick')
       });
@@ -665,17 +673,27 @@ var FBSage = (function($) {
 
   // Called in quick succession as window is resized
   function _resize() {
-    screenWidth = document.documentElement.clientWidth;
-    breakpoint_small = (screenWidth > breakpoint_array[0]);
-    breakpoint_medium = (screenWidth > breakpoint_array[1]);
-    breakpoint_large = (screenWidth > breakpoint_array[2]);
+    // Check breakpoint indicator in DOM ( :after { content } is controlled by CSS media queries )
+    breakpointIndicatorString = window.getComputedStyle(
+      document.querySelector('#breakpoint-indicator'), ':after'
+    ).getPropertyValue('content')
+    .replace(/['"]+/g, '');
+
+    // Determine current breakpoint
+    breakpoint_xl = breakpointIndicatorString === 'xl';
+    breakpoint_nav = breakpointIndicatorString === 'nav' || breakpoint_xl;
+    breakpoint_lg = breakpointIndicatorString === 'lg' || breakpoint_nav;
+    breakpoint_md = breakpointIndicatorString === 'md' || breakpoint_lg;
+    breakpoint_sm = breakpointIndicatorString === 'sm' || breakpoint_md;
+
+    breakpoints = [breakpoint_sm,breakpoint_md,breakpoint_lg,breakpoint_nav,breakpoint_xl];
 
     _setHeaderOffset();
   }
 
   // Header offset w/wo wordpress admin bar
   function _setHeaderOffset() {
-    if (breakpoint_medium) {
+    if (breakpoint_md) {
       if ($('body').hasClass('admin-bar')) {
         wpAdminBar = true;
         headerOffset = $('#wpadminbar').outerHeight() + $('.site-header').outerHeight();
