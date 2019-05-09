@@ -395,6 +395,23 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['program_donors_partners'] = array(
+    'id'            => 'program_donors_partners',
+    'title'         => __( 'Program Donor(s) and Partner(s)', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'low',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Donor(s) and Partner(s)',
+          'id'      => $prefix . 'program_donors_partners',
+          'type'    => 'textarea',
+          'desc'    => "(Optional)"
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
@@ -516,6 +533,7 @@ function get_program_details($post) {
     'applications_are_closed' => get_post_meta($post->ID, '_cmb2_applications_are_closed', true),
     'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
     'badges_text' => get_post_meta($post->ID, '_cmb2_badges_text', true),
+    'donors_partners' => get_post_meta($post->ID, '_cmb2_program_donors_partners', true),
     'multiple_days' => '', // Placeholder empty strings in case fields left unset in CMS
     'start_time' => '',
     'end_time' => '',
@@ -551,15 +569,15 @@ function get_program_details($post) {
   return (object)$program;
 }
 
-// _cmb2_program_start and _cmb2_program_end are needed 
-// constantly in queries, but these are no longer part 
-// of the admin and have been replaced by a repeatable 
-// group (1 entry for each session) where each session 
+// _cmb2_program_start and _cmb2_program_end are needed
+// constantly in queries, but these are no longer part
+// of the admin and have been replaced by a repeatable
+// group (1 entry for each session) where each session
 // has its own start/end dates.
 //
 // So, whenever we save a program post:
-// Take the earliest start date of any session in the 
-// repeatable groups as _cmb2_program_start and latest 
+// Take the earliest start date of any session in the
+// repeatable groups as _cmb2_program_start and latest
 // end date of any session as _cmb2_program_end.
 function update_date_range( $post_id, $post, $update ) {
 
@@ -574,12 +592,12 @@ function update_date_range( $post_id, $post, $update ) {
   // Grab the sessions and loop through them.
   $sessions = get_post_meta( $post->ID, '_cmb2_sessions', true);
   if ( $sessions ) {
-    foreach($sessions as $session) { 
+    foreach($sessions as $session) {
       $earliest = $earliest ? min($earliest,$session['start']) : $session['start'];
       $latest = $latest ? max($latest,$session['end']) : $session['end'];
       // echo 'start: '.$session['start'].'<br>';
       // echo 'end: '.$session['end'].'<br>';
-    } 
+    }
   }
 
   // Update the database

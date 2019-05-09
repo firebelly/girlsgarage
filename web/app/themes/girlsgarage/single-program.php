@@ -18,7 +18,7 @@
 
 <article id="<?= $post->slug ?>">
   <div class="wrap -flush grid">
-  
+
     <div class="post-content one-half -left">
       <?php if ($images) {
         echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
@@ -40,7 +40,7 @@
           </header>
           <div class="content user-content">
             <?= $body ?>
-          </div>  
+          </div>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
           <div class="meta-block title">
             <h2 class="post-title"><?= $program->title ?></h2>
             <div class="registration">
-              
+
               <?php if ($registration_open > date('m/d/y')) { ?>
                 <p>Registration opens <?= $registration_open; ?></p>
               <?php } elseif ($program->applications_are_closed) { ?>
@@ -100,7 +100,7 @@
               <div class="meta-block date-time">
                 <h4><?= count($program->sessions) > 1 ? 'Session '.($i++) : 'Date &amp; Time' ?></h4>
                 <p>
-                <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br> 
+                <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
                 <span><?= $session['days'] ?></span><br>
                 <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
               </div>
@@ -120,7 +120,7 @@
           <div class="meta-block tuition">
             <h4>Tuition</h4>
             <p><?= $program->tuition ?></p>
-            <?php if (!$program->hide_scholarship) { ?>            
+            <?php if (!$program->hide_scholarship) { ?>
               <?php if (!empty(\Firebelly\SiteOptions\get_option('scholarship_application_form'))) { ?>
               <p class="scholarship">(<a href="<?= \Firebelly\SiteOptions\get_option('scholarship_application_form'); ?>" target="_blank">Scholarship Application</a>)</p>
               <?php } ?>
@@ -148,6 +148,14 @@
               <?php } ?>
           </div>
           <?php } ?>
+
+          <?php if ($program->donors_partners) { ?>
+          <div class="meta-block donors-partners">
+            <h4>Donors and Partners</h4>
+            <p><?= $program->donors_partners ?></p>
+          </div>
+          <?php } ?>
+
         </div>
       </div>
     </div>
