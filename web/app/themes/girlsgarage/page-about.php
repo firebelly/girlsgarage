@@ -57,9 +57,9 @@
     </div>
     <div class="one-half card -white -cut-right -wide">
       <div class="-inner">
-        <h3>Partners</h3>
-        <p>Everything we do, we do for our girls and our community, with a lot of help from our friends.</p>
-        <a href="partners" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+        <h3>Funders</h3>
+        <p>Our work is made possible thanks to the generous support of foundations, individuals, companies, and community partners.</p>
+        <a href="/support/funders" class="btn more -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       </div>
     </div>
     <div class="one-half card -white -cut-right -wide">
