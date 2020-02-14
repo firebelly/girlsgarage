@@ -47,7 +47,7 @@ function post_type() {
     'show_in_nav_menus'   => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 20,
-    'menu_icon'           => 'dashicons-hammer',
+    'menu_icon'           => 'dashicons-welcome-learn-more',
     'can_export'          => false,
     'has_archive'         => true,
     'exclude_from_search' => false,

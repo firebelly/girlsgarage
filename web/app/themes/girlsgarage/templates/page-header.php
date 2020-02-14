@@ -21,6 +21,6 @@
   </div>
   <?php endif; ?>
   <div class="wrap">
-    <h1><?= Titles\title(); ?></h1>
+    <h1 class="page-title"><?= Titles\title(); ?></h1>
   </div>
 </div>

@@ -93,6 +93,18 @@ function get_secondary_header($post) {
   return $secondary_bg;
 }
 
+/**
+ * Get Tertiary header image
+ */
+function get_tertiary_header($post) {
+  if (empty(get_post_meta($post->ID, '_cmb2_tertiary_featured_image', true))) {
+    return false;
+  }
+  $tertiary_bg_id = get_post_meta($post->ID, '_cmb2_tertiary_featured_image_id', true);
+  $tertiary_bg_image = get_attached_file($tertiary_bg_id, false);
+  $tertiary_bg = \Firebelly\Media\get_header_bg($tertiary_bg_image,'','bw', 'banner_image');
+  return $tertiary_bg;
+}
 
 /**
  * Get Parent URL for a Post
@@ -121,29 +133,29 @@ function get_parent_url($post) {
 }
 
 /**
- * Rename Post to Story
+ * Rename Post to News + {ress}
  */
 function change_post_menu_label() {
     global $menu;
     global $submenu;
-    $menu[5][0] = 'Stories';
-    $submenu['edit.php'][5][0] = 'Stories';
-    $submenu['edit.php'][10][0] = 'Add Stories';
+    $menu[5][0] = 'News and Press';
+    $submenu['edit.php'][5][0] = 'News and Press';
+    $submenu['edit.php'][10][0] = 'Add News and Press';
     echo '';
 }
 function change_post_object_label() {
         global $wp_post_types;
         $labels = &$wp_post_types['post']->labels;
-        $labels->name = 'Stories';
-        $labels->singular_name = 'Story';
-        $labels->add_new = 'Add Story';
-        $labels->add_new_item = 'Add Story';
-        $labels->edit_item = 'Edit Story';
-        $labels->new_item = 'Story';
-        $labels->view_item = 'View Story';
-        $labels->search_items = 'Search Stories';
-        $labels->not_found = 'No Stories found';
-        $labels->not_found_in_trash = 'No Stories found in Trash';
+        $labels->name = 'News and Press';
+        $labels->singular_name = 'News and Press';
+        $labels->add_new = 'Add News and Press';
+        $labels->add_new_item = 'Add News and Press';
+        $labels->edit_item = 'Edit News and Press';
+        $labels->new_item = 'News and Press';
+        $labels->view_item = 'View News and Press';
+        $labels->search_items = 'Search News and Press';
+        $labels->not_found = 'No News and Press found';
+        $labels->not_found_in_trash = 'No News and Press found in Trash';
 }
 add_action( 'init', __NAMESPACE__ . '\\change_post_object_label' );
 add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
@@ -199,4 +211,55 @@ function video_slideshow($video_links_parsed) {
     }
   }
   return $output;
+}
+
+/**
+ * Support for sending vars to get_template_part()
+ * e.g. \Firebelly\Utils\get_template_part_with_vars('templates/page', 'header', ['foo' => 'bar']);
+ * (from https://github.com/JolekPress/Get-Template-Part-With-Variables)
+ */
+function get_template_part_with_vars($slug, $name = null, array $namedVariables = []) {
+  // Taken from standard get_template_part function
+  \do_action("get_template_part_{$slug}", $slug, $name);
+
+  $templates = array();
+  $name = (string)$name;
+  if ('' !== $name)
+      $templates[] = "{$slug}-{$name}.php";
+
+  $templates[] = "{$slug}.php";
+
+  $template = \locate_template($templates, false, false);
+
+  if (empty($template)) {
+    return;
+  }
+
+  // @see load_template (wp-includes/template.php) - these are needed for WordPress to work.
+  global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;
+
+  if (is_array($wp_query->query_vars)) {
+    \extract($wp_query->query_vars, EXTR_SKIP);
+  }
+
+  if (isset($s)) {
+      $s = \esc_attr($s);
+  }
+  // End standard WordPress behavior
+
+  foreach ($namedVariables as $variableName => $value) {
+    if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_\x7f-\xff]*/', $variableName)) {
+      trigger_error('Variable names must be valid. Skipping "' . $variableName . '" because it is not a valid variable name.');
+      continue;
+    }
+
+    if (isset($$variableName)) {
+      trigger_error("{$variableName} already existed, probably set by WordPress, so it wasn't set to {$value} like you wanted. Instead it is set to: " . print_r($$variableName, true));
+      continue;
+    }
+
+    $$variableName = $value;
+  }
+
+  require $template;
 }

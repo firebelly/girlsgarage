@@ -12,67 +12,175 @@
 
 /* @import must be at top of file, otherwise CSS will not work */
 @import url("//hello.myfonts.net/count/31b88b");
- 
-@font-face {font-family: 'Rational-BookItalic';src: url('../fonts/3163D0_0_0.eot');src: url('../fonts/3163D0_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_0_0.woff2') format('woff2'),url('../fonts/3163D0_0_0.woff') format('woff'),url('../fonts/3163D0_0_0.ttf') format('truetype'),url('../fonts/3163D0_0_0.svg#wf') format('svg');}
-  
-@font-face {font-family: 'Rational-Book';src: url('../fonts/3163D0_1_0.eot');src: url('../fonts/3163D0_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_1_0.woff2') format('woff2'),url('../fonts/3163D0_1_0.woff') format('woff'),url('../fonts/3163D0_1_0.ttf') format('truetype'),url('../fonts/3163D0_1_0.svg#wf') format('svg');}
-  
-@font-face {font-family: 'Rational-SemiBoldItalic';src: url('../fonts/3163D0_2_0.eot');src: url('../fonts/3163D0_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_2_0.woff2') format('woff2'),url('../fonts/3163D0_2_0.woff') format('woff'),url('../fonts/3163D0_2_0.ttf') format('truetype'),url('../fonts/3163D0_2_0.svg#wf') format('svg');}
- 
-@font-face {font-family: 'Rational-SemiBold';src: url('../fonts/3163D0_3_0.eot');src: url('../fonts/3163D0_3_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_3_0.woff2') format('woff2'),url('../fonts/3163D0_3_0.woff') format('woff'),url('../fonts/3163D0_3_0.ttf') format('truetype'),url('../fonts/3163D0_3_0.svg#wf') format('svg');}
+
+
+@font-face {font-family: 'Rational';src: url('../fonts/3163D0_1_0.eot');src: url('../fonts/3163D0_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_1_0.woff2') format('woff2'),url('../fonts/3163D0_1_0.woff') format('woff'),url('../fonts/3163D0_1_0.ttf') format('truetype'),url('../fonts/3163D0_1_0.svg#wf') format('svg'); font-style: normal; font-weight: 500;}
+
+@font-face {font-family: 'Rational';src: url('../fonts/3163D0_0_0.eot');src: url('../fonts/3163D0_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_0_0.woff2') format('woff2'),url('../fonts/3163D0_0_0.woff') format('woff'),url('../fonts/3163D0_0_0.ttf') format('truetype'),url('../fonts/3163D0_0_0.svg#wf') format('svg'); font-style: italic; font-weight: 500;}
+
+@font-face {font-family: 'Rational';src: url('../fonts/3163D0_3_0.eot');src: url('../fonts/3163D0_3_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_3_0.woff2') format('woff2'),url('../fonts/3163D0_3_0.woff') format('woff'),url('../fonts/3163D0_3_0.ttf') format('truetype'),url('../fonts/3163D0_3_0.svg#wf') format('svg'); font-style: normal; font-weight: 600;}
+
+@font-face {font-family: 'Rational';src: url('../fonts/3163D0_2_0.eot');src: url('../fonts/3163D0_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/3163D0_2_0.woff2') format('woff2'),url('../fonts/3163D0_2_0.woff') format('woff'),url('../fonts/3163D0_2_0.ttf') format('truetype'),url('../fonts/3163D0_2_0.svg#wf') format('svg'); font-style: italic; font-weight: 600;}
 
 // Fonts
 $font-display: 'gg_display_mono', sans-serif;
-$font-regular: 'Rational-Book', sans-serif;
-$font-regular-italic: 'Rational-BookItalic', sans-serif;
-$font-bold: 'Rational-SemiBold', sans-serif;
-$font-bold-italic: 'Rational-SemiBoldItalic', sans-serif;
+$font-regular: 'Rational', sans-serif;
+
+@mixin font-display() {
+  font-family: $font-display;
+}
+@mixin font-regular() {
+  font-family: $font-regular;
+}
+
+/// Mixin to allow us to concisely define all aspects of a paragraph style (except for family.)
+/// @param {number} $size - Font size specified in pixels (without 'px')
+/// @param {number} $lh - Line height specified in pixels (without 'px')
+/// @param {number} $ls [0em] - Letter spacing
+/// @param {number or string} $w [normal] - Font weight
+/// @param {string} $tt [none] - Text transform
+/// @example scss - Used as a shortcut in defining a paragraph style...
+///   @mixin h1 {
+///     @include font-display; // The font face
+///     @include paragraph-style (12, 16, $ls: .075em, $tt: uppercase); // Other properties
+///   }
+@mixin paragraph-style ($size, $lh, $ls: 0em, $w: normal, $tt: none) {
+  font-size: #{$size}px;
+  line-height: ($lh / $size);
+  letter-spacing: $ls;
+  text-transform: $tt;
+  font-weight: $w;
+}
+
+// Type Style Mixins + Classes
+/// example:
+/// @mixin h1 {
+///   @include font-display;
+///   @include paragraph-style(31, 40, -.010322581em);
+///   @include media-md {
+///     @include paragraph-style(96, 96, -.005208333em);
+///   }
+/// }
+/// .h1 {
+///   @include h1;
+/// }
 
 .font-display {
+  @include font-display;
   font-weight: normal;
-  font-family: $font-display;
   text-transform: uppercase;
 }
 
 .font-regular {
-  font-weight: normal;
-  font-family: $font-regular;
+  @include font-regular;
+  font-weight: 500;
 }
 
 .font-regular-italic {
-  font-weight: normal;
-  font-style: normal;
-  font-family: $font-regular;
+  @include font-regular;
+  font-weight: 500;
+  font-style: italic;
 }
 
 .font-bold {
-  font-weight: normal;
-  font-family: $font-bold;
+  @include font-regular;
+  font-weight: 600;
 }
 
 .font-bold-italic {
-  font-style: normal;
-  font-weight: normal;
-  font-family: $font-bold-italic;
+  @include font-regular;
+  font-weight: 600;
+  font-style: italic;
 }
 
+@mixin h1 {
+  @include font-display;
+  @include paragraph-style(60, 60);
+}
 .h1 {
-  font-size: 20px;
-  line-height: 1.25;
-  @extend .font-display;
-  text-transform: uppercase;
+  @include h1;
 }
 
+@mixin type-stat {
+  @include font-display;
+  @include paragraph-style(50, 50, -0.05em);
+}
+.type-stat {
+  @include type-stat;
+}
+
+@mixin h2 {
+  @include font-regular;
+  @include paragraph-style(28, 35, 0.01em, 600);
+}
 .h2 {
-  font-size: 10px;
-  line-height: 1.5;
-  @extend .font-bold;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+  @include h2;
 }
 
+@mixin h3 {
+  @include font-regular;
+  @include paragraph-style(20, 25, 0.01em, 600);
+}
 .h3 {
-  font-size: 20px;
-  line-height: 1.25;
-  @extend .font-regular;
+  @include h3;
+}
+
+@mixin subtitle($weight: 500) {
+  @include font-regular;
+  @include paragraph-style(18, 25, 0, $weight);
+}
+.subtitle {
+  @include subtitle;
+  &-strong {
+    @include subtitle(600);
+  }
+}
+
+@mixin h4 {
+  @include font-regular;
+  @include paragraph-style(15, 20, 0.01em, 600);
+}
+.h4 {
+  @include h4;
+}
+
+@mixin h5 {
+  @include font-regular;
+  @include paragraph-style(18, 25, 0, 500);
+}
+.h5 {
+  @include h5;
+}
+
+// Smallcaps titles
+@mixin smallcaps() {
+  @include font-regular;
+  @include paragraph-style(11, 15, 0.16em, 600, uppercase);
+}
+.smallcaps {
+  @include smallcaps;
+}
+
+@mixin h6 {
+  @include font-regular;
+  @include paragraph-style(9, 10, 0.16em, 600, uppercase);
+}
+.h6 {
+  @include h6;
+}
+
+@mixin p1 {
+  @include font-regular;
+  @include paragraph-style(14, 20, 0, 500);
+}
+.p1 {
+  @include p1;
+}
+
+@mixin caption {
+  @include font-regular;
+  @include paragraph-style(12, 18, 0, 500);
+}
+.caption {
+  @include caption;
 }

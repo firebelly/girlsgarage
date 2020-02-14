@@ -37,6 +37,6 @@
     }
   },
   "config": {
-    "devUrl": "http://girlsgarage.localhost"
+    "devUrl": "http://girlsgarage.sage"
   }
 }

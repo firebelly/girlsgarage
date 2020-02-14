@@ -18,32 +18,6 @@
       }
     }
   }
-
-  .page-secondary-content {
-    .section-title {
-      @extend .h1;
-      position: relative;
-      margin-top: #{$vertical-beat * 6};
-      margin-bottom: #{$vertical-beat * 3};
-      padding-bottom: #{$vertical-beat * 4};
-      &::after {
-        left: 0;
-        bottom: 0;
-        width: 6px;
-        height: 3px;
-        content: '';
-        margin: 1px 0;
-        display: block;
-        position: absolute;
-        background: $black;
-      }
-      &:first-of-type {
-        margin-top: 0;
-        font-size: 20px;
-        line-height: 1.25;
-      }
-    }
-  }
 }
 
 // Team Grid
@@ -51,58 +25,18 @@
 .people-grid {
 
   .person {
-    color: $white;
     cursor: pointer;
-    -webkit-font-smoothing: antialiased;
-    margin-bottom: #{$vertical-beat * 3};
-    .photo {
-      border-radius: 50%;
-      margin-bottom: #{$vertical-beat * 4};
-    }
-    h2 {
-      @extend .h2;
-      font-size: 10px;
-      max-width: 100px;
-      &::after {
-        display: block;
-      }
+    .card-title {
+      margin-top: 0;
     }
     .bio-label {
       display: none;
     }
     .credentials {
-      font-size: 11px;
-      line-height: 1.363636364;
+      @include p1;
     }
     .body-content {
       display: none;
-    }
-  }
-
-  @include media-md {
-    display: flex;
-    flex-wrap: wrap;
-    @include clearfix;
-    margin-left: -30px;
-    width: calc(100% + 30px);
-
-    .person {
-      .photo {
-        display: block;
-      }
-    }
-
-    .person.grid-item {
-      max-width: 50%;
-      flex-basis: 50%;
-      padding-left: 30px;
-    }
-  }
-
-  @include media-lg {
-    .person.grid-item {
-      max-width: 33.3333%;
-      flex-basis: 33.3333%;
     }
   }
 
@@ -113,9 +47,6 @@
         &::after {
           display: none;
         }
-      }
-      .credentials {
-        display: none;
       }
     }
   }
@@ -129,56 +60,76 @@
   }
 }
 
-.person {
-  .photo {
-    height: 0;
-    width: 100%;
-    padding-bottom: 100%;
-    background-size: cover;
-    background-position: center center;
-  }
-}
-
 // Active person container
 .active-person {
-  article {
-    @include clearfix;
+  margin: 0 auto;
+  max-width: 490px;
+
+  .bio-content {
+    overflow: auto;
+    background-color: $white;
   }
 
-  .photo-wrap {
-    overflow: hidden;
+  .person-header,
+  .person-bio {
+    padding: 35px $padding-sm;
   }
 
-  .bio-label {
-    @extend .h2;
-    margin-top: 0;
-    margin-bottom: #{$vertical-beat * 2};
+  .person-image-container {
+    padding: 0 $padding-sm;
   }
 
-  .person-name {
-    margin-top: 0;
-    @include headline-dash('both');
+  .person-header {
+    border-bottom: 1px solid $gray-lite;
+
+    h4 {
+      @include smallcaps;
+      margin: 0;
+    }
+
+    .person-name {
+      @include h2;
+      margin: 0;
+    }
+
+    .credentials {
+      @include p1;
+      margin: 5px 0 0;
+    }
   }
 
-  .credentials {
-    @extend .h3;
+  .person-image-container {
+    .person-image {
+      height: 0;
+      width: 100%;
+      margin: 35px 0;
+      background-size: cover;
+      padding-bottom: 82.9268%;
+      clip-path: $clippath-double;
+      background-position: center center;
+    }
   }
 
   .content {
     overflow: hidden;
-    @extend .card, .-gray, .-cut-right, .-wide;
-    margin-top: -#{$global-padding / 2};
+    @extend .card, .-gray, .-wide;
+    margin-top: -#{$padding / 2};
     min-width: 1px;
   }
 
   @include media-md {
-    width: calc(100% - #{$global-padding * 2});
 
-    .content {
-      width: 50%;
-      float: left;
-      height: 100%;
-      margin-top: 0;
+    .bio-content {
+      clip-path: $clippath;
+    }
+
+    .person-header,
+    .person-bio {
+      padding: 35px 40px;
+    }
+
+    .person-image-container {
+      padding: 0 40px;
     }
 
     .-inner {
@@ -197,9 +148,9 @@
         overflow: auto;
         max-height: 100%;
         position: relative;
-        margin-left: -#{$global-padding / 2};
-        padding: 0 #{$global-padding / 2} 0; //$global-padding;
-        width: calc(100% + #{$global-padding});
+        margin-left: -#{$padding / 2};
+        padding: 0 #{$padding / 2} 0; //$padding;
+        width: calc(100% + #{$padding});
       }
     }
 

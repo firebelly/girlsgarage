@@ -56,7 +56,7 @@
     }
     fieldset {
       margin: 0;
-      padding: 0; 
+      padding: 0;
       border: none;
       > p {
         display: none;
@@ -85,7 +85,7 @@
         height: 1px;
         background: $black;
         position: absolute;
-        right: #{-$global-padding / 2};
+        right: #{-$padding / 2};
       }
       &::after {
         top: 0;
@@ -112,7 +112,7 @@
           transform: scale(.7) translateY(-100%);
         }
       }
-    
+
       p {
         display: none;
       }
@@ -169,7 +169,7 @@
           position: absolute;
         }
       }
-        
+
       span {
         float: left;
         margin: 14px 10px 0;
@@ -186,7 +186,7 @@
           }
         }
         br {
-          display: none; 
+          display: none;
         }
       }
     }
@@ -202,7 +202,7 @@
         margin: 10px 0 0 25px;
         &.hide-label {
           label {
-            transform: scale(.7) translateY(-65%); 
+            transform: scale(.7) translateY(-65%);
           }
         }
         label {

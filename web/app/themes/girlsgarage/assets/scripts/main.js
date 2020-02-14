@@ -14,8 +14,9 @@ var FBSage = (function($) {
       breakpoint_xs,
       breakpoints = [],
       breakpointClasses = ['xs','sm','md','lg','nav','xl'],
-      $siteHeader = $('.site-header'),
-      $siteNav = $('.site-nav'),
+      $siteHeader,
+      $siteNav,
+      siteNavChildren,
       $badgeOverlayContainer = $('#badge-content-overlay'),
       $document,
       $sidebar,
@@ -23,6 +24,7 @@ var FBSage = (function($) {
       loadingTimer,
       History = window.History,
       State,
+      personRegExp,
       root_url = History.getRootUrl(),
       relative_url,
       original_url,
@@ -37,7 +39,11 @@ var FBSage = (function($) {
 
     // Cache some common DOM queries
     $document = $(document);
+    $siteHeader = $('.site-header');
+    $siteNav = $('.site-nav');
+    siteNavChildren = $siteNav.children('ul').children('li').length;
     $('body').addClass('loaded');
+    personRegExp = /^\/(about\/team|\d{0,4})\/[^\/]+(\/?)$/;
 
     // Set screen size vars
     _resize();
@@ -47,13 +53,13 @@ var FBSage = (function($) {
     $('main').fitVids();
 
     _initNav();
-    // _initSearch();
-    // _initLoadMore();
     _injectSvgSprite();
     _initBigClicky();
     _initFormActions();
     _initBadgeOverlay();
+    _initCardFunctions();
     _initItemGrid();
+    _initMasonry();
     _initProgramOverlay();
     _initStateHandling();
     _initDraggableElements();
@@ -72,16 +78,15 @@ var FBSage = (function($) {
     });
 
     // Grid item nav arrow handlers
-    // Next
     $(document).keydown(function(e) {
+      // Next
       if (e.keyCode === 39) {
         if ($('.grid-item.-active').length) {
           _nextGridItem();
         }
       }
-    });
-    // Previous
-    $(document).keydown(function(e) {
+
+      // Previous
       if (e.keyCode === 37) {
         if ($('.grid-item.-active').length) {
           _prevGridItem();
@@ -160,7 +165,8 @@ var FBSage = (function($) {
         return;
       }
 
-      if (State.url !== original_url && relative_url.match(/^\/(person|\d{0,4})\//)) {
+      // Team Bios
+      if (State.url !== original_url && relative_url.match(personRegExp)) {
 
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
@@ -169,13 +175,6 @@ var FBSage = (function($) {
           _loadGridItem();
         }
 
-      } else if (State.url !== original_url && relative_url.match(/^\/(programs|\d{0,4})\//)) {
-        // Standard post modals
-        if (page_cache[encodeURIComponent(State.url)]) {
-          _showProgramType();
-        } else {
-          _loadProgramType();
-        }
       } else {
 
         // URL isn't handled as a modal or in-page filtering
@@ -241,34 +240,19 @@ var FBSage = (function($) {
     // Give sticky class on scroll
     $(window).on('scroll', function() {
       if ($(window).scrollTop() > $siteHeader.outerHeight()) {
-        $siteHeader.addClass('-sticky');
+        $siteHeader.addClass('-scrolled');
       } else {
-        $siteHeader.removeClass('-sticky');
+        $siteHeader.removeClass('-scrolled');
       }
     });
 
-    // Give hover class to individual top-level links
-    $document.on('mouseenter', '.site-nav .nav > li', function() {
-      $(this).addClass('hover');
-    }).on('mouseleave', '.site-nav .nav > li', function() {
-      $(this).removeClass('hover');
+    // Add external link icon to external links
+    $('.nav a').each(function() {
+      var a = new RegExp('/' + window.location.host + '/');
+      if (!a.test(this.href)) {
+        $(this).append('<svg class="icon-linkout" aria-hidden="true" role="presentation"><use xlink:href="#icon-linkout"/></svg>');
+      }
     });
-    // Give un-hover class to sub-menu links
-    $document.on('mouseenter', '.site-nav .sub-menu li', function() {
-      $(this).closest('.sub-menu').find('li').not(this).addClass('un-hover');
-    }).on('mouseleave', '.site-nav .sub-menu li', function() {
-      $(this).closest('.sub-menu').find('li.un-hover').removeClass('un-hover');
-    });
-
-    // Activate sub-nav class on hover
-    $document.on('mouseenter', '.site-nav .menu-item-has-children', function() {
-      $siteHeader.addClass('sub-menu-active');
-    }).on('mouseleave', '.site-nav .menu-item-has-children', function() {
-      $siteHeader.removeClass('sub-menu-active');
-    });
-
-    // Duplicate the header logo for the nav
-    $('.site-header .brand').clone().prependTo('.site-nav');
 
     // Add dropdown toggle to menu items with child pages
     $('.site-nav .menu-item-has-children').each(function() {
@@ -276,16 +260,24 @@ var FBSage = (function($) {
     });
     // Toggle the dropdown when tapped
     $document.on('click', '.site-nav .sub-menu-toggle', function() {
-      var $thisSubMenu = $(this).closest('.menu-item').find('.sub-menu');
-      if ($thisSubMenu.is('.-toggled')) {
-        $thisSubMenu.removeClass('-toggled');
-      } else {
-        $('.site-nav .sub-menu.-toggled').removeClass('-toggled');
-        $thisSubMenu.addClass('-toggled');
+      var $thisSubMenu = $(this).closest('.menu-item');
+      if (!breakpoint_nav) {
+        var $submenu = $thisSubMenu.find('.sub-menu');
+        var children = $submenu.find('li').length;
+
+        if ($thisSubMenu.is('.submenu-active')) {
+          $thisSubMenu.removeClass('submenu-active');
+          $submenu.velocity('slideUp', { duration: 25 * children, easing: [children] });
+        } else {
+          $('.site-nav .menu-item.submenu-active .sub-menu').not($submenu).velocity('slideUp', { duration: 250, easing: 'easeOutSine' });
+          $('.site-nav .menu-item.submenu-active').not($thisSubMenu).removeClass('submenu-active');
+          $submenu.velocity('slideDown', { duration: 50 * children, easing: [children] });
+          $thisSubMenu.addClass('submenu-active');
+        }
       }
     });
 
-    $('<button class="menu-toggle"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.circle-stroke{fill:none;}</style><path id="bottom" class="circle-stroke" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="circle-stroke" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>')
+    $('<button class="menu-toggle"><span class="sr-only">Menu</span><span class="lines"></span><svg aria-hidden="true" role="presentation"><use xlink:href="#icon-circle-stroke"/></svg></button>')
       .prependTo('.site-header')
       .on('click', function(e) {
       if (!$('.site-nav').is('.-active')) {
@@ -297,12 +289,16 @@ var FBSage = (function($) {
   }
 
   function _showMobileNav() {
-    $('.menu-toggle, body').addClass('menu-open');
+    $siteNav.velocity('slideDown', { duration: 50 * siteNavChildren , easing: [siteNavChildren]});
+    $('.menu-toggle .text').html('Close');
+    $('.site-header, .menu-toggle, body').addClass('menu-open');
     $('.site-nav').addClass('-active');
   }
 
   function _hideMobileNav() {
-    $('.menu-toggle, body').removeClass('menu-open');
+    $siteNav.velocity('slideUp', { duration: 25 * siteNavChildren , easing: [siteNavChildren]});
+    $('.menu-toggle .text').html('Menu');
+    $('.site-header, .menu-toggle, body').removeClass('menu-open');
     $('.site-nav').removeClass('-active');
   }
 
@@ -335,6 +331,15 @@ var FBSage = (function($) {
     }
   }
 
+  function _initCardFunctions() {
+    // Toggle Hover Class
+    $('.card a').on('mouseenter', function() {
+      $(this).closest('.card').addClass('-hover');
+    }).on('mouseleave', function() {
+      $(this).closest('.card').removeClass('-hover');
+    });
+  }
+
   function _initItemGrid() {
     // People have single post data included in initial grid items
     $('.grid-item.person article').each(function() {
@@ -351,8 +356,9 @@ var FBSage = (function($) {
     });
 
     // Initial post?
+
     $(window).load(function() {
-      if (!$('body').is('.programs') && window.location.hash && $(window.location.hash).length) {
+      if (relative_url.match(personRegExp)) {
         var url = $(window.location.hash).attr('data-page-url');
         var parent_url = $(window.location.hash).attr('data-parent-url');
         History.replaceState({ignore_change: true}, null, '##');
@@ -379,12 +385,14 @@ var FBSage = (function($) {
 
     // Item Grid navigation
     $document.on('click', '.next-item', function(e) {
+      _clearGridItemClass();
       $('.active-grid-item-container .item-data-container').addClass('exitLeft');
       setTimeout(function() {
         _nextGridItem();
       }, 200);
     });
     $document.on('click', '.previous-item', function(e) {
+      _clearGridItemClass();
       $('.active-grid-item-container .item-data-container').addClass('exitRight');
       setTimeout(function() {
         _prevGridItem();
@@ -399,23 +407,42 @@ var FBSage = (function($) {
       var $activeContainer = $('.active-grid-item-container'),
           $activeDataContainer = $activeContainer.find('.item-data-container'),
           $thisItem = $activeArticle.closest('.grid-item'),
-          thisItemOffset = $thisItem.position().top;
+          thisItemOffset = $thisItem.position().top,
+          $personInfo = $activeDataContainer.find('.person-info'),
+          $personImage = $activeDataContainer.find('.person-image-container'),
+          $personBio = $activeDataContainer.find('.person-bio');
 
-      $itemData = $(page_cache[encodeURIComponent(State.url)]);
-      _showOverlay();
+      var $itemData = $(page_cache[encodeURIComponent(State.url)]);
 
-      // Is this the only item in their group?
-      if (!$thisItem.next('.grid-item').length && !$thisItem.prev('.grid-item').length) {
-        $activeContainer.addClass('solo');
+      // Empty Relevant Areas
+      $personInfo.empty();
+      $personBio.empty();
+      if ($personImage.children().length) {
+        $personImage.velocity({
+          opacity: 0
+        },{
+          complete: function() {
+            $personImage.empty();
+            $itemData.find('.person-image').clone().appendTo($personImage);
+            $personImage.velocity({opacity: 1});
+          }
+        });
       } else {
-        $activeContainer.removeClass('solo');
+        $itemData.find('.person-image').clone().appendTo($personImage);
       }
 
+      // Append Proper Data
+      $itemData.find('.person-name').clone().appendTo($personInfo);
+      $itemData.find('.credentials').clone().appendTo($personInfo);
+      $itemData.find('.body-content').clone().appendTo($personBio);
+
+      _showOverlay();
+
       $('.grid-item.-active, .grid-items.-active').removeClass('-active');
-      $activeDataContainer.empty();
+
       $thisItem.addClass('-active');
       $thisItem.closest('.grid-items').addClass('-active');
-      $itemData.clone().appendTo($activeDataContainer);
+
       if (!breakpoint_md) {
         $activeContainer.css('top', thisItemOffset);
       }
@@ -432,6 +459,7 @@ var FBSage = (function($) {
     var $next = ($active.next('.grid-item').length > 0) ? $active.next('.grid-item') : $('.grid-items.-active .grid-item:first');
     if ($next[0] === $active[0]) { return; } // Just return if there's only one item
     $next.find('.grid-item-activate').trigger('click');
+    _clearGridItemClass('enter');
     $('.active-grid-item-container .item-data-container').addClass('enterRight');
     $('.active-grid-item-container .item-data-container').scrollTop(0);
   }
@@ -442,8 +470,19 @@ var FBSage = (function($) {
     var $prev = ($active.prev('.grid-item').length > 0) ? $active.prev('.grid-item') : $('.grid-items.-active .grid-item:last');
     if ($prev[0] === $active[0]) { return; } // Just return if there's only one item
     $prev.find('.grid-item-activate').trigger('click');
+    _clearGridItemClass('enter');
     $('.active-grid-item-container .item-data-container').addClass('enterLeft');
     $('.active-grid-item-container .item-data-container').scrollTop(0);
+  }
+
+  function _clearGridItemClass(direction) {
+    if (direction === 'enter') {
+      $('.item-data-container').removeClass('enterRight enterLeft');
+    } else if (direction === 'exit') {
+      $('.item-data-container').removeClass('exitRight exitLeft');
+    } else {
+      $('.item-data-container').removeClass('enterRight exitRight enterLeft exitLeft');
+    }
   }
 
   function _showOverlay() {
@@ -472,7 +511,12 @@ var FBSage = (function($) {
     $activeContainer.removeClass('-active');
     $('.grid-item.-active').removeClass('-active');
     $('.grid-items.-active').removeClass('-active');
-    $activeDataContainer.empty();
+    _clearGridItemClass();
+
+    $activeDataContainer.find('.person-info').empty();
+    $activeDataContainer.find('.person-image-container').empty();
+    $activeDataContainer.find('.person-bio').empty();
+    $activeDataContainer.find('.person-image-container').empty();
   }
 
     // Load AJAX content to show in a modal & store in page_cache array
@@ -489,6 +533,16 @@ var FBSage = (function($) {
         page_cache[encodeURIComponent(State.url)] = $.parseHTML(response);
         _showGridItem();
       }
+    });
+  }
+
+  function _initMasonry() {
+    $('.masonry-grid').each(function() {
+      var $grid = $(this).masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-item:not(:first-of-type)',
+        transitionDuration: 0
+      });
     });
   }
 
@@ -651,6 +705,21 @@ var FBSage = (function($) {
       }
     });
 
+     $('.testimonials-images').slick({
+      arrows: true,
+      asNavFor: '.testimonials-text',
+      dots: false,
+      speed: 300,
+      lazyLoad: 'ondemand',
+      prevArrow: '<button class="previous-item button-prev nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg></span></button>',
+      nextArrow: '<button class="next-item button-next nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span></button>',
+    });
+    $('.testimonials-text').slick({
+      asNavFor: '.testimonials-images',
+      dots: false,
+      arrows: false
+    });
+
   }
 
   function _initStickyElements() {
@@ -688,7 +757,19 @@ var FBSage = (function($) {
 
     breakpoints = [breakpoint_sm,breakpoint_md,breakpoint_lg,breakpoint_nav,breakpoint_xl];
 
-    _setHeaderOffset();
+    // Close Nav
+    if ($siteNav.is('.-active') && breakpoint_nav) {
+      _hideMobileNav();
+    }
+
+    // Reset inline styles for navigation for medium breakpoint
+    if (breakpoint_nav && $('.site-nav')[0].hasAttribute('style')) {
+      $('.site-nav[style]').attr('style', '');
+    }
+
+    if (breakpoint_nav && $('.site-nav .sub-menu')[0].hasAttribute('style')) {
+      $('.site-nav .sub-menu[style]').attr('style', '');
+    }
   }
 
   // Header offset w/wo wordpress admin bar

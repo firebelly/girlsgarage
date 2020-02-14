@@ -7,27 +7,35 @@
 <?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
-<div class="page-intro">
-  <div class="page-intro-content card -red -cut-left">
-    <div class="-inner">
-      <div class="page-content user-content">
-        <?= apply_filters('the_content', $post->post_content); ?>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="secondary-header contains-card" <?php if (!empty(get_post_meta($posts_page->ID, '_cmb2_secondary_featured_image', true))) { echo $secondary_bg;} ?>></div>
+<?php include(locate_template('templates/page-intro.php')); ?>
 
 <div class="page-bottom wrap -flush">
   <div class="page-secondary-content-wrap grid">
-    <div class="stories-list two-thirds -left card-grid -jagged">
+    <h3 class="section-title"><span class="-inner">Posts</span></h3>
+    <div class="stories-list card-grid masonry-grid">
 
-        <?php while (have_posts()) : the_post(); ?>
-            <?php get_template_part('templates/content-story-snippet'); ?>
-        <?php endwhile; ?>
+      <?php
+        $args = [
+          'numberposts' => -1,
+          'post_type' => 'post',
+        ];
+        $projects = get_posts( $args );
 
+        if (!$projects) {
 
+        } else {
+          $i = 0;
+          foreach($projects as $post) {
+            if ($i == 0) {
+              $excerpt = true;
+            } else {
+              $excerpt = false;
+            }
+            \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['color' => 'bw', 'excerpt' => $excerpt]);
+            $i++;
+          }
+        }
+      ?>
 
       </div>
       <?php if ($wp_query->max_num_pages > 1 ) { ?>

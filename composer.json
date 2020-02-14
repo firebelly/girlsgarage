@@ -50,16 +50,18 @@
         "oscarotero/env": "^1.0",
         "roots/wp-password-bcrypt": "1.0.0",
         "roots/soil": ">=3.0.0",
+        "jjgrainger/posttypes": "^2.0",
         "wpackagist-plugin/wp-full-stripe-free": "1.4.0",
         "wpackagist-plugin/duplicate-post": ">=2.6",
         "wpackagist-plugin/redirection": ">=2.3.16",
         "wpackagist-plugin/intuitive-custom-post-order": "*",
         "wpackagist-plugin/cmb2": ">=2.0.2",
-        "wpackagist-plugin/akismet": ">=3.1.1",
         "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
         "wpackagist-plugin/update-from-bottom": ">=1.0.3",
         "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",
-        "yoast/wordpress-seo-premium": "^8.3"
+        "yoast/wordpress-seo-premium": "^8.3",
+        "wpackagist-plugin/post-type-switcher":"3.2.0",
+        "wpackagist-plugin/disable-gutenberg": "^2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^2.5.1"
@@ -70,7 +72,6 @@
                 "type:wordpress-muplugin",
                 "roots/soil",
                 "wpackagist-plugin/cmb2",
-                "wpackagist-plugin/akismet",
                 "wpackagist-plugin/intuitive-custom-post-order",
                 "wpackagist-plugin/google-sitemap-generator",
                 "wpackagist-plugin/redirection"

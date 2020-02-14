@@ -2,8 +2,8 @@
 
 $vertical-beat: 5px;
 
-$global-padding: 70px;
-$mobile-global-padding: 35px;
+$padding: 70px;
+$padding-sm: 20px;
 
 .grid {
   width: 100%;
@@ -11,6 +11,11 @@ $mobile-global-padding: 35px;
   @include min-screen($breakpoint-md) {
     display: flex;
     flex-wrap: wrap;
+
+    // Right-aligned
+    &.-right-aligned {
+      flex-direction: row-reverse;
+    }
   }
   &.-persist {
     display: flex;

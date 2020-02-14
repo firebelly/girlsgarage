@@ -6,6 +6,7 @@ RewriteCond %{REQUEST_URI} !\.well-known/acme-challenge
 RewriteCond %{HTTP_HOST} !^girlsgarage\.org [NC]
 RewriteCond %{HTTP_HOST} !^girlsgarage\.firebelly\.co [NC]
 RewriteCond %{HTTP_HOST} !^girlsgarage\.(localhost|sage) [NC]
+RewriteCond %{HTTP_HOST} !^localhost [NC]
 RewriteRule ^(.*)$ https://girlsgarage.org/$1 [R=301,L]
 
 # Force SSL
@@ -18,6 +19,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # END redirects
 
 # BEGIN WordPress
+# The directives (lines) between `BEGIN WordPress` and `END WordPress` are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /

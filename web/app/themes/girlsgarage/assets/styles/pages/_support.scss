@@ -4,10 +4,10 @@
   .page-secondary-content-wrap {
     &::after {
       left: 0;
-      bottom: -#{$global-padding * 2};
+      bottom: -#{$padding * 2};
     }
     @include media-md {
-      margin-bottom: $global-padding;
+      margin-bottom: $padding;
     }
   }
 }

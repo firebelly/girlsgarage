@@ -3,173 +3,79 @@
 .registration-mark {
   display: none;
   @extend .sprite-icon;
-  @include min-screen($breakpoint-nav) {  
+  @include min-screen($breakpoint-nav) {
     display: block;
     position: absolute;
     @include sprite($registration);
   }
 }
 
-@mixin card($color,$cut,$pattern) {
-  @if $cut == 'right' {
-    padding-right: #{$global-padding / 2};
-    > .-inner {
-      &::before {
-        left: 100%;
-        border-left: #{$global-padding / 2} solid $color;
-        border-top: #{$global-padding / 2} solid transparent;
-      }
-    }
-  } @else if $cut == 'left' {
-    padding-left: #{$global-padding / 2};
-    > .-inner {
-      &::before {
-        right: 100%;
-        border-right: #{$global-padding / 2} solid $color;
-        border-top: #{$global-padding / 2} solid transparent;
-      }
-    }
-  }
-
-  &::before {
-    top: 0px;
-    left: 0px;
-    z-index: 2;
-    content: '';
-    position: absolute;
-    @extend .sprite-icon;
-    @include sprite($pattern);
-    transform: rotate(-90deg) translateX(-100%);
-    transform-origin: left top;
-  }
-
-  &.-wide {
-    &::before {
-      transform-origin: center;
-      transform: rotate(0) translateX(0) scaleX(-1);
-    }
-  }
-
-  > .-inner {
-    background: $color;
-    &::before {
-      top: 0;
-      bottom: 0;
-      content: '';
-      height: auto;
-      position: absolute;
-    }
-  }
-}
-
-.card {
-  position: relative;
-
-  > .-inner {
-    height: 100%;
-    position: relative;
-    padding: #{$global-padding / 2} #{$global-padding / 2} #{$global-padding / 2} #{$global-padding};
-  }
-
-  &.-wide {
-    .-inner {
-      padding: #{$global-padding} 0 #{$global-padding / 2} #{$global-padding / 2};
-    }
-  }
-
-  &.-gray {
-    color: $black;
-    &.-cut-right {
-      @include card($gray-lite, right, $triple-pattern);
-    }
-    &.-cut-left {
-      @include card($gray-lite, left, $triple-pattern);
-    }
-  }
-  &.-white {
-    color: $black;
-    &.-cut-right {
-      @include card($white, right, $triple-pattern-purple);
-    }
-    &.-cut-left {
-      @include card($white, left, $triple-pattern-purple);
-    }
-  }
-  &.-black {
-    color: $white;
-    &.-cut-right {
-      @include card($black, right, $triple-pattern-white);
-    }
-    &.-cut-left {
-      @include card($black, left, $triple-pattern-white);
-    }
-  }
-  &.-purple {
-    color: $black;
-    &.-cut-right {
-      @include card($purple, right, $triple-pattern);
-    }
-    &.-cut-left {
-      @include card($purple, left, $triple-pattern);
-    }
-  }
-  &.-red {
-    color: $white;
-    &.-cut-right {
-      @include card($red, right, $triple-pattern);
-    }
-    &.-cut-left {
-      @include card($red, left, $triple-pattern);
-    }
-  }
-  &.-clear {
-    color: $white;
-    &.-cut-right {
-      @include card(transparent, right, $triple-pattern-white);
-    }
-    &.-cut-left {
-      @include card(transparent, left, $triple-pattern-white);
-    }
-  }
-
-  @include media-md {
-    min-width: 300px;
-  }
-}
-
 // Close button
 .button-close {
+  @include smallcaps;
   padding: 0;
-  width: 35px;
-  height: 35px;
   border: none;
+  cursor: pointer;
   background: none;
+  text-align: center;
   position: relative;
-  .lines {
-    top: 50%;
-    left: 50%;
-    height: 2px;
-    width: 16px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    -webkit-backface-visibility: hidden;
-    &::before,
-    &::after {
-      top: 0;
-      left: 0;
+
+  .icon {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+
+    .lines {
+      top: 50%;
+      left: 50%;
       height: 2px;
-      width: 100%;
-      content: '';
-      background: $black;
+      width: 16px;
       position: absolute;
-      transition: all .2s ease-out;
+      transform: translate(-50%,-50%);
+      -webkit-backface-visibility: hidden;
+      &::before,
+      &::after {
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        content: '';
+        background: $black;
+        position: absolute;
+        transition: all .2s ease-out;
+      }
+      &::before {
+        transform: rotate(-45deg);
+      }
+      &::after {
+        transform: rotate(45deg);
+      }
     }
-    &::before {
-      transform: rotate(-45deg);
+
+    svg {
+      top: 0;
+      left: 50%;
+      z-index: -1;
+      width: 30px;
+      height: 30px;
+      stroke: $black;
+      stroke-width: 3px;
+      position: absolute;
+      transform: translateX(-50%);
+      path {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 150%, 150%;
+        transition: stroke-dashoffset .6s $slide-easing .1s;
+      }
     }
-    &::after {
-      transform: rotate(45deg);
-    }
+  }
+
+  .label {
+    display: block;
+    margin-top: 5px;
   }
 
   // States
@@ -182,23 +88,6 @@
     }
   }
 
-  .icon {
-    top: 3px;
-    left: 50%;
-    z-index: -1;
-    width: 29px;
-    height: 30px;
-    stroke: $black;
-    stroke-width: 3px;
-    position: absolute;
-    transform: translateX(-50%);
-    path {
-      stroke-dashoffset: 0;
-      stroke-dasharray: 150%, 150%;
-      transition: stroke-dashoffset .6s $slide-easing .1s;
-    }
-  }
-
   &.-white {
     .lines {
       &::before,
@@ -207,7 +96,7 @@
       }
     }
 
-    .icon {
+    .icon svg {
       stroke: $white;
     }
   }
@@ -220,47 +109,114 @@
       }
     }
 
-    .icon {
+    .icon svg {
       stroke: $red;
+    }
+  }
+}
+
+.button-activate {
+  @extend .button-reset;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: none;
+  position: relative;
+  border-radius: 50%;
+  transition: background-color .2s ease-out;
+
+  .plus {
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    &::before,
+    &::after {
+      left: 0;
+      top: 50%;
+      width: 12px;
+      height: 1px;
+      content: '';
+      position: absolute;
+      background-color: $red;
+      transition: background-color .2s ease-out;
+    }
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+
+  .icon-circle-stroke {
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    stroke: $red;
+    stroke-width: 2px;
+    position: absolute;
+  }
+
+  &:hover {
+    background-color: $red;
+
+    .plus {
+      &::before,
+      &::after {
+        background-color: $white;
+      }
     }
   }
 }
 
 // Previous/next buttons
 .direction-buttons {
-  width: 35px;
-  @extend .h2;
+  @include smallcaps;
+  padding: 0;
+  width: auto;
   border: none;
-  font-size: 8px;
   background: none;
-  padding-top: 40px;
+  text-align: center;
   position: relative;
   &:focus {
     outline: none;
   }
   .icon {
     padding: 0;
-    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+
+    svg {
+      position: absolute;
+    }
   }
   .icon-circle-stroke {
-    top: 3px;
-    left: 3px;
+    top: 0;
+    left: 0;
     width: 29px;
     height: 30px;
     stroke-width: 3;
   }
   .icon-arrow-right,
   .icon-arrow-left {
-    top: 12px;
+    top: 9px;
     width: 6px;
-    left: 15px;
     height: 12px;
   }
   .icon-arrow-right {
-    left: 16px; 
+    left: 13px;
   }
   .icon-arrow-left {
-    left: 14px; 
+    left: 10px;
+  }
+
+  .label {
+    display: block;
+    margin-top: 5px;
   }
 }
 .button-prev {
@@ -294,22 +250,18 @@
 
 // Buttons
 .btn {
+  @include smallcaps;
+  @include btn-colors($black, $white);
   height: 50px;
   display: block;
-  font-size: 10px;
-  line-height: 1.5;
   background: none;
+  appearance: none;
   border-width: 1px;
-  @extend .font-bold;
   text-align: center;
   position: relative;
   border-style: solid;
   text-decoration: none;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  @include btn-colors($black, $white);
-  -webkit-font-smoothing: antialiased;
-  padding: 18px $global-padding 20px 20px;
+  padding: 18px $padding 20px 20px;
   .arrows {
     top: 0;
     right: 0;
@@ -355,6 +307,13 @@
   }
   &.-white-red {
     @include btn-colors($white, $red);
+  }
+
+  // Small Variation
+  &.-small {
+    height: 30px;
+    padding-top: 8px;
+    padding-bottom: 0;
   }
 }
 

@@ -1,0 +1,13 @@
+// Utility Classes
+
+// Button reset
+.button-reset {
+  border: none;
+  appearance: none;
+  background: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+}

@@ -36,12 +36,12 @@ body.single-program {
         @extend .font-display;
       }
     }
-    
+
     p.scholarship {
       @extend .font-regular;
       text-transform: capitalize;
     }
-  
+
   }
 
   .badge-icon {
@@ -64,7 +64,7 @@ body.single-program {
   @extend .h2;
   color: $white;
   font-size: 8px;
-  padding: 0 #{$global-padding / 2} 0;
+  padding: 0 #{$padding / 2} 0;
   margin-bottom: #{$vertical-beat * 6};
   a {
     text-decoration: none;
@@ -80,6 +80,6 @@ body.single-program {
 
   @include media-md {
     font-size: 10px;
-    padding: 0 $global-padding 0;
+    padding: 0 $padding 0;
   }
 }

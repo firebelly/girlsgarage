@@ -155,6 +155,12 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'YouTube Channel ID', 'firebelly' ),
+      'id'   => 'youtube_id',
+      'type' => 'text',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Contact Street Address', 'firebelly' ),
       'id'   => 'contact_address',
       'desc' => __( 'Address shown in the footer'),

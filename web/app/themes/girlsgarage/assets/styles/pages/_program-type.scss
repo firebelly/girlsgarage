@@ -38,12 +38,12 @@
     @extend .h1;
     margin-top: 0;
     color: $purple;
-    padding-left: $global-padding;
+    padding-left: $padding;
     margin-bottom: #{$vertical-beat * 6};
   }
 
   .page-header {
-    padding: #{$global-padding * 1.5} 0 $global-padding;
+    padding: #{$padding * 1.5} 0 $padding;
   }
 
   .page-intro {
@@ -51,7 +51,7 @@
     @include clearfix;
     position: relative;
 
-    @include media-md {    
+    @include media-md {
       .page-intro-content {
         width: 50%;
         float: right;
@@ -72,7 +72,7 @@
       height: #{$vertical-beat * 2};
       margin: #{$vertical-beat * 3} 0 #{$vertical-beat * 2};
     }
-    
+
     .-inner {
       @include clearfix;
     }
@@ -123,7 +123,7 @@
         padding: 0;
         li {
           list-style: none;
-          max-width: $global-padding;
+          max-width: $padding;
           @include headline-dash('before', $gray-lite);
           &::before {
             width: 4px;
@@ -149,7 +149,7 @@
 
     @include media-md {
       position: relative;
-      right: -$global-padding;
+      right: -$padding;
       padding-top: #{$vertical-beat * 11};
 
       .divider {
@@ -171,7 +171,7 @@
 
   .page-bottom {
     @include media-md {
-      margin-top: $global-padding;
+      margin-top: $padding;
     }
   }
 
@@ -180,7 +180,7 @@
     .card {
       position: relative;
       .btn.more {
-        right: #{$global-padding / 2}; 
+        right: #{$padding / 2};
       }
     }
 
@@ -223,7 +223,7 @@
       border-radius: 50%;
       position: absolute;
       background-size: cover;
-      right: #{$global-padding / 2};
+      right: #{$padding / 2};
       transform: translate(100%, -50%);
       background-position: center center;
     }
@@ -248,7 +248,7 @@
       &:nth-of-type(even) {
         .post-thumb {
           right: auto;
-          left: #{$global-padding / 2};
+          left: #{$padding / 2};
           transform: translate(-100%, -50%);
         }
       }

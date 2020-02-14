@@ -57,3 +57,89 @@
     @content;
   }
 }
+
+// Textures
+@mixin texture($beforeOrAfter, $name, $location, $width, $height, $offset: 0) {
+  > *:not(.bottom-textures) {
+    z-index: 1;
+    position: relative;
+  }
+
+  &::#{$beforeOrAfter} {
+    content: '';
+    position: absolute;
+    width: #{$width}px;
+    height: #{$height}px;
+    background-size: cover;
+    background-image: url('../images/textures/#{$name}.png');
+
+    @if $location == 'tl' {
+      @if $offset != 0 {
+        top: -20px;
+        left: -20px;
+        @include media-md {
+          top: -35px;
+          left: -35px;
+          @if $offset != true {
+            top: -#{$offset}px;
+            left: -#{$offset}px;
+          }
+        }
+      } @else {
+        top: 0;
+        left: 0;
+      }
+    }
+    @if $location == 'tr' {
+      @if $offset != 0 {
+        top: -20px;
+        right: -20px;
+        @include media-md {
+          top: -35px;
+          right: -35px;
+          @if $offset != true {
+            top: -#{$offset}px;
+            right: -#{$offset}px;
+          }
+        }
+      } @else {
+        top: 0;
+        right: 0;
+      }
+    }
+    @if $location == 'bl' {
+      @if $offset != 0 {
+        left: -20px;
+        bottom: -20px;
+        @include media-md {
+          left: -35px;
+          bottom: -35px;
+          @if $offset != true {
+            left: -#{$offset}px;
+            bottom: -#{$offset}px;
+          }
+        }
+      } @else {
+        left: 0;
+        bottom: 0;
+      }
+    }
+    @if $location == 'br' {
+      @if $offset != 0 {
+        right: -20px;
+        bottom: -20px;
+        @include media-md {
+          right: -35px;
+          bottom: -35px;
+          @if $offset != true {
+            right: -#{$offset}px;
+            bottom: -#{$offset}px;
+          }
+        }
+      } @else {
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+}

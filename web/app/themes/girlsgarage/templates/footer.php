@@ -1,48 +1,65 @@
+<?php
+  $facebook = \Firebelly\SiteOptions\get_option('facebook_id');
+  $twitter = \Firebelly\SiteOptions\get_option('twitter_id');
+  $instagram = \Firebelly\SiteOptions\get_option('instagram_id');
+  $youtube = \Firebelly\SiteOptions\get_option('youtube_id');
+
+  $address = \Firebelly\SiteOptions\get_option('contact_address');
+  $locality = \Firebelly\SiteOptions\get_option('contact_locality');
+  $phone = \Firebelly\SiteOptions\get_option('contact_phone');
+  $email = \Firebelly\SiteOptions\get_option('contact_email');
+?>
+
 <footer class="site-footer" role="contentinfo">
   <div class="registration-mark draggable -x"></div>
-  <div class="wrap grid">
-        
-    <h1 class="brand"><a href="<?= esc_url(home_url('/')); ?>"><svg class="icon icon-logo-footer" role="image"><use xlink:href="#icon-logo-footer"/></svg><span class="sr-only">Girls Garage</span></a></h1>
-
+  <div class="wrap">
     <div class="grid">
 
-      <div class="grid-item one-half -left">
+      <a href="<?= esc_url(home_url('/')); ?>" class="footer-logo"><svg class="icon icon-logo-footer" role="image"><use xlink:href="#icon-logo-footer"/></svg><span class="sr-only">Girls Garage</span></a>
 
-        <div class="newsletter">
-          <h3>Subscribe to our newsletter</h3>
-          <?php include ('newsletter.php'); ?>
+      <ul class="social">
+        <?php if (!empty($facebook)): ?>
+          <li><a href="https://www.facebook.com/<?= $facebook ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
+        <?php endif ?>
+        <?php if (!empty($twitter)): ?>
+          <li><a href="https://www.twitter.com/<?= $twitter ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
+        <?php endif ?>
+        <?php if (!empty($instagram)): ?>
+          <li><a href="https://www.instagram.com/<?= $instagram ?>"><svg class="icon icon-instagram" aria-hidden="hidden" role="image"><use xlink:href="#icon-instagram"/></svg><span class="sr-only">Instagram</span></a></li>
+        <?php endif ?>
+        <?php if (!empty($youtube)): ?>
+          <li><a href="https://www.youtube.com/channel/<?= $youtube ?>"><svg class="icon icon-youtube" aria-hidden="hidden" role="image"><use xlink:href="#icon-youtube"/></svg><span class="sr-only">Instagram</span></a></li>
+        <?php endif ?>
+      </ul>
+
+      <div class="newsletter">
+        <?php include ('newsletter.php'); ?>
+      </div>
+
+      <div class="contact-info grid">
+        <div class="address">
+          <address class="vcard">
+            <?php if (!empty($address)): ?>
+              <span class="street-address"><?= $address ?></span>
+            <?php endif ?>
+            <?php if (!empty($locality)): ?>
+              <span class="locality"><?= $locality ?></span>
+            <?php endif ?>
+          </address>
         </div>
 
-        <ul class="social">
-          <li><a href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
-          <li><a href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
-          <li><a href="https://www.instagram.com/<?= \Firebelly\SiteOptions\get_option('instagram_id'); ?>"><svg class="icon icon-instagram" aria-hidden="hidden" role="image"><use xlink:href="#icon-instagram"/></svg><span class="sr-only">Instagram</span></a></li>
-        </ul>
-
-      </div><!-- .-left -->
-
-      <div class="grid-item one-half -right">
-
-        <div id="contact" class="contact grid">
-          <div class="address grid-item one-third">
-            <address class="vcard"> 
-              <span class="street-address"><?= \Firebelly\SiteOptions\get_option('contact_address'); ?></span>
-              <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
-            </address>
-          </div>
-          <div class="contact-methods grid-item one-third">
-            <p><?= \Firebelly\SiteOptions\get_option('contact_phone'); ?></p>
-            <p><a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>"><?= \Firebelly\SiteOptions\get_option('contact_email'); ?></a></p>
-          </div>
-          <div class="copyright grid-item one-third">
-            <p>Copyright Girls Garage <?= date("Y") ?></p>
-            <p>Design & Dev by <a href="http://firebellydesign.com" target="_blank">Firebelly</a></p>
-          </div>
+        <div class="copyright">
+          <?php if (!empty($phone)): ?>
+            <p><?= $phone ?></p>
+          <?php endif ?>
+          <?php if (!empty($email)): ?>
+            <p><a href="mailto:<?= $email ?>"><?= $email ?></a></p>
+          <?php endif ?>
+          <p>Copyright Girls Garage <?= date("Y") ?></p>
+          <p>Design & Dev by <a href="http://firebellydesign.com" target="_blank">Firebelly</a></p>
         </div>
-
-      </div><!-- .-right -->
+      </div>
 
     </div><!-- .grid -->
-
   </div><!-- .wrap -->
 </footer>

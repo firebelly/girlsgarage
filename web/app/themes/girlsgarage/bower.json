@@ -14,13 +14,14 @@
     "history.js": "~1.8.0",
     "respond": "~1.4.2",
     "svg4everybody": "~1.0.0",
-    "velocity": "~1.2.2",
+    "velocity": "1.5.1",
     "fastclick": "~1.0.6",
     "boomsvgloader": "~0.0.2",
     "draggabilly": "~2.1.1",
     "slick-carousel": "~1.6.0",
     "waypoints": "~4.0.0",
-    "swipebox": "~1.4.4"
+    "swipebox": "~1.4.4",
+    "masonry-layout": "^4.2.2"
   },
   "overrides": {
     "modernizr": {
@@ -36,6 +37,18 @@
       "main": [
         "./slick/slick.min.js",
         "./slick/slick.css"
+      ]
+    },
+    "masonry": {
+      "main": [
+        "./dist/masonry.pkgd.js"
+      ],
+      "dependencies": {}
+    },
+    "outlayer": {
+      "main": [
+        "item.js",
+        "outlayer.js"
       ]
     },
     "waypoints": {

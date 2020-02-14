@@ -31,11 +31,5 @@ use Roots\Sage\Wrapper;
       wp_footer();
     ?>
     </div><!-- /.site-wrap -->
-
-    <?php if (WP_ENV === 'development'): ?>
-    <script type='text/javascript' id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.9.11.js'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
-    <?php endif; ?>
   </body>
 </html>

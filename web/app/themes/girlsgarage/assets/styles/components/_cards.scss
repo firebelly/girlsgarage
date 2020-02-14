@@ -1,0 +1,144 @@
+// Cards
+
+@mixin card($color, $pattern) {
+  > .-inner {
+    clip-path: $clippath
+  }
+
+  &.-pattern {
+    &::before {
+      top: 0px;
+      z-index: 2;
+      left: -35px;
+      content: '';
+      position: absolute;
+      @extend .sprite-icon;
+      @include sprite($pattern);
+      transform: rotate(-90deg) translateX(-100%);
+      transform-origin: left top;
+    }
+  }
+
+  > .-inner {
+    background: $color;
+  }
+}
+
+.card {
+  position: relative;
+
+  .card-image {
+    width: 100%;
+    height: 280px;
+    position: relative;
+    margin-bottom: -35px;
+    filter: brightness(1);
+    background-size: cover;
+    transition: filter .2s ease-out;
+    background-position: center center;
+    clip-path: polygon(0 0, calc(100% - 35px) 0, 100% 35px, 100% 100%, 0 100%);
+    &::before {
+      left: 0;
+      top: 0px;
+      content: '';
+      position: absolute;
+      @extend .sprite-icon;
+      @include sprite($triple-pattern-white);
+      transform: rotate(-90deg) translateX(-100%);
+      transform-origin: left top;
+    }
+  }
+
+  // Hovered State
+  &.grid-item-activate:hover,
+  &.-hover {
+    .card-image {
+      filter: brightness(0.75);
+    }
+  }
+
+  > .-inner {
+    height: 100%;
+    position: relative;
+    padding: $padding-sm;
+    clip-path: polygon(0 0, calc(100% - 35px) 0, 100% 35px, 100% 100%, 0 100%);
+  }
+
+  .card-tag {
+    @include smallcaps();
+    margin: 0;
+  }
+
+  .card-title {
+    @include h2;
+    color: $purple;
+
+    a {
+      color: $purple;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card-cta {
+    @include subtitle;
+    margin: #{$vertical-beat * 6} 0 0;
+  }
+
+  &.-wide {
+    .-inner {
+      padding: #{$padding} 0 #{$padding / 2} #{$padding / 2};
+    }
+  }
+
+  &.-gray {
+    color: $black;
+    @include card($gray-lite, $triple-pattern);
+  }
+  &.-white {
+    color: $black;
+    @include card($white, $triple-pattern-purple);
+  }
+  &.-black {
+    &, .card-title {
+      color: $white;
+    }
+    @include card($black, $triple-pattern);
+  }
+  &.-purple {
+    &, .card-title {
+      color: $black;
+    }
+    @include card($purple, $triple-pattern);
+  }
+  &.-red {
+    &, .card-title {
+      color: $white;
+    }
+    @include card($red, $triple-pattern);
+  }
+  &.-clear {
+    &, .card-title {
+      color: $white;
+    }
+    @include card(transparent, $triple-pattern-white);
+  }
+
+  @include media-md {
+    .-inner {
+      padding: 30px #{$padding-sm * 2} #{$padding-sm * 2} #{$padding-sm * 2};
+    }
+  }
+
+  @include media-lg {
+    &.-wide {
+      .-inner {
+        padding: #{$padding / 2} 95px #{$padding / 2} 40px;
+      }
+    }
+  }
+}

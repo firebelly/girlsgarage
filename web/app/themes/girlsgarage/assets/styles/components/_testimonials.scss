@@ -1,0 +1,97 @@
+// Testimonials Module Style
+
+.testimonials {
+  @include texture(before, corner-bl, bl, 140, 140);
+  @include texture(after, corner-br, br, 70, 140);
+  overflow: hidden;
+  position: relative;
+  break-inside: avoid;
+  padding: $padding-sm $padding-sm 60px;
+
+  article {
+    position: relative;
+    background-color: $gray-lite;
+  }
+
+  .testimonials-images {
+    margin-bottom: 25px;
+    @include texture(before, wood, tl, 140, 140, 70);
+
+    .nav-button {
+      bottom: 0;
+      z-index: 2;
+      padding: 0;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      position: absolute;
+      background-color: $black;
+
+      &.button-next {
+        right: 0;
+        border-left: 1px solid $gray-lite;
+      }
+      &.button-prev {
+        right: 50px;
+      }
+
+
+
+      .icon-circle-stroke {
+        stroke: $red;
+      }
+      .icon-arrow-left,
+      .icon-arrow-right {
+        fill: $red;
+      }
+    }
+  }
+
+  .testimonial-image {
+    height: 245px;
+    position: relative;
+    background-size: cover;
+    clip-path: $clippath-double;
+    background-position: center center;
+  }
+
+  .testimonials-text {
+    z-index: 1;
+    position: relative;
+    &::before {
+      top: 0;
+      content: '';
+      left: -35px;
+      right: -35px;
+      bottom: -20px;
+      position: absolute;
+      background-color: $gray-lite;
+    }
+  }
+
+  blockquote {
+    margin: 0;
+
+    > * {
+      z-index: 1;
+      position: relative;
+    }
+
+    p {
+      @include subtitle;
+      margin-top: 0;
+    }
+
+    cite {
+      @include smallcaps;
+    }
+  }
+
+  @include media-md {
+    padding: $padding;
+
+    .testimonials-text::before {
+      bottom: -35px;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+// Card Grid
+
+.card-grid {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+
+  .grid-item {
+    width: 100%;
+    .card-title {
+      @include h3;
+    }
+
+    h3 {
+      @include h2;
+      margin-top: 0;
+    }
+
+    &.-white {
+      border-left: 1px solid $gray-lite;
+      border-bottom: 1px solid $gray-lite;
+      h3 {
+        color: $red;
+      }
+    }
+
+    .-inner {
+      z-index: 1;
+      position: relative;
+    }
+  }
+
+  @include media-md {
+    .grid-item {
+      max-width: 50%;
+      flex-basis: 50%;
+    }
+  }
+
+  @include media-lg {
+    .grid-item {
+      max-width: 25%;
+      flex-basis: 25%;
+    }
+  }
+}

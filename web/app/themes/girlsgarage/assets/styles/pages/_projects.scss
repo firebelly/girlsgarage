@@ -1,0 +1,93 @@
+// Pojects Page Styles
+
+body.projects {
+  .card-grid {
+    @include media-md {
+      .grid-item:first-of-type {
+        max-width: 50%;
+        flex-basis: 50%;
+      }
+    }
+  }
+
+  .project-nav {
+    padding: #{$padding / 2} $padding;
+    @include media-md {
+      margin-top: $padding;
+      padding: 0 0 0 #{$padding * 2};
+    }
+
+    .-inner {
+      @include clearfix;
+      position: relative;
+      padding-top: #{$vertical-beat * 2};
+      &::before {
+        top: 0;
+        left: -12px;
+        content: '';
+        height: 1px;
+        background: $black;
+        position: absolute;
+        right: -$padding;
+      }
+      &::after {
+        top: 0;
+        width: 1px;
+        content: '';
+        left: -12px;
+        background: $black;
+        position: absolute;
+        height: #{$vertical-beat * 2};
+      }
+
+      br {
+        display: none;
+        @include media-md {
+          display: block;
+        }
+      }
+    }
+
+    a {
+      color: red;
+      width: 30px;
+      padding-top: 32px;
+      text-align: center;
+      display: inline-block;
+      text-decoration: none;
+      &:first-of-type {
+        margin-right: #{$vertical-beat * 3};
+      }
+      @include media-md {
+        float: none;
+        &:first-of-type {
+          margin-right: 0;
+          margin-bottom: #{$vertical-beat * 3};
+        }
+      }
+    }
+
+    .nav-button {
+      float: left;
+      color: $red;
+      margin-right: 2px;
+      text-align: center;
+    }
+
+    .icon-arrow-left,
+    .icon-arrow-right {
+      fill: $red;
+    }
+    .icon-arrow-left {
+      left: 11px;
+    }
+    .icon-arrow-right {
+      left: 12px;
+    }
+
+    .icon-circle-stroke {
+      left: 0;
+      stroke: $red;
+    }
+  }
+}

@@ -17,11 +17,10 @@ body.single {
 
   .site-main {
     padding-bottom: 0;
-    background: $black;
     padding-top: 100px;
 
     @include media-md {
-      padding-top: #{$global-padding * 2};
+      padding-top: #{$padding * 2};
     }
   }
 
@@ -32,19 +31,16 @@ body.single {
   .post-content {
     background: $gray-lite;
     .card .-inner {
-      padding-bottom: $global-padding;
+      padding-bottom: $padding;
     }
 
     .post-category {
+      @include smallcaps;
       margin: 0;
-      @extend .h2;
     }
 
     .post-title {
-      @extend .h1;
-      font-size: 20px;
-      line-height: 1.25;
-      @include headline-dash('both');
+      @include h1;
     }
 
     .post-subtitle {
@@ -55,13 +51,13 @@ body.single {
       width: 50%;
       float: left;
       .card .-inner {
-        padding-bottom: #{$global-padding / 2};
+        padding-bottom: #{$padding / 2};
       }
     }
   }
 
   .post-meta {
-    margin-top: -#{$global-padding / 2};
+    margin-top: -#{$padding / 2};
     -webkit-font-smoothing: antialiased;
 
     .meta-block {
@@ -78,7 +74,7 @@ body.single {
         height: 1px;
         background: $black;
         position: absolute;
-        right: -#{$global-padding / 2};
+        right: -#{$padding / 2};
       }
       &::after {
         top: 0;
@@ -92,25 +88,10 @@ body.single {
     }
 
     h4 {
+      @include smallcaps;
       color: $black;
       margin-top: 0;
-      font-size: 10px;
-      line-height: 1.5;
-      @extend .font-bold;
       position: relative;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      margin-bottom: #{$vertical-beat * 6};
-      &::after {
-        left: 0;
-        width: 6px;
-        content: '';
-        height: 2px;
-        bottom: -12px;
-        display: block;
-        background: $black;
-        position: absolute;
-      }
     }
 
     p {
@@ -118,18 +99,18 @@ body.single {
     }
 
     time.updated {
-      @extend .h1;
+      @include subtitle(600);
     }
     .category {
-      @extend .h2;
+      @include h2;
     }
-  
+
     @include media-md {
      float: left;
      margin-top: 0;
      height: 100%;
      width: 100% * 2 / 3;
-    } 
+    }
   }
 
   .post-nav {
@@ -174,7 +155,7 @@ body.single {
     padding-bottom: 100%;
     background-size: cover;
     background-position: center center;
-    margin-bottom: -#{$global-padding / 2};
+    margin-bottom: -#{$padding / 2};
 
     &.no-image {
       background: url('../images/program-default-image.jpg');
@@ -191,7 +172,7 @@ body.single {
   .slider {
     padding: 0;
     position: relative;
-    margin: 0 0 #{-$global-padding / 2};
+    margin: 0 0 #{-$padding / 2};
     .slide-item {
       &:focus {
         outline: none;
@@ -256,10 +237,10 @@ body.single {
       z-index: 1;
       cursor: pointer;
       position: absolute;
-      top: #{$global-padding / 2};
-      right: #{$global-padding / 2};
+      top: #{$padding / 2};
+      right: #{$padding / 2};
       &.previous-item {
-        right: #{$global-padding + $vertical-beat * 3};
+        right: #{$padding + $vertical-beat * 3};
       }
 
       .icon-circle-stroke {
@@ -283,7 +264,14 @@ body.single {
     }
 
     .user-content {
-      h1, h2, h3, h4, h5, h6 {
+      h1 {
+        @include h2;
+      }
+      h2 {
+        @include subtitle(600);
+      }
+      h3, h4, h5, h6 {
+        @include smallcaps;
       }
 
       img {
@@ -291,10 +279,6 @@ body.single {
 
       ul, ol {
         padding-left: 0;
-        li {
-          font-size: 16px;
-          line-height: 1.5em;
-        }
       }
 
       figure, figure:first-child {

@@ -1,50 +1,27 @@
 // Common Page Styles
 
 .page-intro {
+  z-index: 1;
+  margin-top: -35px;
+  position: relative;
 
-  .card {
-    .-inner {
-      padding-left: #{$global-padding / 2};
+  .page-content {
+    p {
+      @include subtitle;
     }
   }
 
   @include media-md {
-    right: 0;
     z-index: 1;
-    width: 50%;
+    width: 75%;
     margin-left: 0;
-    position: absolute;
-    margin-top: #{-105px - ($global-padding / 2)};
-
-    .-inner .page-content {
-      max-width: 600px;
-    }
+    margin-top: -$padding;
   }
 }
 
 .page-content {
   h3 {
-    font-size: 18px;
-    line-height: 1.25;
-    font-weight: normal;
-  }
-
-  p {
-    line-height: 1.333333333;
-  }
-
-  .schedule-link {
-    @extend .h3;
-  }
-
-  @include media-md {
-    h3 {
-      font-size: 20px;
-    }
-
-    p {
-      font-size: 15px;
-    }
+    @include subtitle;
   }
 }
 
@@ -58,172 +35,68 @@
   }
 }
 
-.page-secondary-content-wrap {
+// Section Titles
+.section-title {
+  @include texture(before, section-title, bl, 175, 70, true);
+  @include h3;
+  width: 100%;
+  margin: 35px 0;
   position: relative;
-  &::after {
-    display: none;
-    @extend .sprite-icon;
-  }
 
-  @include media-md {
-    &::after {
-      z-index: -1;
-      content: '';
-      display: block;
-      position: absolute;
-      left: -$global-padding;
-      bottom: -$global-padding;
-      @include sprite($pattern-large-2-black);
-    }
-  }
-}
-
-.page-secondary-content {
-  overflow: hidden;
-  position: relative;
-  margin-top: -#{$global-padding / 2};
-
-  h2 {
-    font-size: 15px;
-    position: relative;
-    line-height: 1.333333333;
-    margin-top: #{$vertical-beat * 6};
-    margin-bottom: #{$vertical-beat * 3};
-    padding-bottom: #{$vertical-beat * 4};
-    &::after {
-      left: 0;
-      bottom: 0;
-      width: 6px;
-      height: 3px;
-      content: '';
-      margin: 1px 0;
-      display: block;
-      position: absolute;
-      background: $black;
-    }
-    &:first-of-type {
-      margin-top: 0;
-      font-size: 20px;
-      line-height: 1.25;
-    }
-  }
-
-  h3 {
-    margin-top: 0;
-    font-size: 20px;
-    line-height: 1.25;
-    font-weight: normal;
-  }
-
-  @include media-md {
-    margin-top: -100px;
-  }
-}
-
-// Grids of cards
-.card-grid {
-  @include media-lg {
-    margin-top: -100px;
-  }
-
-  .card {
-    width: 100%;
+  .-inner {
+    padding: 20px;
+    display: block;
+    background-color: $gray-lite;
 
     @include media-md {
-      min-width: 1px;
-      max-width: 100%;
-      flex-basis: 100%;
-    }
-    @include media-lg {
-      max-width: 75%;
-      flex-basis: 75%;
-    }
-    @include media-xl {
-      max-width: 50%;
-      flex-basis: 50%;
-    }
-
-    h3 {
-      @extend .h1;
-      margin-top: 0;
-    }
-
-    &.-white {
-      border-left: 1px solid $gray-lite;
-      border-bottom: 1px solid $gray-lite;
-      h3 {
-        color: $red;
-      }
-    }
-
-    .-inner {
-      z-index: 1;
-      position: relative;
-      padding-bottom: #{$global-padding + 50px};
-    }
-
-    .btn.more {
-      right: 0;
-      position: absolute;
-      left: #{$global-padding / 2};
-      bottom: #{$global-padding / 2};
+      padding: 35px 40px;
     }
   }
+}
 
-  &.-jagged {
-    display: block;
-    @include clearfix;
-    .card {
-      &::after {
-        display: none;
-        @extend .sprite-icon;
-      }
-      .btn.more {
-        left: $global-padding;
-        right: #{$global-padding / 2};
-      }
-    }
+.section-text {
+  max-width: 745px;
+  padding: 35px $padding-sm;
+  background-color: $gray-lite;
 
-    @include media-lg {
-      margin-top: 0;
-      .card {
-        float: right;
-        width: 66.6666%;
-        position: relative;
-        &::before {
-          z-index: 2;
-        }
-        &::after {
-          top: 0;
-          left: -50%;
-          content: '';
-          display: block;
-          position: absolute;
-          @include sprite($pattern-large-2-black);
-        }
-        &:nth-of-type(even) {
-          float: left;
-          &::after {
-            top: auto;
-            bottom: 0;
-            left: 100%;
-            transform: rotate(90deg);
-            transform-origin: center left;
-            @include sprite($pattern-large-black);
-          }
-        }
-      }
-    }
-    @include media-xl {
-     .card {
-       float: right;
-       width: 66.6666%;
-       max-width: 66.6666%;
-       &:nth-of-type(even) {
-         float: left;
-       }
-     }
-    }
+  @include media-md {
+    padding: 35px #{$padding-sm * 2};
+  }
+}
+
+// Bottom Textures
+.bottom-textures {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+}
+
+// Blurb
+.blurb {
+  margin: 0;
+  padding: 35px;
+  position: relative;
+  @include texture(before, concrete, tl, 140, 140);
+  @include texture(after, metal, tr, 70, 70);
+
+  .bottom-textures {
+    @include texture(before, gridded-x, bl, 70, 70);
+    @include texture(after, gridded-dots, br, 70, 70);
+  }
+
+  > .-inner {
+    position: relative;
+    padding: 22px 35px 28px;
+    background-color: $gray-lite;
+  }
+
+  p {
+    @include h5;
+    margin: 0;
+  }
+  cite {
+    @include smallcaps;
   }
 }
 
@@ -258,32 +131,13 @@
 
   &::before {
     top: 0;
-    left: 0; 
+    left: 0;
     right: 0;
-    content: '';
-    height: 100px;
-    position: absolute;
-    background: linear-gradient(to bottom, rgba($black,0.6), transparent);
-    z-index: 1;
-
-    @include min-screen($breakpoint-nav) {
-      height: 150px;
-    }
-  }
-
-  &::after {
     bottom: 0;
-    left: 0; 
-    right: 0;
-    content: '';
-    height: 400px;
-    position: absolute;
     z-index: 1;
-    background: linear-gradient(to top, rgba($black,0.5), transparent);
-
-    @include media-md {
-      display: none;
-    }
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(90deg, rgba($black,0.25) 0%, rgba(20, 20, 20, 0) 80%);
   }
 
   video {

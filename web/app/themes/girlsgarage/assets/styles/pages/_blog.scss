@@ -1,0 +1,12 @@
+// Blog Styles
+
+.blog {
+  .card-grid {
+    @include media-md {
+      .grid-item:first-of-type {
+        max-width: 50%;
+        flex-basis: 50%;
+      }
+    }
+  }
+}
