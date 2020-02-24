@@ -1,6 +1,7 @@
 set :stage, :staging
 set :domain, 'staging.girlsgarage.org'
 set :application, 'girlsgarage_staging'
+set :branch, :refresh
 set :login, 'projecth'
 
 # Simple Role Syntax
