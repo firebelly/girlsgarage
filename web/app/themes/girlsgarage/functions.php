@@ -32,10 +32,9 @@ $firebelly_includes = [
   'lib/program-post-type.php',         // Programs
   'lib/badge-post-type.php',           // Badges
   'lib/person-post-type.php',          // People
-  'lib/partner-post-type.php',         // Partners
   'lib/cpt-testimonial.php',           // Testimonials
   'lib/cpt-project.php',               // Projects
-  'lib/funder-post-type.php',          // Sponsors
+  'lib/cpt-partners-and-funders.php',          // Sponsors
   'lib/site-options.php',              // Custom site options for admin
 ];
 

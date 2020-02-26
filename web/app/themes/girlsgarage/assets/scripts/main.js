@@ -537,10 +537,18 @@ var FBSage = (function($) {
   }
 
   function _initMasonry() {
-    $('.masonry-grid').each(function() {
+    $('.post-grid').each(function() {
       var $grid = $(this).masonry({
         itemSelector: '.grid-item',
         columnWidth: '.grid-item:not(:first-of-type)',
+        transitionDuration: 0
+      });
+    });
+
+    $('.masonry-grid').each(function() {
+      var $grid = $(this).masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-item:first-of-type',
         transitionDuration: 0
       });
     });

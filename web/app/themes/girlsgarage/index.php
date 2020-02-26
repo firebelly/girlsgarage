@@ -12,7 +12,7 @@
 <div class="page-bottom wrap -flush">
   <div class="page-secondary-content-wrap grid">
     <h3 class="section-title"><span class="-inner">Posts</span></h3>
-    <div class="stories-list card-grid masonry-grid">
+    <div class="stories-list card-grid post-grid">
 
       <?php
         $args = [

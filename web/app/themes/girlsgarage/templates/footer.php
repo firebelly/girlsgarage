@@ -36,7 +36,7 @@
         <?php include ('newsletter.php'); ?>
       </div>
 
-      <div class="contact-info grid">
+      <div class="contact-info">
         <div class="address">
           <address class="vcard">
             <?php if (!empty($address)): ?>

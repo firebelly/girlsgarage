@@ -40,6 +40,7 @@
 
   .newsletter {
     width: 100%;
+    margin: $padding-sm 0;
 
     @include media-md {
       order: 1;
@@ -103,7 +104,9 @@
 
   .contact-info {
     @include caption;
-    width: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
     p {
       margin: 0;
@@ -123,6 +126,7 @@
 
     @include media-md {
       order: 3;
+      width: auto;
     }
   }
 

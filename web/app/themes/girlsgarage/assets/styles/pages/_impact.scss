@@ -1,68 +1,85 @@
 // Impact page + by the numbers
 
-.layout-grid {
-  @include media-md {
-    display: grid;
-    grid-columns: 1fr 1fr 1fr 1r;
+body.impact {
+  .site-main::before {
+    display: none;
   }
 }
 
-.by-the-numbers {
-  display: flex;
-  flex-wrap: wrap;
-
+.primary-stats {
   .stat {
-    @include texture(before, concrete, tl, 70, 70);
-    @include texture(after, stone, tr, 140, 140);
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+// Stat Styles
+.stat {
+  @include texture(before, concrete, tl, 70, 70);
+  @include texture(after, stone, tr, 140, 140);
+  position: relative;
+  text-align: center;
+  padding: $padding-sm;
+
+  &.small {
     max-width: 50%;
     flex-basis: 50%;
-    position: relative;
-    text-align: center;
-    padding: $padding-sm;
+  }
 
-    &.large {
-      max-width: 100%;
-      flex-basis: 100%;
-    }
+  .bottom-textures {
+    @include texture(before, corner-stat, bl, 70, 140);
+    @include texture(after, wood, br, 70, 70);
+  }
 
-    .bottom-textures {
-      @include texture(before, corner-stat, bl, 70, 140);
-      @include texture(after, wood, br, 70, 70);
-    }
+  > .-inner {
+    background-color: $gray-lite;
+  }
 
-    > .-inner {
-      background-color: $gray-lite;
-    }
+  .figure {
+    @include type-stat;
+    margin: 0;
+  }
 
-    .figure {
-      @include type-stat;
-      margin: 0;
-    }
-
-    .description {
-      margin: 5px 0 0;
-    }
+  .description {
+    margin: 5px 0 0;
   }
 
   @include media-md {
-    grid-column: 1 / 2;
-    align-content: flex-start;
+    padding: 35px;
 
-    .stat {
-      padding: 35px;
-
-      > .-inner {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-      }
+    > .-inner {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
   }
 }
 
 .testimonials {
+  z-index: 1;
+  position: relative;
   @include media-md {
     grid-column: 2 / 4;
     grid-row-start: 1;
+  }
+}
+
+.secondary-header {
+  @include media-md {
+    margin-top: -180px;
+  }
+}
+
+.secondary-stats {
+  z-index: 1;
+  position: relative;
+  padding: $padding-sm;
+  background-color: $gray-lite;
+  @include media-md {
+    margin-top: -$padding;
+    padding: $padding $padding 0;
+    .stat {
+      max-width: 50%;
+    }
   }
 }

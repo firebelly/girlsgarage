@@ -255,4 +255,19 @@
       }
     }
   }
+
+  // Stats
+  .stats {
+    @include media-md {
+      display: flex;
+      flex-wrap: wrap;
+      .stat {
+        width: 100%;
+        &:not(:first-of-type) {
+          max-width: 50%;
+          flex-basis: 50%;
+        }
+      }
+    }
+  }
 }

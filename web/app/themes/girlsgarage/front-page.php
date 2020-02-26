@@ -17,6 +17,9 @@
   $announcement_link = get_post_meta($post->ID, '_cmb2_announcement_link', true);
   $announcement_link_text = get_post_meta($post->ID, '_cmb2_announcement_link_text', true);
 
+  $impact_page = get_page_by_path('about/impact');
+  $stats = array_slice(get_post_meta($impact_page->ID, '_cmb2_stat', true), 0, 3);
+
   $featured_card_section_title = get_post_meta($post->ID, '_cmb2_featured_card_section_title', true);
   $featured_card_image_id = get_post_meta($post->ID, '_cmb2_featured_card_image_id', true);
   $featured_card_image = get_attached_file($featured_card_image_id, false);
@@ -186,6 +189,13 @@
           <?php include(locate_template('templates/testimonials-module.php')); ?>
         </div>
       </div>
+      <?php if (!empty($stats)): ?>
+        <div class="stats one-half">
+          <?php foreach ($stats as $stat): ?>
+            <?php include(locate_template('templates/article-stat.php')); ?>
+          <?php endforeach ?>
+        </div>
+      <?php endif ?>
     </div>
   </div>
 

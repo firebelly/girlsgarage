@@ -48,7 +48,7 @@ function metaboxes() {
     'title'         => __( 'Secondary Featured Image', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php']],
+    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php', 'page-impact.php']],
     'priority'      => 'high',
     'show_names'    => false, // Show field names on the left
   ]);
