@@ -1,35 +1,6 @@
 // Program type page
 
 .page-template-program-type {
-  .site-main {
-    background: $black;
-  }
-  .page-header {
-    &::after {
-      display: none;
-    }
-  }
-  .site-nav a {
-    &:hover {
-      color: $red;
-    }
-  }
-  .site-header.sub-menu-active {
-    .site-nav a {
-      &:hover {
-        color: $black;
-      }
-    }
-  }
-
-  .program-nav {
-    .program-overlay-close {
-      display: none;
-    }
-    .program-type-page-link {
-      display: inline-block;
-    }
-  }
 }
 
 .program-type {

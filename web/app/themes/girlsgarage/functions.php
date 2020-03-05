@@ -29,12 +29,12 @@ $firebelly_includes = [
   'lib/cmb2-custom-fields.php',        // Custom CMB2
   'lib/page-meta-boxes.php',           // Various tweaks for multiple post types
   'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
-  'lib/program-post-type.php',         // Programs
   'lib/badge-post-type.php',           // Badges
   'lib/person-post-type.php',          // People
+  'lib/cpt-program.php',               // Programs
   'lib/cpt-testimonial.php',           // Testimonials
   'lib/cpt-project.php',               // Projects
-  'lib/cpt-partners-and-funders.php',          // Sponsors
+  'lib/cpt-partners-and-funders.php',  // Sponsors
   'lib/site-options.php',              // Custom site options for admin
 ];
 

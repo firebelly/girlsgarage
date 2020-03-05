@@ -60,7 +60,7 @@
 
 // Textures
 @mixin texture($beforeOrAfter, $name, $location, $width, $height, $offset: 0) {
-  > *:not(.bottom-textures) {
+  > *:not(.bottom-textures):not(.nav-button) {
     z-index: 1;
     position: relative;
   }

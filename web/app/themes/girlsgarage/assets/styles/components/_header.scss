@@ -103,6 +103,20 @@
       display: none;
       @extend .sprite-icon;
     }
+    > * {
+      z-index: 1;
+      position: relative;
+    }
+  }
+
+  .wrap {
+    z-index: 1;
+    position: relative;
+  }
+
+  .post-type {
+    @include smallcaps;
+    color: $white;
   }
 
   h1 {
@@ -127,15 +141,10 @@
         position: absolute;
         @include sprite($pattern-large-2-purple);
       }
-      > * {
-        z-index: 1;
-        position: relative;
-      }
     }
 
-    .wrap {
-      z-index: 1;
-      position: relative;
+    .post-type {
+      padding-left: $padding / 2;
     }
 
     .page-title {
@@ -145,6 +154,7 @@
     }
   }
 }
+
 .secondary-header {
   height: 450px;
   background-size: cover;

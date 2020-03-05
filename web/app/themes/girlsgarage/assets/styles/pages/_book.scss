@@ -1,0 +1,24 @@
+// Book Page
+
+body.book {
+  .buy-section {
+    &::after {
+      height: 1px;
+      content: '';
+      display: block;
+      margin-top: 35px;
+      position: relative;
+      left: -$padding-sm;
+      background-color: $gray-lite;
+      width: calc(100% + #{$padding-sm * 2});
+      @include media-md {
+        left: -40px;
+        width: calc(100% + 80px);
+      }
+    }
+
+    + .secondary-content {
+      padding-top: $padding-sm * 2;
+    }
+  }
+}

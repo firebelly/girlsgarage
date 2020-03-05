@@ -249,7 +249,8 @@
 }
 
 // Buttons
-.btn {
+.btn,
+.user-btn a {
   @include smallcaps;
   @include btn-colors($black, $white);
   height: 50px;

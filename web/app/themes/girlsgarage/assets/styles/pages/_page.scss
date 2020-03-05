@@ -40,15 +40,19 @@
   @include texture(before, section-title, bl, 175, 70, true);
   @include h3;
   width: 100%;
-  margin: 35px 0;
   position: relative;
+  margin: $padding-sm 0;
 
   .-inner {
     padding: 20px;
     display: block;
     background-color: $gray-lite;
+  }
 
-    @include media-md {
+  @include media-md {
+    margin: 35px 0;
+
+    > .-inner {
       padding: 35px 40px;
     }
   }
@@ -72,6 +76,17 @@
   position: absolute;
 }
 
+// Repeatable Page Cards
+.page-cards {
+  .card + .card {
+    border-top: 1px solid $gray-lite;
+  }
+
+  .card-title {
+    color: $black;
+  }
+}
+
 // Blurb
 .blurb {
   margin: 0;
@@ -89,6 +104,15 @@
     position: relative;
     padding: 22px 35px 28px;
     background-color: $gray-lite;
+  }
+
+  .blurb-image {
+    height: 245px;
+    position: relative;
+    margin-bottom: 20px;
+    background-size: cover;
+    clip-path: $clippath-double;
+    background-position: center center;
   }
 
   p {

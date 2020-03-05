@@ -84,19 +84,16 @@
           <h4 class="card-title">Upcoming Sessions</h4>
           <ul>
             <?php
-              $limit = 20;
+              $limit = 10;
               $i = 0;
 
-              // Get featured posts
-              $featured_args= array(
-                'numberposts' => $limit,
+              $args = array(
+                'numberposts' => -1,
                 'post_type' => 'program',
-                'orderby' => 'ASC',
+                'meta_key' => '_cmb2_program_start',
+                'orderby' => 'meta_value_num',
+                'order' => 'ASC',
                 'meta_query' => array(
-                  array(
-                    'key' => '_cmb2_program_is_featured',
-                    'value' => 'on',
-                  ),
                   array(
                     'key' => '_cmb2_program_end',
                     'value' => current_time('timestamp'),
@@ -104,39 +101,10 @@
                   )
                 )
               );
-              $featured_programs = get_posts( $featured_args );
+              $upcoming_programs = get_posts( $args );
 
-              // IF there aren't at least 3 featured, get recent
-              if (count($featured_programs) < 3) {
-                $recentLimit = 3 - count($featured_programs);
-
-                $args = array(
-                  'numberposts' => $recentLimit,
-                  'post_type' => 'program',
-                  'meta_key' => '_cmb2_program_start',
-                  'orderby' => 'meta_value_num',
-                  'order' => 'ASC',
-                  'meta_query' => array(
-                    array(
-                      'key' => '_cmb2_program_is_featured',
-                      'compare' => 'NOT EXISTS',
-                    ),
-                    array(
-                      'key' => '_cmb2_program_end',
-                      'value' => current_time('timestamp'),
-                      'compare' => '>'
-                    )
-                  )
-                );
-                $recent_programs = get_posts( $args );
-              } else {
-                $recent_programs = [];
-              }
-
-              $programs_array = array_merge($featured_programs, $recent_programs);
-              $programs = array_unique($programs_array, SORT_REGULAR);
-              if ($programs) {
-                foreach($programs as $program) {
+              if (!empty($upcoming_programs)) {
+                foreach($upcoming_programs as $program) {
                   if($i >= $limit) {
                     break;
                   }

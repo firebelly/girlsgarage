@@ -70,6 +70,13 @@
     li {
       list-style: none;
       position: relative;
+
+      &.menu-item-has-children.active {
+        > a {
+          color: $black;
+          background-color: $white;
+        }
+      }
     }
   }
 
@@ -88,6 +95,13 @@
 
     a {
       padding-left: 35px;
+    }
+
+    li.active {
+      > a {
+        color: $black;
+        background-color: $white;
+      }
     }
 
     @include min-screen($breakpoint-nav) {
@@ -223,8 +237,18 @@
       }
     }
 
-    > ul > li {
-      opacity: 1;
+    > ul {
+      > li {
+        opacity: 1;
+      }
+
+      li {
+        &.menu-item-has-children.active {
+          > a {
+            background-color: transparent;
+          }
+        }
+      }
     }
 
     .sub-menu {
@@ -261,6 +285,13 @@
         @for $i from 1 through 8 {
           &:nth-child(#{$i}) {
             transition-delay: $i * 0.05s;
+          }
+        }
+
+        &.active {
+          a {
+            color: $black;
+            background-color: $white;
           }
         }
       }

@@ -7,48 +7,33 @@
   $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
 ?>
 
-<div class="wrap">
-  <div class="breadcrumbs">
-    <a href="<?= get_permalink(get_page_by_path('programs')) ?>">Programs</a> <span>→</span>
-    <?php if ($program_type) { ?>
-      <a href="<?= home_url() ?>/programs/<?= $program_type->slug ?>"><?= $program_type->name ?></a>
-    <?php } ?>
-  </div>
-</div>
+<?php get_template_part('templates/page', 'header'); ?>
 
 <article id="<?= $post->slug ?>">
   <div class="wrap -flush grid">
 
-    <div class="post-content one-half -left">
-      <?php if ($images) {
-        echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
-      } elseif ($header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large')) { ?>
-        <div class="post-image" <?= $header_bg ?>></div>
-      <?php } else { ?>
-        <div class="post-image no-image"></div>
-      <?php } ?>
-      <div class="card -gray -cut-right">
+    <div class="post-content">
+      <div class="card -white">
         <div class="-inner">
-          <header>
-            <?php if ($badge_icon) { ?>
-            <div class="badge-icon">
-              <svg class="icon badge-<?= $badge_icon ?>" aria-hidden="hidden" role="image"><use xlink:href="#badge-<?= $badge_icon ?>"/></svg>
-            </div>
-            <?php } ?>
-            <h3 class="post-subtitle"><?= $program->subtitle ?></h3>
-            <h2 class="post-title"><?= $program->title ?></h2>
-          </header>
+          <div class="program-intro">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil excepturi, sequi nobis. Sed magnam veniam delectus hic totam! Quod libero rerum vero nemo consectetur quam quas dolorum cumque! Quae, ex.</p>
+          </div>
+          <?php if ($images) {
+            echo '<div class="post-slideshow">';
+            echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
+            echo '</div>';
+          } ?>
           <div class="content user-content">
             <?= $body ?>
           </div>
         </div>
       </div>
     </div>
-    <div class="one-half -right">
-      <div class="post-meta card -red -wide -cut-right">
+
+    <sidebar class="post-sidebar">
+      <div class="post-meta card -red">
         <div class="-inner">
           <div class="meta-block title">
-            <h2 class="post-title"><?= $program->title ?></h2>
             <div class="registration">
 
               <?php if ($registration_open > date('m/d/y')) { ?>
@@ -158,7 +143,7 @@
 
         </div>
       </div>
-    </div>
+    </sidebar>
 
   </div>
 </article>

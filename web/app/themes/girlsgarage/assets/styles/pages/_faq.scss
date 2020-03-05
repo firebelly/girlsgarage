@@ -1,0 +1,25 @@
+// FAQ page
+
+.faqs-list {
+  .card {
+    width: 100%;
+    border-bottom: 1px solid $gray-lite;
+    @include media-md {
+      width: 50%;
+      max-width: 50%;
+      flex-basis: 50%;
+    }
+  }
+
+  dt {
+    @include h4;
+  }
+  dd {
+    margin: 20px 0 0;
+
+    a {
+      color: $red;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,24 +1,53 @@
 // Donate Page
 
 .page.donate {
-  .page-bottom {
-    .card {
-      &::after {
-        display: none;
-        @extend .sprite-icon;
+
+  .giving-levels {
+    margin-bottom: $padding-sm * 2;
+  }
+
+  .giving-level {
+    padding: 35px 0;
+    position: relative;
+    &::after {
+      bottom: 0;
+      content: '';
+      height: 1px;
+      display: block;
+      position: absolute;
+      left: -$padding-sm;
+      background-color: $gray-lite;
+      width: calc(100% + #{$padding-sm * 2});
+      @include media-md {
+        left: -$padding-sm * 2;
+        width: calc(100% + #{$padding-sm * 4});
       }
     }
-    @include media-md {
-      .card {
-        &::after {
-          top: 0;
-          left: 100%;
-          content: '';
-          display: block;
-          position: absolute;
-          @include sprite($pattern-large-black);
+    &:first-of-type {
+      margin-top: $padding-sm * 1.5;
+      &::before {
+        top: 0;
+        content: '';
+        height: 1px;
+        display: block;
+        position: absolute;
+        left: -$padding-sm;
+        background-color: $gray-lite;
+        width: calc(100% + #{$padding-sm * 2});
+        @include media-md {
+          left: -$padding-sm * 2;
+          width: calc(100% + #{$padding-sm * 4});
         }
       }
+    }
+
+    h5, h6 {
+      @include subtitle(600);
+      margin: 0;
+    }
+
+    p {
+      margin-bottom: 0;
     }
   }
 

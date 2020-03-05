@@ -48,7 +48,7 @@ function metaboxes() {
     'title'         => __( 'Secondary Featured Image', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php', 'page-impact.php']],
+    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php', 'page-impact.php', 'page-registration-schedule.php']],
     'priority'      => 'high',
     'show_names'    => false, // Show field names on the left
   ]);
@@ -238,5 +238,225 @@ function metaboxes() {
       'small' => __( 'Small', 'cmb2' ),
       'large' => __( 'Large', 'cmb2' ),
     ),
+  ]);
+
+  // FAQs
+  $faqs = new_cmb2_box([
+    'id'            => 'faqs',
+    'title'         => __( 'Frequently Asked Questions', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-faq.php']],
+    'priority'      => 'high',
+  ]);
+  $faqs_group = $faqs->add_field([
+    'id'              => $prefix .'faq-items',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'FAQ Item {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another FAQ Item', 'cmb2' ),
+      'remove_button' => __( 'Remove FAQ Item', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $faqs->add_group_field($faqs_group, [
+    'name' => 'Question',
+    'id'   => 'question',
+    'type' => 'text',
+  ]);
+  $faqs->add_group_field($faqs_group, [
+    'name' => 'Answer',
+    'id'   => 'answer',
+    'type' => 'wysiwyg',
+    'options' => array(
+      'media_buttons' => false,
+      'textarea_rows' => get_option('default_post_edit_rows', 10),
+    ),
+  ]);
+
+  // The Book
+  $buy_the_book = new_cmb2_box([
+    'id'            => 'book_buy',
+    'title'         => __( 'Buy The Book Section', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-book.php']],
+    'priority'      => 'high',
+  ]);
+  $buy_the_book->add_field([
+    'name' => 'Buy The Book Text',
+    'desc' => 'The text at the top of the page content that introduces the buy button.',
+    'id'   => $prefix . 'buy_book_text',
+    'type' => 'wysiwyg',
+    'options' => array(
+      'media_buttons' => false,
+      'textarea_rows' => get_option('default_post_edit_rows', 10),
+    ),
+  ]);
+  $buy_the_book_sources = $buy_the_book->add_field([
+    'id'              => $prefix .'buy_sources',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Source {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Source', 'cmb2' ),
+      'remove_button' => __( 'Remove Source', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $buy_the_book->add_group_field($buy_the_book_sources, [
+    'name' => 'Source Label',
+    'id'   => 'label',
+    'type' => 'text',
+    'desc' => 'The label that will appear on the button',
+  ]);
+  $buy_the_book->add_group_field($buy_the_book_sources, [
+    'name' => 'Source Url',
+    'id'   => 'url',
+    'type' => 'text_URL',
+    'desc' => 'The URL the button will link to',
+  ]);
+
+  $book_blurbs = new_cmb2_box([
+    'id'            => 'book_blurbs',
+    'title'         => __( 'Book Blurbs', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-book.php']],
+    'priority'      => 'high',
+  ]);
+  $book_blurbs_group = $book_blurbs->add_field([
+    'id'              => $prefix .'blurbs',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Blurb {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Blurb', 'cmb2' ),
+      'remove_button' => __( 'Remove Blurb', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $book_blurbs->add_group_field($book_blurbs_group, [
+    'name' => 'Image',
+    'id'   => 'image',
+    'type' => 'file',
+  ]);
+  $book_blurbs->add_group_field($book_blurbs_group, [
+    'name' => 'Blurb Text',
+    'id'   => 'text',
+    'type' => 'textarea',
+  ]);
+  $book_blurbs->add_group_field($book_blurbs_group, [
+    'name' => 'Blurb Attribution',
+    'id'   => 'attribution',
+    'type' => 'text',
+  ]);
+
+  // Doate Page
+  $donate_page_settings = new_cmb2_box([
+    'id'            => 'donate_settings',
+    'title'         => __( 'Donate Page Settings', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-donate.php']],
+    'priority'      => 'high',
+  ]);
+  $donate_page_settings->add_field([
+    'name' => 'Donate URL',
+    'desc' => 'The URL to the donation portal.',
+    'id'   => $prefix . 'donate_url',
+    'type' => 'text_url',
+  ]);
+  // Giving Levels
+  $giving_levels_group = $donate_page_settings->add_field([
+    'id'              => $prefix .'giving_levels',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Giving Level {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Giving Level', 'cmb2' ),
+      'remove_button' => __( 'Remove Giving Level', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $donate_page_settings->add_group_field($giving_levels_group, [
+    'name' => 'Icon',
+    'id'   => 'icon',
+    'type' => 'file',
+  ]);
+  $donate_page_settings->add_group_field($giving_levels_group, [
+    'name' => 'Title',
+    'id'   => 'title',
+    'type' => 'text',
+  ]);
+  $donate_page_settings->add_group_field($giving_levels_group, [
+    'name' => 'Amount',
+    'id'   => 'amount',
+    'type' => 'text',
+    'desc' => 'The $ amount and timeframe (ex: $5/month)'
+  ]);
+  $donate_page_settings->add_group_field($giving_levels_group, [
+    'name' => 'Description',
+    'id'   => 'giving_level_description',
+    'type' => 'textarea_small',
+  ]);
+  // Giving Stats
+  $giving_stats_group = $donate_page_settings->add_field([
+    'id'              => $prefix .'stats',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Stat {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Stat', 'cmb2' ),
+      'remove_button' => __( 'Remove Stat', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $donate_page_settings->add_group_field($giving_stats_group, [
+    'name' => 'Figure',
+    'id'   => 'figure',
+    'type' => 'text',
+  ]);
+  $donate_page_settings->add_group_field($giving_stats_group, [
+    'name' => 'Description',
+    'id'   => 'description',
+    'type' => 'text',
+  ]);
+
+  // Repeatable Cards
+  $repeatable_cards = new_cmb2_box([
+   'id'            => 'repeatable_cards',
+   'title'         => __( 'Repeatable Cards', 'cmb2' ),
+   'object_types'  => ['page'],
+   'context'       => 'normal',
+   'show_on'       => ['key' => 'page-template', 'value' => ['page-support.php']],
+   'priority'      => 'high',
+  ]);
+  $repeatable_cards_group = $repeatable_cards->add_field([
+    'id'              => $prefix .'cards',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Card {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Card', 'cmb2' ),
+      'remove_button' => __( 'Remove Card', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $repeatable_cards->add_group_field($repeatable_cards_group, [
+    'name' => 'Card Title',
+    'id'   => 'title',
+    'type' => 'text',
+  ]);
+  $repeatable_cards->add_group_field($repeatable_cards_group, [
+    'name' => 'Card Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+  ]);
+  $repeatable_cards->add_group_field($repeatable_cards_group, [
+    'name' => 'Card CTA Label',
+    'id'   => 'cta_label',
+    'type' => 'text',
+    'desc' => 'Optional, but if a CTA URL is set, and this field is left blank, will default to "more".'
+  ]);
+  $repeatable_cards->add_group_field($repeatable_cards_group, [
+    'name' => 'Card CTA URL',
+    'id'   => 'cta_url',
+    'type' => 'text_url',
   ]);
 }

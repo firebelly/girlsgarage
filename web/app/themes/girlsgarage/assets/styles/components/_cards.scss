@@ -62,11 +62,34 @@
     position: relative;
     padding: $padding-sm;
     clip-path: polygon(0 0, calc(100% - 35px) 0, 100% 35px, 100% 100%, 0 100%);
+
+    hr {
+      height: 1px;
+      border: none;
+      margin-top: $padding-sm;
+      margin-left: -$padding-sm;
+      margin-bottom: $padding-sm;
+      background-color: $gray-lite;
+      width: calc(100% + #{$padding-sm * 2});
+
+      @include media-md {
+        margin-top: $padding-sm * 2;
+        margin-bottom: $padding-sm * 2;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+    }
   }
 
   .card-tag {
     @include smallcaps();
     margin: 0;
+
+    + .card-title {
+      margin-top: 10px;
+    }
   }
 
   .card-title {
@@ -98,39 +121,75 @@
   &.-gray {
     color: $black;
     @include card($gray-lite, $triple-pattern);
+    hr {
+      background-color: $black;
+    }
   }
   &.-white {
     color: $black;
     @include card($white, $triple-pattern-purple);
+
+    .user-btn a {
+      @extend .-red;
+    }
   }
   &.-black {
     &, .card-title {
       color: $white;
     }
     @include card($black, $triple-pattern);
+    hr {
+      background-color: $white;
+    }
+
+    .user-btn a {
+      @extend .-white;
+    }
   }
   &.-purple {
     &, .card-title {
       color: $black;
     }
     @include card($purple, $triple-pattern);
+    hr {
+      background-color: $black;
+    }
   }
   &.-red {
     &, .card-title {
       color: $white;
     }
     @include card($red, $triple-pattern);
+    hr {
+      background-color: $white;
+    }
+
+    .user-btn a {
+      @extend .-white;
+    }
   }
   &.-clear {
     &, .card-title {
       color: $white;
     }
     @include card(transparent, $triple-pattern-white);
+    hr {
+      background-color: $white;
+    }
+
+    .user-btn a {
+      @extend .-white;
+    }
   }
 
   @include media-md {
     .-inner {
       padding: 30px #{$padding-sm * 2} #{$padding-sm * 2} #{$padding-sm * 2};
+
+      hr {
+        margin-left: -#{$padding-sm * 2};
+        width: calc(100% + #{$padding-sm * 4});
+      }
     }
   }
 

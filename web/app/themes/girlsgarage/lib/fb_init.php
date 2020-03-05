@@ -38,7 +38,7 @@ function simplify_tinymce($settings) {
     $settings['formats'] = substr($settings['formats'],0,-1).",underline: { inline: 'u', exact: true} }";
   else
     $settings['formats'] = "{ underline: { inline: 'u', exact: true} }";
-  
+
   // What goes into the toolbars. Add 'wp_adv' to get the Toolbar toggle button back
   $settings['toolbar1'] = 'styleselect,bold,italic,underline,strikethrough,formatselect,bullist,numlist,blockquote,link,unlink,hr,wp_more,outdent,indent,AccordionShortcode,AccordionItemShortcode,fullscreen';
   $settings['toolbar2'] = '';
@@ -51,32 +51,55 @@ function simplify_tinymce($settings) {
   // Clear most formatting when pasting text directly in the editor
   $settings['paste_as_text'] = 'true';
 
-  $style_formats = array( 
-    // array( 
+  $style_formats = array(
+    // array(
     //   'title' => 'Two Column',
     //   'block' => 'div',
     //   'classes' => 'two-column',
     //   'wrapper' => true,
-    // ),  
-    // array( 
+    // ),
+    // array(
     //   'title' => 'Three Column',
     //   'block' => 'div',
     //   'classes' => 'three-column',
     //   'wrapper' => true,
     // ),
-    array( 
+    array(
       'title' => 'Button',
-      'block' => 'span',
-      'classes' => 'button',
+      'block' => 'div',
+      'classes' => 'user-btn',
     ),
-    // array( 
+    // array(
     //   'title' => '» Arrow Link',
     //   'block' => 'span',
     //   'classes' => 'arrow-link',
     // ),
- );  
+ );
   $settings['style_formats'] = json_encode($style_formats);
 
   return $settings;
 }
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
+
+/**
+ * Wrap post images in figure tag
+ * @param  [type] $html
+ * @param  [type] $id
+ * @param  [type] $caption
+ * @param  [type] $title
+ * @param  [type] $align
+ * @param  [type] $url
+ * @return [type]
+ */
+function html5_insert_image($html, $id, $caption, $title, $align, $url, $size, $alt) {
+  $url = wp_get_attachment_url($id);
+  $src = wp_get_attachment_image_src( $id, $size, false );
+  $html5 = "<figure>";
+  $html5 .= "<img src='$src[0]' alt='$alt' />";
+  if ($caption) {
+    $html5 .= "<figcaption>$caption</figcaption>";
+  }
+  $html5 .= "</figure>";
+  return $html5;
+}
+add_filter( 'image_send_to_editor', __NAMESPACE__ . '\html5_insert_image', 10, 9 );

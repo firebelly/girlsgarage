@@ -4,60 +4,32 @@
  */
 
 namespace Firebelly\PostTypes\Program;
+use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
-// Custom image size for post type?
-// add_image_size( 'program-thumb', 350, null, null );
+$programs = new PostType(['name' => 'program', 'plural' => 'Programs', 'slug' => 'program'], [
+  'taxonomies' => ['program_type', 'season'],
+  'supports'   => ['title', 'thumbnail', 'editor', 'revisions'],
+  'rewrite'    => ['with_front' => false],
+]);
+$programs->filters(['program_type', 'season']);
+$programs->icon('dashicons-welcome-learn-more');
 
-/**
- * Register Custom Post Type
- */
-function post_type() {
+// Custom taxonomies
+$program_type = new Taxonomy([
+  'name'     => 'program_type',
+  'slug'     => 'program-type',
+  'plural'   => 'Program Types',
+]);
+$season = new Taxonomy([
+  'name'     => 'season',
+  'slug'     => 'season',
+  'plural'   => 'Seasons',
+]);
+$program_type->register();
+$season->register();
 
-  $labels = array(
-    'name'                => 'Programs',
-    'singular_name'       => 'Program',
-    'menu_name'           => 'Programs',
-    'parent_item_colon'   => '',
-    'all_items'           => 'All Programs',
-    'view_item'           => 'View Program',
-    'add_new_item'        => 'Add New Program',
-    'add_new'             => 'Add New',
-    'edit_item'           => 'Edit Program',
-    'update_item'         => 'Update Program',
-    'search_items'        => 'Search Programs',
-    'not_found'           => 'Not found',
-    'not_found_in_trash'  => 'Not found in Trash',
-  );
-  $rewrite = array(
-    'slug'                => '',
-    'with_front'          => false,
-    'pages'               => false,
-    'feeds'               => false,
-  );
-  $args = array(
-    'label'               => 'program',
-    'description'         => 'Programs',
-    'labels'              => $labels,
-    'taxonomies'          => array('program_type'),
-    'supports'            => array( 'title', 'editor', 'thumbnail', ),
-    'hierarchical'        => false,
-    'public'              => true,
-    'show_ui'             => true,
-    'show_in_menu'        => true,
-    'show_in_nav_menus'   => true,
-    'show_in_admin_bar'   => true,
-    'menu_position'       => 20,
-    'menu_icon'           => 'dashicons-welcome-learn-more',
-    'can_export'          => false,
-    'has_archive'         => true,
-    'exclude_from_search' => false,
-    'publicly_queryable'  => true,
-    'rewrite'             => $rewrite,
-  );
-  register_post_type( 'program', $args );
-
-}
-add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
+$programs->register();
 
 /* define program seasons here for the sake of DRYness */
 function get_program_season_array() {
@@ -69,72 +41,63 @@ function get_program_season_array() {
   );
 }
 
-/**
- * Custom admin columns for post type
- */
-function edit_columns($columns){
-  $columns = array(
-    'cb' => '<input type="checkbox" />',
-    'title' => 'Title',
-    '_cmb2_program_subtitle' => 'Subtitle',
-    'program_type' => 'Type',
-    '_cmb2_program_is_featured' => 'Featured',
-    '_cmb2_program_season' => 'Season',
-    'program_dates' => 'Date',
-  );
-  return $columns;
-}
-add_filter('manage_program_posts_columns', __NAMESPACE__ . '\edit_columns');
+add_action( 'cmb2_admin_init',  __NAMESPACE__ . '\register_seasons_fields' );
+function register_seasons_fields() {
+  $prefix = '_cmb2_';
 
-function custom_columns($column){
-  global $post;
-  if ( $post->post_type == 'program' ) {
-    $custom = get_post_custom();
-    if ( $column == 'featured_image' )
-      echo the_post_thumbnail( 'program-thumb' );
-    elseif ( $column == 'program_dates' ) {
-      if($custom['_cmb2_program_start'][0] && $custom['_cmb2_program_end'][0]) {
-        $timestamp_start = $custom['_cmb2_program_start'][0];
-        $timestamp_end = !empty($custom['_cmb2_program_end'][0]) ? $custom['_cmb2_program_end'][0] : $timestamp_start;
-        if ($timestamp_end != $timestamp_start) {
-          $date_txt = date('m/d/Y', $timestamp_start) . ' – ' . date('m/d/Y', $timestamp_end);
-        } else {
-          $date_txt = date('m/d/Y', $timestamp_start);
-        }
-        echo $date_txt . ($timestamp_end < current_time('timestamp') ? ' - <strong class="post-state">Past Program</strong>' : '');
-      }
-    } elseif ( $column == 'program_type') {
-      echo get_the_term_list($post->ID,'program_type','',', ','');
-    } else {
-      if (array_key_exists($column, $custom))
-        echo $custom[$column][0];
-    }
-  }
+  /**
+   * Metabox to add fields to seasons taxonomy
+   */
+  $seaseons_fields = new_cmb2_box( array(
+    'id'               => $prefix . 'seasons_fields',
+    'title'            => esc_html__( 'Seasons Settings', 'cmb2' ), // Doesn't output for term boxes
+    'object_types'     => array( 'term' ), // Tells CMB2 to use term_meta vs post_meta
+    'taxonomies'       => array( 'season' ), // Tells CMB2 which taxonomies should have these fields
+    'new_term_section' => true, // Will display in the "Add New Category" section
+  ) );
+
+  $seaseons_fields->add_field( array(
+    'name'     => esc_html__( 'Season Start Date', 'cmb2' ),
+    'desc'     => esc_html__( 'The start date of the season', 'cmb2' ),
+    'id'       => $prefix . 'start_date',
+    'type'     => 'text_date_timestamp',
+  ) );
+
+  $seaseons_fields->add_field( array(
+    'name'     => esc_html__( 'Season End Date', 'cmb2' ),
+    'desc'     => esc_html__( 'The end date of the season', 'cmb2' ),
+    'id'       => $prefix . 'end_date',
+    'type'     => 'text_date_timestamp',
+  ) );
+
+  $seaseons_fields->add_field( array(
+    'name'     => esc_html__( 'Registration Open Date', 'cmb2' ),
+    'desc'     => esc_html__( 'The date that registration is open', 'cmb2' ),
+    'id'       => $prefix . 'registration_open_date',
+    'type'     => 'text_date_timestamp',
+  ) );
+
+  $seaseons_fields->add_field( array(
+    'name'     => esc_html__( 'Registration Closed Date', 'cmb2' ),
+    'desc'     => esc_html__( 'The date that registration is closed', 'cmb2' ),
+    'id'       => $prefix . 'registration_closed_date',
+    'type'     => 'text_date_timestamp',
+  ) );
+
+
+  $seaseons_fields->add_field( array(
+    'name'     => esc_html__( 'Registration URL', 'cmb2' ),
+    'desc'     => esc_html__( 'The URL for the registration for this season', 'cmb2' ),
+    'id'       => $prefix . 'registration_url',
+    'type'     => 'text_url',
+  ) );
 }
-add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 
 /**
  * CMB2 custom fields
  */
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
-
-  $meta_boxes['program_is_featured'] = array(
-    'id'            => 'program_is_featured',
-    'title'         => __( 'Is this a featured session on the homepage?', 'cmb2' ),
-    'object_types'  => array( 'program', ), // Post type
-    'context'       => 'side',
-    'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
-    'fields'        => array(
-      array(
-          'name'    => 'Featured',
-          'id'      => $prefix . 'program_is_featured',
-          'desc'    => 'Featured?',
-          'type'    => 'checkbox',
-      ),
-    ),
-  );
 
   $meta_boxes['program_images'] = array(
     'id'            => 'program_images',

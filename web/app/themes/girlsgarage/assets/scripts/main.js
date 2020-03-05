@@ -54,6 +54,7 @@ var FBSage = (function($) {
 
     _initNav();
     _injectSvgSprite();
+    _injectIcons();
     _initBigClicky();
     _initFormActions();
     _initBadgeOverlay();
@@ -148,6 +149,11 @@ var FBSage = (function($) {
 
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg');
+  }
+
+  function _injectIcons() {
+    // Icons that need to be inserted with js
+    $('.user-btn a').append('<span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span>');
   }
 
   // Bind to state changes and handle back/forward
@@ -251,6 +257,13 @@ var FBSage = (function($) {
       var a = new RegExp('/' + window.location.host + '/');
       if (!a.test(this.href)) {
         $(this).append('<svg class="icon-linkout" aria-hidden="true" role="presentation"><use xlink:href="#icon-linkout"/></svg>');
+      }
+    });
+
+    $('.nav a[href="#"]').on('click', function(e) {
+      e.preventDefault();
+      if (!breakpoint_nav && $(this).closest('li').is('.menu-item-has-children')) {
+        $(this).prev('.sub-menu-toggle').trigger('click');
       }
     });
 
@@ -543,13 +556,31 @@ var FBSage = (function($) {
         columnWidth: '.grid-item:not(:first-of-type)',
         transitionDuration: 0
       });
+
+      $grid.children().each(function() {
+        $(this).imagesLoaded( function() {
+          $grid.masonry('layout');
+        });
+      });
     });
 
     $('.masonry-grid').each(function() {
       var $grid = $(this).masonry({
         itemSelector: '.grid-item',
         columnWidth: '.grid-item:first-of-type',
-        transitionDuration: 0
+        transitionDuration: 0,
+        stamp: '.stamp'
+      });
+
+      var $stamp = $(this).find('.stamp');
+      if (!breakpoint_md) {
+        $grid.masonry('unstamp', $stamp);
+      }
+
+      $grid.children().each(function() {
+        $(this).imagesLoaded( function() {
+          $grid.masonry('layout');
+        });
       });
     });
   }
@@ -592,17 +623,15 @@ var FBSage = (function($) {
   }
 
   function _showProgramType() {
+    var $programContainer = $('.program-overlay'),
+        $activeDataContainer = $programContainer.find('.program-type-container');
 
-      var $programContainer = $('.program-overlay'),
-          $activeDataContainer = $programContainer.find('.program-type-container');
-
-      $itemData = $(page_cache[encodeURIComponent(State.url)]);
-      _scrollBody($('body'));
-      $('body').addClass('program-overlay-active');
-      $activeDataContainer.empty();
-      $itemData.clone().appendTo($activeDataContainer);
-      $programContainer.addClass('-active');
-
+    $itemData = $(page_cache[encodeURIComponent(State.url)]);
+    _scrollBody($('body'));
+    $('body').addClass('program-overlay-active');
+    $activeDataContainer.empty();
+    $itemData.clone().appendTo($activeDataContainer);
+    $programContainer.addClass('-active');
   }
 
   function _hideProgramOverlay() {
@@ -697,8 +726,8 @@ var FBSage = (function($) {
       slide: '.slide-item',
       autoplay: true,
       arrows: true,
-      prevArrow: '<div class="previous-item button-prev nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg><span class="sr-only">Prev</span></div>',
-      nextArrow: '<div class="next-item button-next nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
+      prevArrow: '<button class="previous-item button-prev nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg></span></button>',
+      nextArrow: '<button class="next-item button-next nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span></button>',
       dots: false,
       autoplaySpeed: 6000,
       speed: 300,
@@ -727,7 +756,6 @@ var FBSage = (function($) {
       dots: false,
       arrows: false
     });
-
   }
 
   function _initStickyElements() {
@@ -771,11 +799,11 @@ var FBSage = (function($) {
     }
 
     // Reset inline styles for navigation for medium breakpoint
-    if (breakpoint_nav && $('.site-nav')[0].hasAttribute('style')) {
+    if (breakpoint_nav) {
       $('.site-nav[style]').attr('style', '');
     }
 
-    if (breakpoint_nav && $('.site-nav .sub-menu')[0].hasAttribute('style')) {
+    if (breakpoint_nav) {
       $('.site-nav .sub-menu[style]').attr('style', '');
     }
   }

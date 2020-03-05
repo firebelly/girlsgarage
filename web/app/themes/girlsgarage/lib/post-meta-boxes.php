@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
     'title'         => __( 'Image Slideshow', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
+    'object_types'  => array( 'post', 'project' ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -93,7 +93,7 @@ function get_post_slideshow($post_id) {
     if ($images) {
       foreach ($images as $attachment_id => $attachment_url):
         $image = get_attached_file($attachment_id, false);
-        $image = \Firebelly\Media\get_header_bg($image,'','bw', 'large');
+        $image = \Firebelly\Media\get_header_bg($image,'','', 'large');
         $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
       endforeach;
     }

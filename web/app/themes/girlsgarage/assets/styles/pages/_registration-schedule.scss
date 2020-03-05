@@ -1,0 +1,80 @@
+// Registration Schedule Page
+
+body.registration-schedule {
+  .current-season {
+    .card-title {
+      margin: 10px 0;
+    }
+    .season-date {
+      @include subtitle(700);
+      margin: 0;
+    }
+    .registration-link {
+      @include subtitle(500);
+      margin: 0;
+
+      a {
+        color: $red;
+      }
+    }
+
+    .current-sessions {
+      .current-session {
+        margin-top: $padding-sm * 2;
+      }
+
+      h4 {
+        @include smallcaps;
+      }
+
+      .sessions {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+          font-weight: 700;
+
+          a {
+            color: $red;
+            font-weight: 500;
+          }
+        }
+
+      }
+    }
+  }
+
+  .upcoming-sessions {
+    h6 {
+      @include smallcaps;
+      margin: 0;
+    }
+
+    .season {
+      margin-top: $padding-sm;
+
+      h5 {
+        @include subtitle(700);
+        margin: 0;
+        color: $purple;
+      }
+      .season-date {
+        font-weight: 700;
+        span {
+          font-weight: 500;
+        }
+      }
+      p {
+        margin: 0;
+      }
+      a {
+        color: $red;
+      }
+    }
+
+    @include media-md {
+      width: 50%;
+    }
+  }
+}

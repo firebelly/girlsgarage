@@ -80,7 +80,7 @@ add_action( 'do_meta_boxes', __NAMESPACE__ . '\remove_thumbnail_box' );
 /**
  * Get Funders
  */
-function get_partners_and_funders($options=[]) {
+function get_partners_and_funders($options=['count' => false]) {
   $output = '';
 
   $args = array(
@@ -98,16 +98,20 @@ function get_partners_and_funders($options=[]) {
 
   $funders_posts = get_posts($args);
   if (!$funders_posts) return false;
-
-  $output = '<div class="funder-tier masonry-grid card-grid '.get_term_by('id', $options['tier'], 'tier')->slug.'-grid">';
+  if (!empty($options['count']) && $options['count'] == true) {
+    return count($funders_posts);
+  }
 
   foreach ( $funders_posts as $post ):
+    $tier = Utils\get_first_term($post, 'tier');
     ob_start();
-    include(locate_template('templates/article-partner-funder.php'));
+    if ($tier->slug != 'individuals'):
+      include(locate_template('templates/article-partner-funder.php'));
+    else:
+      include(locate_template('templates/article-individual-funder.php'));
+    endif;
     $output .= ob_get_clean();
   endforeach;
-
-  $output .= '</div>';
 
   return $output;
 }
@@ -119,7 +123,7 @@ function single_funder_redirect() {
 
     $post_id = $post->ID;
     if (!empty($post_id) && $post->post_type == 'funder') {
-      wp_redirect('/about/funders/#'.$post->post_name, 301);
+      wp_redirect('/about/parnters-funders/#'.$post->post_name, 301);
     }
   }
 }
