@@ -103,3 +103,24 @@ function html5_insert_image($html, $id, $caption, $title, $align, $url, $size, $
   return $html5;
 }
 add_filter( 'image_send_to_editor', __NAMESPACE__ . '\html5_insert_image', 10, 9 );
+
+/**
+ * Move Yoast metaboxes to bottom of post edit screen
+ */
+add_filter( 'wpseo_metabox_prio', function() { return 'low'; } );
+
+/**
+ * Hiding editor from parent page template cause it's just there for structure
+ */
+function hide_editor() {
+  if (!isset($_GET['post'])) { return; }
+
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+
+  $template_file = get_post_meta($post_id, '_wp_page_template', true);
+
+  if($template_file == 'parent-page.php'){ // edit the template name
+    remove_post_type_support('page', 'editor');
+  }
+}
+add_action( 'admin_init', __NAMESPACE__ . '\hide_editor' );

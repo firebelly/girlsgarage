@@ -99,20 +99,36 @@ function register_seasons_fields() {
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
+  $meta_boxes['program_intro'] = array(
+    'id'            => 'program_intro',
+    'title'         => __( 'Intro Content', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name' => 'Intro Content',
+        'id'   => $prefix .'intro_content',
+        'type' => 'wysiwyg',
+        'description' => __( 'Content that appears at the top of the post above the image slideshow.', 'cmb' ),
+      ),
+    ),
+  );
+
   $meta_boxes['program_images'] = array(
     'id'            => 'program_images',
     'title'         => __( 'Program Image Slideshow', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
-    'required'      => 'required',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
         'name' => 'Images',
         'id'   => $prefix .'slideshow-images',
         'type' => 'file_list',
-        'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+        'description' => __( 'Multiple images as a slideshow that appear after the intro content and before the main content of the post', 'cmb' ),
       ),
     ),
   );
@@ -197,13 +213,6 @@ function metaboxes( array $meta_boxes ) {
       'default' => 'spring',
       'options' => get_program_season_array(),
   ) );
-
-  // $program_when->add_field( array(
-  //     'name'    => 'Day(s) of the week',
-  //     'id'      => $prefix . 'program_days',
-  //     'type'    => 'text',
-  //     'desc'    => 'Ex: Mondays & Wednesdays',
-  // ) );
 
   $program_when->add_field( array(
       'name'    => 'Sessions Start',
@@ -333,31 +342,6 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['program_badges'] = array(
-    'id'            => 'program_badges',
-    'title'         => __( 'Earned Badges', 'cmb2' ),
-    'object_types'  => array( 'program', ), // Post type
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => true, // Show field names on the left
-    'fields'        => array(
-      array(
-        'name'      => __( 'Earned Badges', 'cmb2' ),
-        'desc'      => 'Select all that apply',
-        'id'        => $prefix . 'program_badges',
-        'type'      => 'multicheck',
-        'multiple'  => true,
-        'options'   => \Firebelly\CMB2\get_post_options(['post_type' => 'badge', 'numberposts' => -1]),
-      ),
-      array(
-          'name'    => 'No badges Text',
-          'desc'    => 'If there are no badges use this field to explain how badges are earned.',
-          'id'      => $prefix . 'badges_text',
-          'type'    => 'text',
-      ),
-    ),
-  );
-
   $meta_boxes['program_donors_partners'] = array(
     'id'            => 'program_donors_partners',
     'title'         => __( 'Program Donor(s) and Partner(s)', 'cmb2' ),
@@ -471,6 +455,7 @@ function get_program_details($post) {
     'title' => $post->post_title,
     'name' => $post->post_name,
     'subtitle' => get_post_meta($post->ID, '_cmb2_program_subtitle', true),
+    'intro' => get_post_meta($post->ID, '_cmb2_intro_content', true),
     'body' => apply_filters('the_content', $post->post_content),
     'tuition' => get_post_meta($post->ID, '_cmb2_tuition', true),
     'hide_scholarship' => get_post_meta($post->ID, '_cmb2_hide_scholarship', true),
@@ -494,8 +479,6 @@ function get_program_details($post) {
     'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'registration_is_full' => get_post_meta($post->ID, '_cmb2_registration_is_full', true),
     'applications_are_closed' => get_post_meta($post->ID, '_cmb2_applications_are_closed', true),
-    'badges' => get_post_meta($post->ID, '_cmb2_program_badges', false),
-    'badges_text' => get_post_meta($post->ID, '_cmb2_badges_text', true),
     'donors_partners' => get_post_meta($post->ID, '_cmb2_program_donors_partners', true),
     'multiple_days' => '', // Placeholder empty strings in case fields left unset in CMS
     'start_time' => '',

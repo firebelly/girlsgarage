@@ -724,14 +724,15 @@ var FBSage = (function($) {
   function _initSlickSliders() {
     $('.slider').slick({
       slide: '.slide-item',
-      autoplay: true,
+      autoplay: false,
       arrows: true,
       prevArrow: '<button class="previous-item button-prev nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg></span></button>',
       nextArrow: '<button class="next-item button-next nav-button"><span class="icon"><svg class="icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span></button>',
       dots: false,
       autoplaySpeed: 6000,
       speed: 300,
-      lazyLoad: 'ondemand'
+      lazyLoad: 'ondemand',
+      adaptiveHeight: true
     });
 
     $('a.lightbox').swipebox({

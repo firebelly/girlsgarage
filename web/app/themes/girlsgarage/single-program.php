@@ -2,7 +2,6 @@
   $program = \Firebelly\PostTypes\Program\get_program_details($post);
   $registration_open = $program->registration_open ? date('m/d/y', $program->registration_open) : '';
   $body = apply_filters('the_content', $post->post_content);
-  $badge_icon = $program->badges ? get_post_meta($program->badges[0], '_cmb2_badge_icon', true) : '';
   $program_type = \Firebelly\Utils\get_first_term($post, 'program_type');
   $images = get_post_meta($post->ID, '_cmb2_slideshow-images', true);
 ?>
@@ -15,9 +14,11 @@
     <div class="post-content">
       <div class="card -white">
         <div class="-inner">
-          <div class="program-intro">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil excepturi, sequi nobis. Sed magnam veniam delectus hic totam! Quod libero rerum vero nemo consectetur quam quas dolorum cumque! Quae, ex.</p>
-          </div>
+          <?php if ($program->intro): ?>
+            <div class="post-intro">
+              <?= $program->intro ?>
+            </div>
+          <?php endif ?>
           <?php if ($images) {
             echo '<div class="post-slideshow">';
             echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
@@ -115,24 +116,6 @@
             <h4>Location</h4>
             <p><?= $program->venue ?> (<a href="<?= 'http://www.google.com/maps/place/'.$program->address_lat.','.$program->address_lng; ?>" target="_blank">map</a>)</p>
           </div>
-          <?php if ($program->badges || $program->badges_text) { ?>
-          <div class="meta-block">
-            <h4>Badge(s) Earned</h4>
-            <?php if ($program->badges) { ?>
-              <ul class="badges">
-                <?php
-                  foreach ($program->badges as $badge) {
-                    $title = get_the_title($badge);
-                    $permalink = get_permalink($badge);
-                    echo '<li><a href="'.$permalink.'">'.$title.'</a></li>';
-                  }
-                ?>
-              </ul>
-              <?php } else { ?>
-                <?= $program->badges_text ?>
-              <?php } ?>
-          </div>
-          <?php } ?>
 
           <?php if ($program->donors_partners) { ?>
           <div class="meta-block donors-partners">

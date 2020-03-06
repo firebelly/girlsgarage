@@ -86,15 +86,13 @@ function get_post_slideshow($post_id) {
     }
     // Is there also a featured image?
     if (get_the_post_thumbnail($post_id)) {
-      $image = get_post($post_id);
-      $image = \Firebelly\Media\get_header_bg($image,'','bw', 'large');
-      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+      $image = get_the_post_thumbnail_url($post_id, 'grid_large');
+      $output .= '<li class="slide-item"><div class="slide-image"><img src="'.$image.'"></div></li>';
     }
     if ($images) {
       foreach ($images as $attachment_id => $attachment_url):
-        $image = get_attached_file($attachment_id, false);
-        $image = \Firebelly\Media\get_header_bg($image,'','', 'large');
-        $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+        $image = wp_get_attachment_url($attachment_id);
+        $output .= '<li class="slide-item"><div class="slide-image"><img src="'.$image.'"></div></li>';
       endforeach;
     }
     $output .= '</ul>';

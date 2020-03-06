@@ -8,6 +8,10 @@
   .page-content {
     p {
       @include subtitle;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
 

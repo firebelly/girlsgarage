@@ -151,12 +151,14 @@ function metaboxes() {
 
   // Secondary Content on general page
   $secondary_content = new_cmb2_box([
-    'id'            => 'secondary_content',
-    'title'         => __( 'Secondary Page Content', 'cmb2' ),
-    'object_types'  => ['page'],
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'id'                => 'secondary_content',
+    'title'             => __( 'Secondary Page Content', 'cmb2' ),
+    'object_types'      => ['page'],
+    'exclude_templates' => array('front-page.php', 'parent-page.php'),
+    'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_from_parent_page_template',
+    'context'           => 'normal',
+    'priority'          => 'high',
+    'show_names'        => false, // Show field names on the left
   ]);
   $secondary_content->add_field([
     'name' => 'Secondary Page Content',
@@ -459,4 +461,12 @@ function metaboxes() {
     'id'   => 'cta_url',
     'type' => 'text_url',
   ]);
+}
+
+function cmb_exclude_from_parent_page_template( $cmb ) {
+  $templates_to_exclude = $cmb->prop( 'exclude_templates', array());;
+  $slug = get_page_template_slug( $cmb->object_id );
+  $excluded = in_array( $slug, $templates_to_exclude);
+
+  return ! $excluded;
 }

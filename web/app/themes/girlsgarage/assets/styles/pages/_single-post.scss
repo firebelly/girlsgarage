@@ -27,13 +27,33 @@ body.single {
     }
   }
 
-  .post-slideshow {
+  // When a post-slideshow is preceded by an intro setion
+  .post-intro + .post-slideshow {
+    margin-top: $padding-sm;
+    padding-top: $padding-sm;
     border-top: 1px solid $gray-lite;
+
+    @include media-md {
+      padding-top: $padding-sm * 2;
+      margin-top: $padding-sm * 1.5;
+    }
+  }
+
+  .post-slideshow {
+    padding: 0 $padding-sm $padding-sm;
     border-bottom: 1px solid $gray-lite;
-    padding: #{$padding-sm * 2} 0 #{$padding-sm * 4};
+    width: calc(100% + #{$padding-sm * 2});
+    margin: 0 0 #{$padding-sm} #{-$padding-sm};
 
     .slider {
       clip-path: $clippath-double;
+    }
+
+    @include media-md {
+      margin-left: -$padding-sm * 2;
+      margin-bottom: $padding-sm * 2;
+      width: calc(100% + #{$padding-sm * 4});
+      padding: 0 #{$padding-sm * 2} #{$padding-sm * 2};
     }
   }
 
@@ -176,20 +196,12 @@ body.single {
 
   //slider
   .slider {
+    margin: 0;
     padding: 0;
     position: relative;
-    margin: 0 0 #{-$padding / 2};
     .slide-item {
       &:focus {
         outline: none;
-      }
-      .slide-image {
-        height: 0;
-        display: block;
-        position: relative;
-        padding-bottom: 100%;
-        background-size: cover;
-        background-position: center center;
       }
 
       span {
