@@ -4,7 +4,7 @@ $program_details = \Firebelly\PostTypes\Program\get_program_details($post);
 $program_url = get_permalink($program_details->ID);
 ?>
 
-<article id="<?= $program_details->name ?>" class="program-listing card -white grid-item" data-id="<?= $program_details->ID ?>" data-page-title="<?= $program_details->title ?>" data-page-url="<?= $program_url ?>">
+<article id="<?= $program_details->name ?>" class="program-listing card -white grid-item<?= !empty($card_size) && $card_size == 'large' ? ' -large' : '' ?>" data-id="<?= $program_details->ID ?>" data-page-title="<?= $program_details->title ?>" data-page-url="<?= $program_url ?>">
   <div class="card-image" <?= $post_thumb ?>></div>
   <div class="-inner">
     <?php

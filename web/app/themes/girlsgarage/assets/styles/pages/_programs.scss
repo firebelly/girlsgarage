@@ -14,3 +14,12 @@ body.single-program {
     }
   }
 }
+
+// No Current Sessions
+body.page-template-program-type {
+  .card.no-sessions {
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+}

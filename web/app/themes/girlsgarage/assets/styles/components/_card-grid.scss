@@ -42,6 +42,11 @@
     .grid-item {
       max-width: 25%;
       flex-basis: 25%;
+
+      &.-large {
+        max-width: 50%;
+        flex-basis: 50%;
+      }
     }
   }
 }

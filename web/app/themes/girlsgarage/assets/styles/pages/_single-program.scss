@@ -33,7 +33,7 @@ body.single-program {
     .enrollment,
     .tuition {
       p {
-        @extend .font-display;
+        @include subtitle(700);
       }
     }
 

@@ -57,7 +57,8 @@
             <div class="page-content user-content">
               <h4 class="card-tag">Announcement</h4>
               <h3 class="card-title"><?= $announcement_headline ?></h3>
-              <p class="card-text"><?= $announcement_content ?> <a href="<?= $announcement_link ?>"><?= $announcement_link_text ?></a></p>
+              <p class="card-text"><?= $announcement_content ?> </p>
+              <p class="card-cta"><a href="<?= $announcement_link ?>" class="btn -white"><?= $announcement_link_text ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a></p>
             </div>
           </div>
         </div>

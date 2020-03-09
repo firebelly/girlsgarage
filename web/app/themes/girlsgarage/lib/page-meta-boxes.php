@@ -154,8 +154,8 @@ function metaboxes() {
     'id'                => 'secondary_content',
     'title'             => __( 'Secondary Page Content', 'cmb2' ),
     'object_types'      => ['page'],
-    'exclude_templates' => array('front-page.php', 'parent-page.php'),
-    'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_from_parent_page_template',
+    'exclude_templates' => array('front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
+    'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_templates',
     'context'           => 'normal',
     'priority'          => 'high',
     'show_names'        => false, // Show field names on the left
@@ -182,23 +182,6 @@ function metaboxes() {
     'desc' => 'The content of the wishlist section',
     'id'   => $prefix . 'wishlist',
     'type' => 'wysiwyg',
-  ]);
-
-  // Program Sessions
-  $program_sessions = new_cmb2_box([
-    'id'            => 'program_sessions',
-    'title'         => __( 'Program Sessions Text', 'cmb2' ),
-    'object_types'  => ['page'],
-    'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => ['templates/program-type.php']],
-    'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
-  ]);
-  $program_sessions->add_field([
-    'name' => 'Program Sessions Text',
-    'desc' => 'The text to introduce the sessions. Ex: "Upcoming sessions", "Current sessions"<br> Default text is "Current sessions".',
-    'id'   => $prefix . 'program_sessions_text',
-    'type' => 'text',
   ]);
 
   // By The Numbers on Impact Page
@@ -463,7 +446,7 @@ function metaboxes() {
   ]);
 }
 
-function cmb_exclude_from_parent_page_template( $cmb ) {
+function cmb_exclude_templates( $cmb ) {
   $templates_to_exclude = $cmb->prop( 'exclude_templates', array());;
   $slug = get_page_template_slug( $cmb->object_id );
   $excluded = in_array( $slug, $templates_to_exclude);
