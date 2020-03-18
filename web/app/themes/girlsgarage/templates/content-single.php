@@ -13,6 +13,11 @@
       <div class="post-content">
         <div class="card -white">
           <div class="-inner">
+            <?php if (!empty($images)) {
+              echo '<div class="post-slideshow">';
+              echo \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
+              echo '</div>';
+            } ?>
             <div class="content user-content">
               <?= $body ?>
             </div>
@@ -31,7 +36,7 @@
 
         <?php
           if ($post->post_type == 'post') {
-            $type_taxonomy = 'news_topic';
+            $type_taxonomy = 'blog_topic';
           } elseif ($post->post_type == 'project') {
             $type_taxonomy = 'topic';
           }
@@ -62,13 +67,13 @@
         ?>
         <?php if (!empty($related_posts)): ?>
           <?php foreach ($related_posts as $related_post): ?>
-            <div class="related-post card -white">
+            <article class="related-post card -white">
               <div class="-inner">
                 <h5 class="card-tag">Related</h5>
                 <h3 class="card-title"><a href="<?= get_permalink($related_post) ?>"><?= $related_post->post_title ?></a></h3>
                 <p class="cta"><a href="<?= get_permalink($related_post) ?>" class="btn -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a></p>
               </div>
-            </div>
+            </article>
           <?php endforeach ?>
         <?php endif ?>
       </aside>

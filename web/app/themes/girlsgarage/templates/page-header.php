@@ -26,7 +26,7 @@
   <?php endif; ?>
   <div class="wrap">
   <?php if (is_single($post)): ?>
-    <h4 class="post-type"><?= $post->post_type ?></h4>
+    <h4 class="post-type"><?= $post->post_type == 'post' ? 'Blog Post' : $post->post_type ?></h4>
   <?php endif ?>
     <h1 class="page-title"><?= Titles\title(); ?></h1>
   </div>

@@ -27,6 +27,17 @@ body.single {
     }
   }
 
+  // Post Intro
+  .post-intro {
+    .card-cta {
+      margin-top: 0;
+    }
+
+    * + .card-cta {
+      margin-top: $padding-sm;
+    }
+  }
+
   // When a post-slideshow is preceded by an intro setion
   .post-intro + .post-slideshow {
     margin-top: $padding-sm;
@@ -103,13 +114,21 @@ body.single {
       &:first-of-type {
         margin-top: 0;
       }
+
+      .meta-section + .meta-section {
+        margin-top: 40px;
+      }
     }
 
     h4, h6 {
       @include smallcaps;
+      margin: 0;
       color: $black;
-      margin-top: 0;
       position: relative;
+    }
+
+    h6 {
+      margin-bottom: 12px;
     }
 
     p {

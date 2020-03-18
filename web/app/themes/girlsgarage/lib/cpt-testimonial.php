@@ -10,7 +10,7 @@ $testimonials = new PostType('testimonial', [
   'supports'   => ['title', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$testimonials->icon('dashicons-editor-quote');
+$testimonials->icon('dashicons-testimonial');
 
 $testimonials->register();
 

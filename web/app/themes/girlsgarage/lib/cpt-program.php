@@ -143,11 +143,6 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-          'name'    => 'Subtitle',
-          'id'      => $prefix . 'program_subtitle',
-          'type'    => 'text',
-      ),
-      array(
           'name'    => 'Description',
           'id'      => $prefix . 'program_description',
           'type'    => 'textarea',
@@ -236,6 +231,13 @@ function metaboxes( array $meta_boxes ) {
       'remove_button' => __( 'Remove Session', 'cmb2' ),
       'sortable'      => true,
     ),
+  ) );
+
+  $program_when->add_group_field( $sessions_group, array(
+    'name'    => 'Session Name',
+    'id'      => 'name',
+    'type'    => 'text',
+    'desc'    => 'Ex: Cohort 1',
   ) );
 
   $program_when->add_group_field( $sessions_group, array(
@@ -455,7 +457,7 @@ function get_program_details($post) {
     'title' => $post->post_title,
     'name' => $post->post_name,
     'subtitle' => get_post_meta($post->ID, '_cmb2_program_subtitle', true),
-    'intro' => get_post_meta($post->ID, '_cmb2_intro_content', true),
+    'intro' => wpautop(get_post_meta($post->ID, '_cmb2_intro_content', true)),
     'body' => apply_filters('the_content', $post->post_content),
     'tuition' => get_post_meta($post->ID, '_cmb2_tuition', true),
     'hide_scholarship' => get_post_meta($post->ID, '_cmb2_hide_scholarship', true),

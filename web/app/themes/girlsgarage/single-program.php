@@ -14,9 +14,20 @@
     <div class="post-content">
       <div class="card -white">
         <div class="-inner">
-          <?php if ($program->intro): ?>
+          <?php if (!empty($program->registration_url) || !empty($program->registration_link_text) || !empty($program->intro)): ?>
             <div class="post-intro">
-              <?= $program->intro ?>
+              <?php if ($program->intro): ?>
+                <?= $program->intro ?>
+              <?php endif ?>
+              <?php if (!empty($program->registration_url) || !empty($program->registration_link_text)): ?>
+                <p class="card-cta">
+                  <?php if (!empty($program->registration_url && $registration_open)): ?>
+                    <a href="<?= $program->registration_url ?>" class="btn -red"><?= !empty($program->registration_link_text) ? $program->registration_link_text : 'Register' ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a></p>
+                  <?php else: ?>
+                    <span class="btn -red no-icon"><?= $program->registration_link_text ?></span>
+                  <?php endif ?>
+                </p>
+              <?php endif ?>
             </div>
           <?php endif ?>
           <?php if ($images) {
@@ -34,9 +45,9 @@
     <sidebar class="post-sidebar">
       <div class="post-meta card -red">
         <div class="-inner">
-          <div class="meta-block title">
-            <div class="registration">
 
+          <div class="meta-block">
+            <div class="registration">
               <?php if ($registration_open > date('m/d/y')) { ?>
                 <p>Registration opens <?= $registration_open; ?></p>
               <?php } elseif ($program->applications_are_closed) { ?>
@@ -44,9 +55,25 @@
               <?php } else { ?>
                 <a href="<?= $program->registration_url ?>" class="btn more -white-red" target="_blank"><?= (empty($program->registration_is_full)) ? $program->registration_link_text : "Waiting List"; ?> <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
               <?php } ?>
-
             </div>
           </div>
+
+          <?php if ($program->sessions) { ?>
+            <?php $i = 1; foreach($program->sessions as $key => $session) { ?>
+              <?php $session_number = $key + 1; ?>
+              <div class="meta-block date-time">
+                <h4>Date & Time: <?= !empty($session['name']) ? $session['name'] : 'Session ' . $session_number ?></h4>
+                <p>
+                <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
+                <span><?= $session['days'] ?></span><br>
+                <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
+              </div>
+            <?php } ?>
+          <?php } ?>
+        </div>
+      </div>
+      <div class="post-meta card -red">
+        <div class="-inner">
           <?php if ($program->instructors || !empty($program->other_instructors)) { ?>
           <div class="meta-block instructors">
             <h4>Instructor(s)</h4>
@@ -79,18 +106,6 @@
             <h4>Prerequisite(s)</h4>
             <p><?= $program->prerequisites ?></p>
           </div>
-          <?php } ?>
-
-          <?php if ($program->sessions) { ?>
-            <?php $i = 1; foreach($program->sessions as $session) { ?>
-              <div class="meta-block date-time">
-                <h4><?= count($program->sessions) > 1 ? 'Session '.($i++) : 'Date &amp; Time' ?></h4>
-                <p>
-                <span><?= date('m/d/y', $session['start']) ?></span><?php if (date('m/d/y', $session['start']) !== date('m/d/y', $session['end'])) { ?> - <span><?= date('m/d/y', $session['end']) ?></span><?php } ?><br>
-                <span><?= $session['days'] ?></span><br>
-                <span class="time"><?= date('g:ia', $session['start']) ?></span>-<span class="time"><?= date('g:ia', $session['end']) ?></span></p>
-              </div>
-            <?php } ?>
           <?php } ?>
 
           <div class="meta-block enrollment">

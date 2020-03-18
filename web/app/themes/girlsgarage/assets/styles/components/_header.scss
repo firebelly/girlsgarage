@@ -28,6 +28,7 @@
     opacity: 1;
     margin-top: 25px;
     position: relative;
+    pointer-events: auto;
     transition: opacity .2s .2s ease-out;
     svg {
       width: 73px;
@@ -74,6 +75,11 @@
   @include min-screen($breakpoint-nav) {
     > .wrap {
       position: static;
+      pointer-events: none;
+
+      .site-nav {
+        pointer-events: auto;
+      }
     }
   }
 }

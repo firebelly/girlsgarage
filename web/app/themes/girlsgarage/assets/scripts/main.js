@@ -60,6 +60,7 @@ var FBSage = (function($) {
     _initBadgeOverlay();
     _initCardFunctions();
     _initItemGrid();
+    _initLoadMore();
     _initMasonry();
     _initProgramOverlay();
     _initStateHandling();
@@ -346,7 +347,7 @@ var FBSage = (function($) {
 
   function _initCardFunctions() {
     // Toggle Hover Class
-    $('.card a').on('mouseenter', function() {
+    $('.card:not(.no-action) a').on('mouseenter', function() {
       $(this).closest('.card').addClass('-hover');
     }).on('mouseleave', function() {
       $(this).closest('.card').removeClass('-hover');
@@ -549,11 +550,53 @@ var FBSage = (function($) {
     });
   }
 
+  function _initLoadMore() {
+    $document.on('click', '.load-more a', function(e) {
+      e.preventDefault();
+      var $load_more = $(this).closest('.load-more');
+      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'post';
+      var page = parseInt($load_more.attr('data-page-at'));
+      var per_page = parseInt($load_more.attr('data-per-page'));
+      var more_container = $load_more.parents('.site-main').find('.load-more-container');
+      loadingTimer = setTimeout(function() {
+        more_container.addClass('loading');
+        $load_more.addClass('loading');
+      }, 100);
+
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          data: {
+              action: 'load_more_posts',
+              post_type: post_type,
+              page: page+1,
+              per_page: per_page
+          },
+          success: function(data) {
+            var $data = $($.parseHTML(data));
+            console.log($data);
+            if (loadingTimer) { clearTimeout(loadingTimer); }
+            more_container.append($data).removeClass('loading');
+            $load_more.removeClass('loading');
+            if (breakpoint_md) {
+              more_container.masonry('appended', $data, true);
+            }
+            $load_more.attr('data-page-at', page+1);
+
+            // Hide load more if last page
+            if ($load_more.attr('data-total-pages') <= page + 1) {
+              $load_more.addClass('hide');
+            }
+          }
+      });
+    });
+  }
+
   function _initMasonry() {
     $('.post-grid').each(function() {
       var $grid = $(this).masonry({
         itemSelector: '.grid-item',
-        columnWidth: '.grid-item:not(:first-of-type)',
+        columnWidth: '.grid-item.grid-sizer',
         transitionDuration: 0
       });
 
@@ -679,45 +722,6 @@ var FBSage = (function($) {
     var $draggableY = $('.draggable.-y').draggabilly({
       axis: 'y',
       containment: 'body'
-    });
-  }
-
-  function _initLoadMore() {
-    $document.on('click', '.load-more a', function(e) {
-      e.preventDefault();
-      var $load_more = $(this).closest('.load-more');
-      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
-      var page = parseInt($load_more.attr('data-page-at'));
-      var per_page = parseInt($load_more.attr('data-per-page'));
-      var category = $load_more.attr('data-category');
-      var more_container = $load_more.parents('section,main').find('.load-more-container');
-      loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
-
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: {
-              action: 'load_more_posts',
-              post_type: post_type,
-              page: page+1,
-              per_page: per_page,
-              category: category
-          },
-          success: function(data) {
-            var $data = $(data);
-            if (loadingTimer) { clearTimeout(loadingTimer); }
-            more_container.append($data).removeClass('loading');
-            if (breakpoint_md) {
-              more_container.masonry('appended', $data, true);
-            }
-            $load_more.attr('data-page-at', page+1);
-
-            // Hide load more if last page
-            if ($load_more.attr('data-total-pages') <= page + 1) {
-                $load_more.addClass('hide');
-            }
-          }
-      });
     });
   }
 

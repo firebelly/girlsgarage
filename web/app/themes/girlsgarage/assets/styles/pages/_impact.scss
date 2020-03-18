@@ -32,6 +32,8 @@ body.impact {
   }
 
   > .-inner {
+    padding-left: 0;
+    padding-right: 0;
     background-color: $gray-lite;
   }
 
@@ -42,6 +44,8 @@ body.impact {
 
   .description {
     margin: 5px 0 0;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   @include media-md {
@@ -49,8 +53,13 @@ body.impact {
 
     > .-inner {
       display: flex;
-      justify-content: center;
       flex-direction: column;
+      justify-content: center;
+    }
+
+    .description {
+      padding-left: 20px;
+      padding-right: 20px;
     }
   }
 }

@@ -17,13 +17,13 @@ $program_url = get_permalink($program_details->ID);
     <h3 class="card-title"><a href="<?= $program_url ?>"><?= $program_details->title ?></a></h3>
 
     <div class="program-meta">
-      <p class="dates"><strong><?= date('m:d', $program_details->start) ?>—<?= date('m:d', $program_details->end) ?></strong></p>
+      <p class="dates"><strong><?= date('m/d', $program_details->start) ?>–<?= date('m/d', $program_details->end) ?></strong></p>
       <p class="ages"><strong>Ages:</strong> <?= $program_details->age_limit ?></p>
       <p class="cost"><strong>Cost:</strong> <?= $program_details->tuition ?></p>
     </div>
 
     <p class="card-cta">
-      <a href="<?= $program_url ?>" class="btn more -red">Apply <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+      <a href="<?= $program_url ?>" class="btn more -red">Learn More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
     </p>
   </div>
 </article>

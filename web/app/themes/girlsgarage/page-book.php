@@ -7,6 +7,7 @@ $secondary_content = apply_filters( 'the_content', get_post_meta($post->ID, '_cm
 $blurbs = get_post_meta($post->ID, '_cmb2_blurbs', true);
 $buy_text = get_post_meta($post->ID, '_cmb2_buy_book_text', true);
 $buy_sources = get_post_meta($post->ID, '_cmb2_buy_sources', true);
+$related_posts = get_post_meta($post->ID, '_cmb2_book_related_posts', true);
 ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
@@ -37,8 +38,8 @@ $buy_sources = get_post_meta($post->ID, '_cmb2_buy_sources', true);
       </div>
     </div>
 
-    <?php if (!empty($blurbs)): ?>
-      <div class="one-half">
+    <aside class="sidebar one-half">
+      <?php if (!empty($blurbs)): ?>
         <div class="blurbs">
           <?php foreach ($blurbs as $blurb): ?>
             <blockquote class="blurb">
@@ -57,7 +58,23 @@ $buy_sources = get_post_meta($post->ID, '_cmb2_buy_sources', true);
             </blockquote>
           <?php endforeach ?>
         </div>
-      </div>
-    <?php endif ?>
+      <?php endif ?>
+
+      <?php if (!empty($related_posts)): ?>
+        <div class="related-posts">
+          <?php foreach ($related_posts as $related_post): ?>
+            <?php
+              $related_post = get_post($related_post['post']);
+             ?>
+            <article class="related-post card -white">
+              <div class="-inner">
+                <h3 class="card-title"><a href="<?= get_permalink($related_post) ?>"><?= $related_post->post_title ?></a></h3>
+                <p class="cta"><a href="<?= get_permalink($related_post) ?>" class="btn -red">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a></p>
+              </div>
+            </article>
+          <?php endforeach ?>
+        </div>
+      <?php endif ?>
+    </aside>
   </div>
 </div>

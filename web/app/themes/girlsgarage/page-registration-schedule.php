@@ -89,7 +89,7 @@ $current_weekend_sessions = get_posts(array(
 <div class="page-bottom wrap -flush">
   <div class="grid">
     <div class="one-half">
-      <div class="current-season card -white">
+      <div class="current-season card no-action -white">
         <?php if (!empty($secondary_bg)): ?>
           <div class="card-image" <?= $secondary_bg ?>></div>
         <?php endif ?>

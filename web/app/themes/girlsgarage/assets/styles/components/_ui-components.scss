@@ -253,7 +253,6 @@
 .user-btn a {
   @include smallcaps;
   @include btn-colors($black, $white);
-  height: 50px;
   display: block;
   background: none;
   appearance: none;
@@ -262,7 +261,7 @@
   position: relative;
   border-style: solid;
   text-decoration: none;
-  padding: 18px $padding 20px 20px;
+  padding: 18px $padding 15px 20px;
   .arrows {
     top: 0;
     right: 0;
@@ -292,6 +291,11 @@
       position: absolute;
       transform: translate(-4px,-4px);
     }
+  }
+
+  // No icon variation
+  &.no-icon {
+    padding-right: 20px;
   }
 
   &.-red {
@@ -352,6 +356,55 @@
     }
     &::after {
       margin-top: 9px;
+    }
+  }
+}
+
+// Load More Button
+.load-more {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  padding: 35px 0 105px;
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 1;
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    transition: opacity .2s ease-out;
+    background-color: rgba($gray-lite, .5);
+  }
+  .loading-animation {
+    top: 35px;
+    left: 50%;
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  a {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 350px;
+  }
+
+  // Loading State
+  &.loading {
+    a {
+      pointer-events: none;
+    }
+    &::before {
+      opacity: 1;
+    }
+    .loading-animation {
+      opacity: 1;
     }
   }
 }

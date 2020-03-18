@@ -26,23 +26,6 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['post_is_featured'] = array(
-    'id'            => 'post_is_featured',
-    'title'         => __( 'Is this a featured post on the homepage?', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
-    'context'       => 'side',
-    'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
-    'fields'        => array(
-      array(
-          'name'    => 'Featured',
-          'id'      => $prefix . 'post_is_featured',
-          'desc'    => 'Featured?',
-          'type'    => 'checkbox',
-      ),
-    ),
-  );
-
   $meta_boxes['post_videos'] = array(
     'id'            => 'post_videos',
     'title'         => __( 'Post Videos', 'cmb2' ),

@@ -258,7 +258,7 @@
 
   // Stats
   .stats {
-    @include media-md {
+    @include media-lg {
       display: flex;
       flex-wrap: wrap;
       .stat {

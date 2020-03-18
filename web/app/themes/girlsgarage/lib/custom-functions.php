@@ -138,24 +138,24 @@ function get_parent_url($post) {
 function change_post_menu_label() {
     global $menu;
     global $submenu;
-    $menu[5][0] = 'News and Press';
-    $submenu['edit.php'][5][0] = 'News and Press';
-    $submenu['edit.php'][10][0] = 'Add News and Press';
+    $menu[5][0] = 'Blog Posts';
+    $submenu['edit.php'][5][0] = 'Blog Posts';
+    $submenu['edit.php'][10][0] = 'Add Blog Posts';
     echo '';
 }
 function change_post_object_label() {
         global $wp_post_types;
         $labels = &$wp_post_types['post']->labels;
-        $labels->name = 'News and Press';
-        $labels->singular_name = 'News and Press';
-        $labels->add_new = 'Add News and Press';
-        $labels->add_new_item = 'Add News and Press';
-        $labels->edit_item = 'Edit News and Press';
-        $labels->new_item = 'News and Press';
-        $labels->view_item = 'View News and Press';
-        $labels->search_items = 'Search News and Press';
-        $labels->not_found = 'No News and Press found';
-        $labels->not_found_in_trash = 'No News and Press found in Trash';
+        $labels->name = 'Blog Posts';
+        $labels->singular_name = 'Blog Posts';
+        $labels->add_new = 'Add Blog Posts';
+        $labels->add_new_item = 'Add Blog Post';
+        $labels->edit_item = 'Edit Blog Posts';
+        $labels->new_item = 'Blog Posts';
+        $labels->view_item = 'View Blog Posts';
+        $labels->search_items = 'Search Blog Posts';
+        $labels->not_found = 'No Blog Posts found';
+        $labels->not_found_in_trash = 'No Blog Posts found in Trash';
 }
 add_action( 'init', __NAMESPACE__ . '\\change_post_object_label' );
 add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
@@ -165,7 +165,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
  */
 function custom_taxonomies() {
   register_taxonomy(
-    'news_topic',
+    'blog_topic',
     'post',
     array(
       'labels' => array(
@@ -200,8 +200,8 @@ add_action( 'init', __NAMESPACE__ . '\\custom_taxonomies', 0 );
 /**
  * Add fields to custom taxonomies
  */
-function yourprefix_register_taxonomy_metabox() {
-  $prefix = 'yourprefix_term_';
+function fb_register_taxonomy_metabox() {
+  $prefix = 'fb_term_';
 
   /**
    * Metabox to add fields to categories and tags
@@ -418,4 +418,75 @@ function datediff($interval, $datefrom, $dateto, $using_timestamps = false)
     }
 
     return $datediff;
+}
+
+/**
+ * Custom get_posts function to share between News and Stories listing pages w/ several filter options
+ */
+function get_posts($opts=[]) {
+  // Default opts
+  $opts = array_merge([
+    'return'         => 'html',
+    'post-type'      => 'post',
+    'order-by'       => 'date-desc',
+    'numberposts'    => -1,
+    'offset'         => 0,
+  ], $opts);
+
+  // Break up custom order-by to proper get_posts args
+  $orderby = explode('-', $opts['order-by']);
+
+  // Build get_post args
+  $args = [
+    'post_type'   => (!empty($opts['post_type']) ? $opts['post_type'] : ($opts['post-type']=='post' ? 'post' : $opts['post-type'])),
+    'orderby'     => $orderby[0],
+    'order'       => $orderby[1],
+    'offset'      => $opts['offset'],
+    'numberposts' => $opts['numberposts'],
+  ];
+
+  // Just count posts (used for load-more buttons)
+  if (!empty($opts['countposts'])) {
+    $count_query = new \WP_Query(array_merge($args, [
+      'numberposts' => -1,
+      'fields'      => 'ids',
+    ]));
+    return $count_query->found_posts;
+  }
+
+  // Let's get some posts
+  $posts = \get_posts($args);
+
+  // No posts? false!
+  if (!$posts) return false;
+
+  // Just return array of posts?
+  if ($opts['return'] == 'array') {
+    return $posts;
+  }
+
+  // Set template type
+  if (!empty($opts['template-type'])) {
+    $template_type = $opts['template-type'];
+  } else {
+    $template_type = $opts['post-type'];
+  }
+
+  if (!empty($opts['vars'])) {
+    $passed_vars = $opts['vars'];
+  } else {
+    $passed_vars = [];
+  }
+
+  // Display all matching posts using templates/article-{$post_type}.php
+  $output = '';
+  foreach ($posts as $post):
+    $vars = array_merge($passed_vars, [
+      'article_post' => $post
+    ]);
+    ob_start();
+    get_template_part_with_vars('templates/article', $template_type, $vars);
+    $output .= ob_get_clean();
+  endforeach;
+  return $output;
 }

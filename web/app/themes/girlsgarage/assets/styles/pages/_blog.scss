@@ -1,6 +1,7 @@
 // Blog Styles
 
-.blog {
+body.blog,
+body.page-template-index {
   .card-grid {
     @include media-md {
       .grid-item:first-of-type {

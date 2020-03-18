@@ -21,4 +21,25 @@ body.book {
       padding-top: $padding-sm * 2;
     }
   }
+
+  .sidebar {
+    .related-posts {
+      .related-post {
+        + .related-post {
+          border-top: 1px solid $gray-lite;
+        }
+      }
+    }
+
+    @include media-md {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .related-posts {
+        max-width: 352px;
+        border-left: 1px solid $gray-lite;
+      }
+    }
+  }
 }

@@ -41,7 +41,6 @@
 <div class="page-bottom wrap -flush">
   <div class="page-secondary-content-wrap grid">
     <?php if (!empty($current_season)): ?>
-      <h3 class="section-title"><span class="-inner"><?= $current_season->name ?> <?= $post->post_title ?></span></h3>
       <div class="card-grid masonry-grid">
         <?php
           $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;

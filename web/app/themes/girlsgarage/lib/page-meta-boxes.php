@@ -76,6 +76,23 @@ function metaboxes() {
     'type' => 'file',
   ]);
 
+  // Page Slideshow
+  $page_slideshow = new_cmb2_box([
+    'id'            => 'slideshow_metabox',
+    'title'         => __( 'Image Slideshow', 'cmb2' ),
+    'object_types'  => ['page'], // Post type
+    'show_on_cb'    => __NAMESPACE__.'\\cmb_show_for_pages_without_template',
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+  ]);
+  $page_slideshow->add_field([
+    'name' => 'Images',
+    'id'   => $prefix .'slideshow-images',
+    'type' => 'file_list',
+    'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+  ]);
+
   // Featured Card on Hompage
   $home_feature_card = new_cmb2_box([
     'id'            => 'home_feature_card',
@@ -154,7 +171,7 @@ function metaboxes() {
     'id'                => 'secondary_content',
     'title'             => __( 'Secondary Page Content', 'cmb2' ),
     'object_types'      => ['page'],
-    'exclude_templates' => array('front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
+    'exclude_templates' => array('index.php', 'front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
     'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_templates',
     'context'           => 'normal',
     'priority'          => 'high',
@@ -182,6 +199,32 @@ function metaboxes() {
     'desc' => 'The content of the wishlist section',
     'id'   => $prefix . 'wishlist',
     'type' => 'wysiwyg',
+  ]);
+
+  // Post Types
+  $post_type_args = array(
+     'public'   => true,
+     '_builtin' => false,
+  );
+  $output = 'names'; // names or objects, note names is the default
+  $operator = 'and'; // 'and' or 'or'
+  $post_types = get_post_types( $post_type_args, $output, $operator );
+
+  $posts_page = new_cmb2_box([
+    'id'            => 'posts_page',
+    'title'         => __( 'Posts to Display', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['index.php', 'blog']],
+    'priority'      => 'high',
+    'show_names'    => false, // Show field names on the left
+  ]);
+  $posts_page->add_field([
+    'name'    => 'Post Type',
+    'desc'    => 'Which type of posts should this page display?',
+    'id'      => $prefix . 'post_type',
+    'type'    => 'pw_select',
+    'options' => $post_types
   ]);
 
   // By The Numbers on Impact Page
@@ -300,7 +343,7 @@ function metaboxes() {
     'type' => 'text_URL',
     'desc' => 'The URL the button will link to',
   ]);
-
+  // Book Blurbs
   $book_blurbs = new_cmb2_box([
     'id'            => 'book_blurbs',
     'title'         => __( 'Book Blurbs', 'cmb2' ),
@@ -333,6 +376,31 @@ function metaboxes() {
     'name' => 'Blurb Attribution',
     'id'   => 'attribution',
     'type' => 'text',
+  ]);
+  // Related Posts
+  $book_related_posts = new_cmb2_box([
+    'id'            => 'book_related_posts',
+    'title'         => __( 'Related Posts', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-book.php']],
+    'priority'      => 'high',
+  ]);
+  $book_related_posts_group = $book_related_posts->add_field([
+    'id'              => $prefix .'book_related_posts',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Related Post {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Related Post', 'cmb2' ),
+      'remove_button' => __( 'Remove Related Post', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $book_related_posts->add_group_field($book_related_posts_group, [
+    'name' => 'Post',
+    'id'   => 'post',
+    'type'    => 'pw_select',
+    'options' => cmb_get_options_array(array('post_type' => 'news_and_press')),
   ]);
 
   // Doate Page
@@ -452,4 +520,32 @@ function cmb_exclude_templates( $cmb ) {
   $excluded = in_array( $slug, $templates_to_exclude);
 
   return ! $excluded;
+}
+
+/**
+ * Get a list of posts
+ *
+ * Generic function to return an array of posts formatted for CMB2. Simply pass
+ * in your WP_Query arguments and get back a beautifully formatted CMB2 options
+ * array.
+ *
+ * @param array $query_args WP_Query arguments
+ * @return array CMB2 options array
+ */
+function cmb_get_options_array( $query_args = array() ) {
+  $defaults = array(
+    'posts_per_page' => -1
+  );
+  $query = new \WP_Query( array_replace_recursive( $defaults, $query_args ) );
+  return wp_list_pluck( $query->get_posts(), 'post_title', 'ID' );
+}
+
+/**
+ * Only display a box if on a page w/o a template assigned.
+ * @param  object $cmb Current box object
+ * @return bool
+ */
+function cmb_show_for_pages_without_template( $cmb ) {
+  $current_template = get_post_meta( $cmb->object_id(), '_wp_page_template', true );
+  return empty( $current_template ) || 'default' === $current_template;
 }
