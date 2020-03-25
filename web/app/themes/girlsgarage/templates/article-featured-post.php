@@ -1,9 +1,11 @@
 <?php
+  $the_post_type = get_post_type_object(get_post_type($post));
+
   if (empty($label)) {
     if ($post->post_type == 'post') {
       $label = 'Blog Post';
     } else {
-      $label = $post->post_type;
+      $label = $the_post_type->labels->singular_name;
     }
   }
 

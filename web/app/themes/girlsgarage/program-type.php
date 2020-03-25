@@ -40,55 +40,51 @@
 
 <div class="page-bottom wrap -flush">
   <div class="page-secondary-content-wrap grid">
-    <?php if (!empty($current_season)): ?>
-      <div class="card-grid masonry-grid">
-        <?php
-          $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
-          $args = [
-            'numberposts' => -1,
-            'post_type' => 'program',
-            'meta_key' => '_cmb2_program_start',
-            'orderby' => 'meta_value_num',
-            'order' => 'ASC',
-            'tax_query' => array(
-              array(
-               'taxonomy' => 'program_type',
-               'field' => 'id',
-               'terms' => $cat_id
-              )
-            ),
-            'meta_query' => array(
-              array(
-                'key' => '_cmb2_program_end',
-                'value' => current_time('timestamp'),
-                'compare' => '>'
-              )
+    <div class="card-grid masonry-grid">
+      <?php
+        $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
+        $args = [
+          'numberposts' => -1,
+          'post_type' => 'program',
+          'meta_key' => '_cmb2_program_start',
+          'orderby' => 'meta_value_num',
+          'order' => 'ASC',
+          'tax_query' => array(
+            array(
+             'taxonomy' => 'program_type',
+             'field' => 'id',
+             'terms' => $cat_id
             )
-          ];
-          $recent_programs = get_posts( $args );
-          $program_count = count($recent_programs);
+          ),
+          'meta_query' => array(
+            array(
+              'key' => '_cmb2_program_end',
+              'value' => current_time('timestamp'),
+              'compare' => '>'
+            )
+          )
+        ];
+        $recent_programs = get_posts( $args );
+        $program_count = count($recent_programs);
 
-          if ($recent_programs) {
-            foreach($recent_programs as $post) {
-              if ($program_count < 3) {
-                Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['card_size' => 'large']);
-              } else {
-                get_template_part('templates/article', 'program');
-              }
-            }
-          } else {
-            echo '<div class="card -white grid-item no-sessions"><div class="-inner"><h3 class="card-title">There are currently no sessions available. Check back soon!</h3></div></div>';
-          }
-          if ($program_count < 4 && !empty($stats)) {
-            foreach ($stats as $key => $stat) {
-              include(locate_template('templates/article-stat.php'));
+        if ($recent_programs) {
+          foreach($recent_programs as $post) {
+            if ($program_count < 3) {
+              Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['card_size' => 'large']);
+            } else {
+              get_template_part('templates/article', 'program');
             }
           }
-        ?>
-      </div>
-    <?php else: ?>
-      <h3 class="section-title"><span class="-inner">There is no current season — check back soon!</span></h3>
-    <?php endif ?>
+        } else {
+          echo '<div class="card -white grid-item no-sessions"><div class="-inner"><h3 class="card-title">There are currently no sessions available. Check back soon!</h3></div></div>';
+        }
+        if ($program_count < 4 && !empty($stats)) {
+          foreach ($stats as $key => $stat) {
+            include(locate_template('templates/article-stat.php'));
+          }
+        }
+      ?>
+    </div>
 
   </div>
 </div>

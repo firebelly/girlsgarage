@@ -50,7 +50,7 @@ function metaboxes() {
     'id'      => $prefix . 'pages',
     'desc'    => 'Which pages should this testimonial appear on?',
     'type'    => 'pw_multiselect',
-    'options_cb'  => 'Firebelly\PostTypes\Testimonial\cmb2_list_pages',
+    'options_cb'  => __NAMESPACE__ . '\\cmb2_list_pages',
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
