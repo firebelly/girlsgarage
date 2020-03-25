@@ -23,7 +23,6 @@
   ]));
   $num_posts = $count_query->found_posts;
 ?>
-<?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
 <?php get_template_part('templates/page', 'header'); ?>
 
 <?php include(locate_template('templates/page-intro.php')); ?>

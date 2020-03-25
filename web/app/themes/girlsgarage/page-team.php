@@ -1,5 +1,9 @@
 <?php
   $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+  $person_types = get_terms(array(
+    'taxonomy' => 'person_type',
+    'hide_empty' => true,
+  ));
 ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
@@ -46,17 +50,15 @@
   </div>
 
   <div class="page-secondary-content page-content">
-    <h3 class="section-title"><span class="-inner">Our Staff</span></h3>
-    <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'staff', 'person_type')->term_id]); ?>
-
-    <h3 class="section-title"><span class="-inner">Board of Directors</span></h3>
-    <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'board-of-directors', 'person_type')->term_id]); ?>
-
-    <h3 class="section-title"><span class="-inner">Girls Advisory Board</span></h3>
-    <div class="section-text">
-      <?= $secondary_content ?>
-    </div>
-    <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', 'girls-advisory-board', 'person_type')->term_id]); ?>
+    <?php foreach ($person_types as $type): ?>
+      <h3 class="section-title"><span class="-inner"><?= $type->name ?></span></h3>
+      <?php if (!empty($type->description)): ?>
+        <div class="section-text">
+          <?= $type->description ?>
+        </div>
+      <?php endif ?>
+      <?= \Firebelly\PostTypes\Person\get_people(['person_type' => get_term_by('slug', $type->slug, 'person_type')->term_id]); ?>
+    <?php endforeach ?>
   </div>
 
 </div>

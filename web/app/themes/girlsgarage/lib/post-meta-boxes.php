@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
     'title'         => __( 'Image Slideshow', 'cmb2' ),
-    'object_types'  => array( 'post', 'project' ), // Post type
+    'object_types'  => array( 'post', 'project', 'news_and_press' ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left

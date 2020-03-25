@@ -31,16 +31,6 @@ $season->register();
 
 $programs->register();
 
-/* define program seasons here for the sake of DRYness */
-function get_program_season_array() {
-  return array(
-    'spring' => __( 'Spring', 'cmb' ),
-    'summer' => __( 'Summer', 'cmb' ),
-    'fall' => __( 'Fall', 'cmb' ),
-    'winter' => __( 'Winter', 'cmb' ),
-  );
-}
-
 add_action( 'cmb2_admin_init',  __NAMESPACE__ . '\register_seasons_fields' );
 function register_seasons_fields() {
   $prefix = '_cmb2_';
@@ -150,6 +140,23 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['program_quick_facts'] = array(
+    'id'            => 'program_quick_facts',
+    'title'         => __( 'Program Quick Facts', 'cmb2' ),
+    'object_types'  => array( 'program', ), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'required'      => 'required',
+    'show_names'    => false,
+    'fields'        => array(
+      array(
+          'name'    => 'Quick Facts',
+          'id'      => $prefix . 'quick_facts',
+          'type'    => 'wysiwyg',
+      ),
+    ),
+  );
+
   $meta_boxes['program_instructors'] = array(
     'id'            => 'program_instructors',
     'title'         => __( 'Instructors', 'cmb2' ),
@@ -202,14 +209,6 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $program_when->add_field( array(
-      'name' => 'Program Season',
-      'id'   => $prefix . 'program_season',
-      'type' => 'select',
-      'default' => 'spring',
-      'options' => get_program_season_array(),
-  ) );
-
-  $program_when->add_field( array(
       'name'    => 'Sessions Start',
       'id'      => $prefix . 'program_start',
       'type'    => 'hidden', //'text_datetime_timestamp',
@@ -221,7 +220,7 @@ function metaboxes( array $meta_boxes ) {
       'id'      => $prefix . 'program_end',
       'type'    => 'hidden', //'text_datetime_timestamp',
   ) );
-
+  // Sessions
   $sessions_group = $program_when->add_field( array(
     'id'          => $prefix . 'sessions',
     'type'        => 'group',
@@ -232,32 +231,34 @@ function metaboxes( array $meta_boxes ) {
       'sortable'      => true,
     ),
   ) );
-
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'Session Name',
     'id'      => 'name',
     'type'    => 'text',
     'desc'    => 'Ex: Cohort 1',
   ) );
-
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'Day(s) of the week',
     'id'      => 'days',
     'type'    => 'text',
     'desc'    => 'Ex: Mondays & Wednesdays',
   ) );
-
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'Start Date',
     'id'      => 'start',
     'type'    => 'text_datetime_timestamp',
   ) );
-
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'End Date',
     'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.</p>',
     'id'      => 'end',
     'type'    => 'text_datetime_timestamp',
+  ) );
+  $program_when->add_group_field( $sessions_group, array(
+    'name'    => 'Text Area',
+    'desc'    => '<p>A general blank text area to use as you see fit.</p>',
+    'id'      => 'text',
+    'type'    => 'wysiwyg',
   ) );
 
   $meta_boxes['program_registration'] = array(

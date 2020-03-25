@@ -95,6 +95,7 @@
   .card-title {
     @include h2;
     color: $purple;
+    margin-bottom: 16px;
 
     a {
       color: $purple;

@@ -119,7 +119,7 @@ function hide_editor() {
 
   $template_file = get_post_meta($post_id, '_wp_page_template', true);
 
-  if($template_file == 'parent-page.php' || $template_file == 'page-programs.php'){ // edit the template name
+  if($template_file == 'parent-page.php'){
     remove_post_type_support('page', 'editor');
   }
 }

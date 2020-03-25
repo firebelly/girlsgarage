@@ -133,8 +133,8 @@
       @include media-md {
         margin-top: -245px;
 
-        > .one-half:first-of-type {
-          border-right: 1px solid $gray-lite;
+        .one-half + .one-half {
+          border-left: 1px solid $gray-lite;
         }
       }
     }

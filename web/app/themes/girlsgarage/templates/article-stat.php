@@ -1,4 +1,4 @@
-<div class="stat card -gray grid-item">
+<div class="stat card -gray grid-item<?= isset($size) ? ' '.$size : '' ?>">
   <div class="bottom-textures"></div>
   <div class="-inner">
     <h5 class="figure"><?= $stat['figure'] ?></h4>

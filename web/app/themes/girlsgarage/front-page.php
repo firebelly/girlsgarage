@@ -17,6 +17,10 @@
   $announcement_link = get_post_meta($post->ID, '_cmb2_announcement_link', true);
   $announcement_link_text = get_post_meta($post->ID, '_cmb2_announcement_link_text', true);
 
+  $featured_post_one = \get_post(get_post_meta($post->ID, '_cmb2_featured_post_one', true));
+  $featured_post_two = \get_post(get_post_meta($post->ID, '_cmb2_featured_post_two', true));
+  $featured_posts = [$featured_post_one, $featured_post_two];
+
   $impact_page = get_page_by_path('about/impact');
   $stats = array_slice(get_post_meta($impact_page->ID, '_cmb2_stat', true), 0, 3);
 
@@ -125,30 +129,19 @@
 </div>
 
 <div class="page-bottom">
-  <div class="featured-posts wrap -flush grid">
-    <div class="one-half">
-      <?php
-        $args = array(
-          'numberposts' => '1',
-          'post_type' => 'post'
-        );
-        $post = get_posts( $args );
-        foreach( $post as $post ) { ?>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'featured-post', ['color' => 'color']); ?>
-        <?php } ?>
+  <?php if (!empty($featured_post_one) || !empty($featured_post_two)): ?>
+    <div class="featured-posts wrap -flush grid">
+      <?php foreach ($featured_posts as $post): ?>
+        <?php if ($post->post_name !== 'home'): ?>
+          <div class="one-half">
+            <?php
+              \Firebelly\Utils\get_template_part_with_vars('templates/article', 'featured-post', ['color' => 'color']);
+            ?>
+          </div>
+        <?php endif ?>
+      <?php endforeach ?>
     </div>
-    <div class="one-half">
-      <?php
-        $args = array(
-          'numberposts' => '1',
-          'post_type' => 'project'
-        );
-        $project = get_posts( $args );
-        foreach( $project as $post ) { ?>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'featured-post', ['color' => 'color']); ?>
-        <?php } ?>
-    </div>
-  </div>
+  <?php endif ?>
 
   <div class="testimonials-section wrap -flush">
     <h4 class="section-title"><span class="-inner">Testimonials & Impact</span></h4>

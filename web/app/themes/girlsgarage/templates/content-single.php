@@ -39,6 +39,8 @@
             $type_taxonomy = 'blog_topic';
           } elseif ($post->post_type == 'project') {
             $type_taxonomy = 'topic';
+          } elseif ($post->post_type == 'news_and_press'){
+            $type_taxonomy = 'news_topic';
           }
           $topics = get_the_terms( $post->ID, $type_taxonomy);
           $topics_slugs = [];

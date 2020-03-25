@@ -17,7 +17,9 @@
   }
 
   a {
-
+    &:hover {
+      color: $red;
+    }
   }
 
   .user-btn {
@@ -75,5 +77,11 @@
 
   * + figure {
     margin-top: $padding-sm * 2;
+  }
+
+  .entry-content-asset {
+    .fluid-width-video-wrapper {
+      margin-bottom: $padding-sm * 2;
+    }
   }
 }

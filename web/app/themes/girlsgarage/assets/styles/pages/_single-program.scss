@@ -9,7 +9,15 @@ body.single.single-program {
 
   .post-sidebar {
     @include media-md {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .-bottom {
+        .card {
+          border-left: 1px solid $gray-lite;
+        }
+      }
     }
   }
 
@@ -46,6 +54,12 @@ body.single.single-program {
     .tuition {
       p {
         @include subtitle(700);
+      }
+    }
+
+    .date-time {
+      p {
+        margin: 0;
       }
     }
 

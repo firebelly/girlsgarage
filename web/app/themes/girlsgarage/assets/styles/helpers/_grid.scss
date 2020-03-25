@@ -16,6 +16,11 @@ $padding-sm: 20px;
     &.-right-aligned {
       flex-direction: row-reverse;
     }
+
+    // Align items at top
+    &.-align-start {
+      align-items: flex-start;
+    }
   }
   &.-persist {
     display: flex;

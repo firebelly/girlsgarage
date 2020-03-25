@@ -17,14 +17,10 @@ body.impact {
 .stat {
   @include texture(before, concrete, tl, 70, 70);
   @include texture(after, stone, tr, 140, 140);
+  width: 100%;
   position: relative;
   text-align: center;
   padding: $padding-sm;
-
-  &.small {
-    max-width: 50%;
-    flex-basis: 50%;
-  }
 
   .bottom-textures {
     @include texture(before, corner-stat, bl, 70, 140);
@@ -50,6 +46,11 @@ body.impact {
 
   @include media-md {
     padding: 35px;
+
+    &.small {
+      max-width: 50%;
+      flex-basis: 50%;
+    }
 
     > .-inner {
       display: flex;

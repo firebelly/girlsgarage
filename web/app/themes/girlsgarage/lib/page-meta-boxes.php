@@ -48,9 +48,9 @@ function metaboxes() {
     'title'         => __( 'Secondary Featured Image', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php', 'page-impact.php', 'page-registration-schedule.php']],
+    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php', 'page-impact.php', 'page-registration-schedule.php', 'page-mission.php']],
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $secondary_featured_image->add_field([
     'name' => 'Secondary Featured Image',
@@ -67,7 +67,7 @@ function metaboxes() {
     'context'       => 'normal',
     'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php']],
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $tertiary_featured_image->add_field([
     'name' => 'Tertiary Featured Image',
@@ -84,13 +84,38 @@ function metaboxes() {
     'show_on_cb'    => __NAMESPACE__.'\\cmb_show_for_pages_without_template',
     'context'       => 'normal',
     'priority'      => 'high',
-    'show_names'    => true, // Show field names on the left
+    'show_names'    => true,
   ]);
   $page_slideshow->add_field([
     'name' => 'Images',
     'id'   => $prefix .'slideshow-images',
     'type' => 'file_list',
     'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+  ]);
+
+  // Featured posts on Homepage
+  $home_featured_posts = new_cmb2_box([
+    'id'            => 'home_featured_posts',
+    'title'         => __( 'Feature posts', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['front-page.php']],
+    'priority'      => 'high',
+    'show_names'    => true,
+  ]);
+  $home_featured_posts->add_field([
+    'name' => 'First Featured Post',
+    'desc' => 'Choose a post to feature on the homepage.',
+    'id'   => $prefix . 'featured_post_one',
+    'type' => 'pw_select',
+    'options' => cmb_get_options_array(array('post_type' => ['news_and_press', 'post', 'project'])),
+  ]);
+  $home_featured_posts->add_field([
+    'name' => 'Second Featured Post',
+    'desc' => 'Choose a second post to feature on the homepage.',
+    'id'   => $prefix . 'featured_post_two',
+    'type' => 'pw_select',
+    'options' => cmb_get_options_array(array('post_type' => ['news_and_press', 'post', 'project'])),
   ]);
 
   // Featured Card on Hompage
@@ -147,7 +172,7 @@ function metaboxes() {
     'object_types'  => ['page'],
     'context'       => 'side',
     'priority'      => 'low',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $featured_video->add_field([
     'name' => 'Featured Video',
@@ -175,13 +200,55 @@ function metaboxes() {
     'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_templates',
     'context'           => 'normal',
     'priority'          => 'high',
-    'show_names'        => false, // Show field names on the left
+    'show_names'        => false,
   ]);
   $secondary_content->add_field([
     'name' => 'Secondary Page Content',
     'desc' => 'The second set of main content on a page',
     'id'   => $prefix . 'secondary_content',
     'type' => 'wysiwyg',
+  ]);
+
+  // Why It Matters Section on Mission Page
+  $why_it_matters = new_cmb2_box([
+    'id'            => 'why_it_matters_box',
+    'title'         => __( 'Why It Matters Section', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-mission.php']],
+    'priority'      => 'high',
+  ]);
+  $why_it_matters->add_field([
+    'name' => 'Why It Matters Content',
+    'id'   => $prefix . 'why_it_matters',
+    'type' => 'wysiwyg',
+  ]);
+  $why_it_matters->add_field([
+    'name'        => 'Why It Matters Stats',
+    'id'          => $prefix . 'why_it_matters_stats_title',
+    'type'        => 'Title',
+    'show_names'  => false,
+  ]);
+  // Why It Matters Stats
+  $why_it_matters_stat_group = $why_it_matters->add_field([
+    'id'              => $prefix .'why_it_matters_stat',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Stat {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Stat', 'cmb2' ),
+      'remove_button' => __( 'Remove Stat', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $why_it_matters->add_group_field($why_it_matters_stat_group, [
+    'name' => 'Figure',
+    'id'   => 'figure',
+    'type' => 'text',
+  ]);
+  $why_it_matters->add_group_field($why_it_matters_stat_group, [
+    'name' => 'Description',
+    'id'   => 'description',
+    'type' => 'text',
   ]);
 
   // Wishlist on Other Ways to Help
@@ -192,7 +259,7 @@ function metaboxes() {
     'context'       => 'normal',
     'show_on'       => ['key' => 'page-template', 'value' => ['page-other-ways-to-help.php']],
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $wishlist->add_field([
     'name' => 'Wishlist Content',
@@ -217,7 +284,7 @@ function metaboxes() {
     'context'       => 'normal',
     'show_on'       => ['key' => 'page-template', 'value' => ['index.php', 'blog']],
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $posts_page->add_field([
     'name'    => 'Post Type',
@@ -235,7 +302,7 @@ function metaboxes() {
     'context'       => 'normal',
     'show_on'       => ['key' => 'page-template', 'value' => ['page-impact.php']],
     'priority'      => 'high',
-    'show_names'    => false, // Show field names on the left
+    'show_names'    => false,
   ]);
   $by_the_numbers_group = $by_the_numbers->add_field([
     'id'              => $prefix .'stat',
@@ -256,16 +323,6 @@ function metaboxes() {
     'name' => 'Description',
     'id'   => 'description',
     'type' => 'text',
-  ]);
-  $by_the_numbers->add_group_field($by_the_numbers_group, [
-    'name' => 'Size',
-    'id'   => 'size',
-    'type' => 'select',
-    'default' => 'small',
-    'options' => array(
-      'small' => __( 'Small', 'cmb2' ),
-      'large' => __( 'Large', 'cmb2' ),
-    ),
   ]);
 
   // FAQs
@@ -401,6 +458,38 @@ function metaboxes() {
     'id'   => 'post',
     'type'    => 'pw_select',
     'options' => cmb_get_options_array(array('post_type' => 'news_and_press')),
+  ]);
+
+  // Programs Page
+  $featured_programs = new_cmb2_box([
+    'id'            => 'featured_programs_box',
+    'title'         => __( 'Featured Programs', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => ['page-programs.php']],
+    'priority'      => 'high',
+  ]);
+  $featured_programs_group = $featured_programs->add_field([
+    'id'              => $prefix .'featured_programs',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Featured Program {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Featured Program', 'cmb2' ),
+      'remove_button' => __( 'Remove Featured Program', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $featured_programs->add_group_field($featured_programs_group, [
+    'name' => 'Program',
+    'id'   => 'program',
+    'type'    => 'pw_select',
+    'options' => cmb_get_options_array(array('post_type' => 'program')),
+  ]);
+  $featured_programs->add_group_field($featured_programs_group, [
+    'name' => 'Page',
+    'id'   => 'page',
+    'type'    => 'pw_select',
+    'options' => cmb_get_options_array(array('post_type' => 'page')),
   ]);
 
   // Doate Page

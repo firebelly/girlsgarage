@@ -60,6 +60,25 @@ $current_afterschool_sessions = get_posts(array(
     ),
   )
 ));
+$current_afterschool_sessions = get_posts(array(
+  'numberposts'   => -1,
+  'post_type'     => 'program',
+  'tax_query'     => array(
+    'relation'    => 'AND',
+    array(
+      'taxonomy'  => 'season',
+      'terms'     => $current_season->term_id,
+      'field'     => 'term_id',
+      'operator'  => 'IN'
+    ),
+    array(
+      'taxonomy'  => 'program_type',
+      'terms'     => 'after-school',
+      'field'     => 'slug',
+      'operator'  => 'IN'
+    ),
+  )
+));
 $current_weekend_sessions = get_posts(array(
   'numberposts'   => -1,
   'post_type'     => 'program',

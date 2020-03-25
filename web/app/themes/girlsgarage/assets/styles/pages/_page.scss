@@ -29,6 +29,12 @@
   }
 }
 
+// Top page content when there is a secondary header
+.page-content-top {
+  z-index: 1;
+  position: relative;
+}
+
 .page:not(.home) {
   .page-bottom {
     > .one-half {
