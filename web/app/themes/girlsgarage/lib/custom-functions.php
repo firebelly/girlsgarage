@@ -445,6 +445,18 @@ function get_posts($opts=[]) {
     'numberposts' => $opts['numberposts'],
   ];
 
+  // Tax Query?
+    // Filter by topic?
+  if (!empty($opts['taxQuery'])) {
+    $taxQuery = explode('-', $opts['taxQuery']);
+    $args['tax_query'][] = [
+      'taxonomy' => $taxQuery[0],
+      'field'    => 'slug',
+      'terms'    => $taxQuery[1],
+      'compare'  => 'IN',
+    ];
+  }
+
   // Just count posts (used for load-more buttons)
   if (!empty($opts['countposts'])) {
     $count_query = new \WP_Query(array_merge($args, [

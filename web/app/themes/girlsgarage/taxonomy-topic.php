@@ -11,7 +11,6 @@
     'numberposts' => $per_page,
     'post_type' => ['post', 'news_and_press', 'project'],
     'tax_query'     => array(
-      'relation'    => 'OR',
       array(
         'taxonomy'  => 'topic',
         'terms'     => $term,
@@ -44,15 +43,8 @@
           $project_count = count($posts);
 
           foreach($posts as $key => $post) {
-            if ($key == 0) {
-              $excerpt = true;
-            } else {
               $excerpt = false;
-            }
-
-            if ($project_count == 1) {
-              $grid_class = ' grid-sizer';
-            } elseif ($key == 1) {
+            if ($key == 0) {
               $grid_class = ' grid-sizer';
             }
 
@@ -64,7 +56,7 @@
     </div>
 
     <?php if ($num_posts > $per_page): ?>
-    <div class="load-more" data-post-type="" data-page-at="1" data-per-page="<?= $per_page ?>" data-total-pages="<?= ceil($num_posts/$per_page) ?>">
+    <div class="load-more" data-post-type="post news_and_press project" data-page-at="1" data-per-page="<?= $per_page ?>" data-total-pages="<?= ceil($num_posts/$per_page) ?>" data-tax-query="topic-<?= $term ?>">
       <a href="#" class="btn -red">Load More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       <img class="loading-animation" src="/app/themes/girlsgarage/dist/images/loading.gif" aria-hidden="true" role="presentation">
     </div>

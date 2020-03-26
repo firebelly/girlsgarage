@@ -555,6 +555,8 @@ var FBSage = (function($) {
       e.preventDefault();
       var $load_more = $(this).closest('.load-more');
       var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'post';
+      var tax_query = $load_more.attr('data-tax-query') ? $load_more.attr('data-tax-query') : '';
+      var template_type = $load_more.attr('data-template-type') ? $load_more.attr('data-template-type') : '';
       var page = parseInt($load_more.attr('data-page-at'));
       var per_page = parseInt($load_more.attr('data-per-page'));
       var more_container = $load_more.parents('.site-main').find('.load-more-container');
@@ -570,11 +572,12 @@ var FBSage = (function($) {
               action: 'load_more_posts',
               post_type: post_type,
               page: page+1,
-              per_page: per_page
+              per_page: per_page,
+              tax_query: tax_query,
+              template_type: template_type
           },
           success: function(data) {
             var $data = $($.parseHTML(data));
-            console.log($data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
             $load_more.removeClass('loading');

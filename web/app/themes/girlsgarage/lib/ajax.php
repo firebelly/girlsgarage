@@ -24,16 +24,29 @@ function load_more_posts() {
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $offset = ($page-1) * $per_page;
+  $post_type = $_REQUEST['post_type'];
+  if (strpos($post_type, ' ') !== false) {
+    $post_type = explode(" ", $post_type);
+  }
+  $tax_query = $_REQUEST['tax_query'];
 
-  echo \Firebelly\Utils\get_posts([
+  $args = [
     'offset'         => $offset,
     'numberposts'    => $per_page,
     'template-type'  => 'post',
-    'post-type'      => (!empty($_REQUEST['post_type']) ? $_REQUEST['post_type'] : 'post'),
+    'post-type'      => (!empty($post_type) ? $post_type : 'post'),
     'vars'           => [
       'color' => 'bw'
     ]
-  ]);
+  ];
+
+  if (!empty($tax_query)) {
+    $args = array_merge($args, [
+      'taxQuery'  => $tax_query
+    ]);
+  }
+
+  echo \Firebelly\Utils\get_posts($args);
 
   // we use this call outside AJAX calls; WP likes die() after an AJAX call
   if (is_ajax()) die();
