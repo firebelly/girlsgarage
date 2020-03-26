@@ -35,14 +35,7 @@
         </div>
 
         <?php
-          if ($post->post_type == 'post') {
-            $type_taxonomy = 'blog_topic';
-          } elseif ($post->post_type == 'project') {
-            $type_taxonomy = 'topic';
-          } elseif ($post->post_type == 'news_and_press'){
-            $type_taxonomy = 'news_topic';
-          }
-          $topics = get_the_terms( $post->ID, $type_taxonomy);
+          $topics = get_the_terms( $post->ID, 'topic');
           $topics_slugs = [];
           if (!empty($topics)) {
             foreach ($topics as $key => $topic) {
@@ -56,7 +49,7 @@
             'post__not_in'  => array($post->ID),
             'tax_query'     => array(
               array(
-                'taxonomy'         => $type_taxonomy,
+                'taxonomy'         => 'topic',
                 'terms'            => $topics_slugs,
                 'field'            => 'slug',
                 'operator'         => 'IN',

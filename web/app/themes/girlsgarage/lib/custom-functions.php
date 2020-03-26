@@ -165,7 +165,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
  */
 function custom_taxonomies() {
   register_taxonomy(
-    'blog_topic',
+    'topic',
     'post',
     array(
       'labels' => array(
