@@ -196,7 +196,7 @@ function metaboxes() {
     'id'                => 'secondary_content',
     'title'             => __( 'Secondary Page Content', 'cmb2' ),
     'object_types'      => ['page'],
-    'exclude_templates' => array('posts-page.php', 'front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
+    'exclude_templates' => array('posts-page.php', 'front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php', 'page-partners-funders.php'),
     'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_templates',
     'context'           => 'normal',
     'priority'          => 'high',
@@ -207,6 +207,23 @@ function metaboxes() {
     'desc' => 'The second set of main content on a page',
     'id'   => $prefix . 'secondary_content',
     'type' => 'wysiwyg',
+  ]);
+
+  // Secondary Content on general page
+  $individual_funders = new_cmb2_box([
+    'id'                => 'individual_funders_box',
+    'title'             => __( 'Individual Funders', 'cmb2' ),
+    'object_types'      => ['page'],
+    'show_on'           => ['key' => 'page-template', 'value' => ['page-partners-funders.php']],
+    'context'           => 'normal',
+    'priority'          => 'high',
+    'show_names'        => false,
+  ]);
+  $individual_funders->add_field([
+    'name' => 'Individual Funders',
+    'desc' => 'Enter each name onto a new line',
+    'id'   => $prefix . 'individual_funders',
+    'type' => 'textarea',
   ]);
 
   // Why It Matters Section on Mission Page

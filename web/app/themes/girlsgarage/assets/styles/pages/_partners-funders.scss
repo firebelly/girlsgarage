@@ -23,44 +23,8 @@ body.partners-funders {
     }
   }
 
-  .individual-funders-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: relative;
-    &::before,
-    &::after {
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      content: '';
-      position: absolute;
-      clip-path: $clippath;
-      background-color: $white;
-    }
-    &::after {
-      display: none;
-    }
-
-    > .-inner {
-      z-index: 1;
-      position: relative;
-      padding: $padding-sm 0;
-    }
-
-    li {
-      padding: 0 $padding-sm;
-      + li {
-        margin-top: 20px;
-      }
-    }
-
-    h5 {
-      @include h4;
-      margin: 0;
-      color: $purple;
-    }
+  .individual-funders {
+    columns: 2;
   }
 
   @include media-md {
@@ -73,29 +37,8 @@ body.partners-funders {
       position: absolute;
     }
 
-    .individual-funders-list {
-      &.two-column {
-        &::before,
-        &::after {
-          width: 50%;
-        }
-        &::after {
-          left: 50%;
-          display: block;
-          border-left: 1px solid $gray-lite;
-        }
-        > .-inner {
-          columns: 2;
-        }
-      }
-
-      > .-inner {
-        padding: 40px 0 20px;
-      }
-
-      li {
-        padding: 0 40px;
-      }
+    .individual-funders {
+      columns: 4;
     }
   }
 }
