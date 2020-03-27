@@ -146,6 +146,7 @@
     > .-inner {
       padding-top: 0;
       padding-right: 0;
+      padding-bottom: 0;
     }
 
     h4 {
@@ -179,8 +180,8 @@
       @include h4;
       margin: 0;
       display: flex;
-      min-width: 90px;
-      flex-basis: 90px;
+      min-width: 94px;
+      flex-basis: 94px;
       position: relative;
       padding-right: 20px;
       flex-direction: column;
@@ -193,6 +194,11 @@
         height: 25px;
         position: absolute;
         background-color: $white;
+      }
+
+      span {
+        display: block;
+        text-align: center;
       }
     }
 
@@ -223,9 +229,8 @@
       }
     }
 
-    .btn {
-      margin-right: $padding-sm;
-      margin-top: #{$vertical-beat * 6};
+    .more-container {
+      padding: 40px $padding-sm 40px 0;
     }
 
     @include media-md {

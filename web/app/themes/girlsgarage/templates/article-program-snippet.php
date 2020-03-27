@@ -1,14 +1,14 @@
 <?php
-  $program_season = get_the_terms($program, 'season');
+  $program_type = get_the_terms($program, 'program_type');
+  $program_start = get_post_meta($program->ID, '_cmb2_program_start', true);
+  $program_end = get_post_meta($program->ID, '_cmb2_program_end', true);
 ?>
 
 <li>
   <article>
-    <p class="post-meta"><?= date('M d', get_post_meta($program->ID, '_cmb2_program_start', true)); ?><br> <?= date('Y', get_post_meta($program->ID, '_cmb2_program_start', true)); ?></p>
+    <p class="post-meta"><?= date('m/d/y', $program_start); ?><?= $program_start != $program_end ? ' <span>-</span> ' . date('m/d/y', $program_end) : '' ?></p>
     <div class="post-heading">
-      <?php if (!empty($program_season)): ?>
-        <h5 class="post-category"><?= $program_season[0]->name ?></h5>
-      <?php endif ?>
+      <h5 class="post-category"><?= $program_type[0]->name ?></h5>
       <h3 class="post-title"><a href="<?= get_permalink($program) ?>"><span><?= $program->post_title ?></span></a></h3>
     </div>
   </article>

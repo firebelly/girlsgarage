@@ -89,7 +89,7 @@
           <h4 class="card-title">Upcoming Sessions</h4>
           <ul>
             <?php
-              $limit = 10;
+              $limit = 8;
               $i = 0;
 
               $args = array(
@@ -107,6 +107,12 @@
                 )
               );
               $upcoming_programs = get_posts( $args );
+              // Total Programs
+              $programs_query = new \WP_Query(array_merge($args, [
+                'numberposts' => -1,
+                'fields'      => 'ids',
+              ]));
+              $num_programs = $programs_query->found_posts;
 
               if (!empty($upcoming_programs)) {
                 foreach($upcoming_programs as $program) {
@@ -121,7 +127,11 @@
               }
             ?>
           </ul>
-          <a href="programs" class="btn more -white-purple">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+          <?php if ($num_programs > $limit): ?>
+            <div class="more-container">
+              <a href="programs" class="btn more -white-purple">More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
+            </div>
+          <?php endif ?>
         </div>
       </div>
     </div>
