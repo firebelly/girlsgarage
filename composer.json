@@ -75,7 +75,7 @@
                 "wpackagist-plugin/intuitive-custom-post-order",
                 "wpackagist-plugin/google-sitemap-generator",
                 "wpackagist-plugin/redirection",
-                "cmb-field-select2-master"
+                "mustardBees/cmb-field-select2"
             ],
             "web/app/plugins/{$name}/": [
                 "type:wordpress-plugin"
