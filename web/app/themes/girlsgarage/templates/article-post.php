@@ -2,6 +2,8 @@
   if (empty($label)) {
     if ($article_post->post_type == 'post') {
       $label = 'Story';
+    } elseif ($article_post->post_type == 'page') {
+      $label = '';
     } else {
       $article_postType = get_post_type_object(get_post_type($article_post));
       $label = $article_postType->labels->singular_name;
