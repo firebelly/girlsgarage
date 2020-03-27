@@ -60,6 +60,7 @@
         "wpackagist-plugin/redirection": ">=2.3.16",
         "wpackagist-plugin/intuitive-custom-post-order": "*",
         "wpackagist-plugin/cmb2": ">=2.0.2",
+        "mustardbees/cmb-field-select2": "^3.0.0",
         "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
         "wpackagist-plugin/update-from-bottom": ">=1.0.3",
         "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",

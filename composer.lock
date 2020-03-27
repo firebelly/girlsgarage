@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "662db39200a207e10b6c124904e281a3",
+    "content-hash": "44f623ca9d96f9c69f9d8a422b0e07c0",
     "packages": [
         {
             "name": "composer/installers",
@@ -275,6 +275,32 @@
                 "wordpress"
             ],
             "time": "2018-11-09T20:10:38+00:00"
+        },
+        {
+            "name": "mustardBees/cmb-field-select2",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mustardBees/cmb-field-select2",
+                "reference": "67358fa33f7b949de444562cd6108da122c7d15f"
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Wylie",
+                    "homepage": "http://www.philwylie.co.uk/"
+                }
+            ],
+            "description": "Select2 field type for CMB2",
+            "homepage": "https://github.com/mustardBees/cmb-field-select2",
+            "keywords": [
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2016-08-25T15:52:11+00:00"
         },
         {
             "name": "oscarotero/env",
