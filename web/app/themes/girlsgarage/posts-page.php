@@ -1,20 +1,19 @@
 <?php
-  $term = get_query_var('term');
+/*
+  Template name: Posts Page
+ */
+  if (is_home()) {
+    $post_type = 'post';
+  } else {
+    $post_type = get_post_meta($post->ID, '_cmb2_post_type', true);
+  }
 
   // Amount of posts to pull
   $per_page = get_option('posts_per_page');
 
   $args = [
     'numberposts' => $per_page,
-    'post_type' => ['post', 'news_and_press', 'project'],
-    'tax_query'     => array(
-      array(
-        'taxonomy'  => 'topic',
-        'terms'     => $term,
-        'field'     => 'slug',
-        'operator'  => 'IN'
-      ),
-    )
+    'post_type' => $post_type
   ];
 
   // Total Posts
@@ -25,6 +24,8 @@
   $num_posts = $count_query->found_posts;
 ?>
 <?php get_template_part('templates/page', 'header'); ?>
+
+<?php include(locate_template('templates/page-intro.php')); ?>
 
 <div class="page-bottom wrap -flush">
   <div class="page-secondary-content-wrap grid">
@@ -40,8 +41,15 @@
           $project_count = count($posts);
 
           foreach($posts as $key => $post) {
-              $excerpt = false;
             if ($key == 0) {
+              $excerpt = true;
+            } else {
+              $excerpt = false;
+            }
+
+            if ($project_count == 1) {
+              $grid_class = ' grid-sizer';
+            } elseif ($key == 1) {
               $grid_class = ' grid-sizer';
             }
 
@@ -53,7 +61,7 @@
     </div>
 
     <?php if ($num_posts > $per_page): ?>
-    <div class="load-more" data-post-type="post news_and_press project" data-page-at="1" data-per-page="<?= $per_page ?>" data-total-pages="<?= ceil($num_posts/$per_page) ?>" data-tax-query="topic-<?= $term ?>">
+    <div class="load-more" data-post-type="<?= $post_type ?>" data-page-at="1" data-per-page="<?= $per_page ?>" data-total-pages="<?= ceil($num_posts/$per_page) ?>">
       <a href="#" class="btn -red">Load More <span class="arrows"><svg class="icon icon-arrows" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrows"/></svg></span></a>
       <img class="loading-animation" src="/app/themes/girlsgarage/dist/images/loading.gif" aria-hidden="true" role="presentation">
     </div>

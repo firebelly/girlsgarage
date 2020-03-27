@@ -3,7 +3,7 @@
 
   if (empty($label)) {
     if ($post->post_type == 'post') {
-      $label = 'Blog Post';
+      $label = 'Story';
     } else {
       $label = $the_post_type->labels->singular_name;
     }

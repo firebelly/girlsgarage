@@ -196,7 +196,7 @@ function metaboxes() {
     'id'                => 'secondary_content',
     'title'             => __( 'Secondary Page Content', 'cmb2' ),
     'object_types'      => ['page'],
-    'exclude_templates' => array('index.php', 'front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
+    'exclude_templates' => array('posts-page.php', 'front-page.php', 'parent-page.php', 'program-type.php', 'page-programs.php'),
     'show_on_cb'        => __NAMESPACE__.'\\cmb_exclude_templates',
     'context'           => 'normal',
     'priority'          => 'high',
@@ -271,7 +271,7 @@ function metaboxes() {
   // Post Types
   $post_type_args = array(
      'public'   => true,
-     '_builtin' => false,
+     // '_builtin' => false,
   );
   $output = 'names'; // names or objects, note names is the default
   $operator = 'and'; // 'and' or 'or'
@@ -282,7 +282,7 @@ function metaboxes() {
     'title'         => __( 'Posts to Display', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => ['index.php', 'blog']],
+    'show_on'       => ['key' => 'page-template', 'value' => ['posts-page.php', 'blog']],
     'priority'      => 'high',
     'show_names'    => false,
   ]);

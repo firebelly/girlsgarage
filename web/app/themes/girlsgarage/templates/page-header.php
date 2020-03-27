@@ -27,7 +27,7 @@
   <div class="wrap">
   <?php if (is_single($post)): ?>
     <?php $the_post_type = get_post_type_object(get_post_type($post)); ?>
-    <h4 class="post-type"><?= $post->post_type == 'post' ? 'Blog Post' : $the_post_type->labels->singular_name ?></h4>
+    <h4 class="post-type"><?= $post->post_type == 'post' ? 'Story' : $the_post_type->labels->singular_name ?></h4>
   <?php endif ?>
     <h1 class="page-title"><?= Titles\title(); ?></h1>
   </div>

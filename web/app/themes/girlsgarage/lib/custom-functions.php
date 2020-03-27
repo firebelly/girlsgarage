@@ -138,24 +138,24 @@ function get_parent_url($post) {
 function change_post_menu_label() {
     global $menu;
     global $submenu;
-    $menu[5][0] = 'Blog Posts';
-    $submenu['edit.php'][5][0] = 'Blog Posts';
-    $submenu['edit.php'][10][0] = 'Add Blog Posts';
+    $menu[5][0] = 'Stories';
+    $submenu['edit.php'][5][0] = 'Stories';
+    $submenu['edit.php'][10][0] = 'Add Stories';
     echo '';
 }
 function change_post_object_label() {
         global $wp_post_types;
         $labels = &$wp_post_types['post']->labels;
-        $labels->name = 'Blog Posts';
-        $labels->singular_name = 'Blog Posts';
-        $labels->add_new = 'Add Blog Posts';
-        $labels->add_new_item = 'Add Blog Post';
-        $labels->edit_item = 'Edit Blog Posts';
-        $labels->new_item = 'Blog Posts';
-        $labels->view_item = 'View Blog Posts';
-        $labels->search_items = 'Search Blog Posts';
-        $labels->not_found = 'No Blog Posts found';
-        $labels->not_found_in_trash = 'No Blog Posts found in Trash';
+        $labels->name = 'Stories';
+        $labels->singular_name = 'Story';
+        $labels->add_new = 'Add Stories';
+        $labels->add_new_item = 'Add Story';
+        $labels->edit_item = 'Edit Stories';
+        $labels->new_item = 'Story';
+        $labels->view_item = 'View Stories';
+        $labels->search_items = 'Search Stories';
+        $labels->not_found = 'No Stories found';
+        $labels->not_found_in_trash = 'No Stories found in Trash';
 }
 add_action( 'init', __NAMESPACE__ . '\\change_post_object_label' );
 add_action( 'admin_menu', __NAMESPACE__ . '\\change_post_menu_label' );
