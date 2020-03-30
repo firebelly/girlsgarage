@@ -8,10 +8,15 @@
   .page-content {
     p {
       @include subtitle;
+      margin-top: 0;
 
       &:last-of-type {
         margin-bottom: 0;
       }
+    }
+
+    a:hover {
+      color: $white;
     }
   }
 
