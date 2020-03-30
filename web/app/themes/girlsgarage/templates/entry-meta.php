@@ -5,6 +5,23 @@
 </div>
 <?php endif ?>
 
+<?php if (!empty(get_post_meta($post->ID, '_cmb2_sidebar_text', true))): ?>
+  <div class="meta-section sidebar-text user-content">
+    <?= apply_filters('the_content', get_post_meta($post->ID, '_cmb2_sidebar_text', true)) ?>
+  </div>
+<?php endif ?>
+
+<?php if (!empty(get_post_meta($post->ID, '_cmb2_related_project', true))): ?>
+  <?php
+    $programID = get_post_meta($post->ID, '_cmb2_related_project', true);
+    $program = get_post($programID);
+  ?>
+  <div class="meta-section related-program">
+    <h6>Program</h6>
+    <p><a href="<?= get_permalink($program) ?>"><?= $program->post_title ?></a></p>
+  </div>
+<?php endif ?>
+
 <?php
   $topics = get_the_terms( $post->ID, 'topic');
 ?>

@@ -38,6 +38,18 @@ function metaboxes() {
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
+  $project_info->add_field([
+    'name'    => 'Sidebar Text Area',
+    'id'      => $prefix . 'sidebar_text',
+    'desc'    => 'A blank text field that shows up at the top of the sidebar.',
+    'type'    => 'wysiwyg',
+  ]);
+  $project_info->add_field([
+    'name' => 'Related Program',
+    'id'   => $prefix . 'related_project',
+    'type' => 'pw_select',
+    'options' => cmb_get_programs_array(),
+  ]);
   $tools_group = $project_info->add_field([
     'id'              => $prefix .'tools',
     'type'            => 'group',
@@ -81,3 +93,12 @@ function metaboxes() {
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
+
+function cmb_get_programs_array( $query_args = array() ) {
+  $defaults = array(
+    'posts_per_page' => -1,
+    'post_type' => 'program'
+  );
+  $query = new \WP_Query( array_replace_recursive( $defaults, $query_args ) );
+  return wp_list_pluck( $query->get_posts(), 'post_title', 'ID' );
+}

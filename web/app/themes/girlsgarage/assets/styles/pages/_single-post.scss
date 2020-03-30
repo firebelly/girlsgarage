@@ -103,6 +103,12 @@ body.single {
       }
     }
 
+    .sidebar-text {
+      h1, h2, h3, h4, h5, h6 {
+        @include smallcaps;
+      }
+    }
+
     @include media-md {
       width: 36%;
       display: flex;
