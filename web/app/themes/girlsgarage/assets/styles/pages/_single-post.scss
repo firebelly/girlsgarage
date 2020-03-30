@@ -97,12 +97,24 @@ body.single {
   .post-sidebar {
     margin-top: -#{$padding / 2};
 
+    .-bottom {
+      .card + .card {
+        border-top: 1px solid $gray-lite;
+      }
+    }
+
     @include media-md {
-     width: 36%;
-     display: flex;
-     margin-top: 0;
-     flex-direction: column;
-     justify-content: space-between;
+      width: 36%;
+      display: flex;
+      margin-top: 0;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .-bottom {
+        .card {
+          border-left: 1px solid $gray-lite;
+        }
+      }
     }
   }
 
@@ -163,35 +175,53 @@ body.single {
       padding: 0;
       li {
         list-style: none;
-        margin-bottom: #{$vertical-beat * 3};
-      }
-    }
 
-    a {
-      display: block;
-      @include clearfix;
-      span {
-        margin-top: 10px;
-        display: inline-block;
-      }
-      &:hover {
-        span {
-          text-decoration: underline;
+        + li {
+          margin-top: 30px;
         }
       }
     }
 
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      &:hover {
+        color: $red;
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      span {
+        @include h4;
+        color: $purple;
+      }
+    }
+
     .nav-button {
-      float: left;
-      color: $black;
-      margin-right: 2px;
+      color: $red;
+      margin-right: 20px;
       text-align: center;
-    }
 
-    .icon-circle-stroke {
-      stroke: $black;
-    }
+      .icon-circle-stroke {
+        stroke: $red;
+        margin-bottom: 5px;
+      }
 
+      .icon-arrow-left,
+      .icon-arrow-right {
+        fill: $red;
+        position: absolute;
+      }
+
+      .icon-arrow-left {
+        left: 15px;
+      }
+      .icon-arrow-right {
+        left: 16px;
+      }
+    }
   }
 
   .post-image {
