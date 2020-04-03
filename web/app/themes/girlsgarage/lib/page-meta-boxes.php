@@ -474,7 +474,7 @@ function metaboxes() {
     'name' => 'Post',
     'id'   => 'post',
     'type'    => 'pw_select',
-    'options' => cmb_get_options_array(array('post_type' => 'news_and_press')),
+    'options' => cmb_get_options_array(array('post_type' => ['news_and_press', 'post'])),
   ]);
 
   // Programs Page
