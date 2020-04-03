@@ -78,11 +78,6 @@
         } else {
           echo '<div class="card -white grid-item no-sessions"><div class="-inner"><h3 class="card-title">There are currently no sessions available. Check back soon!</h3></div></div>';
         }
-        if ($program_count < 4 && !empty($stats)) {
-          foreach ($stats as $key => $stat) {
-            include(locate_template('templates/article-stat.php'));
-          }
-        }
       ?>
     </div>
 
