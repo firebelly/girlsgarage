@@ -24,7 +24,10 @@ body.partners-funders {
   }
 
   .individual-funders {
-    columns: 2;
+    p {
+      margin: 0;
+      columns: 2;
+    }
   }
 
   @include media-md {
@@ -38,7 +41,9 @@ body.partners-funders {
     }
 
     .individual-funders {
-      columns: 4;
+      p {
+        columns: 4;
+      }
     }
   }
 }
