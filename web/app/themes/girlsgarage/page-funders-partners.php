@@ -1,6 +1,6 @@
 <?php
 /*
-  Template name: Partners & Funders
+  Template name: Funders & Partners
  */
 
 use Firebelly\Utils;
@@ -11,6 +11,20 @@ $tiers = get_terms( array(
 ));
 
 $individual_funders = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_individual_funders', true));
+
+$args = array(
+  'numberposts' => '4',
+  'post_type' => 'testimonial',
+  'orderby' => 'rand',
+  'meta_query' => array(
+    array(
+      'key'     => '_cmb2_pages',
+      'value'   => $post->ID,
+      'compare' => 'LIKE'
+    )
+  )
+);
+$testimonials = get_posts( $args );
 ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
@@ -21,7 +35,7 @@ $individual_funders = apply_filters('the_content', get_post_meta($post->ID, '_cm
     <h4 class="section-title"><span class="-inner"><?= $tier->name ?></span></h4>
     <div class="funder-tier masonry-grid card-grid <?= $tier->slug ?>-grid">'
       <?= \Firebelly\PostTypes\PartnersAndFunders\get_partners_and_funders(['tier' => $tier->term_id]); ?>
-      <?php if ($key == 0): ?>
+      <?php if ($key == 0 && !empty($testimonials)): ?>
         <div class="testimonials stamp grid-item">
           <?php include(locate_template('templates/testimonials-module.php')); ?>
         </div>
