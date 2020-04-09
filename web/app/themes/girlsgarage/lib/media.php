@@ -9,7 +9,7 @@ namespace Firebelly\Media;
 add_image_size( 'post-thumb', 288, 288, array('center', 'top') );
 add_image_size( 'grid-thumb', 600, 430 );
 add_image_size( 'grid-large', 1200, 700 );
-add_image_size( 'banner_image', 2200, 1200 );
+add_image_size( 'banner_image', 1600, 1600 );
 
 /**
  * Get the file path (not URL) to a thumbnail of a particular size.
