@@ -5,33 +5,7 @@
  */
   $slug = $post->post_name;
   $header_bg = \Firebelly\Media\get_header_bg($post, '', 'bw', 'large');
-
-  // stats to display if less than 4 programs are displayed
-  $impact_page = get_page_by_path('about/impact');
-  $stats = get_post_meta($impact_page->ID, '_cmb2_stat', true);
-  shuffle($stats);
-  $stats = array_slice($stats, 0, 1);
-
-  $now = current_time('timestamp');
-  $current_season = get_terms(array(
-    'numberposts' => 1,
-    'taxonomy'    => 'season',
-    'hide_empty'  => false,
-    'meta_query'  => array(
-      'relation'  => 'AND',
-      array(
-        'key'     => '_cmb2_start_date',
-        'value'   => $now,
-        'compare' => '<'
-      ),
-      array(
-        'key'     => '_cmb2_end_date',
-        'value'   => $now,
-        'compare' => '>'
-      )
-    )
-  ));
-  $current_season = $current_season[0];
+  $program_type = get_term_by('slug', $slug, 'program_type');
 ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
@@ -42,7 +16,7 @@
   <div class="page-secondary-content-wrap grid">
     <div class="card-grid masonry-grid">
       <?php
-        $cat_id = get_term_by('slug', $slug, 'program_type')->term_id;
+        $cat_id = $program_type->term_id;
         $args = [
           'numberposts' => -1,
           'post_type' => 'program',
@@ -69,10 +43,26 @@
 
         if ($recent_programs) {
           foreach($recent_programs as $post) {
-            if ($program_count < 3) {
-              Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['card_size' => 'large']);
+            // Check program sessions against program_type
+            $program_sessions = get_post_meta($post->ID, '_cmb2_sessions', true);
+            $session = '';
+
+            // If there is more than one program_type set on the program,
+            // find the one that is the equal to current program_type
+            if (count(get_the_terms($post, 'program_type')) > 1) {
+              foreach ($program_sessions as $program_session) {
+                if ($program_session['associated_program_type'] == $program_type->term_id) {
+                  $session = $program_session;
+                }
+              }
+            // Else just get the first session and use it
             } else {
-              get_template_part('templates/article', 'program');
+              $session = $program_sessions[0];
+            }
+            if ($program_count < 3) {
+              Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['session' => $session, 'card_size' => 'large', 'program_type' => $program_type]);
+            } else {
+              Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['session' => $session, 'program_type' => $program_type]);
             }
           }
         } else {

@@ -133,9 +133,14 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-          'name'    => 'Description',
-          'id'      => $prefix . 'program_description',
-          'type'    => 'textarea',
+        'name'    => 'Program Landing Page Label',
+        'id'      => $prefix . 'landing_page_label',
+        'type'    => 'text',
+      ),
+      array(
+        'name'    => 'Description',
+        'id'      => $prefix . 'program_description',
+        'type'    => 'textarea',
       ),
     ),
   );
@@ -236,6 +241,14 @@ function metaboxes( array $meta_boxes ) {
     'id'      => 'name',
     'type'    => 'text',
     'desc'    => 'Ex: Cohort 1',
+  ) );
+  $program_when->add_group_field( $sessions_group, array(
+    'name'      => 'Associated Program Type',
+    'id'        => 'associated_program_type',
+    'desc'      => 'Associate this session with a specific program type? (only applicable if program falls under multiple program types)',
+    'default'   => 'custom',
+    'type'      => 'select',
+    'options_cb'  => __NAMESPACE__ . '\\cmb_get_program_types_array'
   ) );
   $program_when->add_group_field( $sessions_group, array(
     'name'    => 'Day(s) of the week',
@@ -365,6 +378,21 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Get a list of posts
+ *
+ * Generic function to return an array of posts formatted for CMB2. Simply pass
+ * in your WP_Query arguments and get back a beautifully formatted CMB2 options
+ * array.
+ *
+ * @param array $query_args WP_Query arguments
+ * @return array CMB2 options array
+ */
+function cmb_get_program_types_array() {
+  $program_types = wp_list_pluck( get_terms('program_type'), 'name', 'term_id' );
+  return array_merge(['None'], $program_types);
+}
 
 /**
  * Get Programs
