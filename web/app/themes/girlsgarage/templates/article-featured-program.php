@@ -3,13 +3,12 @@ $post_thumb = \Firebelly\Media\get_header_bg($article_post, false, '','bw', 'gri
 $program_details = \Firebelly\PostTypes\Program\get_program_details($article_post);
 $program_url = get_permalink($program_details->ID);
 $program_type = get_the_terms($article_post, 'program_type');
-$landing_page_label = get_post_meta($article_post->ID, '_cmb2_landing_page_label', true);
 ?>
 
 <article id="<?= $program_details->name ?>" class="program-listing card -white grid-item<?= $grid_class; ?>" data-id="<?= $program_details->ID ?>" data-page-title="<?= $program_details->title ?>" data-page-url="<?= $program_url ?>">
   <div class="card-image" <?= $post_thumb ?>></div>
   <div class="-inner">
-    <h4 class="card-tag"><?= !empty($landing_page_label) ? $landing_page_label : $program_type[0]->name ?></h4>
+    <h4 class="card-tag"><?= !empty($program_label) ? $program_label : $program_type[0]->name ?></h4>
     <h3 class="card-title"><a href="<?= $program_url ?>"><?= $program_details->title ?></a></h3>
 
     <p class="card-text"><?= $program_details->description ?></p>

@@ -3,7 +3,11 @@
     if ($article_post->post_type == 'post') {
       $label = 'Story';
     } elseif ($article_post->post_type == 'page') {
-      $label = '';
+       if (!empty($program_label)) {
+        $label = $program_label;
+      } else {
+        $label = '';
+      }
     } else {
       $article_postType = get_post_type_object(get_post_type($article_post));
       $label = $article_postType->labels->singular_name;
@@ -30,7 +34,9 @@
 <article class="card -white grid-item<?= $grid_class; ?>">
   <div class="card-image" <?= \Firebelly\Media\get_header_bg($image, false, '', $color, 'grid-large'); ?>></div>
   <div class="-inner">
-    <h4 class="card-tag"><?= $label ?></h4>
+    <?php if (!empty($label)): ?>
+      <h4 class="card-tag"><?= $label ?></h4>
+    <?php endif ?>
     <h3 class="card-title"><a href="<?= get_permalink($article_post) ?>"><?= $article_post->post_title ?></a></h3>
     <?php if ($excerpt == true): ?>
       <p class="card-text"><?= Firebelly\Utils\get_excerpt($article_post, 25); ?></p>

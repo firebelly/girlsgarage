@@ -497,6 +497,12 @@ function metaboxes() {
     ],
   ]);
   $featured_programs->add_group_field($featured_programs_group, [
+    'name'  => 'Override Program Label',
+    'id'    => 'program_label',
+    'type'  => 'text',
+    'desc'  => 'Optionally override the label that appears on the featured program card, which by default will display the first Program Type associated with the program.'
+  ]);
+  $featured_programs->add_group_field($featured_programs_group, [
     'name' => 'Program',
     'id'   => 'program',
     'type'    => 'pw_select',

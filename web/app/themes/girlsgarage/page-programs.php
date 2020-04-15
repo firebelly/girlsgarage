@@ -28,7 +28,10 @@ $programs = get_post_meta($post->ID, '_cmb2_featured_programs', true);
             $program_post = get_post($program['page']);
             $article_type = 'post';
           }
-          \Firebelly\Utils\get_template_part_with_vars('templates/article', $article_type, ['article_post' => $program_post, 'color' => 'bw', 'excerpt' => 'testing', 'grid_class' => $grid_class]);
+
+          $program_label = $program['program_label'];
+
+          \Firebelly\Utils\get_template_part_with_vars('templates/article', $article_type, ['article_post' => $program_post, 'program_label' => $program_label, 'color' => 'bw', 'excerpt' => 'testing', 'grid_class' => $grid_class]);
           endforeach;
         ?>
       </div>

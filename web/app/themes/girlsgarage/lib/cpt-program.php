@@ -133,11 +133,6 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-        'name'    => 'Program Landing Page Label',
-        'id'      => $prefix . 'landing_page_label',
-        'type'    => 'text',
-      ),
-      array(
         'name'    => 'Description',
         'id'      => $prefix . 'program_description',
         'type'    => 'textarea',
@@ -246,7 +241,7 @@ function metaboxes( array $meta_boxes ) {
     'name'      => 'Associated Program Type',
     'id'        => 'associated_program_type',
     'desc'      => 'Associate this session with a specific program type? (only applicable if program falls under multiple program types)',
-    'default'   => 'custom',
+    'default'   => 'default',
     'type'      => 'select',
     'options_cb'  => __NAMESPACE__ . '\\cmb_get_program_types_array'
   ) );
