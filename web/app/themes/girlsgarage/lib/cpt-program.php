@@ -391,7 +391,8 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
  */
 function cmb_get_program_types_array() {
   $program_types = wp_list_pluck( get_terms('program_type'), 'name', 'term_id' );
-  return array_merge(['None'], $program_types);
+  $default = ['default' => '-'];
+  return $default + $program_types;
 }
 
 /**

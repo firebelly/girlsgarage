@@ -53,12 +53,14 @@
               foreach ($program_sessions as $program_session) {
                 if ($program_session['associated_program_type'] == $program_type->term_id) {
                   $session = $program_session;
+                  break;
                 }
               }
             // Else just get the first session and use it
             } else {
               $session = $program_sessions[0];
             }
+
             if ($program_count < 3) {
               Firebelly\Utils\get_template_part_with_vars('templates/article', 'program', ['session' => $session, 'card_size' => 'large', 'program_type' => $program_type]);
             } else {
