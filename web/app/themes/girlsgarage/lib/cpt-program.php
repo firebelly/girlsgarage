@@ -198,9 +198,9 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $program_when = new_cmb2_box( array(
-    'id'            => 'program_when',
-    'title'         => __( 'Program Date & Time', 'cmb2' ),
+  $program_sessions = new_cmb2_box( array(
+    'id'            => 'program_sessions',
+    'title'         => __( 'Program Sessions', 'cmb2' ),
     'object_types'  => array( 'program', ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
@@ -208,20 +208,20 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true, // Show field names on the left
   ) );
 
-  $program_when->add_field( array(
+  $program_sessions->add_field( array(
       'name'    => 'Sessions Start',
       'id'      => $prefix . 'program_start',
       'type'    => 'hidden', //'text_datetime_timestamp',
   ) );
 
 
-  $program_when->add_field( array(
+  $program_sessions->add_field( array(
       'name'    => 'Sessions End',
       'id'      => $prefix . 'program_end',
       'type'    => 'hidden', //'text_datetime_timestamp',
   ) );
   // Sessions
-  $sessions_group = $program_when->add_field( array(
+  $sessions_group = $program_sessions->add_field( array(
     'id'          => $prefix . 'sessions',
     'type'        => 'group',
     'options'     => array(
@@ -231,13 +231,13 @@ function metaboxes( array $meta_boxes ) {
       'sortable'      => true,
     ),
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'    => 'Session Name',
     'id'      => 'name',
     'type'    => 'text',
     'desc'    => 'Ex: Cohort 1',
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'      => 'Associated Program Type',
     'id'        => 'associated_program_type',
     'desc'      => 'Associate this session with a specific program type? (only applicable if program falls under multiple program types)',
@@ -245,24 +245,30 @@ function metaboxes( array $meta_boxes ) {
     'type'      => 'select',
     'options_cb'  => __NAMESPACE__ . '\\cmb_get_program_types_array'
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'    => 'Day(s) of the week',
     'id'      => 'days',
     'type'    => 'text',
     'desc'    => 'Ex: Mondays & Wednesdays',
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
+    'name'    => 'Landing Page Date Line',
+    'id'      => 'manual_dateline',
+    'type'    => 'text',
+    'desc'    => 'Manuel entry for a date line that will appear on the program card on program landing pages. Ex: 04/25, 07/14',
+  ) );
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'    => 'Start Date',
     'id'      => 'start',
     'type'    => 'text_datetime_timestamp',
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'    => 'End Date',
     'desc'    => '<p>This must be filled — if a single day program, choose the same date as the start date.</p>',
     'id'      => 'end',
     'type'    => 'text_datetime_timestamp',
   ) );
-  $program_when->add_group_field( $sessions_group, array(
+  $program_sessions->add_group_field( $sessions_group, array(
     'name'    => 'Text Area',
     'desc'    => '<p>A general blank text area to use as you see fit.</p>',
     'id'      => 'text',

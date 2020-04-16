@@ -16,8 +16,8 @@ $program_end = date('m/d', $session['end']);
     <h3 class="card-title"><a href="<?= $program_url ?>"><?= $program_details->title ?></a></h3>
 
     <div class="program-meta">
-      <?php if ($program_type->slug == 'weekend-workshops'): ?>
-        <p class="dates"><strong><?= $program_start ?><?php if ($program_start != $program_end): ?>-<?= $program_end ?><?php endif ?></strong></p>
+      <?php if (!empty($session['manual_dateline'])): ?>
+        <p class="dates"><strong><?= $session['manual_dateline'] ?></strong></p>
       <?php endif ?>
       <p class="ages"><strong>Ages:</strong> <?= $program_details->age_limit ?></p>
       <p class="cost"><strong>Cost:</strong> <?= $program_details->tuition ?></p>
