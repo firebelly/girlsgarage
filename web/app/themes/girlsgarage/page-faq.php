@@ -16,7 +16,7 @@ $faqs = get_post_meta($post->ID, '_cmb2_faq-items', true);
         <div class="faq-item grid-item card -white">
           <div class="-inner">
             <dt><?= $faq['question'] ?></dt>
-            <dd><?= $faq['answer'] ?></dd>
+            <dd><?= apply_filters('the_content', $faq['answer']); ?></dd>
           </div>
         </div>
       <?php endforeach ?>
