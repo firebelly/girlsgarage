@@ -14,17 +14,25 @@
 }
 .alignleft,
 .alignright {
+  width: 100%;
   height: auto;
 }
 @include media-sm {
   // Only float if not on an extra small device
+  .alignleft,
+  .alignright {
+    width: auto;
+    max-width: 50%;
+    margin-bottom: 20px;
+  }
   .alignleft {
     float: left;
-
+    margin-right: 20px;
   }
   .alignright {
     float: right;
-
+    max-width: 50%;
+    margin-left: 20px;
   }
 }
 
@@ -39,4 +47,4 @@
 // Text meant only for screen readers
 .screen-reader-text {
   @extend .visually-hidden;
-} 
+}

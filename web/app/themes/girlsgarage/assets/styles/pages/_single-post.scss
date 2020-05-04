@@ -318,6 +318,10 @@ body.single {
         @include smallcaps;
       }
 
+      h3 {
+        margin-top: 40px;
+      }
+
       img {
       }
 
@@ -329,8 +333,8 @@ body.single {
         margin: 30px 0;
       }
 
-      figure > img,
-      figure >img:first-child {
+      figure > img:not(.alignleft):not(.alignright),
+      figure > img:first-child:not(.alignleft):not(.alignright) {
         margin: 0;
       }
 
