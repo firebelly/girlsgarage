@@ -1,5 +1,26 @@
 // Nav
 
+// Active Nav Style Mixin
+@mixin activeNav($level: '') {
+  > a {
+    color: $black;
+    background-color: $white;
+    @include min-screen($breakpoint-nav) {
+      color: $black;
+      @if $level == 'top' {
+        background-color: transparent;
+      } @else {
+        background-color: $white;
+      }
+    }
+  }
+  @if $level == 'top' {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
 // wp admin bar push
 .admin-bar {}
 

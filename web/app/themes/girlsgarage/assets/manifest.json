@@ -23,17 +23,13 @@
         "scripts/customizer.js"
       ]
     },
+    "modernizr.js": {
+      "files": [
+        "scripts/modernizr.js"
+      ]
+    },
     "jquery.js": {
       "bower": ["jquery"]
-    },
-    "modernizr.js": {
-      "bower": ["modernizr"]
-    },
-    "respond.js": {
-      "bower": ["respond"]
-    },
-    "svg4everybody.js": {
-      "bower": ["svg4everybody"]
     }
   },
   "config": {

@@ -1,1 +1,27 @@
 // About pages
+
+// News & Press Post
+body.single-news_and_press {
+  .site-nav {
+    .menu-about {
+      @include activeNav(top);
+    }
+
+    .menu-news-and-press {
+      @include activeNav;
+    }
+  }
+}
+
+// Stories Post
+body.post-template-default.single-post {
+  .site-nav {
+    .menu-about {
+      @include activeNav(top);
+    }
+
+    .menu-stories {
+      @include activeNav;
+    }
+  }
+}
