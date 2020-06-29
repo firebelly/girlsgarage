@@ -3,7 +3,7 @@ set :domain, 'girlsgarage.org'
 set :theme, 'girlsgarage'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/girlsgarage.git'
-set :php, 'php70'
+set :php, 'php73'
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
