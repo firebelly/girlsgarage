@@ -108,24 +108,24 @@
         },
         {
             "name": "jjgrainger/posttypes",
-            "version": "2.0.1",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jjgrainger/PostTypes.git",
-                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6"
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/04525d30d30ec19fef3478676b4f27aa405ac3a6",
-                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6",
+                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/a87584606e9ef726f7621c1d71a184fdf7282172",
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.7",
-                "squizlabs/php_codesniffer": "^2.8"
+                "phpunit/phpunit": "8.*",
+                "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
             "autoload": {
@@ -141,30 +141,30 @@
                 {
                     "name": "Joe Grainger",
                     "email": "hello@jjgrainger.co.uk",
-                    "homepage": "http://jjgrainger.co.uk"
+                    "homepage": "https://jjgrainger.co.uk"
                 }
             ],
             "description": "Simple WordPress custom post types.",
             "homepage": "https://github.com/jjgrainger/posttype",
-            "time": "2018-03-27T18:30:06+00:00"
+            "time": "2020-04-12T13:01:12+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.3.2",
+            "version": "5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "a463d27a25d317c270e93f7259e2b138287bf8c4"
+                "reference": "18c41a328193d6f7425a3cea4e01faa220e90218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/a463d27a25d317c270e93f7259e2b138287bf8c4",
-                "reference": "a463d27a25d317c270e93f7259e2b138287bf8c4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/18c41a328193d6f7425a3cea4e01faa220e90218",
+                "reference": "18c41a328193d6f7425a3cea4e01faa220e90218",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.3.2",
-                "johnpbloch/wordpress-core-installer": "^1.0",
+                "johnpbloch/wordpress-core": "5.4.2",
+                "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
             "type": "package",
@@ -185,27 +185,28 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-12-18T22:32:20+00:00"
+            "time": "2020-06-10T22:05:43+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.3.2",
+            "version": "5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "a282ab0051fac21d4e0cdd828519e6739743ba92"
+                "reference": "3e67d8b6ee6c11e8ce404da4627117fb7fbf9266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/a282ab0051fac21d4e0cdd828519e6739743ba92",
-                "reference": "a282ab0051fac21d4e0cdd828519e6739743ba92",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/3e67d8b6ee6c11e8ce404da4627117fb7fbf9266",
+                "reference": "3e67d8b6ee6c11e8ce404da4627117fb7fbf9266",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.3.2"
+                "wordpress/core-implementation": "5.4.2"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -215,41 +216,42 @@
             "authors": [
                 {
                     "name": "WordPress Community",
-                    "homepage": "http://wordpress.org/about/"
+                    "homepage": "https://wordpress.org/about/"
                 }
             ],
             "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
-            "homepage": "http://wordpress.org/",
+            "homepage": "https://wordpress.org/",
             "keywords": [
                 "blog",
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-12-18T22:32:15+00:00"
+            "time": "2020-06-10T22:05:38+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4"
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/237faae9a60a4a2e1d45dce1a5836ffa616de63e",
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.6.0"
             },
             "conflict": {
                 "composer/installers": "<1.0.6"
             },
             "require-dev": {
-                "composer/composer": "^1.0",
-                "phpunit/phpunit": ">=4.8.35"
+                "composer/composer": "^1.0 || ^2.0",
+                "phpunit/phpunit": ">=5.7.27"
             },
             "type": "composer-plugin",
             "extra": {
@@ -274,7 +276,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2018-11-09T20:10:38+00:00"
+            "time": "2020-04-16T21:44:57+00:00"
         },
         {
             "name": "mustardBees/cmb-field-select2",
@@ -449,16 +451,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.15.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "4719fa9c18b0464d399f1a63bf624b42b6fa8d14"
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/4719fa9c18b0464d399f1a63bf624b42b6fa8d14",
-                "reference": "4719fa9c18b0464d399f1a63bf624b42b6fa8d14",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +472,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -503,28 +509,34 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.6.1",
+            "version": "v2.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5"
+                "reference": "2e977311ffb17b2f82028a9c36824647789c6365"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2e977311ffb17b2f82028a9c36824647789c6365",
+                "reference": "2e977311ffb17b2f82028a9c36824647789c6365",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/polyfill-ctype": "^1.9"
+                "php": "^5.3.9 || ^7.0 || ^8.0",
+                "symfony/polyfill-ctype": "^1.16"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.0"
+                "ext-filter": "*",
+                "ext-pcre": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7.27"
+            },
+            "suggest": {
+                "ext-filter": "Required to use the boolean validator.",
+                "ext-pcre": "Required to use most of the library."
             },
             "type": "library",
             "extra": {
@@ -543,9 +555,14 @@
             ],
             "authors": [
                 {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "homepage": "https://gjcampbell.co.uk/"
+                },
+                {
                     "name": "Vance Lucas",
                     "email": "vance@vancelucas.com",
-                    "homepage": "http://www.vancelucas.com"
+                    "homepage": "https://vancelucas.com/"
                 }
             ],
             "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
@@ -554,7 +571,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29T11:11:52+00:00"
+            "time": "2020-06-02T14:06:52+00:00"
         },
         {
             "name": "wpackagist-plugin/cmb2",
@@ -666,15 +683,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "4.7.1",
+            "version": "4.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "trunk"
+                "reference": "tags/4.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.zip?timestamp=1584192505"
+                "url": "https://downloads.wordpress.org/plugin/redirection.4.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
