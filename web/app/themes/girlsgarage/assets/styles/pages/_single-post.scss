@@ -296,7 +296,9 @@ body.single {
   }
 }
 
-.single-post {
+.single-post,
+.single-project,
+.single-news_and_press {
 
   article {
     @include clearfix();
